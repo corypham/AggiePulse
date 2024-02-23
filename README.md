@@ -14,6 +14,7 @@ Technologies:
 - Frontend: React.js for dynamic user interfaces, along with Bootstrap for responsive design.
 - Backend: Node.js with Express for RESTful API services, and MongoDB for a flexible, schema-less database.
 - Hosting: Deployed on Heroku for the backend and Netlify for the frontend, ensuring high availability and scalability.
+
 Vision:
 - My vision is to create a connected UC Davis community where information empowers every Aggie to make the best out of their campus experience. AggiePulse is      more than just a website; it's your go-to companion for navigating the vibrant life at UC Davis.
 
