@@ -1,7 +1,7 @@
 # AggiePulse
 AggiePulse: Navigating UC Davis, One Pulse at a Time
 
-AggiePulse is an innovative platform designed to enhance the UC Davis community experience by providing real-time insights into campus life. From the bustling dining commons to the energetic gym, serene coffee shops, and spirited basketball games, AggiePulse aims to keep students, faculty, and visitors informed and ahead of the crowd.
+AggiePulse is an innovative platform designed to enhance the UC Davis community experience by providing real-time insights into campus life. Born out of the day-to-day experiences of a UC Davis student actively engaged in campus life, AggiePulse is a testament to the belief that informed decisions can enhance the university experience. From squeezing in workouts at the gym, seeking quiet study spaces in the library, to finding the best coffee spots for a much-needed break, the idea for AggiePulse stemmed from a simple yet powerful need: to have real-time information about campus places at your fingertips. As someone who has navigated the ebbs and flows of campus life, I envisioned a platform that would not just inform but transform how students, faculty, and visitors interact with UC Davis, making every visit or routine more efficient and enjoyable.
 
 Features:
 - Real-Time Updates: AggiePulse offers live wait times and occupancy levels for key campus locations, ensuring you can make the most of your time at UC Davis.
