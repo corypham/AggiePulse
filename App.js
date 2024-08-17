@@ -1,10 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
 
-export default function App() {
+function MyButton() {
+  return (
+    <button>
+      Click me!
+    </button>
+  );
+}
+
+export default function MyApp() {
   return (
     <View style={styles.container}>
-      <Text>AggiePulse</Text>
+      <Text>
+        AggiePulse made by Cory Pham
+
+      </Text>
       <StatusBar style="auto" />
     </View>
   );
