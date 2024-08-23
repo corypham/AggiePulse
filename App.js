@@ -17,6 +17,7 @@ export default function MyApp() {
         AggiePulse made by Cory Pham
 
       </Text>
+      {/* <MyButton /> */}
       <StatusBar style="auto" />
     </View>
   );
