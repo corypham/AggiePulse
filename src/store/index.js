@@ -16,10 +16,10 @@ export const store = configureStore({
 });
 
 export const MAP_INITIAL_REGION = {
-  latitude: 33.72689000,
-  longitude: -117.76233300,
-  latitudeDelta: 0.0922,
-  longitudeDelta: 0.0421,
+  latitude: 38.54138,
+  longitude: -121.75388,
+  latitudeDelta: 0.0222,
+  longitudeDelta: 0.0121,
 };
 
 export const CROWD_LEVELS = {
