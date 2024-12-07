@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@expo/metro-runtime": "~4.0.0",
-    "@react-native-async-storage/async-storage": "^1.24.0",
+    "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-native-firebase/auth": "^21.5.0",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/stack": "^6.4.1",
@@ -32,7 +32,7 @@
     "react": "^18.2.0",
     "react-dom": "18.3.1",
     "react-hook-form": "^7.53.2",
-    "react-native": "0.76.2",
+    "react-native": "0.76.3",
     "react-native-dotenv": "^3.4.11",
     "react-native-elements": "^3.4.3",
     "react-native-geolocation-service": "^5.3.1",
@@ -51,7 +51,7 @@
     "@types/react": "^18.3.14",
     "@types/react-native": "^0.72.8",
     "babel-plugin-module-resolver": "^5.0.2",
-    "expo": "^52.0.7",
+    "expo": "^52.0.17",
     "typescript": "^5.7.2"
   },
   "private": true
