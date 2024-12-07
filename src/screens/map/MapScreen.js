@@ -15,10 +15,10 @@ export default function MapScreen() {
       >
         <Marker
           coordinate={{
-            latitude: 33.72689000,
-            longitude: -117.76233300,
+            latitude: 38.54138,
+            longitude: 121.75388,
           }}
-          title="UC Irvine"
+          title="UC Davis"
           description="Main Campus"
         />
       </MapView>

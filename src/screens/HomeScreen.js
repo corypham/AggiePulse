@@ -4,7 +4,8 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome to AggiePulse</Text>
+      <Text style={styles.title}>Welcome to AggiePulse </Text>
+      <Text style={styles.subtitle}>Made Cory Pham</Text>
       <TouchableOpacity 
         style={styles.button}
         onPress={() => navigation.navigate('Map')}
@@ -25,7 +26,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 10,
+  },
+  subtitle: {
+    fontSize: 16,
+    marginBottom: 15,
   },
   button: {
     backgroundColor: '#007AFF',
