@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import locationReducer from './locationSlice';
-import userReducer from './userSlice';
+import locationReducer from './slices/locationSlice';
+import userReducer from './slices/userSlice';
 import axios from 'axios';
 
 const api = axios.create({
