@@ -1,56 +1,41 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import MapView from 'react-native-maps';
-// import { GOOGLE_MAPS_API_KEY, FIREBASE_API_KEY } from '@env';
+import { StyleSheet, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Provider } from 'react-redux';
+import { store } from './src/store';
+import HomeScreen from './src/screens/HomeScreen';
+import MapScreen from './src/screens/map/MapScreen';
+import { StatusBar } from 'expo-status-bar';
 
-// console.log(GOOGLE_MAPS_API_KEY);
+const Stack = createStackNavigator();
 
-
-
-function MyButton() {
+export default function App() {
   return (
-    <button>
-      Click me!
-    </button>
-  );
-}
-
-// export default function MyApp() {
-//   return (
-//     <View style={styles.container}>
-//       <Text>
-//         AggiePulse made by Cory Pham
-
-//       </Text>
-//       {/* <MyButton /> */}
-//       <StatusBar style="auto" />
-//     </View>
-//   );
-// }
-
-export default function MapScreen() {
-  return (
-    <View style={styles.container}>
-      <MapView
-        style={styles.map}
-        initialRegion={{
-          latitude: 33.72689000,
-          longitude: -117.76233300,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-      />
-    </View>
+    <Provider store={store}>
+      <NavigationContainer>
+        <View style={styles.container}>
+          <Stack.Navigator>
+            <Stack.Screen 
+              name="Home" 
+              component={HomeScreen}
+              options={{ title: 'AggiePulse' }}
+            />
+            <Stack.Screen 
+              name="Map" 
+              component={MapScreen}
+              options={{ title: 'Campus Map' }}
+            />
+          </Stack.Navigator>
+          <StatusBar style="auto" />
+        </View>
+      </NavigationContainer>
+    </Provider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  map: {
-    width: '100%',
-    height: '100%',
   },
 });
