@@ -7,6 +7,7 @@ import { store } from './src/store';
 import HomeScreen from './src/screens/HomeScreen';
 import MapScreen from './src/screens/map/MapScreen';
 import { StatusBar } from 'expo-status-bar';
+import "./global.css";
 
 const Stack = createStackNavigator();
 
