@@ -12,6 +12,7 @@ export default function HomeScreen({ navigation }) {
       >
         <Text style={styles.buttonText}>View Campus Map</Text>
       </TouchableOpacity>
+      <Text className='bg-pink-500'>Hello</Text>
     </View>
   );
 }
