@@ -6,12 +6,6 @@ export default function HomeScreen({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to AggiePulse </Text>
       <Text style={styles.subtitle}>Made Cory Pham</Text>
-      <TouchableOpacity 
-        style={styles.button}
-        onPress={() => navigation.navigate('Map')}
-      >
-        <Text style={styles.buttonText}>View Campus Map</Text>
-      </TouchableOpacity>
       <Text className='bg-pink-500'>Hello</Text>
     </View>
   );
