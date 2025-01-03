@@ -2,19 +2,19 @@
 module.exports = {
   content: [
     "./App.{js,jsx}",
-    "./src/**/*.{js,jsx}",  // All files in src directory
+    "./app/**/*.{js,jsx}",  // All files in app directory
     "./screens/**/*.{js,jsx}",
     "./components/**/*.{js,jsx}",
-    "./src/components/**/*.{js,jsx}",
-    "./src/screens/**/*.{js,jsx}",
-    "./src/layout/**/*.{js,jsx}",
-    "./src/forms/**/*.{js,jsx}",
-    "./src/maps/**/*.{js,jsx}",
-    "./src/navigation/**/*.{js,jsx}",
-    "./src/services/**/*.{js,jsx}",
-    "./src/store/**/*.{js,jsx}",
-    "./src/theme/**/*.{js,jsx}",
-    "./src/utils/**/*.{js,jsx}"
+    "./app/components/**/*.{js,jsx}",
+    "./app/screens/**/*.{js,jsx}",
+    "./app/layout/**/*.{js,jsx}",
+    "./app/forms/**/*.{js,jsx}",
+    "./app/maps/**/*.{js,jsx}",
+    "./app/navigation/**/*.{js,jsx}",
+    "./app/services/**/*.{js,jsx}",
+    "./app/store/**/*.{js,jsx}",
+    "./app/theme/**/*.{js,jsx}",
+    "./app/utils/**/*.{js,jsx}"
   ],
   presets: [require("nativewind/preset")],
   theme: {
