@@ -28,6 +28,10 @@
     "web": {
       "bundler": "metro"
     },
-    "newArchEnabled": true
+    "newArchEnabled": true,
+    "plugins": [
+      "expo-router"
+    ],
+    "scheme": "aggiepulse"
   }
 }
