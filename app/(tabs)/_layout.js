@@ -15,7 +15,7 @@ export default function TabsLayout () {
             onPress={() => router.push("/")}
             style={{ marginLeft: 16 }}
           >
-            <Text style={{ color: 'white', fontSize: 18 }}>← Back</Text>
+            <Text className="text-blue-300 text-10lg">← Back</Text>
           </TouchableOpacity>
         ),
         headerStyle: {
