@@ -27,10 +27,14 @@ export default function TabsLayout () {
           paddingBottom: 10,
           backgroundColor: 'black',
         },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: 'bold',
+        },
       }}
     >
       <Tabs.Screen 
-      name="home/index" 
+      name="home" 
       options={{ 
         title: "Home",
         headerShown: true,
