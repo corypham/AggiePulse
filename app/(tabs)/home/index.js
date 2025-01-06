@@ -14,7 +14,7 @@ const index = () => {
       <Button title="Settings" onPress={() => router.push("home/Settings")} />
       <View className="flex-1 flex-row flex-wrap p-2">
         <ScrollView>
-          <Card title="Card 1" description="This is a card" />
+          <Card title="Hello 1" description="This is a card" />
           <Card title="Card 2" description="This is a card" />
           <Card title="Card 3" description="This is a card" />
           <Card title="Card 4" description="This is a card" />

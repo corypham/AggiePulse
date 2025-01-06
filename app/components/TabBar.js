@@ -3,7 +3,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 export default function TabBar({ state, navigation }) {
   return (
-    <View className="flex-row justify-around bg-white pt-2 pb-6 border-t border-gray-200">
+    <View className="flex-row justify-around bg-white pt-3 pb-6 border-t border-gray-200">
       {state.routes.map((route, index) => {
         const isFocused = state.index === index;
         
