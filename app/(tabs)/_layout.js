@@ -3,6 +3,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Text, View, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import { Header } from "../components";
+import TabBar from '../components/TabBar';
 
 export default function TabsLayout () {
   const router = useRouter();
@@ -10,8 +11,9 @@ export default function TabsLayout () {
   return (
     <Tabs
       screenOptions={{
-        header: ({ route }) => <Header title={route.name} />
+        header: ({ options }) => <Header title={options.title} />
       }}
+      tabBar={props => <TabBar {...props} />}
     >
       <Tabs.Screen 
       name="home" 
