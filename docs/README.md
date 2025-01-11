@@ -21,3 +21,5 @@ Technologies:
 Vision:
 
 - My vision is to create a connected UC Davis community where information empowers every Aggie to make the best out of their campus experience. AggiePulse is more than just a website; it's your go-to companion for navigating the vibrant life at UC Davis.
+
+API Documentation: https://vea.sensourceinc.com/api-docs/
