@@ -30,7 +30,8 @@
     },
     "newArchEnabled": true,
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-asset"
     ],
     "scheme": "aggiepulse"
   }
