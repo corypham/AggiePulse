@@ -3,7 +3,7 @@ import React from "react";
 import { useRouter } from "expo-router";
 import Button from "./components/button";
 
-const index = () => {
+export default function Page() {
   const router = useRouter();
   
   return (
@@ -16,6 +16,4 @@ const index = () => {
       />
     </View>
   );
-};
-
-export default index;
+}
