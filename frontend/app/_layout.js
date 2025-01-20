@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
 import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
+import { useEffect } from 'react';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import '../global.css';
@@ -13,14 +12,5 @@ export default function RootLayout() {
     loadFonts();
   }, []);
 
-  return (
-    <>
-      <Stack
-        screenOptions={{
-          headerShown: false, 
-        }}
-      />
-      <StatusBar style="light" />
-    </>
-  );
+  return <Stack screenOptions={{ headerShown: false }} />;
 }
