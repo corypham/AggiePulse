@@ -105,3 +105,8 @@ export const filterCategories: FilterCategory[] = [
     type: 'status'
   }
 ];
+
+export default {
+  mockLocations,
+  filterCategories
+};
