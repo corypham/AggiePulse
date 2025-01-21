@@ -1,12 +1,14 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 
-const Button = ({ title, onPress }) => {
+interface ButtonProps {
+  title: string;
+  onPress: () => void;
+}
+
+const Button = ({ title, onPress }: ButtonProps) => {
   return (
-    <TouchableOpacity 
-      onPress={onPress}
-      className="bg-blue-500 px-8 py-3 rounded-2xl mt-6"
-    >
+    <TouchableOpacity onPress={onPress} className="bg-blue-500 px-4 py-4 rounded-2xl mt-6">
       <Text className="text-white text-lg font-semibold">{title}</Text>
     </TouchableOpacity>
   );

@@ -1,7 +1,33 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
+import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 
-export default function TabBar({ state, navigation }) {
+interface Route {
+  key: string;
+  name: string;
+}
+
+interface NavigationState {
+  index: number;
+  routes: Route[];
+}
+
+interface NavigationEvent {
+  type: string;
+  target: string;
+  canPreventDefault: boolean;
+  defaultPrevented?: boolean;
+}
+
+interface TabBarProps {
+  state: NavigationState;
+  navigation: {
+    emit: (event: { type: string; target: string; canPreventDefault: boolean; }) => NavigationEvent;
+    navigate: (name: string) => void;
+  };
+}
+
+export default function TabBar({ state, navigation }: TabBarProps) {
   return (
     <View className="flex-row justify-around bg-white pt-3 pb-6 border-t border-gray-200">
       {state.routes.map((route, index) => {
@@ -20,7 +46,7 @@ export default function TabBar({ state, navigation }) {
         };
 
         // Get icon name based on route
-        const getIconName = (routeName) => {
+        const getIconName = (routeName: string): string => {
           switch (routeName) {
             case 'home':
               return 'home';
@@ -40,7 +66,7 @@ export default function TabBar({ state, navigation }) {
             className="items-center px-3"
           >
             <Ionicons
-              name={getIconName(route.name)}
+              name={getIconName(route.name) as keyof typeof Ionicons.glyphMap}
               size={24}
               color={isFocused ? '#1d4ed8' : '#6b7280'}
             />
