@@ -37,3 +37,5 @@ export const LocationService = {
     return mockLocations.find(location => location.id === id);
   }
 };
+
+export default LocationService;
