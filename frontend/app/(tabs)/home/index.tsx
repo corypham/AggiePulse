@@ -1,36 +1,37 @@
-import { View, Text, SafeAreaView, ScrollView } from "react-native";
-import React from "react";
-import { useRouter } from "expo-router";
-import About from "./About";
-import { Button, Card } from "../../components";
-import Settings from "./Settings";
+// Path: frontend/app/(tabs)/home/index.tsx
 
-const index = () => {
-  const router = useRouter();
+import React, { useState } from 'react';
+import { View, SafeAreaView } from 'react-native';
+import { CustomMapView } from '../../components/MapView';
+import { SearchBar } from '../../components/SearchBar';
+// We'll create FilterChips next
+import { Location } from '../../types/location';
+
+export default function HomeScreen() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+
+  const handleMarkerPress = (location: Location) => {
+    // Handle marker press - we can add bottom sheet here later
+    console.log('Selected location:', location);
+  };
+
   return (
-    <SafeAreaView className="flex-1 items-start justify-center bg-gray-800">
-      <ScrollView className="py-4">
-        <Text className="text-white text-3xl font-bold m-1">This is the Home tab that were working on</Text>
-        <Button title="About" onPress={() => router.push("home/About")} />
-        <Button title="Settings" onPress={() => router.push("home/Settings")} />
-        
-        <Card title="Hello 1" description="This is a card" />
-        <Card title="Card 2" description="This is a card" />
-        <Card title="Card 3" description="This is a card" />
-        <Card title="Card 4" description="This is a card" />
-        <Card title="Card 5" description="This is a card" />
-        <Card title="Card 6" description="This is a card" />
-        <Card title="Hello 1" description="This is a card" />
-        <Card title="Card 2" description="This is a card" />
-        <Card title="Card 3" description="This is a card" />
-        <Card title="Card 4" description="This is a card" />
-        <Card title="Card 5" description="This is a card" />
-        <Card title="Card 6" description="This is a card" />
-
-      </ScrollView>
-
+    <SafeAreaView className="flex-1">
+      <View className="flex-1">
+        <CustomMapView 
+          selectedFilters={selectedFilters}
+          onMarkerPress={handleMarkerPress}
+        />
+        <View className="absolute w-full">
+          <SearchBar
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+            onClear={() => setSearchQuery('')}
+          />
+          {/* FilterChips will go here */}
+        </View>
+      </View>
     </SafeAreaView>
   );
-};
-
-export default index;
+}

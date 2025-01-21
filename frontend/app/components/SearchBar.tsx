@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { View, TextInput, TouchableOpacity } from 'react-native';
-import { X } from 'lucide-react';
+import { X } from 'lucide-react-native';
 
 interface SearchBarProps {
   value: string;
@@ -30,7 +30,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           onPress={onClear}
           className="p-2 mr-2"
         >
-          <X size={20} color="#666" />
+          <X size={20} />
         </TouchableOpacity>
       )}
     </View>
