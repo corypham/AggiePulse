@@ -5,5 +5,11 @@
   "workspaces": [
     "frontend",
     "server"
-  ]
+  ],
+  "scripts": {
+    "start:app": "yarn workspace frontend expo start",
+    "start:app:clear": "yarn workspace frontend expo start -c",
+    "start:server": "yarn workspace server start",
+    "dev": "concurrently \"yarn start:app\" \"yarn start:server\""
+  }
 }
