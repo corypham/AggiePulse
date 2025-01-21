@@ -16,14 +16,22 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.aggiepulse"
+      "bundleIdentifier": "com.aggiepulse",
+      "config": {
+        "googleMapsApiKey": "AIzaSyC3dsjU2dAZQn7qFtFw9aX1o8DJCTYzwbc"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.aggiepulse"
+      "package": "com.aggiepulse",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyC3dsjU2dAZQn7qFtFw9aX1o8DJCTYzwbc"
+        }
+      }
     },
     "web": {
       "bundler": "metro"
