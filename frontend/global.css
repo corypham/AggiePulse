@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Aileron-Regular";
+  src: url("./assets/FONT-aileron/Aileron-Regular.otf") format("opentype");
+}
+@font-face {
+  font-family: "Aileron-Bold";
+  src: url("./assets/FONT-aileron/Aileron-Bold.otf") format("opentype");
+}
+@font-face {
+  font-family: "Aileron-Light";
+  src: url("./assets/FONT-aileron/Aileron-Light.otf") format("opentype");
+}
+@font-face {
+  font-family: "Aileron-Italic";
+  src: url("./assets/FONT-aileron/Aileron-Italic.otf") format("opentype");
+}
+@font-face {
+  font-family: "Aileron-SemiBold";
+  src: url("./assets/FONT-aileron/Aileron-SemiBold.otf") format("opentype");
+}
+
+body {
+  font-family: "Aileron-Regular", sans-serif;
+}
