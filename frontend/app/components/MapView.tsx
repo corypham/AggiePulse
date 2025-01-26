@@ -9,10 +9,10 @@ import { Location as LocationType } from '../types/location';
 import MapMarker from './MapMarker'; // We'll create this next
 
 const initialRegion = {
-  latitude: 38.5382, // UC Davis center coordinates
-  longitude: -121.7617,
-  latitudeDelta: 0.0222,
-  longitudeDelta: 0.0121,
+  latitude: 38.5382,
+  longitude: -121.755,
+  latitudeDelta: 0.03,
+  longitudeDelta: 0.02,
 };
 
 interface CustomMapViewProps {
@@ -56,13 +56,12 @@ export const CustomMapView: React.FC<CustomMapViewProps> = ({
   );
 
   return (
-    <View className="flex-1">
+    <View style={{ flex: 1 }}>
       <MapView
-        // provider={PROVIDER_GOOGLE}  // Comment this out temporarily
         initialRegion={initialRegion}
         showsUserLocation
         showsMyLocationButton
-        className="w-full h-full"
+        style={{ width: '100%', height: '100%' }}
       >
         {filteredLocations.map((location) => (
           <Marker
@@ -77,3 +76,5 @@ export const CustomMapView: React.FC<CustomMapViewProps> = ({
     </View>
   );
 };
+
+export default CustomMapView;
