@@ -26,3 +26,4 @@ export interface FilterCategory {
   type: 'study' | 'gym' | 'dining' | 'status';
   icon?: string;
 }
+
