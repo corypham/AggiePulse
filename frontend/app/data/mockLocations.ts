@@ -29,7 +29,7 @@ export const mockLocations: Location[] = [
       latitude: 38.54272,
       longitude: -121.75904
     },
-    status: 'Busy',
+    status: 'Very Busy',
     isOpen: true,
     hours: {
       open: '6:00 AM',
