@@ -19,7 +19,29 @@ module.exports = {
   ],
   presets: [require("nativewind/preset")],
   theme: {
-    extend: {},
+    extend: {
+        colors: {
+          primary: "#007aff",
+          secondary: "#5856d6",
+          background: "#ffffff",
+          textPrimary: "#000000",
+          textSecondary: "#8e8e93",
+      },
+      fontFamily: {
+        'aileron': ['Aileron-Regular'],
+        'aileron-bold': ['Aileron-Bold'],
+        'aileron-light': ['Aileron-Light'],
+        'aileron-italic': ['Aileron-Italic'],
+        'aileron-semibold': ['Aileron-SemiBold'],
+      },
+      fontSize: {
+        sm: "0.875rem", // 14px
+        base: "1rem",   // 16px
+        lg: "1.25rem",  // 20px
+        xl: "1.5rem",   // 24px
+        "2xl": "2rem",  // 32px
+      },
+    },
   },
   plugins: [],
 }

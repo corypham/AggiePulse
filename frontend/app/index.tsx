@@ -8,7 +8,7 @@ const index = () => {
   
   return (
     <View className="flex-1 items-center justify-center p-20 bg-gray-800">
-      <Text className="text-white text-4xl font-bold m-4">Welcome to AggiePulse</Text>
+      <Text className="font-aileron-bold text-xl text-primary">Welcome to AggiePulse</Text>
       <Text className="text-white text-lg">Made by Cory Pham</Text>
       <Button 
         title="Get Started" 
