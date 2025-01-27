@@ -8,7 +8,7 @@ interface ButtonProps {
 
 const Button = ({ title, onPress }: ButtonProps) => {
   return (
-    <TouchableOpacity onPress={onPress} className="bg-blue-500 px-4 py-4 rounded-2xl mt-6">
+    <TouchableOpacity onPress={onPress} className="bg-primary px-4 py-4 rounded-2xl mt-6">
       <Text className="text-white text-lg font-semibold">{title}</Text>
     </TouchableOpacity>
   );

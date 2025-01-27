@@ -1,35 +1,52 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import { Ionicons } from '@expo/vector-icons';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-
-interface Route {
-  key: string;
-  name: string;
-}
-
-interface NavigationState {
-  index: number;
-  routes: Route[];
-}
-
-interface NavigationEvent {
-  type: string;
-  target: string;
-  canPreventDefault: boolean;
-  defaultPrevented?: boolean;
-}
+import {
+  HomeSelected,
+  HomeUnselected,
+  FavoritesSelected,
+  FavoritesUnselected,
+  ProfileSelected,
+  ProfileUnselected
+} from '../../assets';
 
 interface TabBarProps {
-  state: NavigationState;
+  state: {
+    index: number;
+    routes: Array<{
+      key: string;
+      name: string;
+    }>;
+  };
   navigation: {
-    emit: (event: { type: string; target: string; canPreventDefault: boolean; }) => NavigationEvent;
+    emit: (event: { type: string; target: string; canPreventDefault: boolean; }) => any;
     navigate: (name: string) => void;
   };
 }
 
 export default function TabBar({ state, navigation }: TabBarProps) {
+  const getIcon = (routeName: string, isFocused: boolean) => {
+    switch (routeName) {
+      case 'home':
+        return isFocused ? 
+          <HomeSelected width={30} height={30} /> : 
+          <HomeUnselected width={30} height={30} />;
+      case 'favorites/index':
+        return isFocused ? 
+          <FavoritesSelected width={30} height={30} /> : 
+          <FavoritesUnselected width={30} height={30} />;
+      case 'profile/index':
+        return isFocused ? 
+          <ProfileSelected width={30} height={30} /> : 
+          <ProfileUnselected width={30} height={30} />;
+      default:
+        return isFocused ? 
+          <HomeSelected width={30} height={30} /> : 
+          <HomeUnselected width={30} height={30} />;
+    }
+  };
+
   return (
-    <View className="flex-row justify-around bg-white pt-3 pb-6 border-t border-gray-200">
+    <View className="flex-row justify-around bg-white pt-6 pb-6 border-t border-gray-200">
       {state.routes.map((route, index) => {
         const isFocused = state.index === index;
         
@@ -45,33 +62,15 @@ export default function TabBar({ state, navigation }: TabBarProps) {
           }
         };
 
-        // Get icon name based on route
-        const getIconName = (routeName: string): string => {
-          switch (routeName) {
-            case 'home':
-              return 'home';
-            case 'profile/index':
-              return 'person';
-            case 'favorites/index':
-              return 'heart';
-            default:
-              return 'home';
-          }
-        };
-
         return (
           <TouchableOpacity
             key={route.key}
             onPress={onPress}
             className="items-center px-3"
           >
-            <Ionicons
-              name={getIconName(route.name) as keyof typeof Ionicons.glyphMap}
-              size={24}
-              color={isFocused ? '#1d4ed8' : '#6b7280'}
-            />
-            <Text className={`text-sm mt-1 ${
-              isFocused ? 'text-blue-700 font-bold' : 'text-gray-500'
+            {getIcon(route.name, isFocused)}
+            <Text className={`text-sm mt-1 font-aileron ${
+              isFocused ? 'text-primary font-aileron-bold' : 'text-secondary'
             }`}>
               {route.name === 'home' ? 'Home' : 
                route.name === 'profile/index' ? 'Profile' : 'Favorites'}

@@ -16,22 +16,26 @@ export default function HomeScreen() {
     console.log('Selected location:', location);
   };
 
+  const handleFilterPress = () => {
+    // Handle filter button press
+    console.log('Filter button pressed');
+  };
+
   return (
-    <SafeAreaView className="flex-1">
-      <View className="flex-1">
-        <CustomMapView 
-          selectedFilters={selectedFilters}
-          onMarkerPress={handleMarkerPress}
+    <View className="flex-1" style={{ backgroundColor: 'transparent' }}>
+      <CustomMapView 
+        selectedFilters={selectedFilters}
+        onMarkerPress={handleMarkerPress}
+      />
+      <View className="absolute w-full">
+        <SearchBar
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          onClear={() => setSearchQuery('')}
+          onFilterPress={handleFilterPress}
         />
-        <View className="absolute w-full">
-          <SearchBar
-            value={searchQuery}
-            onChangeText={setSearchQuery}
-            onClear={() => setSearchQuery('')}
-          />
-          {/* FilterChips will go here */}
-        </View>
+        {/* FilterChips will go here */}
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
