@@ -6,7 +6,7 @@ import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { LocationService } from '../services/locationServince';
 import { Location as LocationType } from '../types/location';
-import MapMarker from './MapMarker'; // We'll create this next
+import MapMarker from './MapMarker'; 
 
 const initialRegion = {
   latitude: 38.5382,
@@ -60,8 +60,19 @@ export const CustomMapView: React.FC<CustomMapViewProps> = ({
       <MapView
         initialRegion={initialRegion}
         showsUserLocation
-        showsMyLocationButton
+        showsMyLocationButton={true}
+        showsPointsOfInterest={false}
+        showsScale={false}
+        showsBuildings={true}
+        showsCompass={false}
+        showsTraffic={false}
         style={{ width: '100%', height: '100%' }}
+        legalLabelInsets={{ 
+          top: 20,
+          bottom: 20,
+          left: -100,  // Move the logo off screen to the left
+          right: 20
+        }}
       >
         {filteredLocations.map((location) => (
           <Marker
