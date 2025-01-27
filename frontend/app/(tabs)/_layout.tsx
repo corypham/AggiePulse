@@ -20,7 +20,13 @@ export default function TabsLayout(): JSX.Element {
   return (
     <Tabs
       screenOptions={{
-        header: ({ options }) => <Header title={options?.title || ''} />
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: 'transparent',
+          borderTopWidth: 0,
+          position: 'absolute',
+          elevation: 0,
+        },
       }}
       tabBar={(props: any) => <TabBar {...props} />}
     >
@@ -28,7 +34,7 @@ export default function TabsLayout(): JSX.Element {
       name="favorites/index" 
       options={{ 
         title: "Favorites",
-        headerShown: true,
+        headerShown: false,
         tabBarIcon: ({color, size}) => (
           <Ionicons name="heart" size={size} color={color} />
         )
@@ -39,7 +45,7 @@ export default function TabsLayout(): JSX.Element {
       name="home" 
       options={{ 
         title: "Home",
-        headerShown: true,
+        headerShown: false,
         tabBarIcon: ({color, size}) => (
           <Ionicons name="home" size={size} color={color} />
         )
@@ -50,7 +56,7 @@ export default function TabsLayout(): JSX.Element {
       name="profile/index" 
       options={{ 
         title: "Profile",
-        headerShown: true,
+        headerShown: false,
         tabBarIcon: ({color, size}) => (
           <Ionicons name="person" size={size} color={color} />
         )
