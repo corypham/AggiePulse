@@ -3,24 +3,85 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "Aileron-Regular";
-  src: url("./assets/FONT-aileron/Aileron-Regular.otf") format("opentype");
+  font-family: "Aileron-Black";
+  src: url("./assets/FONT-aileron/Aileron-Black.otf") format("opentype");
 }
+
+@font-face {
+  font-family: "Aileron-BlackItalic";
+  src: url("./assets/FONT-aileron/Aileron-BlackItalic.otf") format("opentype");
+}
+
 @font-face {
   font-family: "Aileron-Bold";
   src: url("./assets/FONT-aileron/Aileron-Bold.otf") format("opentype");
 }
+
 @font-face {
-  font-family: "Aileron-Light";
-  src: url("./assets/FONT-aileron/Aileron-Light.otf") format("opentype");
+  font-family: "Aileron-BoldItalic";
+  src: url("./assets/FONT-aileron/Aileron-BoldItalic.otf") format("opentype");
 }
+
+@font-face {
+  font-family: "Aileron-Heavy";
+  src: url("./assets/FONT-aileron/Aileron-Heavy.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Aileron-HeavyItalic";
+  src: url("./assets/FONT-aileron/Aileron-HeavyItalic.otf") format("opentype");
+}
+
 @font-face {
   font-family: "Aileron-Italic";
   src: url("./assets/FONT-aileron/Aileron-Italic.otf") format("opentype");
 }
+
+@font-face {
+  font-family: "Aileron-Light";
+  src: url("./assets/FONT-aileron/Aileron-Light.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Aileron-LightItalic";
+  src: url("./assets/FONT-aileron/Aileron-LightItalic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Aileron-Regular";
+  src: url("./assets/FONT-aileron/Aileron-Regular.otf") format("opentype");
+}
+
 @font-face {
   font-family: "Aileron-SemiBold";
   src: url("./assets/FONT-aileron/Aileron-SemiBold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Aileron-SemiBoldItalic";
+  src: url("./assets/FONT-aileron/Aileron-SemiBoldItalic.otf")
+    format("opentype");
+}
+
+@font-face {
+  font-family: "Aileron-Thin";
+  src: url("./assets/FONT-aileron/Aileron-Thin.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Aileron-ThinItalic";
+  src: url("./assets/FONT-aileron/Aileron-ThinItalic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Aileron-UltraLight";
+  src: url("./assets/FONT-aileron/Aileron-UltraLight.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Aileron-UltraLightItalic";
+  src: url("./assets/FONT-aileron/Aileron-UltraLightItalic.otf")
+    format("opentype");
 }
 
 body {
