@@ -46,7 +46,7 @@ export default function TabBar({ state, navigation }: TabBarProps) {
   };
 
   return (
-    <View className="flex-row justify-around bg-white pt-5 pb-6 border-t border-gray-300">
+    <View className="flex-row justify-around items-center bg-white pt-3 pb-8 border-t border-gray-300">
       {state.routes.map((route, index) => {
         const isFocused = state.index === index;
         
@@ -66,7 +66,7 @@ export default function TabBar({ state, navigation }: TabBarProps) {
           <TouchableOpacity
             key={route.key}
             onPress={onPress}
-            className="items-center px-3"
+            className="items-center flex-1"
           >
             {getIcon(route.name, isFocused)}
             <Text className={`text-sm mt-1 font-aileron ${
