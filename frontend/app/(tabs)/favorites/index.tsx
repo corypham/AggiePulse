@@ -4,27 +4,55 @@ import React from "react";
 
 const index = () => {
   return (
-    <SafeAreaView className="flex-1 bg-gray-800">
-      <ScrollView className="py-4">
-        <Card title="Favorite Card" description="This is card one"></Card>
-        <Card title="Favorite Card" description="This is card one"></Card>
-        <Card title="Favorite Card" description="This is card one"></Card>
-        <Card title="Favorite Card" description="This is card one"></Card>
-        <Card title="Favorite Card" description="This is card one"></Card>
-        <Card title="Favorite Card" description="This is card one"></Card>
-        <Card title="Favorite Card" description="This is card one"></Card>
-        <Card title="Favorite Card" description="This is card one"></Card>
-        <Card title="Favorite Card" description="This is card one"></Card>
-        <Text className="text-white text-3xl font-bold m-4">This is the Favorites tab</Text>
-        <View className="flex-1 bg-white">
-          <Text className="text-black text-3xl font-bold m-4">This is the Favorites tab</Text>
-        </View>
-        <View className="flex-1 bg-gray-600">
-          <Text className="text-white text-3xl font-bold m-4">This is the Favorites tab</Text>
-        </View>
-        <View className="flex-1 bg-orange-500">
-          <Text className="text-white text-3xl font-bold m-4">This is the Favorites tab</Text>
-        </View>
+    <SafeAreaView className="flex-1 bg-background">
+      <ScrollView className="py-2">
+      <Card
+      title="Silo Market"
+      status="Fairly Busy"
+      isOpen={true}
+      closingTime="00:00 XM"
+      distance={0.0}
+      isFavorite={false}
+      onFavoritePress={() => {
+        // Handle favorite toggle
+      }}
+      />
+
+<Card
+      title="Activities and Recreation Center"
+      status="Fairly Busy"
+      isOpen={true}
+      closingTime="00:00 XM"
+      distance={0.0}
+      isFavorite={false}
+      onFavoritePress={() => {
+        // Handle favorite toggle
+      }}
+      />
+
+<Card
+      title="Memorial Union"
+      status="Fairly Busy"
+      isOpen={true}
+      closingTime="00:00 XM"
+      distance={0.0}
+      isFavorite={true}
+      onFavoritePress={() => {
+        // Handle favorite toggle
+      }}
+      />
+
+<Card
+      title="Peter J. Shields Library"
+      status="Fairly Busy"
+      isOpen={true}
+      closingTime="00:00 XM"
+      distance={0.0}
+      isFavorite={false}
+      onFavoritePress={() => {
+        // Handle favorite toggle
+      }}
+      />
 
       </ScrollView>
     </SafeAreaView>
