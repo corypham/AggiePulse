@@ -8,7 +8,7 @@ interface FacilityListProps {
 
 export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ['15%', '66%', '92%'], []);
+  const snapPoints = useMemo(() => ['7%', '66%', '92%'], []);
 
   const handleSheetChanges = useCallback((index: number) => {
     console.log('handleSheetChanges', index);
