@@ -25,7 +25,7 @@ module.exports = {
           unselected: "#848484",
           primary: "#0038FF",
           secondary: "#919191",
-          background: "#b4d4ec",
+          background: "#e1eef4",
           textPrimary: "#000000",
           textSecondary: "#8e8e93",
           closed: "#FF0000",
