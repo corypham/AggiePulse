@@ -46,7 +46,7 @@ export default function TabBar({ state, navigation }: TabBarProps) {
   };
 
   return (
-    <View className="flex-row justify-around bg-white pt-6 pb-6 border-t border-gray-200">
+    <View className="flex-row justify-around bg-white pt-5 pb-6 border-t border-gray-300">
       {state.routes.map((route, index) => {
         const isFocused = state.index === index;
         
