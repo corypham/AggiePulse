@@ -38,7 +38,7 @@ const Card = ({
   return (
     <TouchableOpacity className="bg-white rounded-2xl p-6 shadow-sm mx-5 my-2 border border-gray-100">
       <View className="flex-row justify-between items-start">
-        <View className="flex-row items-center gap-4">
+        <View className="flex-row items-start gap-4 flex-1">
           {/* Status Indicator */}
           <View className={`w-12 h-12 rounded-full ${getStatusColor()} opacity-20`}>
             <View className={`w-12 h-12 rounded-full ${getStatusColor()} opacity-50`} style={{ position: 'absolute' }}>
@@ -46,9 +46,11 @@ const Card = ({
             </View>
           </View>
           
-          {/* Title and Status */}
-          <View>
-            <Text className="text-lg font-aileron-bold">{title}</Text>
+          {/* Title and Status - with flex-shrink to allow wrapping */}
+          <View className="flex-shrink">
+            <Text className="text-lg font-aileron-bold flex-wrap" numberOfLines={2}>
+              {title}
+            </Text>
             <Text className="text-sm font-aileron text-gray-600">{status}</Text>
           </View>
         </View>
@@ -56,11 +58,11 @@ const Card = ({
         {/* Favorite Button */}
         <TouchableOpacity 
           onPress={onFavoritePress}
-          className="p-2"
+          className="p-2 ml-2"
         >
           <Heart 
             size={24} 
-            color={isFavorite ? "#0038FF" : "#CBD5E1"}
+            color={isFavorite ? "#0038FF" : "#94A3B8"} // Using Tailwind slate-400 for unselected
             fill={isFavorite ? "#0038FF" : "none"}
           />
         </TouchableOpacity>

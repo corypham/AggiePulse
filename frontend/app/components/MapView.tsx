@@ -6,7 +6,8 @@ import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { LocationService } from '../services/locationServince';
 import { Location as LocationType } from '../types/location';
-import MapMarker from './MapMarker'; 
+import MapMarker from './MapMarker';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const initialRegion = {
   latitude: 38.5382,
@@ -70,7 +71,7 @@ export const CustomMapView: React.FC<CustomMapViewProps> = ({
         legalLabelInsets={{ 
           top: 20,
           bottom: 20,
-          left: -100,  // Move the logo off screen to the left
+          left: -100,
           right: 20
         }}
       >
@@ -84,6 +85,23 @@ export const CustomMapView: React.FC<CustomMapViewProps> = ({
           </Marker>
         ))}
       </MapView>
+      
+      {/* Gradient Overlay */}
+      <LinearGradient
+        colors={['rgba(255,255,255,.99)', 'rgba(255,255,255,0)', 'transparent']}
+        locations={[0, 0.4, 1]} // Adjusted locations to stretch gradient further
+        style={StyleSheet.create({
+          gradient: {
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: 400, // Increased height
+            zIndex: 0,
+            pointerEvents: 'none',
+          }
+        }).gradient}
+      />
     </View>
   );
 };
