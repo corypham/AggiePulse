@@ -1,10 +1,10 @@
 // Path: frontend/app/(tabs)/home/index.tsx
 
 import React, { useState } from 'react';
-import { View, SafeAreaView } from 'react-native';
+import { View } from 'react-native';
 import { CustomMapView } from '../../components/MapView';
 import { SearchBar } from '../../components/SearchBar';
-// We'll create FilterChips next
+import { FacilityList } from '../../components/FacilityList';
 import { Location } from '../../types/location';
 
 export default function HomeScreen() {
@@ -36,6 +36,7 @@ export default function HomeScreen() {
         />
         {/* FilterChips will go here */}
       </View>
+      <FacilityList facilitiesCount={4} />
     </View>
   );
 }
