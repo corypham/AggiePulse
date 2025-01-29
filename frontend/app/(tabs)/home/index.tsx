@@ -36,7 +36,7 @@ export default function HomeScreen() {
         />
         {/* FilterChips will go here */}
       </View>
-      <FacilityList facilitiesCount={4} />
+      <FacilityList facilitiesCount={10} />
     </View>
   );
 }
