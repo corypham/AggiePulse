@@ -2,6 +2,7 @@ import { Stack } from 'expo-router';
 import { useEffect } from 'react';
 import * as Font from 'expo-font';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import '../global.css';
 
@@ -32,7 +33,9 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: 'transparent' } }} />
+      <SafeAreaProvider>
+        <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: 'transparent' } }} />
+      </SafeAreaProvider>
     </GestureHandlerRootView>
   );
 }

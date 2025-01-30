@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Platform } from "react-native";
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import {
   HomeSelected,
@@ -9,6 +9,7 @@ import {
   ProfileUnselected
 } from '../../assets';
 
+export const TAB_BAR_HEIGHT = Platform.OS === 'ios' ? 83 : 64;
 interface TabBarProps {
   state: {
     index: number;
@@ -46,7 +47,9 @@ export default function TabBar({ state, navigation }: TabBarProps) {
   };
 
   return (
-    <View className="flex-row justify-around items-center bg-white pt-3 pb-8 border-t border-gray-300">
+    <View className="flex-row justify-around items-center bg-white pt-3 pb-8 border-t border-gray-300"
+      style={{ height: TAB_BAR_HEIGHT }}
+    >
       {state.routes.map((route, index) => {
         const isFocused = state.index === index;
         
