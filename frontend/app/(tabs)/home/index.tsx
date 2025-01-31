@@ -6,8 +6,10 @@ import { CustomMapView } from '../../components/MapView';
 import { SearchBar } from '../../components/SearchBar';
 import { FacilityList } from '../../components/FacilityList';
 import { Location } from '../../types/location';
+import { useRouter } from "expo-router";
 
 export default function HomeScreen() {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
 
@@ -19,6 +21,7 @@ export default function HomeScreen() {
   const handleFilterPress = () => {
     // Handle filter button press
     console.log('Filter button pressed');
+    router.push("/screens/FilterPage");
   };
 
   return (
