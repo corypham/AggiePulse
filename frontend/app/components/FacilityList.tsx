@@ -1,5 +1,5 @@
-import React, { useCallback, useMemo, useRef } from 'react';
-import { View, Text, Dimensions, Platform, StatusBar, Animated } from 'react-native';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
+import { View, Text, Dimensions, Platform, StatusBar, Animated, NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import Card from './Card';
 import { TAB_BAR_HEIGHT } from './TabBar';
@@ -11,21 +11,23 @@ interface FacilityListProps {
 export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const { height: screenHeight } = Dimensions.get('window');
-  const scrollY = useRef(new Animated.Value(0)).current;
-  const borderOpacity = scrollY.interpolate({
-    inputRange: [0, 10],
-    outputRange: [0, 1],
-    extrapolate: 'clamp'
-  });
+  const lastScrollY = useRef(0);
+  const [headerVisible, setHeaderVisible] = useState(true);
+  const headerTranslateY = useRef(new Animated.Value(0)).current;
   
-  // Use StatusBar.currentHeight for Android and fixed height for iOS
+  // Track scroll direction and distance
+  const scrollDirection = useRef<'up' | 'down' | null>(null);
+  const scrollStartPosition = useRef(0);
+  
+  // Constants
   const statusBarHeight = Platform.OS === 'android' ? StatusBar.currentHeight : 47;
   const SEARCH_BAR_HEIGHT = 50;
   const HEADER_HEIGHT = 70;
   const DYNAMIC_ISLAND_BUFFER = Platform.OS === 'ios' ? 120 : 0;
   const BOTTOM_INSET = Platform.OS === 'ios' ? 34 : 0;
+  const SCROLL_THRESHOLD = 70; // Increased threshold
   
-  // Calculate snap points with precise control
+  // Calculate snap points
   const snapPoints = useMemo(() => {
     const minHeight = HEADER_HEIGHT;
     const midHeight = screenHeight * 0.4;
@@ -33,15 +35,63 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
     return [minHeight, midHeight, maxHeight];
   }, [screenHeight, statusBarHeight]);
 
-  // Handle scroll events
-  const handleScroll = Animated.event(
-    [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-    { useNativeDriver: false }
-  );
+  const handleScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const currentScrollY = event.nativeEvent.contentOffset.y;
+    
+    // Reset at the top of the list
+    if (currentScrollY <= 0) {
+      scrollDirection.current = null;
+      scrollStartPosition.current = 0;
+      Animated.spring(headerTranslateY, {
+        toValue: 0,
+        useNativeDriver: true,
+        tension: 100,
+        friction: 20
+      }).start();
+      setHeaderVisible(true);
+      return;
+    }
 
-  // The header is now part of the handle area
+    const isScrollingDown = currentScrollY > lastScrollY.current;
+    
+    // Detect direction change
+    if (isScrollingDown && scrollDirection.current !== 'down') {
+      scrollDirection.current = 'down';
+      scrollStartPosition.current = currentScrollY;
+    } else if (!isScrollingDown && scrollDirection.current !== 'up') {
+      scrollDirection.current = 'up';
+      scrollStartPosition.current = currentScrollY;
+    }
+
+    // Calculate distance scrolled in current direction
+    const distanceScrolled = Math.abs(currentScrollY - scrollStartPosition.current);
+
+    if (distanceScrolled > SCROLL_THRESHOLD) {
+      if (isScrollingDown && headerVisible) {
+        // Hide header
+        Animated.spring(headerTranslateY, {
+          toValue: -HEADER_HEIGHT,
+          useNativeDriver: true,
+          tension: 100,
+          friction: 20
+        }).start(() => setHeaderVisible(false));
+      } else if (!isScrollingDown && !headerVisible) {
+        // Show header
+        setHeaderVisible(true);
+        Animated.spring(headerTranslateY, {
+          toValue: 0,
+          useNativeDriver: true,
+          tension: 100,
+          friction: 20
+        }).start();
+      }
+    }
+    
+    lastScrollY.current = currentScrollY;
+  }, [headerVisible]);
+
   const renderHandle = useCallback(() => (
-    <View className="bg-white pt-2 rounded-t-3xl">
+    <View className="bg-white pt-2 rounded-t-3xl border-b border-gray-300">
       <View className="w-12 h-1 bg-gray-300 rounded-full mx-auto mb-4" />
       <View className="flex-row items-center justify-center pb-4">
         <Text className="font-aileron-bold text-lg">
@@ -53,28 +103,35 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
   ), [facilitiesCount]);
 
   const renderListHeader = useCallback(() => (
-    <View className="bg-background border-t border-gray-300">
+    <>
+      {/* Persistent border */}
+      <View className="absolute top-0 left-0 right-0 border-t border-gray-300 z-0" />
+      
+      {/* Animated header */}
       <Animated.View 
-        style={{
+        style={[{
+          transform: [{ translateY: headerTranslateY }],
           position: 'absolute',
-          bottom: 0,
           left: 0,
           right: 0,
-          height: 1,
-          backgroundColor: '#d1d5db', // gray-300
-          opacity: borderOpacity
-        }}
-      />
-      <View className="flex-row items-center justify-between py-2 px-9">
-        <View className="flex-row">
-          <Text className="text-2xl font-aileron-bold">List View</Text>
+          zIndex: 10,
+          backgroundColor: '#EEF0F7',
+        }]}
+      >
+        <View className="flex-row items-center justify-between py-2 px-9">
+          <View className="flex-row">
+            <Text className="text-2xl font-aileron-bold">List View</Text>
+          </View>
+          <View className="border border-gray-600 rounded-full px-4 py-2">
+            <Text className="font-aileron">sort by: ▼</Text>
+          </View>
         </View>
-        <View className="border border-gray-600 rounded-full px-4 py-2">
-          <Text className="font-aileron">sort by: ▼</Text>
-        </View>
-      </View>
-    </View>
-  ), [borderOpacity]);
+        {lastScrollY.current > 0 && (
+          <View className="absolute bottom-0 left-0 right-0 h-[1px] bg-gray-300" />
+        )}
+      </Animated.View>
+    </>
+  ), [headerTranslateY]);
 
   return (
     <View style={{ 
@@ -113,6 +170,7 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
           showsVerticalScrollIndicator={true}
           indicatorStyle="black"
           contentContainerStyle={{
+            paddingTop: HEADER_HEIGHT,
             paddingBottom: TAB_BAR_HEIGHT + BOTTOM_INSET + 20,
           }}
           bounces={true}
@@ -120,7 +178,7 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
           onScroll={handleScroll}
           scrollEventThrottle={16}
         >
-          {/* Your cards */}
+          {/* Cards */}
           {Array(facilitiesCount).fill(null).map((_, index) => (
             <Card
               key={index}
