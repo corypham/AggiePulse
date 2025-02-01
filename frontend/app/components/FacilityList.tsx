@@ -187,7 +187,7 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
               isOpen={true}
               closingTime="00:00 XM"
               distance={0.0}
-              isFavorite={false}
+              isFavorite={true}
               onFavoritePress={() => {}}
             />
           ))}
