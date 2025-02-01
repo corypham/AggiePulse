@@ -15,12 +15,17 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
   const [headerVisible, setHeaderVisible] = useState(true);
   const headerTranslateY = useRef(new Animated.Value(0)).current;
   
+  // Track scroll direction and distance
+  const scrollDirection = useRef<'up' | 'down' | null>(null);
+  const scrollStartPosition = useRef(0);
+  
   // Constants
   const statusBarHeight = Platform.OS === 'android' ? StatusBar.currentHeight : 47;
   const SEARCH_BAR_HEIGHT = 50;
   const HEADER_HEIGHT = 70;
   const DYNAMIC_ISLAND_BUFFER = Platform.OS === 'ios' ? 120 : 0;
   const BOTTOM_INSET = Platform.OS === 'ios' ? 34 : 0;
+  const SCROLL_THRESHOLD = 70; // Increased threshold
   
   // Calculate snap points
   const snapPoints = useMemo(() => {
@@ -33,7 +38,10 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
   const handleScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const currentScrollY = event.nativeEvent.contentOffset.y;
     
+    // Reset at the top of the list
     if (currentScrollY <= 0) {
+      scrollDirection.current = null;
+      scrollStartPosition.current = 0;
       Animated.spring(headerTranslateY, {
         toValue: 0,
         useNativeDriver: true,
@@ -41,10 +49,26 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
         friction: 20
       }).start();
       setHeaderVisible(true);
-    } else {
-      const isScrollingDown = currentScrollY > lastScrollY.current;
-      
+      return;
+    }
+
+    const isScrollingDown = currentScrollY > lastScrollY.current;
+    
+    // Detect direction change
+    if (isScrollingDown && scrollDirection.current !== 'down') {
+      scrollDirection.current = 'down';
+      scrollStartPosition.current = currentScrollY;
+    } else if (!isScrollingDown && scrollDirection.current !== 'up') {
+      scrollDirection.current = 'up';
+      scrollStartPosition.current = currentScrollY;
+    }
+
+    // Calculate distance scrolled in current direction
+    const distanceScrolled = Math.abs(currentScrollY - scrollStartPosition.current);
+
+    if (distanceScrolled > SCROLL_THRESHOLD) {
       if (isScrollingDown && headerVisible) {
+        // Hide header
         Animated.spring(headerTranslateY, {
           toValue: -HEADER_HEIGHT,
           useNativeDriver: true,
@@ -52,6 +76,7 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
           friction: 20
         }).start(() => setHeaderVisible(false));
       } else if (!isScrollingDown && !headerVisible) {
+        // Show header
         setHeaderVisible(true);
         Animated.spring(headerTranslateY, {
           toValue: 0,
@@ -90,7 +115,7 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
           left: 0,
           right: 0,
           zIndex: 10,
-          backgroundColor: '#EEF0F7', // bg-background color
+          backgroundColor: '#EEF0F7',
         }]}
       >
         <View className="flex-row items-center justify-between py-2 px-9">
