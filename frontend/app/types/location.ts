@@ -1,29 +1,34 @@
-// Path: frontend/types/location.ts
+// Fix the import statement
+import { VeryBusyStatus, FairlyBusyStatus, NotBusyStatus } from "../../assets";
 
-export interface Coordinates {
-  latitude: number;
-  longitude: number;
-}
+export type BusyStatus = 'Very Busy' | 'Fairly Busy' | 'Not Busy';
+export type StatusIconType = typeof VeryBusyStatus | typeof FairlyBusyStatus | typeof NotBusyStatus;
 
 export interface Location {
   id: string;
-  name: string;
-  buildingName: string;
-  type: ('study' | 'gym' | 'dining')[];
-  coordinates: Coordinates;
-  status: 'Not Busy' | 'Busy' | 'Very Busy';
+  title: string;
+  currentStatus: BusyStatus;
   isOpen: boolean;
-  hours?: {
-    open: string;
-    close: string;
-  };
-  description?: string;
+  closingTime: string;
+  distance: number;
 }
 
-export interface FilterCategory {
-  id: string;
-  label: string;
-  type: 'study' | 'gym' | 'dining' | 'status';
-  icon?: string;
-}
-
+// Static location data (constants that don't change)
+export const LOCATION_DETAILS: { [key: string]: Pick<Location, 'id' | 'title'> } = {
+  'silo-market': {
+    id: 'silo-market',
+    title: 'Silo Market',
+  },
+  'arc': {
+    id: 'arc',
+    title: 'Activities and Recreation Center',
+  },
+  'mu': {
+    id: 'mu',
+    title: 'Memorial Union',
+  },
+  'shields': {
+    id: 'shields',
+    title: 'Peter J. Shields Library',
+  },
+};

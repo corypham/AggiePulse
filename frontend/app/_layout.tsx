@@ -4,6 +4,7 @@ import * as Font from 'expo-font';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { FavoritesProvider } from './context/FavoritesContext';
 import '../global.css';
 
 export default function RootLayout() {
@@ -32,10 +33,12 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaProvider>
-        <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: 'transparent' } }} />
-      </SafeAreaProvider>
-    </GestureHandlerRootView>
+    <FavoritesProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <SafeAreaProvider>
+          <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: 'transparent' } }} />
+        </SafeAreaProvider>
+      </GestureHandlerRootView>
+    </FavoritesProvider>
   );
 }
