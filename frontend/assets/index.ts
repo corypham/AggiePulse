@@ -77,6 +77,17 @@ export { default as NotBusy } from './map-pins/Property 1=Not Busy.svg';
 export { default as VeryBusy1 } from './map-pins/Property 1=Very_Busy-1.svg';
 export { default as VeryBusy2 } from './map-pins/Property 1=Very_Busy-2.svg';
 export { default as VeryBusy } from './map-pins/Property 1=Very_Busy.svg';
+export { default as FavoriteVeryBusyStudy} from './map-pins/favorite-very-busy-study.png';
+export { default as FavoriteFairlyBusyStudy} from './map-pins/favorite-fairly-busy-study.png';
+export { default as FavoriteNotBusyStudy} from './map-pins/favorite-not-busy-study.png';
+export { default as FavoriteVeryBusyFood} from './map-pins/favorite-very-busy-food.png';
+export { default as FavoriteFairlyBusyFood} from './map-pins/favorite-fairly-busy-food.png';
+export { default as FavoriteNotBusyFood} from './map-pins/favorite-not-busy-food.png';
+export { default as FavoriteVeryBusyGym} from './map-pins/favorite-very-busy-gym.png';
+export { default as FavoriteFairlyBusyGym} from './map-pins/favorite-fairly-busy-gym.png';
+export { default as FavoriteNotBusyGym} from './map-pins/favorite-not-busy-gym.png';
+
+
 
 // Detailed Card Assets
 export { default as BackArrow } from './detailed-card-assets/Backarrow.svg';
