@@ -1,82 +1,95 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import { Heart } from "lucide-react-native";
+import { router } from 'expo-router';
 
 interface CardProps {
+  id: string;
   title: string;
   status: 'Very Busy' | 'Fairly Busy' | 'Not Busy';
   isOpen: boolean;
   closingTime: string;
   distance: number;
   isFavorite?: boolean;
-  onFavoritePress?: () => void;
+  onFavoritePress?: (id: string) => void;
+  statusIcon?: React.ReactNode;
 }
 
 const Card = ({ 
+  id,
   title, 
   status, 
   isOpen, 
   closingTime, 
   distance,
   isFavorite = false,
-  onFavoritePress 
+  onFavoritePress,
+  statusIcon
 }: CardProps) => {
   
-  const getStatusColor = () => {
-    switch (status) {
-      case 'Very Busy':
-        return 'bg-red-500';
-      case 'Fairly Busy':
-        return 'bg-orange-400';
-      case 'Not Busy':
-        return 'bg-green-500';
-      default:
-        return 'bg-gray-400';
+  const handlePress = () => {
+    router.push(`/location/${id}`);
+  };
+
+  const handleFavorite = () => {
+    if (onFavoritePress) {
+      onFavoritePress(id);
     }
   };
 
   return (
-    <TouchableOpacity className="bg-white rounded-2xl p-6 shadow-sm mx-5 my-2 border border-gray-100">
-      <View className="flex-row justify-between items-start">
-        <View className="flex-row items-start gap-4 flex-1">
-          {/* Status Indicator */}
-          <View className={`w-12 h-12 rounded-full ${getStatusColor()} opacity-20`}>
-            <View className={`w-12 h-12 rounded-full ${getStatusColor()} opacity-50`} style={{ position: 'absolute' }}>
-              <View className={`w-6 h-6 rounded-full ${getStatusColor()} m-3`} />
-            </View>
-          </View>
-          
-          {/* Title and Status - with flex-shrink to allow wrapping */}
-          <View className="flex-shrink">
-            <Text className="text-lg font-aileron-bold flex-wrap" numberOfLines={2}>
-              {title}
-            </Text>
-            <Text className="text-sm font-aileron text-gray-600">{status}</Text>
-          </View>
+    <TouchableOpacity 
+      onPress={handlePress}
+      className="bg-white rounded-xl p-6 mx-4 my-2 border border-gray-100 h-28"
+      style={{
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
+        elevation: 3,
+      }}
+    >
+      <View className="flex-row items-center h-full">
+        {/* Status Icon */}
+        <View className="w-14 h-14 mr-4">
+          {statusIcon}
         </View>
 
-        {/* Favorite Button */}
-        <TouchableOpacity 
-          onPress={onFavoritePress}
-          className="p-2 ml-2"
-        >
-          <Heart 
-            size={24} 
-            color={isFavorite ? "#0038FF" : "#94A3B8"} // Using Tailwind slate-400 for unselected
-            fill={isFavorite ? "#0038FF" : "none"}
-          />
-        </TouchableOpacity>
-      </View>
+        {/* Content */}
+        <View className="flex-1 justify-center">
+          <View className="flex-row justify-between items-start">
+            {/* Title */}
+            <Text className="text-lg font-aileron-bold flex-1 mr-2" numberOfLines={2}>
+              {title}
+            </Text>
 
-      {/* Open Status and Distance */}
-      <View className="mt-2">
-        <View className="flex-row items-center gap-1">
-          <Text className="text-green-600 font-aileron-bold">
-            {isOpen ? 'Open' : 'Closed'}
-          </Text>
-          <Text className="text-gray-600 font-aileron">
-            until {closingTime} • {distance} mi
-          </Text>
+            {/* Favorite Button */}
+            <TouchableOpacity 
+              onPress={handleFavorite}
+              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            >
+              <Heart 
+                size={24} 
+                color={isFavorite ? "#ff4c4c" : "#848484"}
+                fill={isFavorite ? "#ff4c4c" : "none"}
+              />
+            </TouchableOpacity>
+          </View>
+
+          {/* Status and Details */}
+          <View className="mt-1">
+            <View className="flex-row items-center">
+              <Text className={`font-aileron ${isOpen ? 'text-[#338456]' : 'text-closed'}`}>
+                {isOpen ? 'Open' : 'Closed'}
+              </Text>
+              <Text className="text-textSecondary font-aileron ml-1">
+                until {closingTime} • {distance} mi
+              </Text>
+            </View>
+          </View>
         </View>
       </View>
     </TouchableOpacity>
