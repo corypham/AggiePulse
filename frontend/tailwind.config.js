@@ -21,11 +21,11 @@ module.exports = {
   theme: {
     extend: {
         colors: {
-          selected: "#0038FF",
+          selected: "#ff4c4c",
           unselected: "#848484",
           primary: "#0038FF",
           secondary: "#919191",
-          background: "#e1eef4",
+          background: "#eef1f8",
           textPrimary: "#000000",
           textSecondary: "#8e8e93",
           closed: "#FF0000",
