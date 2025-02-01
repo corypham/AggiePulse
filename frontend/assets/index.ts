@@ -109,3 +109,8 @@ export { default as MapStudySpaces } from './Map-and-filter-location-type/Study-
 export { default as MapVariant4 } from './Map-and-filter-location-type/Variant4Shortcuts&Tips.svg';
 export { default as MapVector1 } from './Map-and-filter-location-type/VectorShortcuts&Tips (1).svg';
 export { default as MapVector } from './Map-and-filter-location-type/VectorShortcuts&Tips.svg';
+
+// Location Status Icons
+export { default as VeryBusyStatus } from './busyness-icons/Property 1=Very_Busy.svg';
+export { default as FairlyBusyStatus } from './busyness-icons/Property 1=Fairly_Busy.svg';
+export { default as NotBusyStatus } from './busyness-icons/Property 1=Not_Busy.svg';
