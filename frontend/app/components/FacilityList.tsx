@@ -3,10 +3,33 @@ import { View, Text, Dimensions, Platform, StatusBar, Animated, NativeScrollEven
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import Card from './Card';
 import { TAB_BAR_HEIGHT } from './TabBar';
+import { useFavorites } from '../context/FavoritesContext';
+import type { Location } from '../types/location';
 
 interface FacilityListProps {
   facilitiesCount: number;
 }
+
+// Sample data - Replace this with your actual data fetching logic
+const SAMPLE_LOCATIONS: Location[] = [
+  {
+    id: 'silo-market',
+    title: 'Silo Market',
+    currentStatus: 'Fairly Busy',
+    isOpen: true,
+    closingTime: '10:00 PM',
+    distance: 0.2
+  },
+  {
+    id: 'arc',
+    title: 'Activities and Recreation Center',
+    currentStatus: 'Very Busy',
+    isOpen: true,
+    closingTime: '11:00 PM',
+    distance: 0.5
+  },
+  // Add more sample locations as needed
+];
 
 export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -26,6 +49,8 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
   const DYNAMIC_ISLAND_BUFFER = Platform.OS === 'ios' ? 120 : 0;
   const BOTTOM_INSET = Platform.OS === 'ios' ? 34 : 0;
   const SCROLL_THRESHOLD = 70; // Increased threshold
+  
+  const { favorites, toggleFavorite } = useFavorites();
   
   // Calculate snap points
   const snapPoints = useMemo(() => {
@@ -179,16 +204,10 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
           scrollEventThrottle={16}
         >
           {/* Cards */}
-          {Array(facilitiesCount).fill(null).map((_, index) => (
+          {SAMPLE_LOCATIONS.slice(0, facilitiesCount).map((location) => (
             <Card
-              key={index}
-              title="Silo Market"
-              status="Fairly Busy"
-              isOpen={true}
-              closingTime="00:00 XM"
-              distance={0.0}
-              isFavorite={true}
-              onFavoritePress={() => {}}
+              key={location.id}
+              location={location}
             />
           ))}
         </BottomSheetScrollView>
