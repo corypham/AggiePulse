@@ -1,13 +1,14 @@
 // Path: frontend/components/MapView.tsx
 
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import React, { useEffect, useState, useRef } from 'react';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { LocationService } from '../services/locationServince';
 import { Location as LocationType } from '../types/location';
 import MapMarker from './MapMarker';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Ionicons } from '@expo/vector-icons';
 
 const initialRegion = {
   latitude: 38.5382,
@@ -27,6 +28,7 @@ export const CustomMapView: React.FC<CustomMapViewProps> = ({
 }) => {
   const [locations, setLocations] = useState<LocationType[]>([]);
   const [userLocation, setUserLocation] = useState<{ latitude: number; longitude: number } | null>(null);
+  const mapRef = useRef<MapView | null>(null);
 
   useEffect(() => {
     // Load locations
@@ -38,13 +40,13 @@ export const CustomMapView: React.FC<CustomMapViewProps> = ({
     // Get user location permission
     const getUserLocation = async () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status === 'granted') {
-        const location = await Location.getCurrentPositionAsync({});
-        setUserLocation({
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
-        });
+      if (status !== 'granted') {
+        console.log('Permission denied');
+        return;
       }
+
+      const location = await Location.getCurrentPositionAsync({});
+      setUserLocation(location.coords);
     };
 
     loadLocations();
@@ -56,32 +58,37 @@ export const CustomMapView: React.FC<CustomMapViewProps> = ({
     selectedFilters.length === 0 || location.type.some(t => selectedFilters.includes(t))
   );
 
+  const centerOnUser = () => {
+    if (userLocation && mapRef.current) {
+      mapRef.current.animateToRegion({
+        latitude: userLocation.latitude,
+        longitude: userLocation.longitude,
+        latitudeDelta: 0.005,
+        longitudeDelta: 0.005,
+      });
+    }
+  };
+
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <MapView
+        ref={mapRef}
+        provider={PROVIDER_GOOGLE}
+        style={styles.map}
         initialRegion={initialRegion}
         showsUserLocation
-        showsMyLocationButton={true}
-        showsPointsOfInterest={false}
-        showsScale={false}
-        showsBuildings={true}
-        showsCompass={false}
-        showsTraffic={false}
-        style={{ width: '100%', height: '100%' }}
-        legalLabelInsets={{ 
-          top: 20,
-          bottom: 20,
-          left: -100,
-          right: 20
-        }}
+        showsMyLocationButton={false}
       >
         {filteredLocations.map((location) => (
           <Marker
             key={location.id}
-            coordinate={location.coordinates}
+            coordinate={{
+              latitude: location.latitude,
+              longitude: location.longitude
+            }}
             onPress={() => onMarkerPress?.(location)}
           >
-            <MapMarker type={location.type[0]} status={location.status} />
+            <MapMarker type="default" status={location.currentStatus} />
           </Marker>
         ))}
       </MapView>
@@ -89,21 +96,51 @@ export const CustomMapView: React.FC<CustomMapViewProps> = ({
       {/* Gradient Overlay */}
       <LinearGradient
         colors={['rgba(255,255,255,.99)', 'rgba(255,255,255,0)', 'transparent']}
-        locations={[0, 0.4, 1]} // Adjusted locations to stretch gradient further
+        locations={[0, 0.4, 1]}
         style={StyleSheet.create({
           gradient: {
             position: 'absolute',
             top: 0,
             left: 0,
             right: 0,
-            height: 400, // Increased height
+            height: 400,
             zIndex: 0,
             pointerEvents: 'none',
           }
         }).gradient}
       />
+
+      <TouchableOpacity 
+        style={styles.locationButton}
+        onPress={centerOnUser}
+      >
+        <Ionicons name="navigate" size={24} color="#007AFF" />
+      </TouchableOpacity>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  map: {
+    width: '100%',
+    height: '100%',
+  },
+  locationButton: {
+    position: 'absolute',
+    right: 16,
+    bottom: 180,
+    backgroundColor: 'white',
+    borderRadius: 30,
+    padding: 12,
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+});
 
 export default CustomMapView;

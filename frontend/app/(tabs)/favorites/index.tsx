@@ -31,7 +31,7 @@ const ALL_LOCATIONS: Location[] = [
     distance: 0.3
   },
   {
-    id: 'shields',
+    id: 'library',
     title: 'Peter J. Shields Library',
     currentStatus: 'Fairly Busy',
     isOpen: true,

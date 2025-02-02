@@ -28,7 +28,22 @@ const SAMPLE_LOCATIONS: Location[] = [
     closingTime: '11:00 PM',
     distance: 0.5
   },
-  // Add more sample locations as needed
+  {
+    id: 'mu',
+    title: 'Memorial Union',
+    currentStatus: 'Not Busy',
+    isOpen: true,
+    closingTime: '11:00 PM',
+    distance: 0.5
+  },
+  {
+    id: 'library',
+    title: 'Peter J. Shields Library',
+    currentStatus: 'Fairly Busy',
+    isOpen: true,
+    closingTime: '11:00 PM',
+    distance: 0.5
+  }
 ];
 
 export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) => {
@@ -37,6 +52,7 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
   const lastScrollY = useRef(0);
   const [headerVisible, setHeaderVisible] = useState(true);
   const headerTranslateY = useRef(new Animated.Value(0)).current;
+  const [currentIndex, setCurrentIndex] = useState(0);
   
   // Track scroll direction and distance
   const scrollDirection = useRef<'up' | 'down' | null>(null);
@@ -45,20 +61,33 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
   // Constants
   const statusBarHeight = Platform.OS === 'android' ? StatusBar.currentHeight : 47;
   const SEARCH_BAR_HEIGHT = 50;
-  const HEADER_HEIGHT = 70;
-  const DYNAMIC_ISLAND_BUFFER = Platform.OS === 'ios' ? 120 : 0;
+  const HANDLE_HEIGHT = 105;
+  const LIST_HEADER_HEIGHT = 60;
+  const LIST_HEADER_PADDING = 3;
+  const DYNAMIC_ISLAND_BUFFER = Platform.OS === 'ios' ? 48 : 0;
   const BOTTOM_INSET = Platform.OS === 'ios' ? 34 : 0;
-  const SCROLL_THRESHOLD = 70; // Increased threshold
+  const SCROLL_THRESHOLD = 70;
   
   const { favorites, toggleFavorite } = useFavorites();
   
   // Calculate snap points
   const snapPoints = useMemo(() => {
-    const minHeight = HEADER_HEIGHT;
+    const minHeight = HANDLE_HEIGHT;
     const midHeight = screenHeight * 0.4;
-    const maxHeight = screenHeight - SEARCH_BAR_HEIGHT - statusBarHeight! - DYNAMIC_ISLAND_BUFFER;
+    const maxHeight = screenHeight - (statusBarHeight || 0) - DYNAMIC_ISLAND_BUFFER;
     return [minHeight, midHeight, maxHeight];
   }, [screenHeight, statusBarHeight]);
+
+  const handleSheetChange = useCallback((index: number) => {
+    setCurrentIndex(index);
+  }, []);
+
+  // Calculate bottom padding based on current snap point
+  const getBottomPadding = useCallback(() => {
+    // Add extra padding only at mid-height (index 1)
+    const extraPadding = currentIndex === 1 ? screenHeight * 0.45 : 0;
+    return TAB_BAR_HEIGHT + BOTTOM_INSET + extraPadding;
+  }, [currentIndex, screenHeight]);
 
   const handleScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const currentScrollY = event.nativeEvent.contentOffset.y;
@@ -95,7 +124,7 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
       if (isScrollingDown && headerVisible) {
         // Hide header
         Animated.spring(headerTranslateY, {
-          toValue: -HEADER_HEIGHT,
+          toValue: -LIST_HEADER_HEIGHT,
           useNativeDriver: true,
           tension: 100,
           friction: 20
@@ -141,6 +170,7 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
           right: 0,
           zIndex: 10,
           backgroundColor: '#EEF0F7',
+          paddingBottom: LIST_HEADER_PADDING,
         }]}
       >
         <View className="flex-row items-center justify-between py-2 px-9">
@@ -179,14 +209,15 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
           borderTopRightRadius: 36,
         }}
         handleStyle={{
-          height: HEADER_HEIGHT
+          height: HANDLE_HEIGHT // Use the taller handle height
         }}
         style={{
           marginHorizontal: 0,
         }}
         enableHandlePanningGesture={true}
         enableContentPanningGesture={false}
-        bottomInset={BOTTOM_INSET}
+        bottomInset={0}
+        onChange={handleSheetChange}
       >
         {renderListHeader()}
         
@@ -195,13 +226,16 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
           showsVerticalScrollIndicator={true}
           indicatorStyle="black"
           contentContainerStyle={{
-            paddingTop: HEADER_HEIGHT,
-            paddingBottom: TAB_BAR_HEIGHT + BOTTOM_INSET + 20,
+            paddingTop: LIST_HEADER_HEIGHT + LIST_HEADER_PADDING, // Use the shorter list header height
+            paddingBottom: getBottomPadding(),
           }}
           bounces={true}
           scrollEnabled={true}
           onScroll={handleScroll}
           scrollEventThrottle={16}
+          style={{ 
+            flex: 1,
+          }}
         >
           {/* Cards */}
           {SAMPLE_LOCATIONS.slice(0, facilitiesCount).map((location) => (
