@@ -20,7 +20,7 @@ const getElementSizes = (cardHeight: number) => ({
     lineHeight: cardHeight * 0.25,
   },
   status: {
-    fontSize: cardHeight * 0.15,
+    fontSize: cardHeight * 0.14,
     lineHeight: cardHeight * 0.2,
   },
   // Spacing
