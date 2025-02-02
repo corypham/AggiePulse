@@ -39,7 +39,14 @@
     "newArchEnabled": true,
     "plugins": [
       "expo-router",
-      "expo-asset"
+      "expo-asset",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow AggiePulse to use your location."
+        }
+      ],
+      "./plugins/AndroidIOSApiKey.js"
     ],
     "scheme": "aggiepulse"
   }
