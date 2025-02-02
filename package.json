@@ -16,6 +16,7 @@
     "prebuild": "yarn workspace frontend expo prebuild --clean",
     "pods": "cd frontend/ios && pod install",
     "start:dev": "yarn workspace frontend expo start --dev-client",
+    "start:dev:clear": "yarn workspace frontend expo start --dev-client -c",
     "ios:dev": "yarn workspace frontend expo run:ios --configuration Debug"
   },
   "dependencies": {
