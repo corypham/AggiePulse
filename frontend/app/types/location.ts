@@ -27,8 +27,8 @@ export const LOCATION_DETAILS: { [key: string]: Pick<Location, 'id' | 'title'> }
     id: 'mu',
     title: 'Memorial Union',
   },
-  'shields': {
-    id: 'shields',
+  'library': {
+    id: 'library',
     title: 'Peter J. Shields Library',
   },
 };
