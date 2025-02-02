@@ -14,7 +14,9 @@
     "ios": "yarn workspace frontend expo run:ios",
     "android": "yarn workspace frontend expo run:android",
     "prebuild": "yarn workspace frontend expo prebuild --clean",
-    "pods": "cd frontend/ios && pod install"
+    "pods": "cd frontend/ios && pod install",
+    "start:dev": "yarn workspace frontend expo start --dev-client",
+    "ios:dev": "yarn workspace frontend expo run:ios --configuration Debug"
   },
   "dependencies": {
     "expo": "~52.0.28",
