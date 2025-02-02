@@ -10,6 +10,15 @@
     "start:app": "yarn workspace frontend expo start",
     "start:app:clear": "yarn workspace frontend expo start -c",
     "start:server": "yarn workspace server start",
-    "dev": "concurrently \"yarn start:app\" \"yarn start:server\""
+    "dev": "concurrently \"yarn start:app\" \"yarn start:server\"",
+    "ios": "yarn workspace frontend expo run:ios",
+    "android": "yarn workspace frontend expo run:android",
+    "prebuild": "yarn workspace frontend expo prebuild --clean",
+    "pods": "cd frontend/ios && pod install"
+  },
+  "dependencies": {
+    "expo": "~52.0.28",
+    "react": "18.3.1",
+    "react-native": "0.76.6"
   }
 }
