@@ -36,6 +36,8 @@
     <string>1</string>
     <key>GMSApiKey</key>
     <string>your_google_maps_api_key_here</string>
+    <key>GMSStyleId</key>
+    <string>393ee6733aa5839</string>
     <key>LSMinimumSystemVersion</key>
     <string>12.0</string>
     <key>LSRequiresIPhoneOS</key>
