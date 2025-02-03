@@ -1,6 +1,6 @@
 // Path: frontend/services/locationService.ts
 
-import { Location } from '../types/location';
+import { Location, BusyStatus } from '../types/location';
 import { mockLocations } from '../data/mockLocations';
 
 export const LocationService = {
@@ -11,25 +11,24 @@ export const LocationService = {
     return mockLocations;
   },
 
-  // Search locations by name or building
+  // Search locations by name
   searchLocations: async (query: string): Promise<Location[]> => {
     const searchTerm = query.toLowerCase();
     return mockLocations.filter(location => 
-      location.name.toLowerCase().includes(searchTerm) || 
-      location.buildingName.toLowerCase().includes(searchTerm)
+      location.name.toLowerCase().includes(searchTerm)
     );
   },
 
   // Filter locations by type
-  filterByType: async (types: ('study' | 'gym' | 'dining')[]): Promise<Location[]> => {
+  filterByType: async (types: string[]): Promise<Location[]> => {
     return mockLocations.filter(location => 
       location.type.some(t => types.includes(t))
     );
   },
 
   // Filter by status
-  filterByStatus: async (status: 'Not Busy' | 'Busy' | 'Very Busy'): Promise<Location[]> => {
-    return mockLocations.filter(location => location.status === status);
+  filterByStatus: async (status: BusyStatus): Promise<Location[]> => {
+    return mockLocations.filter(location => location.currentStatus === status);
   },
 
   // Get a single location by ID
