@@ -12,9 +12,9 @@ export const DEVICE = {
 
 export const CARD = {
   height: {
-    small: 80,
-    medium: 100,
-    large: 100,
+    small: 90,
+    medium: 107,
+    large: 110,
   },
   padding: {
     small: 12,
