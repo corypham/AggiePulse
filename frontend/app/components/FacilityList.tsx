@@ -1,58 +1,36 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { View, Text, Dimensions, Platform, StatusBar, Animated, NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
+import { View, Text, Dimensions, Platform, StatusBar, Animated, NativeScrollEvent, NativeSyntheticEvent, TouchableOpacity, Image } from 'react-native';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
+import { Ionicons } from '@expo/vector-icons';
+import * as Location from 'expo-location';
 import Card from './Card';
 import { TAB_BAR_HEIGHT } from './TabBar';
 import { useFavorites } from '../context/FavoritesContext';
-import type { Location } from '../types/location';
+import type { Location as LocationType } from '../types/location';
+import { mockLocations } from '../data/mockLocations';
+import { NavVectorSelected, NavVectorUnselected } from '../../assets';
 
 interface FacilityListProps {
   facilitiesCount: number;
+  onLocationPress?: (location: { latitude: number; longitude: number }) => void;
+  isMapCentered?: boolean;
 }
 
-// Sample data - Replace this with your actual data fetching logic
-const SAMPLE_LOCATIONS: Location[] = [
-  {
-    id: 'silo-market',
-    title: 'Silo Market',
-    currentStatus: 'Fairly Busy',
-    isOpen: true,
-    closingTime: '10:00 PM',
-    distance: 0.2
-  },
-  {
-    id: 'arc',
-    title: 'Activities and Recreation Center',
-    currentStatus: 'Very Busy',
-    isOpen: true,
-    closingTime: '11:00 PM',
-    distance: 0.5
-  },
-  {
-    id: 'mu',
-    title: 'Memorial Union',
-    currentStatus: 'Not Busy',
-    isOpen: true,
-    closingTime: '11:00 PM',
-    distance: 0.5
-  },
-  {
-    id: 'library',
-    title: 'Peter J. Shields Library',
-    currentStatus: 'Fairly Busy',
-    isOpen: true,
-    closingTime: '11:00 PM',
-    distance: 0.5
-  }
-];
-
-export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) => {
+export const FacilityList: React.FC<FacilityListProps> = ({ 
+  facilitiesCount,
+  onLocationPress,
+  isMapCentered = false
+}) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const { height: screenHeight } = Dimensions.get('window');
   const lastScrollY = useRef(0);
   const [headerVisible, setHeaderVisible] = useState(true);
   const headerTranslateY = useRef(new Animated.Value(0)).current;
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [showNavButton, setShowNavButton] = useState(true);
+  const buttonOpacity = useRef(new Animated.Value(1)).current;
+  const buttonTranslateY = useRef(new Animated.Value(0)).current;
+  const lastPosition = useRef(0);
   
   // Track scroll direction and distance
   const scrollDirection = useRef<'up' | 'down' | null>(null);
@@ -69,6 +47,24 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
   const SCROLL_THRESHOLD = 70;
   
   const { favorites, toggleFavorite } = useFavorites();
+
+  const handleLocationPress = useCallback(async () => {
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        console.log('Permission denied');
+        return;
+      }
+
+      const location = await Location.getCurrentPositionAsync({});
+      onLocationPress?.({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude
+      });
+    } catch (error) {
+      console.error('Error getting location:', error);
+    }
+  }, [onLocationPress]);
   
   // Calculate snap points
   const snapPoints = useMemo(() => {
@@ -80,6 +76,54 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
 
   const handleSheetChange = useCallback((index: number) => {
     setCurrentIndex(index);
+    
+    // Hide button when past midpoint (index > 1)
+    if (index > 1) {
+      Animated.spring(buttonOpacity, {
+        toValue: 0,
+        useNativeDriver: true,
+        tension: 500,
+        friction: 10,
+        velocity: 4,
+      }).start(() => setShowNavButton(false));
+    } else {
+      setShowNavButton(true);
+      Animated.spring(buttonOpacity, {
+        toValue: 1,
+        useNativeDriver: true,
+        tension: 500,
+        friction: 10,
+        velocity: 4,
+      }).start();
+    }
+  }, [buttonOpacity]);
+
+  const handleSheetAnimate = useCallback((fromIndex: number, toIndex: number) => {
+    // Hide button immediately when moving past midpoint
+    if (toIndex > 1) {
+      Animated.spring(buttonOpacity, {
+        toValue: 0,
+        useNativeDriver: true,
+        tension: 200,
+        friction: 5,
+        velocity: 2,
+      }).start(() => setShowNavButton(false));
+    }
+    // Show button only when moving to positions below midpoint
+    else if (toIndex <= 1) {
+      setShowNavButton(true);
+      Animated.spring(buttonOpacity, {
+        toValue: 1,
+        useNativeDriver: true,
+        tension: 200,
+        friction: 5,
+        velocity: 2,
+      }).start();
+    }
+  }, [buttonOpacity]);
+
+  const handleSheetPosition = useCallback((position: number) => {
+    lastPosition.current = position;
   }, []);
 
   // Calculate bottom padding based on current snap point
@@ -142,26 +186,64 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
     }
     
     lastScrollY.current = currentScrollY;
-  }, [headerVisible]);
+  }, [headerVisible, headerTranslateY]);
 
   const renderHandle = useCallback(() => (
-    <View className="bg-white pt-2 rounded-t-3xl border-b border-gray-300">
-      <View className="w-12 h-1 bg-gray-300 rounded-full mx-auto mb-4" />
-      <View className="flex-row items-center justify-center pb-4">
-        <Text className="font-aileron-bold text-lg">
-          {facilitiesCount}
-        </Text>
-        <Text className="font-aileron-light ml-1 text-lg">Available Facilities</Text>
+    <>
+      {showNavButton && currentIndex <= 1 && (
+        <Animated.View 
+          pointerEvents={currentIndex <= 1 ? "auto" : "none"}
+          style={{
+            position: 'absolute',
+            right: 16,
+            top: -60,
+            opacity: buttonOpacity,
+            zIndex: 1000,
+          }}
+        >
+          <TouchableOpacity 
+            onPress={handleLocationPress}
+            style={{
+              backgroundColor: 'white',
+              borderRadius: 30,
+              width: 44,
+              height: 44,
+              justifyContent: 'center',
+              alignItems: 'center',
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+              elevation: 5,
+            }}
+          >
+            {isMapCentered ? (
+              <NavVectorSelected width={24} height={24} />
+            ) : (
+              <NavVectorUnselected width={24} height={24} />
+            )}
+          </TouchableOpacity>
+        </Animated.View>
+      )}
+      <View className="bg-white pt-2 rounded-t-3xl border-b border-gray-300">
+        <View className="w-12 h-1 bg-gray-300 rounded-full mx-auto mb-4" />
+        <View className="flex-row items-center justify-center pb-4">
+          <Text className="font-aileron-bold text-lg">
+            {Math.min(mockLocations.length, facilitiesCount)}
+          </Text>
+          <Text className="font-aileron-light ml-1 text-lg">Available Facilities</Text>
+        </View>
       </View>
-    </View>
-  ), [facilitiesCount]);
+    </>
+  ), [facilitiesCount, showNavButton, buttonOpacity, currentIndex, handleLocationPress, isMapCentered]);
 
   const renderListHeader = useCallback(() => (
     <>
-      {/* Persistent border */}
       <View className="absolute top-0 left-0 right-0 border-t border-gray-300 z-0" />
       
-      {/* Animated header */}
       <Animated.View 
         style={[{
           transform: [{ translateY: headerTranslateY }],
@@ -177,7 +259,7 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
           <View className="flex-row">
             <Text className="text-2xl font-aileron-bold">List View</Text>
           </View>
-          <View className="border border-gray-600 rounded-full px-4 py-2">
+          <View className="border border-gray-600 rounded-full px-4 py-2 bg-white">
             <Text className="font-aileron">sort by: ▼</Text>
           </View>
         </View>
@@ -209,7 +291,7 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
           borderTopRightRadius: 36,
         }}
         handleStyle={{
-          height: HANDLE_HEIGHT // Use the taller handle height
+          height: HANDLE_HEIGHT
         }}
         style={{
           marginHorizontal: 0,
@@ -218,6 +300,9 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
         enableContentPanningGesture={false}
         bottomInset={0}
         onChange={handleSheetChange}
+        onAnimate={handleSheetAnimate}
+        animateOnMount={false}
+        handlePosition={handleSheetPosition}
       >
         {renderListHeader()}
         
@@ -226,7 +311,7 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
           showsVerticalScrollIndicator={true}
           indicatorStyle="black"
           contentContainerStyle={{
-            paddingTop: LIST_HEADER_HEIGHT + LIST_HEADER_PADDING, // Use the shorter list header height
+            paddingTop: LIST_HEADER_HEIGHT + LIST_HEADER_PADDING,
             paddingBottom: getBottomPadding(),
           }}
           bounces={true}
@@ -237,8 +322,7 @@ export const FacilityList: React.FC<FacilityListProps> = ({ facilitiesCount }) =
             flex: 1,
           }}
         >
-          {/* Cards */}
-          {SAMPLE_LOCATIONS.slice(0, facilitiesCount).map((location) => (
+          {mockLocations.slice(0, facilitiesCount).map((location) => (
             <Card
               key={location.id}
               location={location}
