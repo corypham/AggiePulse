@@ -11,21 +11,21 @@ import { DEVICE, CARD } from '../constants/_layout';
 const getElementSizes = (cardHeight: number) => ({
   // Status icon sizing (40% of card height)
   statusIcon: {
-    width: cardHeight * 0.8,
-    height: cardHeight * 0.8,
+    width: cardHeight * 0.85,
+    height: cardHeight * 0.85,
   },
   // Text sizes
   title: {
-    fontSize: cardHeight * 0.18,
-    lineHeight: cardHeight * 0.25,
+    fontSize: cardHeight * 0.165,
+    lineHeight: cardHeight * 0.19,
   },
   status: {
-    fontSize: cardHeight * 0.14,
-    lineHeight: cardHeight * 0.2,
+    fontSize: cardHeight * 0.134,
+    lineHeight: cardHeight * 0.21,
   },
   // Spacing
   spacing: {
-    betweenLines: cardHeight * 0.00001,
+    betweenLines: cardHeight * 0.0001,
   },
   // Heart icon (25% of card height)
   heart: cardHeight * 0.25,
@@ -56,22 +56,22 @@ const Card: React.FC<CardProps> = ({ location }) => {
   const handleFavorite = () => {
     toggleFavorite(location.id);
   };
-
+ 
   return (
     <TouchableOpacity 
       onPress={handlePress}
-      className="bg-white rounded-xl mx-4 my-2 border border-gray-100"
+      className="bg-white rounded-xl mx-3 my-2 border border-gray-200"
       style={{
         height: cardHeight,
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 8,
-        elevation: 3,
+        shadowOpacity: 0.13,
+        shadowRadius: 5,
+        elevation: 10,
       }}
     >
       {/* Main Container */}
-      <View className="p-4 h-full">
+      <View className="p-3 h-full">
         {/* Status Icon and Title Row */}
         <View className="flex-row items-center h-full">
           {/* Status Icon */}
