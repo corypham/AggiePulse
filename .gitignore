@@ -1,24 +1,25 @@
 # Dependencies
+/node_modules
+/frontend/node_modules
 yarn.lock
-node_modules/
 package-lock.json
 
-# Environment
+# Environment variables
 .env
-.env.local
-.env.development
-.env.production
+.env.*
+!.env.example
 
 # Build outputs
-build/
-dist/
-ios/build/
-android/build/
+/ios/build/
+/ios/Pods/
+/android/build/
+/android/app/build/
 web-build/
 
 # Expo
 .expo/
 .expo-shared/
+dist/
 
 # Debug logs
 npm-debug.log*
