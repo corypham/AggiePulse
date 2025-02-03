@@ -29,7 +29,6 @@ export { default as WhiteboardsBlue } from './blue-icons/Icon-WhiteboardsShortcu
 export { default as StudySpacesIconBlue } from './blue-icons/Study-SpacesShortcuts&Tips.svg';
 export { default as Variant3Blue } from './blue-icons/Variant3Shortcuts&Tips.svg';
 export { default as Variant4Blue } from './blue-icons/Variant4Shortcuts&Tips.svg';
-export { default as VectorBlue } from './blue-icons/VectorShortcuts&Tips.svg';
 
 // Grey Icons
 export { default as DiningGrey } from './grey-icons/Property 1=DLP-Icon-DiningShortcuts&Tips.svg';
@@ -107,8 +106,8 @@ export { default as MapDining } from './Map-and-filter-location-type/DiningShort
 export { default as MapGym } from './Map-and-filter-location-type/GymShortcuts&Tips.svg';
 export { default as MapStudySpaces } from './Map-and-filter-location-type/Study-SpacesShortcuts&Tips.svg';
 export { default as MapVariant4 } from './Map-and-filter-location-type/Variant4Shortcuts&Tips.svg';
-export { default as MapVector1 } from './Map-and-filter-location-type/VectorShortcuts&Tips (1).svg';
-export { default as MapVector } from './Map-and-filter-location-type/VectorShortcuts&Tips.svg';
+export { default as NavVectorSelected } from './Map-and-filter-location-type/VectorShortcuts&Tips (1).svg';
+export { default as NavVectorUnselected } from './Map-and-filter-location-type/VectorShortcuts&Tips.svg';
 
 // Location Status Icons
 export { default as VeryBusyStatus } from './busyness-icons/Property 1=Very_Busy.svg';
