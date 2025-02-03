@@ -67,6 +67,17 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
         loadingEnabled={true}
         onRegionChange={onRegionChange}
         onRegionChangeComplete={onRegionChangeComplete}
+        customMapStyle={[
+          {
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#f5f5f5"
+              }
+            ]
+          },
+          // Add more style rules from your Google Maps Style JSON here
+        ]}
       >
         {/* Your existing markers */}
       </MapView>
