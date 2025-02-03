@@ -5,27 +5,25 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const withAndroidIOSApiKey = (config) => {
-  // Ensure the config gets modified first
+  // Modify Android config
   config = withAndroidManifest(config, async (config) => {
-    // Add Android API key
-    config.modResults.manifest.application[0]["meta-data"] = [
-      {
-        $: {
-          "android:name": "com.google.android.geo.API_KEY",
-          "android:value": process.env.GOOGLE_MAPS_API_KEY,
-        },
+    const androidManifest = config.modResults;
+    const mainApplication = androidManifest.manifest.application[0];
+
+    mainApplication['meta-data'] = mainApplication['meta-data'] || [];
+    mainApplication['meta-data'].push({
+      $: {
+        "android:name": "com.google.android.geo.API_KEY",
+        "android:value": process.env.GOOGLE_MAPS_API_KEY,
       },
-    ];
+    });
+
     return config;
   });
 
   // Modify iOS config
   config = withInfoPlist(config, (config) => {
-    // Add iOS API key
-    config.modResults.NSLocationWhenInUseUsageDescription =
-      "Allow AggiePulse to use your location.";
-    config.modResults.NSLocationAlwaysAndWhenInUseUsageDescription =
-      "Allow AggiePulse to use your location.";
+    config.modResults.GMSApiKey = process.env.GOOGLE_MAPS_API_KEY;
     return config;
   });
 
