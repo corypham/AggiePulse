@@ -1,7 +1,7 @@
 // Path: frontend/components/MapView.tsx
 
 import React, { forwardRef, useEffect, useState } from 'react';
-import { View, StyleSheet, Platform, Text } from 'react-native';
+import { View, StyleSheet, Platform, Alert } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker, Region } from 'react-native-maps';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Location from 'expo-location';
@@ -22,42 +22,25 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
   onRegionChange,
   onRegionChangeComplete
 }, ref) => {
-  console.log('MapView rendering');
-  const [userLocation, setUserLocation] = useState<{ latitude: number; longitude: number } | null>(null);
-  const [mapError, setMapError] = useState<string | null>(null);
-
-  const apiKey = Platform.select({
-    ios: GOOGLE_MAPS_API_KEY_IOS,
-    android: GOOGLE_MAPS_API_KEY_ANDROID,
-  });
+  const [hasLocationPermission, setHasLocationPermission] = useState(false);
 
   useEffect(() => {
-    const getUserLocation = async () => {
-      try {
-        const { status } = await Location.requestForegroundPermissionsAsync();
-        console.log('Location permission status:', status);
-        if (status !== 'granted') {
-          console.log('Permission denied');
-          return;
-        }
-
-        const location = await Location.getCurrentPositionAsync({});
-        console.log('Got user location:', location);
-        setUserLocation({
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude
-        });
-      } catch (error) {
-        console.error('Error getting user location:', error);
+    (async () => {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status === 'granted') {
+        setHasLocationPermission(true);
+      } else {
+        Alert.alert(
+          "Location Permission Required",
+          "Please enable location services to see your current location on the map.",
+          [{ text: "OK" }]
+        );
       }
-    };
-
-    getUserLocation();
+    })();
   }, []);
 
-  // UC Davis coordinates
   const initialRegion = {
-    latitude: 38.5382,
+    latitude: 38.5382,  // UC Davis coordinates
     longitude: -121.7617,
     latitudeDelta: 0.0222,
     longitudeDelta: 0.0121,
@@ -70,46 +53,32 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
         provider={PROVIDER_GOOGLE}
         style={styles.map}
         initialRegion={initialRegion}
-        showsUserLocation
+        showsUserLocation={hasLocationPermission}
         showsMyLocationButton={false}
+        followsUserLocation={false}
+        showsCompass
+        showsScale
+        showsBuildings
+        showsTraffic={false}
         loadingEnabled={true}
         onRegionChange={onRegionChange}
         onRegionChangeComplete={onRegionChangeComplete}
-        onError={(error) => {
-          console.error('MapView error:', error.nativeEvent);
-          setMapError(error.nativeEvent.message);
+        onMapLoaded={() => {
+          console.log('Map loaded successfully');
         }}
-        customMapStyle={[
-          {
-            "elementType": "geometry",
-            "stylers": [
-              {
-                "color": "#f5f5f5"
-              }
-            ]
-          },
-          // Add more style rules from your Google Maps Style JSON here
-        ]}
+        onError={(error) => {
+          console.error('Map error:', error.nativeEvent);
+        }}
       >
         <Marker
           coordinate={{
             latitude: 38.5382,
-            longitude: -121.7617,
+            longitude: -121.7617
           }}
           title="UC Davis"
-          description="Test Marker"
+          description="Main Campus"
         />
       </MapView>
-      <LinearGradient
-        colors={['rgba(255,255,255,.99)', 'rgba(255,255,255,0)', 'transparent']}
-        locations={[0, 0.4, 1]}
-        style={styles.gradient}
-      />
-      {mapError && (
-        <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>{mapError}</Text>
-        </View>
-      )}
     </View>
   );
 });
@@ -121,26 +90,7 @@ const styles = StyleSheet.create({
   map: {
     width: '100%',
     height: '100%',
-  },
-  gradient: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: 100,
-  },
-  errorContainer: {
-    position: 'absolute',
-    top: 10,
-    left: 10,
-    right: 10,
-    backgroundColor: 'rgba(255,0,0,0.7)',
-    padding: 10,
-    borderRadius: 5,
-  },
-  errorText: {
-    color: 'white',
-  },
+  }
 });
 
 CustomMapView.displayName = 'CustomMapView';
