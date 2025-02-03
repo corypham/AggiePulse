@@ -1,7 +1,7 @@
 // Path: frontend/components/MapView.tsx
 
 import React, { forwardRef, useEffect, useState } from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet, Platform, Text } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker, Region } from 'react-native-maps';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Location from 'expo-location';
@@ -22,7 +22,9 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
   onRegionChange,
   onRegionChangeComplete
 }, ref) => {
+  console.log('MapView rendering');
   const [userLocation, setUserLocation] = useState<{ latitude: number; longitude: number } | null>(null);
+  const [mapError, setMapError] = useState<string | null>(null);
 
   const apiKey = Platform.select({
     ios: GOOGLE_MAPS_API_KEY_IOS,
@@ -33,12 +35,14 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
     const getUserLocation = async () => {
       try {
         const { status } = await Location.requestForegroundPermissionsAsync();
+        console.log('Location permission status:', status);
         if (status !== 'granted') {
           console.log('Permission denied');
           return;
         }
 
         const location = await Location.getCurrentPositionAsync({});
+        console.log('Got user location:', location);
         setUserLocation({
           latitude: location.coords.latitude,
           longitude: location.coords.longitude
@@ -51,21 +55,19 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
     getUserLocation();
   }, []);
 
+  // UC Davis coordinates
   const initialRegion = {
-    latitude: 42.023350,
-    longitude: -93.647640,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
+    latitude: 38.5382,
+    longitude: -121.7617,
+    latitudeDelta: 0.0222,
+    longitudeDelta: 0.0121,
   };
 
   return (
     <View style={styles.container}>
       <MapView
         ref={ref}
-        provider={Platform.select({
-          ios: PROVIDER_GOOGLE,
-          android: PROVIDER_GOOGLE,
-        })}
+        provider={PROVIDER_GOOGLE}
         style={styles.map}
         initialRegion={initialRegion}
         showsUserLocation
@@ -73,6 +75,10 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
         loadingEnabled={true}
         onRegionChange={onRegionChange}
         onRegionChangeComplete={onRegionChangeComplete}
+        onError={(error) => {
+          console.error('MapView error:', error.nativeEvent);
+          setMapError(error.nativeEvent.message);
+        }}
         customMapStyle={[
           {
             "elementType": "geometry",
@@ -85,13 +91,25 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
           // Add more style rules from your Google Maps Style JSON here
         ]}
       >
-        {/* Your existing markers */}
+        <Marker
+          coordinate={{
+            latitude: 38.5382,
+            longitude: -121.7617,
+          }}
+          title="UC Davis"
+          description="Test Marker"
+        />
       </MapView>
       <LinearGradient
         colors={['rgba(255,255,255,.99)', 'rgba(255,255,255,0)', 'transparent']}
         locations={[0, 0.4, 1]}
         style={styles.gradient}
       />
+      {mapError && (
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>{mapError}</Text>
+        </View>
+      )}
     </View>
   );
 });
@@ -110,6 +128,18 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: 100,
+  },
+  errorContainer: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    right: 10,
+    backgroundColor: 'rgba(255,0,0,0.7)',
+    padding: 10,
+    borderRadius: 5,
+  },
+  errorText: {
+    color: 'white',
   },
 });
 
