@@ -18,12 +18,21 @@ const withAndroidIOSApiKey = (config) => {
       },
     });
 
+    // Add style ID meta-data
+    mainApplication['meta-data'].push({
+      $: {
+        "android:name": "com.google.android.geo.STYLE_ID",
+        "android:value": process.env.GOOGLE_MAPS_STYLE_ID,
+      },
+    });
+
     return config;
   });
 
   // Modify iOS config
   config = withInfoPlist(config, (config) => {
     config.modResults.GMSApiKey = process.env.GOOGLE_MAPS_API_KEY;
+    config.modResults.GMSStyleId = process.env.GOOGLE_MAPS_STYLE_ID;
     return config;
   });
 
