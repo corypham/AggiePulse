@@ -23,8 +23,10 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
   onRegionChangeComplete
 }, ref) => {
   console.log('MapView rendering');
+  console.log("API KEY: ", GOOGLE_MAPS_API_KEY_IOS);
   const [userLocation, setUserLocation] = useState<{ latitude: number; longitude: number } | null>(null);
   const [mapError, setMapError] = useState<string | null>(null);
+  const [hasLocationPermission, setHasLocationPermission] = useState(false);
 
   const apiKey = Platform.select({
     ios: GOOGLE_MAPS_API_KEY_IOS,
@@ -47,6 +49,7 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
           latitude: location.coords.latitude,
           longitude: location.coords.longitude
         });
+        setHasLocationPermission(true);
       } catch (error) {
         console.error('Error getting user location:', error);
       }
@@ -70,27 +73,19 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
         provider={PROVIDER_GOOGLE}
         style={styles.map}
         initialRegion={initialRegion}
-        showsUserLocation
+        showsUserLocation={hasLocationPermission}
         showsMyLocationButton={false}
+        followsUserLocation={false}
         loadingEnabled={true}
-        googleMapId={GOOGLE_MAPS_STYLE_ID}
         onRegionChange={onRegionChange}
         onRegionChangeComplete={onRegionChangeComplete}
+        onMapLoaded={() => {
+          console.log('Map loaded successfully');
+        }}
         onError={(error) => {
-          console.error('MapView error:', error.nativeEvent);
+          console.error('Map error:', error.nativeEvent);
           setMapError(error.nativeEvent.message);
         }}
-        customMapStyle={[
-          {
-            "elementType": "geometry",
-            "stylers": [
-              {
-                "color": "#f5f5f5"
-              }
-            ]
-          },
-          // Add more style rules from your Google Maps Style JSON here
-        ]}
       >
         <Marker
           coordinate={{
