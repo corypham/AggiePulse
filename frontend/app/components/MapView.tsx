@@ -7,7 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import * as Location from 'expo-location';
 import { MapMarker } from './MapMarker';
 import type { Location as LocationType } from '../types/location';
-import { GOOGLE_MAPS_API_KEY_IOS, GOOGLE_MAPS_API_KEY_ANDROID } from '@env';
+import { GOOGLE_MAPS_API_KEY_IOS, GOOGLE_MAPS_API_KEY_ANDROID, GOOGLE_MAPS_STYLE_ID } from '@env';
 
 interface CustomMapViewProps {
   selectedFilters: string[];
@@ -73,6 +73,7 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
         showsUserLocation
         showsMyLocationButton={false}
         loadingEnabled={true}
+        googleMapId={GOOGLE_MAPS_STYLE_ID}
         onRegionChange={onRegionChange}
         onRegionChangeComplete={onRegionChangeComplete}
         onError={(error) => {
