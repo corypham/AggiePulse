@@ -86,6 +86,7 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
           console.error('Map error:', error.nativeEvent);
           setMapError(error.nativeEvent.message);
         }}
+        googleMapId={GOOGLE_MAPS_STYLE_ID}
       >
         <Marker
           coordinate={{
