@@ -1,13 +1,11 @@
 // Path: frontend/data/mockLocations.ts
 
-import { Location, FilterCategory } from '../types/location';
+import { Location, FilterCategory, BusyStatus } from '../types/location';
 
 export const mockLocations: Location[] = [
   {
     id: '1',
     name: 'Peter J. Shields Library',
-    buildingName: 'Shields Library',
-    type: ['study'],
     coordinates: {
       latitude: 38.5395,
       longitude: -121.7489
@@ -18,13 +16,16 @@ export const mockLocations: Location[] = [
       open: '8:00 AM',
       close: '11:00 PM'
     },
-    description: 'Main library study space with quiet areas'
+    description: 'Main library study space with quiet areas',
+    currentStatus: 'Not Busy',
+    closingTime: '11:00 PM',
+    distance: 0.3,
+    type: ['study'],
+    title: 'Peter J. Shields Library'
   },
   {
     id: '2',
-    name: 'Activities & Recreation Center',
-    buildingName: 'ARC',
-    type: ['gym'],
+    name: 'Activities and Recreation Center',
     coordinates: {
       latitude: 38.54272,
       longitude: -121.75904
@@ -35,30 +36,36 @@ export const mockLocations: Location[] = [
       open: '6:00 AM',
       close: '12:00 AM'
     },
-    description: 'Gym and fitness center'
+    description: 'Gym and fitness center',
+    currentStatus: 'Very Busy',
+    closingTime: '12:00 AM',
+    distance: 0.5,
+    type: ['gym'],
+    title: 'Activities and Recreation Center'
   },
   {
     id: '3',
-    name: 'Silo Dining',
-    buildingName: 'Silo South',
-    type: ['dining'],
+    name: 'Silo Market',
     coordinates: {
       latitude: 38.53879,
       longitude: -121.75305
     },
-    status: 'Busy',
+    status: 'Fairly Busy',
     isOpen: true,
     hours: {
       open: '7:00 AM',
       close: '7:00 PM'
     },
-    description: 'Campus dining commons'
+    description: 'Campus dining commons',
+    currentStatus: 'Fairly Busy',
+    closingTime: '7:00 PM',
+    distance: 0.2,
+    type: ['dining'],
+    title: 'Silo Market'
   },
   {
     id: '4',
     name: 'Memorial Union',
-    buildingName: 'MU',
-    type: ['dining', 'study'],
     coordinates: {
       latitude: 38.54229,
       longitude: -121.74963
@@ -69,7 +76,12 @@ export const mockLocations: Location[] = [
       open: '7:00 AM',
       close: '8:00 PM'
     },
-    description: 'Campus dining & studycommons'
+    description: 'Campus dining & study commons',
+    currentStatus: 'Not Busy',
+    closingTime: '8:00 PM',
+    distance: 0.5,
+    type: ['dining', 'study'],
+    title: 'Memorial Union'
   } 
   
   // Add more locations as needed
