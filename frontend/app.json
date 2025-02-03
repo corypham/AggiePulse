@@ -18,8 +18,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.aggiepulse",
       "config": {
-        "googleMapsApiKey": "${process.env.GOOGLE_MAPS_API_KEY}",
-        "googleMapsStyleId": "${process.env.GOOGLE_MAPS_STYLE_ID}"
+        "googleMapsApiKey": "GOOGLE_MAPS_API_KEY_IOS"
       }
     },
     "android": {
@@ -30,8 +29,7 @@
       "package": "com.aggiepulse",
       "config": {
         "googleMaps": {
-          "apiKey": "${process.env.GOOGLE_MAPS_API_KEY}",
-          "styleId": "${process.env.GOOGLE_MAPS_STYLE_ID}"
+          "apiKey": "GOOGLE_MAPS_API_KEY_ANDROID"
         }
       }
     },

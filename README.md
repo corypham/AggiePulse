@@ -5,7 +5,7 @@ AggiePulse is a mobile application designed to help UC Davis students stay infor
 ## Getting Started
 
 Follow these steps to set up and run the project on your local machine.
-
+ 
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) (latest stable version recommended)
