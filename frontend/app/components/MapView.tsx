@@ -7,6 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import * as Location from 'expo-location';
 import { MapMarker } from './MapMarker';
 import type { Location as LocationType } from '../types/location';
+import { GOOGLE_MAPS_API_KEY_IOS, GOOGLE_MAPS_API_KEY_ANDROID } from '@env';
 
 interface CustomMapViewProps {
   selectedFilters: string[];
@@ -22,6 +23,11 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
   onRegionChangeComplete
 }, ref) => {
   const [userLocation, setUserLocation] = useState<{ latitude: number; longitude: number } | null>(null);
+
+  const apiKey = Platform.select({
+    ios: GOOGLE_MAPS_API_KEY_IOS,
+    android: GOOGLE_MAPS_API_KEY_ANDROID,
+  });
 
   useEffect(() => {
     const getUserLocation = async () => {

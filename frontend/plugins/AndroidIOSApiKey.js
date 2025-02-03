@@ -14,7 +14,7 @@ const withAndroidIOSApiKey = (config) => {
     mainApplication['meta-data'].push({
       $: {
         "android:name": "com.google.android.geo.API_KEY",
-        "android:value": process.env.GOOGLE_MAPS_API_KEY,
+        "android:value": process.env.GOOGLE_MAPS_API_KEY_ANDROID,
       },
     });
 
@@ -31,7 +31,7 @@ const withAndroidIOSApiKey = (config) => {
 
   // Modify iOS config
   config = withInfoPlist(config, (config) => {
-    config.modResults.GMSApiKey = process.env.GOOGLE_MAPS_API_KEY;
+    config.modResults.GMSApiKey = process.env.GOOGLE_MAPS_API_KEY_IOS;
     config.modResults.GMSStyleId = process.env.GOOGLE_MAPS_STYLE_ID;
     return config;
   });
