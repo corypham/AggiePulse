@@ -113,3 +113,18 @@ export { default as NavVectorUnselected } from './Map-and-filter-location-type/V
 export { default as VeryBusyStatus } from './busyness-icons/Property 1=Very_Busy.svg';
 export { default as FairlyBusyStatus } from './busyness-icons/Property 1=Fairly_Busy.svg';
 export { default as NotBusyStatus } from './busyness-icons/Property 1=Not_Busy.svg';
+
+// Black Icons
+export { default as StudyBlack } from './black-icons/black-study.svg';
+export { default as DiningBlack } from './black-icons/black-food.svg';
+export { default as GymBlack } from './black-icons/black-gym.svg';
+export { default as NotBusyBlack } from './black-icons/black-not-busy.svg';
+
+
+// Selected Quick Filter Icons
+export { default as StudySelected } from './quick-filter-icons/selected-study.svg';
+export { default as DiningSelected } from './quick-filter-icons/selected-dining.svg';
+export { default as GymSelected } from './quick-filter-icons/selected-gym.svg';
+export { default as NotBusySelected } from './quick-filter-icons/selected-not-busy.svg';
+
+
