@@ -1,10 +1,12 @@
 // Path: frontend/components/MapMarker.tsx
 
-import React from 'react';
-import { Marker } from 'react-native-maps';
+import React, { useState } from 'react';
+import { Marker, Callout } from 'react-native-maps';
 import { Image } from 'react-native';
-import type { Location } from '../types/location';
-import { useFavorites } from '../context/FavoritesContext';
+import { useRouter } from 'expo-router';
+import { MiniCard } from '@/app/components/MiniCard';
+import type { Location } from '@/app/types/location';
+import { useFavorites } from '@/app/context/FavoritesContext';
 import {
   // Regular pins
   PinStudyNotBusy,
@@ -37,8 +39,10 @@ interface MapMarkerProps {
 }
 
 export function MapMarker({ location, onPress }: MapMarkerProps) {
+  const router = useRouter();
   const { isFavorite } = useFavorites();
   const isLocationFavorite = isFavorite(location.id);
+  const [isCalloutVisible, setIsCalloutVisible] = useState(false);
 
   const getPin = () => {
     const type = location.type;
@@ -106,17 +110,34 @@ export function MapMarker({ location, onPress }: MapMarkerProps) {
     return PinComponent ? <PinComponent width={40} height={40} /> : null;
   };
 
+  const handleCalloutPress = () => {
+    router.push(`/location/${location.id}`);
+  };
+
+  const handleMarkerPress = () => {
+    setIsCalloutVisible(true);
+    if (onPress) onPress();
+  };
+
   return (
     <Marker
       coordinate={{
         latitude: location.coordinates.latitude,
         longitude: location.coordinates.longitude
       }}
-      onPress={onPress}
-      title={location.name}
-      description={location.description}
+      onPress={handleMarkerPress}
     >
       {getPin()}
+      <Callout
+        onPress={handleCalloutPress}
+        tooltip={true}
+        style={{
+          backgroundColor: 'transparent',
+          borderWidth: 0,
+        }}
+      >
+        <MiniCard location={location} visible={isCalloutVisible} />
+      </Callout>
     </Marker>
   );
 }
