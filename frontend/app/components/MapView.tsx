@@ -7,7 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import * as Location from 'expo-location';
 import { MapMarker } from './MapMarker';
 import type { Location as LocationType } from '../types/location';
-import { GOOGLE_MAPS_API_KEY_IOS, GOOGLE_MAPS_API_KEY_ANDROID, GOOGLE_MAPS_STYLE_ID } from '@env';
+import { GOOGLE_MAPS_API_KEY_IOS, GOOGLE_MAPS_API_KEY_ANDROID, GOOGLE_MAPS_STYLE_ID_IOS, GOOGLE_MAPS_STYLE_ID_ANDROID } from '@env';
 
 interface CustomMapViewProps {
   selectedFilters: string[];
@@ -29,6 +29,11 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
   const apiKey = Platform.select({
     ios: GOOGLE_MAPS_API_KEY_IOS,
     android: GOOGLE_MAPS_API_KEY_ANDROID,
+  });
+
+  const mapId = Platform.select({
+    ios: GOOGLE_MAPS_STYLE_ID_IOS,
+    android: GOOGLE_MAPS_STYLE_ID_ANDROID,
   });
 
   useEffect(() => {
@@ -71,8 +76,12 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
         onRegionChange={onRegionChange}
         onRegionChangeComplete={onRegionChangeComplete}
         onMapLoaded={() => {
+          console.log('Map loaded successfully with ID:', mapId);
         }}
-        googleMapId={GOOGLE_MAPS_STYLE_ID}
+        googleMapId={mapId}
+        onError={(error) => {
+          console.error('Map error:', error.nativeEvent);
+        }}
       >
         <Marker
           coordinate={{
@@ -84,8 +93,8 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
         />
       </MapView>
       <LinearGradient
-        colors={['rgba(255,255,255,.99)', 'rgba(255,255,255,0)', 'transparent']}
-        locations={[0, 0.4, 1]}
+        colors={['rgb(255,255,255)', 'rgba(255,255,255,1)', 'rgba(255,255,255,0.05)', 'transparent' ]}
+        locations={[0, 0.2, 0.7, 1]}
         style={styles.gradient}
       />
       {mapError && (
@@ -110,7 +119,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    height: 100,
+    height: 140,
   },
   errorContainer: {
     position: 'absolute',
