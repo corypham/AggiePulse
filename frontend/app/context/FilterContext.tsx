@@ -3,7 +3,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type FilterContextType = {
   selectedFilters: string[];
+  quickFilterPreferences: string[];
   toggleFilter: (filterId: string) => void;
+  toggleQuickFilterPreference: (filterId: string) => void;
   clearFilters: () => void;
 };
 
@@ -11,6 +13,7 @@ const FilterContext = createContext<FilterContextType | undefined>(undefined);
 
 export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+  const [quickFilterPreferences, setQuickFilterPreferences] = useState<string[]>(['study', 'dining', 'gym', 'not-busy']); // Default quick filters
 
   // Load saved filters on mount
   useEffect(() => {
@@ -28,6 +31,22 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     loadFilters();
   }, []);
 
+  // Load saved preferences on mount
+  useEffect(() => {
+    const loadPreferences = async () => {
+      try {
+        const storedPreferences = await AsyncStorage.getItem('quickFilterPreferences');
+        if (storedPreferences) {
+          setQuickFilterPreferences(JSON.parse(storedPreferences));
+        }
+      } catch (error) {
+        console.error('Error loading quick filter preferences:', error);
+      }
+    };
+    
+    loadPreferences();
+  }, []);
+
   const toggleFilter = async (filterId: string) => {
     const newFilters = selectedFilters.includes(filterId)
       ? selectedFilters.filter(id => id !== filterId)
@@ -42,6 +61,20 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     }
   };
 
+  const toggleQuickFilterPreference = async (filterId: string) => {
+    const newPreferences = quickFilterPreferences.includes(filterId)
+      ? quickFilterPreferences.filter(id => id !== filterId)
+      : [...quickFilterPreferences, filterId];
+    
+    setQuickFilterPreferences(newPreferences);
+    
+    try {
+      await AsyncStorage.setItem('quickFilterPreferences', JSON.stringify(newPreferences));
+    } catch (error) {
+      console.error('Error saving quick filter preferences:', error);
+    }
+  };
+
   const clearFilters = async () => {
     setSelectedFilters([]);
     try {
@@ -52,7 +85,13 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   };
 
   return (
-    <FilterContext.Provider value={{ selectedFilters, toggleFilter, clearFilters }}>
+    <FilterContext.Provider value={{ 
+      selectedFilters, 
+      quickFilterPreferences,
+      toggleFilter, 
+      toggleQuickFilterPreference,
+      clearFilters 
+    }}>
       {children}
     </FilterContext.Provider>
   );
