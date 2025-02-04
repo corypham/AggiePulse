@@ -9,6 +9,7 @@ import type { Location as LocationType } from '../../types/location';
 import { useRouter } from "expo-router";
 import MapView, { Region } from 'react-native-maps';
 import * as Location from 'expo-location';
+import { QuickFilterBar } from '../../components/QuickFilterBar';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -80,6 +81,15 @@ export default function HomeScreen() {
     setIsMapCentered(isCentered);
   }, []);
 
+  const handleFilterChange = (filterId: string) => {
+    setSelectedFilters(prev => {
+      if (prev.includes(filterId)) {
+        return prev.filter(id => id !== filterId);
+      }
+      return [...prev, filterId];
+    });
+  };
+
   return (
     <View className="flex-1" style={{ backgroundColor: 'transparent' }}>
       <CustomMapView 
@@ -89,14 +99,17 @@ export default function HomeScreen() {
         onRegionChange={handleMapMovement}
         onRegionChangeComplete={handleMapMovement}
       />
-      <View className="absolute w-full">
+      <View className="absolute w-full pl-1">
         <SearchBar
           value={searchQuery}
           onChangeText={setSearchQuery}
           onClear={() => setSearchQuery('')}
           onFilterPress={handleFilterPress}
         />
-        {/* FilterChips will go here */}
+        <QuickFilterBar
+          selectedFilters={selectedFilters}
+          onFilterChange={handleFilterChange}
+        />
       </View>
       <FacilityList 
         facilitiesCount={10} 
