@@ -89,8 +89,8 @@ export default function HomeScreen() {
     <View className="flex-1" style={{ backgroundColor: 'transparent' }}>
       <CustomMapView 
         ref={mapRef}
-        selectedFilters={selectedFilters}
         locations={locations}
+        selectedFilters={selectedFilters}
         onMarkerPress={handleMarkerPress}
         onRegionChange={handleMapMovement}
         onRegionChangeComplete={handleMapMovement}
