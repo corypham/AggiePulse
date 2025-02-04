@@ -36,18 +36,35 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
     android: GOOGLE_MAPS_STYLE_ID_ANDROID,
   });
 
+  // Debug log to verify the Map ID
+  // console.log('Current Platform:', Platform.OS);
+  // console.log('Selected Map ID:', mapId);
+  // console.log('iOS Map ID:', GOOGLE_MAPS_STYLE_ID_IOS);
+  // console.log('Android Map ID:', GOOGLE_MAPS_STYLE_ID_ANDROID);
+
   useEffect(() => {
     const getUserLocation = async () => {
       try {
         const { status } = await Location.requestForegroundPermissionsAsync();
-
-        const location = await Location.getCurrentPositionAsync({});
-        setUserLocation({
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude
-        });
+        
+        if (__DEV__) {
+          // Set mock location for development
+          setUserLocation({
+            latitude: 38.5382,
+            longitude: -121.7617
+          });
+        } else {
+          // Use real location in production
+          const location = await Location.getCurrentPositionAsync({});
+          setUserLocation({
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude
+          });
+        }
+        
         setHasLocationPermission(true);
       } catch (error) {
+        console.error('Error getting location:', error);
       }
     };
 
@@ -58,8 +75,8 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
   const initialRegion = {
     latitude: 38.5382,
     longitude: -121.7617,
-    latitudeDelta: 0.0222,
-    longitudeDelta: 0.0121,
+    latitudeDelta: 0.0422,
+    longitudeDelta: 0.0221,
   };
 
   return (
@@ -69,28 +86,52 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
         provider={PROVIDER_GOOGLE}
         style={styles.map}
         initialRegion={initialRegion}
+        camera={{
+          center: {
+            latitude: 38.5382,
+            longitude: -121.7617,
+          },
+          pitch: 0,
+          altitude: 1000,
+          zoom: 15,
+          heading: 0
+        }}
+        googleMapId={mapId}
+        customMapStyle={[
+          {
+            featureType: "poi",
+            elementType: "labels",
+            stylers: [{ visibility: "off" }]
+          },
+          {
+            featureType: "transit",
+            elementType: "labels",
+            stylers: [{ visibility: "on" }]
+          },
+          {
+            featureType: "road",
+            elementType: "labels",
+            stylers: [{ visibility: "on" }]
+          },
+          {
+            featureType: "administrative",
+            elementType: "labels",
+            stylers: [{ visibility: "on" }]
+          },
+          {
+            featureType: "building",
+            elementType: "geometry",
+            stylers: [{ visibility: "on" }]
+          }
+        ]}
         showsUserLocation={hasLocationPermission}
         showsMyLocationButton={false}
         followsUserLocation={false}
         loadingEnabled={true}
         onRegionChange={onRegionChange}
         onRegionChangeComplete={onRegionChangeComplete}
-        onMapLoaded={() => {
-          console.log('Map loaded successfully with ID:', mapId);
-        }}
-        googleMapId={mapId}
-        onError={(error) => {
-          console.error('Map error:', error.nativeEvent);
-        }}
       >
-        <Marker
-          coordinate={{
-            latitude: 38.5382,
-            longitude: -121.7617,
-          }}
-          title="UC Davis"
-          description="Test Marker"
-        />
+        {/* Removed the default Marker component */}
       </MapView>
       <LinearGradient
         colors={['rgb(255,255,255)', 'rgba(255,255,255,1)', 'rgba(255,255,255,0.05)', 'transparent' ]}
