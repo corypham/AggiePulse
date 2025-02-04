@@ -10,16 +10,20 @@ import { useRouter } from "expo-router";
 import MapView, { Region } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { QuickFilterBar } from '../../components/QuickFilterBar';
+import { useLocations } from '../../hooks/useLocations';
+import { useFilters } from '../../context/FilterContext';
 
 export default function HomeScreen() {
   const router = useRouter();
   const mapRef = useRef<MapView | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const [isMapCentered, setIsMapCentered] = useState(false);
   const userLocation = useRef<{ latitude: number; longitude: number } | null>(null);
   const isAnimating = useRef(false);
   const isNavigatingToUser = useRef(false);
+
+  const { selectedFilters } = useFilters();
+  const { locations, loading, error } = useLocations(selectedFilters);
 
   const handleMarkerPress = (location: LocationType) => {
     console.log('Selected location:', location);
@@ -81,20 +85,12 @@ export default function HomeScreen() {
     setIsMapCentered(isCentered);
   }, []);
 
-  const handleFilterChange = (filterId: string) => {
-    setSelectedFilters(prev => {
-      if (prev.includes(filterId)) {
-        return prev.filter(id => id !== filterId);
-      }
-      return [...prev, filterId];
-    });
-  };
-
   return (
     <View className="flex-1" style={{ backgroundColor: 'transparent' }}>
       <CustomMapView 
         ref={mapRef}
         selectedFilters={selectedFilters}
+        locations={locations}
         onMarkerPress={handleMarkerPress}
         onRegionChange={handleMapMovement}
         onRegionChangeComplete={handleMapMovement}
@@ -106,13 +102,12 @@ export default function HomeScreen() {
           onClear={() => setSearchQuery('')}
           onFilterPress={handleFilterPress}
         />
-        <QuickFilterBar
-          selectedFilters={selectedFilters}
-          onFilterChange={handleFilterChange}
-        />
+        <QuickFilterBar />
       </View>
       <FacilityList 
-        facilitiesCount={10} 
+        locations={locations}
+        loading={loading}
+        error={error}
         onLocationPress={handleLocationPress}
         isMapCentered={isMapCentered}
       />
