@@ -35,9 +35,12 @@ interface CardProps {
   location: Location;
 }
 
-const Card: React.FC<CardProps> = ({ location }) => {
+const Card = React.memo(({ location }: CardProps) => {
   const { isFavorite, toggleFavorite } = useFavorites();
-  const StatusIcon = getStatusIcon(location.currentStatus);
+  const StatusIcon = React.useMemo(() => 
+    getStatusIcon(location.status), 
+    [location.status]
+  );
   
   // Get card height based on device size
   const cardHeight = DEVICE.isSmallDevice 
@@ -140,6 +143,13 @@ const Card: React.FC<CardProps> = ({ location }) => {
       </View>
     </TouchableOpacity>
   );
-};
+}, (prevProps, nextProps) => {
+  // Only re-render if these properties change
+  return (
+    prevProps.location.id === nextProps.location.id &&
+    prevProps.location.status === nextProps.location.status &&
+    prevProps.location.isOpen === nextProps.location.isOpen
+  );
+});
 
 export default Card;
