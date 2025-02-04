@@ -35,9 +35,9 @@
     <key>CFBundleVersion</key>
     <string>1</string>
     <key>GMSApiKey</key>
-    <string>your_google_maps_api_key_here</string>
+    <string>AIzaSyDVWzOZH-PdI0517aXjpcKnHDubvfwHSF4</string>
     <key>GMSStyleId</key>
-    <string>393ee6733aa5839</string>
+    <string>7c6f8776af6cff7a</string>
     <key>LSMinimumSystemVersion</key>
     <string>12.0</string>
     <key>LSRequiresIPhoneOS</key>
@@ -54,7 +54,7 @@
     <key>NSLocationAlwaysUsageDescription</key>
     <string>Allow $(PRODUCT_NAME) to access your location</string>
     <key>NSLocationWhenInUseUsageDescription</key>
-    <string>Allow $(PRODUCT_NAME) to access your location</string>
+    <string>AggiePulse needs your location to show nearby facilities</string>
     <key>NSUserActivityTypes</key>
     <array>
       <string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>
