@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { View, Text, Dimensions, Platform, StatusBar, Animated, NativeScrollEvent, NativeSyntheticEvent, TouchableOpacity, Image } from 'react-native';
+import { View, Text, Dimensions, Platform, StatusBar, Animated, NativeScrollEvent, NativeSyntheticEvent, TouchableOpacity, Image, ActivityIndicator, StyleSheet } from 'react-native';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
@@ -11,13 +11,17 @@ import { mockLocations } from '../data/mockLocations';
 import { NavVectorSelected, NavVectorUnselected } from '../../assets';
 
 interface FacilityListProps {
-  facilitiesCount: number;
+  locations: LocationType[];
+  loading: boolean;
+  error: string | null;
   onLocationPress?: (location: { latitude: number; longitude: number }) => void;
   isMapCentered?: boolean;
 }
 
-export const FacilityList: React.FC<FacilityListProps> = ({ 
-  facilitiesCount,
+export const FacilityList: React.FC<FacilityListProps> = ({
+  locations,
+  loading,
+  error,
   onLocationPress,
   isMapCentered = false
 }) => {
@@ -232,13 +236,13 @@ export const FacilityList: React.FC<FacilityListProps> = ({
         <View className="w-12 h-1 bg-gray-300 rounded-full mx-auto mb-4" />
         <View className="flex-row items-center justify-center pb-4">
           <Text className="font-aileron-bold text-lg">
-            {Math.min(mockLocations.length, facilitiesCount)}
+            {Math.min(mockLocations.length, locations.length)}
           </Text>
           <Text className="font-aileron-light ml-1 text-lg">Available Facilities</Text>
         </View>
       </View>
     </>
-  ), [facilitiesCount, showNavButton, buttonOpacity, currentIndex, handleLocationPress, isMapCentered]);
+  ), [locations.length, showNavButton, buttonOpacity, currentIndex, handleLocationPress, isMapCentered]);
 
   const renderListHeader = useCallback(() => (
     <>
@@ -269,6 +273,22 @@ export const FacilityList: React.FC<FacilityListProps> = ({
       </Animated.View>
     </>
   ), [headerTranslateY]);
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#3b2dff" />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.errorContainer}>
+        <Text style={styles.errorText}>{error}</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={{ 
@@ -322,7 +342,7 @@ export const FacilityList: React.FC<FacilityListProps> = ({
             flex: 1,
           }}
         >
-          {mockLocations.slice(0, facilitiesCount).map((location) => (
+          {locations.map((location) => (
             <Card
               key={location.id}
               location={location}
@@ -333,5 +353,23 @@ export const FacilityList: React.FC<FacilityListProps> = ({
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  errorText: {
+    color: 'red',
+    textAlign: 'center',
+  },
+});
 
 export default FacilityList;

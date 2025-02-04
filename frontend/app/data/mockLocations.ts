@@ -115,6 +115,12 @@ export const filterCategories: FilterCategory[] = [
     id: 'very-busy',
     label: 'Very Busy',
     type: 'status'
+  },
+  {
+    id: 'new-category',
+    label: 'New Category',
+    type: 'new-category',
+    icon: '🏢'
   }
 ];
 
