@@ -119,12 +119,19 @@ export { default as StudyBlack } from './black-icons/black-study.svg';
 export { default as DiningBlack } from './black-icons/black-food.svg';
 export { default as GymBlack } from './black-icons/black-gym.svg';
 export { default as NotBusyBlack } from './black-icons/black-not-busy.svg';
-
+export { default as ADABlack } from './black-icons/black-ADA-compliant.svg';
+export { default as BrailleBlack } from './black-icons/black-braille.svg';
+export { default as ChargingPortsBlack } from './black-icons/black-charging-ports.svg';
+export { default as ComputerBlack } from './black-icons/black-computer.svg';
+export { default as PrinterBlack } from './black-icons/black-printer.svg';
+export { default as ProjectorBlack } from './black-icons/black-projector.svg';
+export { default as SportsEquipmentBlack } from './black-icons/black-sports-equipment.svg';
+export { default as StudyCagesBlack } from './black-icons/black-study-cages.svg';
+export { default as WheelchairBlack } from './black-icons/black-wheelchair.svg';
+export { default as WhiteboardBlack } from './black-icons/black-whiteboard.svg';
 
 // Selected Quick Filter Icons
 export { default as StudySelected } from './quick-filter-icons/selected-study.svg';
 export { default as DiningSelected } from './quick-filter-icons/selected-dining.svg';
 export { default as GymSelected } from './quick-filter-icons/selected-gym.svg';
 export { default as NotBusySelected } from './quick-filter-icons/selected-not-busy.svg';
-
-
