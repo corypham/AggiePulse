@@ -36,7 +36,7 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ location }) => {
-  const { favorites, toggleFavorite } = useFavorites();
+  const { isFavorite, toggleFavorite } = useFavorites();
   const StatusIcon = getStatusIcon(location.currentStatus);
   
   // Get card height based on device size
@@ -131,8 +131,8 @@ const Card: React.FC<CardProps> = ({ location }) => {
           >
             <Heart 
               size={sizes.heart}
-              color={favorites[location.id] ? "#EF4444" : "#94A3B8"}
-              fill={favorites[location.id] ? "#EF4444" : "transparent"}
+              color={isFavorite(location.id) ? "#EF4444" : "#94A3B8"}
+              fill={isFavorite(location.id) ? "#EF4444" : "transparent"}
               strokeWidth={2}
             />
           </TouchableOpacity>
