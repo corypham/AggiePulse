@@ -1,56 +1,75 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type FavoritesContextType = {
-  favorites: { [key: string]: boolean };
-  toggleFavorite: (id: string) => void;
+  favorites: string[];
+  toggleFavorite: (locationId: string) => void;
+  isFavorite: (locationId: string) => boolean;
 };
 
-const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined);
+// Initialize with default values
+const FavoritesContext = createContext<FavoritesContextType>({
+  favorites: [],
+  toggleFavorite: () => {},
+  isFavorite: () => false,
+});
 
-export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [favorites, setFavorites] = useState<{ [key: string]: boolean }>({});
+export function FavoritesProvider({ children }: { children: React.ReactNode }) {
+  const [favorites, setFavorites] = useState<string[]>([]);
 
+  // Load favorites from storage when component mounts
   useEffect(() => {
     const loadFavorites = async () => {
       try {
         const storedFavorites = await AsyncStorage.getItem('favorites');
         if (storedFavorites) {
-          setFavorites(JSON.parse(storedFavorites));
+          // Convert object to array of keys where value is true
+          const favoritesObj = JSON.parse(storedFavorites);
+          const favoritesArray = Object.keys(favoritesObj).filter(key => favoritesObj[key]);
+          setFavorites(favoritesArray);
         }
       } catch (error) {
-        console.error('Error loading favorites:', error);
       }
     };
-    
     loadFavorites();
   }, []);
 
-  const toggleFavorite = async (id: string) => {
-    const newFavorites = {
-      ...favorites,
-      [id]: !favorites[id]
-    };
-    
-    setFavorites(newFavorites);
-    
+  const toggleFavorite = async (locationId: string) => {
     try {
-      await AsyncStorage.setItem('favorites', JSON.stringify(newFavorites));
+      const newFavorites = favorites.includes(locationId)
+        ? favorites.filter(id => id !== locationId)
+        : [...favorites, locationId];
+      
+      setFavorites(newFavorites);
+      // Store as object for backward compatibility
+      const favoritesObj = Object.fromEntries(
+        newFavorites.map(id => [id, true])
+      );
+      await AsyncStorage.setItem('favorites', JSON.stringify(favoritesObj));
     } catch (error) {
-      console.error('Error saving favorites:', error);
     }
   };
 
+  const isFavorite = (locationId: string): boolean => {
+    return favorites.includes(locationId);
+  };
+
+  const value = {
+    favorites,
+    toggleFavorite,
+    isFavorite
+  };
+
   return (
-    <FavoritesContext.Provider value={{ favorites, toggleFavorite }}>
+    <FavoritesContext.Provider value={value}>
       {children}
     </FavoritesContext.Provider>
   );
-};
+}
 
 export const useFavorites = () => {
   const context = useContext(FavoritesContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useFavorites must be used within a FavoritesProvider');
   }
   return context;
