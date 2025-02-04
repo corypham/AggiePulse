@@ -1,25 +1,15 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 import { QuickFilterButton } from './QuickFilterButton';
+import { filterCategories } from '../data/mockLocations'; // Import filter categories
+import { useFilters } from '../context/FilterContext';
 
-interface QuickFilter {
-  id: 'study' | 'dining' | 'gym' | 'not_busy';
-  label: string;
-}
+export function QuickFilterBar() {
+  const { selectedFilters, toggleFilter } = useFilters();
+  
+  // Only show main categories (not status filters)
+  const mainFilters = filterCategories.filter(filter => filter.type !== 'status');
 
-const QUICK_FILTERS: QuickFilter[] = [
-  { id: 'study', label: 'Study' },
-  { id: 'dining', label: 'Dining' },
-  { id: 'gym', label: 'Gym' },
-  { id: 'not_busy', label: 'Not Busy' },
-];
-
-interface QuickFilterBarProps {
-  selectedFilters: string[];
-  onFilterChange: (filterId: QuickFilter['id']) => void;
-}
-
-export function QuickFilterBar({ selectedFilters, onFilterChange }: QuickFilterBarProps) {
   return (
     <View className="w-full py-1">
       <ScrollView
@@ -28,13 +18,13 @@ export function QuickFilterBar({ selectedFilters, onFilterChange }: QuickFilterB
         className="pl-2"
         contentContainerStyle={{ paddingVertical: 6 }}
       >
-        {QUICK_FILTERS.map((filter) => (
+        {mainFilters.map((filter) => (
           <QuickFilterButton
             key={filter.id}
             label={filter.label}
             type={filter.id}
             isSelected={selectedFilters.includes(filter.id)}
-            onPress={() => onFilterChange(filter.id)}
+            onPress={() => toggleFilter(filter.id)}
           />
         ))}
       </ScrollView>
