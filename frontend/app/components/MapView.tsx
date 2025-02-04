@@ -38,12 +38,6 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
     android: GOOGLE_MAPS_STYLE_ID_ANDROID,
   });
 
-  // Debug log to verify the Map ID
-  // console.log('Current Platform:', Platform.OS);
-  // console.log('Selected Map ID:', mapId);
-  // console.log('iOS Map ID:', GOOGLE_MAPS_STYLE_ID_IOS);
-  // console.log('Android Map ID:', GOOGLE_MAPS_STYLE_ID_ANDROID);
-
   useEffect(() => {
     const getUserLocation = async () => {
       try {
@@ -66,7 +60,6 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
         
         setHasLocationPermission(true);
       } catch (error) {
-        console.error('Error getting location:', error);
       }
     };
 

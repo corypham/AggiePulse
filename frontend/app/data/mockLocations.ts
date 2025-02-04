@@ -60,7 +60,7 @@ export const mockLocations: Location[] = [
     currentStatus: 'Fairly Busy',
     closingTime: '7:00 PM',
     distance: 0.2,
-    type: ['dining'],
+    type: ['dining', 'study'],
     title: 'Silo Market'
   },
   {
@@ -87,44 +87,6 @@ export const mockLocations: Location[] = [
   // Add more locations as needed
 ];
 
-export const filterCategories: FilterCategory[] = [
-  {
-    id: 'study',
-    label: 'Study',
-    type: 'study',
-    icon: '📚'  // We can replace these with actual icon components later
-  },
-  {
-    id: 'gym',
-    label: 'Gym',
-    type: 'gym',
-    icon: '💪'
-  },
-  {
-    id: 'dining',
-    label: 'Dining',
-    type: 'dining',
-    icon: '🍽️'
-  },
-  {
-    id: 'not-busy',
-    label: 'Not Busy',
-    type: 'status'
-  },
-  {
-    id: 'very-busy',
-    label: 'Very Busy',
-    type: 'status'
-  },
-  {
-    id: 'new-category',
-    label: 'New Category',
-    type: 'new-category',
-    icon: '🏢'
-  }
-];
-
 export default {
   mockLocations,
-  filterCategories
 };
