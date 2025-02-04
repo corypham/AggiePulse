@@ -5,6 +5,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { FavoritesProvider } from './context/FavoritesContext';
+import { FilterProvider } from './context/FilterContext';
 import '../global.css';
 
 export default function RootLayout() {
@@ -33,12 +34,14 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <FavoritesProvider>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <SafeAreaProvider>
-          <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: 'transparent' } }} />
-        </SafeAreaProvider>
-      </GestureHandlerRootView>
-    </FavoritesProvider>
+    <FilterProvider>
+      <FavoritesProvider>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <SafeAreaProvider>
+            <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: 'transparent' } }} />
+          </SafeAreaProvider>
+        </GestureHandlerRootView>
+      </FavoritesProvider>
+    </FilterProvider>
   );
 }
