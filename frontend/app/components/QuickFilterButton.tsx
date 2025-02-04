@@ -69,7 +69,7 @@ export function QuickFilterButton({
       <TouchableOpacity
         onPress={onPress}
         onLongPress={onLongPress}
-        delayLongPress={2000}
+        delayLongPress={1000}
         style={[{
           shadowColor: '#000',
           shadowOffset: {
