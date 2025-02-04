@@ -1,0 +1,59 @@
+import React from 'react';
+import { TouchableOpacity, Text, View } from 'react-native';
+import { StudyBlack, DiningBlack, GymBlack, NotBusyBlack, StudySelected, DiningSelected, GymSelected, NotBusySelected } from '../../assets';
+
+interface QuickFilterButtonProps {
+  label: string;
+  type: 'study' | 'dining' | 'gym' | 'not_busy';
+  isSelected: boolean;
+  onPress: () => void;
+}
+
+export function QuickFilterButton({ label, type, isSelected, onPress }: QuickFilterButtonProps) {
+  const getIcon = () => {
+    switch (type) {
+      case 'study':
+        return isSelected ? <StudySelected width={16} height={16} /> : <StudyBlack width={16} height={16} />;
+      case 'dining':
+        return isSelected ? <DiningSelected width={16} height={16} /> : <DiningBlack width={16} height={16} />;
+      case 'gym':
+        return isSelected ? <GymSelected width={16} height={16} /> : <GymBlack width={16} height={16} />;
+      case 'not_busy':
+        return isSelected ? <NotBusySelected width={16} height={16} /> : <NotBusyBlack width={16} height={16} />;
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <View className="px-1.5">
+      <TouchableOpacity
+        onPress={onPress}
+        style={{
+          shadowColor: '#000',
+          shadowOffset: {
+            width: 0,
+            height: 1,
+          },
+          shadowOpacity: 0.2,
+          shadowRadius: 2,
+          elevation: 3, // for Android
+          borderWidth: 1.5, // Always have border width
+          borderColor: isSelected ? '#3b2dff' : 'transparent', // Only show border color when selected
+        }}
+        className={`flex-row items-center px-3 py-[8px] rounded-full ${
+          isSelected ? 'bg-[#f0f6ff]' : 'bg-white'
+        }`}
+      >
+        {getIcon()}
+        <Text
+          className={`ml-2 ${
+            isSelected ? 'text-[#3b2dff]' : 'text-black'
+          }`}
+        >
+          {label}
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
