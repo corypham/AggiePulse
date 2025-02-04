@@ -22,8 +22,6 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
   onRegionChange,
   onRegionChangeComplete
 }, ref) => {
-  console.log('MapView rendering');
-  console.log("API KEY: ", GOOGLE_MAPS_API_KEY_IOS);
   const [userLocation, setUserLocation] = useState<{ latitude: number; longitude: number } | null>(null);
   const [mapError, setMapError] = useState<string | null>(null);
   const [hasLocationPermission, setHasLocationPermission] = useState(false);
@@ -37,21 +35,14 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
     const getUserLocation = async () => {
       try {
         const { status } = await Location.requestForegroundPermissionsAsync();
-        console.log('Location permission status:', status);
-        if (status !== 'granted') {
-          console.log('Permission denied');
-          return;
-        }
 
         const location = await Location.getCurrentPositionAsync({});
-        console.log('Got user location:', location);
         setUserLocation({
           latitude: location.coords.latitude,
           longitude: location.coords.longitude
         });
         setHasLocationPermission(true);
       } catch (error) {
-        console.error('Error getting user location:', error);
       }
     };
 
@@ -80,11 +71,6 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
         onRegionChange={onRegionChange}
         onRegionChangeComplete={onRegionChangeComplete}
         onMapLoaded={() => {
-          console.log('Map loaded successfully');
-        }}
-        onError={(error) => {
-          console.error('Map error:', error.nativeEvent);
-          setMapError(error.nativeEvent.message);
         }}
         googleMapId={GOOGLE_MAPS_STYLE_ID}
       >
