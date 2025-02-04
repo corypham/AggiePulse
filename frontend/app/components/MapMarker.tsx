@@ -1,12 +1,12 @@
 // Path: frontend/components/MapMarker.tsx
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Marker, Callout } from 'react-native-maps';
 import { Image } from 'react-native';
 import { useRouter } from 'expo-router';
-import { MiniCard } from '@/app/components/MiniCard';
-import type { Location } from '@/app/types/location';
-import { useFavorites } from '@/app/context/FavoritesContext';
+import { MiniCard } from './MiniCard';
+import type { Location } from '../types/location';
+import { useFavorites } from '../context/FavoritesContext';
 import {
   // Regular pins
   PinStudyNotBusy,
@@ -42,7 +42,6 @@ export function MapMarker({ location, onPress }: MapMarkerProps) {
   const router = useRouter();
   const { isFavorite } = useFavorites();
   const isLocationFavorite = isFavorite(location.id);
-  const [isCalloutVisible, setIsCalloutVisible] = useState(false);
 
   const getPin = () => {
     const type = location.type;
@@ -115,7 +114,6 @@ export function MapMarker({ location, onPress }: MapMarkerProps) {
   };
 
   const handleMarkerPress = () => {
-    setIsCalloutVisible(true);
     if (onPress) onPress();
   };
 
@@ -126,6 +124,7 @@ export function MapMarker({ location, onPress }: MapMarkerProps) {
         longitude: location.coordinates.longitude
       }}
       onPress={handleMarkerPress}
+      tracksViewChanges={false}
     >
       {getPin()}
       <Callout
@@ -136,7 +135,7 @@ export function MapMarker({ location, onPress }: MapMarkerProps) {
           borderWidth: 0,
         }}
       >
-        <MiniCard location={location} visible={isCalloutVisible} />
+        <MiniCard location={location} />
       </Callout>
     </Marker>
   );

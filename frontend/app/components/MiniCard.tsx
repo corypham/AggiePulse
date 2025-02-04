@@ -6,21 +6,29 @@ import type { Location } from '@/app/types/location';
 
 interface MiniCardProps {
   location: Location;
-  visible?: boolean;
 }
 
-export function MiniCard({ location, visible = true }: MiniCardProps) {
+export function MiniCard({ location }: MiniCardProps) {
   const StatusIcon = getStatusIcon(location.status);
-  const fadeAnim = new Animated.Value(0);
+  const fadeAnim = React.useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    Animated.spring(fadeAnim, {
-      toValue: visible ? 1 : 0,
-      useNativeDriver: true,
-      tension: 50,
-      friction: 7
-    }).start();
-  }, [visible]);
+    // Start with a slight delay to ensure the callout is fully rendered
+    setTimeout(() => {
+      Animated.spring(fadeAnim, {
+        toValue: 1,
+        useNativeDriver: true,
+        tension: 40,  // Reduced tension for slower animation
+        friction: 8,  // Adjusted friction for smoother movement
+        velocity: 0.5 // Reduced initial velocity
+      }).start();
+    }, 100);
+
+    return () => {
+      // Reset animation when unmounted
+      fadeAnim.setValue(0);
+    };
+  }, []);
 
   return (
     <Animated.View style={{
@@ -28,7 +36,7 @@ export function MiniCard({ location, visible = true }: MiniCardProps) {
       transform: [{
         scale: fadeAnim.interpolate({
           inputRange: [0, 1],
-          outputRange: [0.8, 1]
+          outputRange: [0.7, 1]  // Start from smaller scale for more noticeable animation
         })
       }]
     }}>
