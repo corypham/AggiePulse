@@ -10,6 +10,7 @@ import type { Location as LocationType } from '../types/location';
 import { GOOGLE_MAPS_API_KEY_IOS, GOOGLE_MAPS_API_KEY_ANDROID, GOOGLE_MAPS_STYLE_ID_IOS, GOOGLE_MAPS_STYLE_ID_ANDROID } from '@env';
 
 interface CustomMapViewProps {
+  locations: LocationType[];
   selectedFilters: string[];
   onMarkerPress?: (location: LocationType) => void;
   onRegionChange?: (region: Region) => void;
@@ -17,6 +18,7 @@ interface CustomMapViewProps {
 }
 
 export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
+  locations,
   selectedFilters = [],
   onMarkerPress,
   onRegionChange,
@@ -75,8 +77,8 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
   const initialRegion = {
     latitude: 38.5382,
     longitude: -121.7617,
-    latitudeDelta: 0.0422,
-    longitudeDelta: 0.0221,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
   };
 
   return (
@@ -131,7 +133,13 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
         onRegionChange={onRegionChange}
         onRegionChangeComplete={onRegionChangeComplete}
       >
-        {/* Removed the default Marker component */}
+        {locations.map((location) => (
+          <MapMarker
+            key={location.id}
+            location={location}
+            onPress={() => onMarkerPress?.(location)}
+          />
+        ))}
       </MapView>
       <LinearGradient
         colors={['rgb(255,255,255)', 'rgba(255,255,255,1)', 'rgba(255,255,255,0.05)', 'transparent' ]}
