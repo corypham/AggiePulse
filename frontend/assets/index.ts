@@ -63,30 +63,34 @@ export { default as StudyWhite } from './white-icons/DLP-Icon-StudyShortcuts&Tip
 export { default as GamesWhite } from './white-icons/DLP-Icon-GamesShortcuts&Tips.svg';
 export { default as VectorWhite } from './white-icons/VectorShortcuts&Tips.svg';
 
-// Map Pins
-export { default as FairyBusy1 } from './map-pins/Property 1=Fairy_Busy-1.svg';
-export { default as FairyBusy2 } from './map-pins/Property 1=Fairy_Busy-2.svg';
-export { default as FairyBusy } from './map-pins/Property 1=Fairy_Busy.svg';
-export { default as NoInfoAvail1 } from './map-pins/Property 1=No_Info_Avail-1.svg';
-export { default as NoInfoAvail2 } from './map-pins/Property 1=No_Info_Avail-2.svg';
-export { default as NoInfoAvail } from './map-pins/Property 1=No_Info_Avail.svg';
-export { default as NotBusy1 } from './map-pins/Property 1=Not Busy-1.svg';
-export { default as NotBusy2 } from './map-pins/Property 1=Not Busy-2.svg';
-export { default as NotBusy } from './map-pins/Property 1=Not Busy.svg';
-export { default as VeryBusy1 } from './map-pins/Property 1=Very_Busy-1.svg';
-export { default as VeryBusy2 } from './map-pins/Property 1=Very_Busy-2.svg';
-export { default as VeryBusy } from './map-pins/Property 1=Very_Busy.svg';
-export { default as FavoriteVeryBusyStudy} from './map-pins/pin-favorite-study-verybusy.svg';
-export { default as FavoriteFairlyBusyStudy} from './map-pins/pin-favorite-study-fairlybusy.svg';
-export { default as FavoriteNotBusyStudy} from './map-pins/pin-favorite-study-notbusy.svg';
-export { default as FavoriteVeryBusyFood} from './map-pins/pin-favorite-food-verybusy.svg';
-export { default as FavoriteFairlyBusyFood} from './map-pins/pin-favorite-food-fairlybusy.svg';
-export { default as FavoriteNotBusyFood} from './map-pins/pin-favorite-food-notbusy.svg';
-export { default as FavoriteVeryBusyGym} from './map-pins/pin-favorite-gym-verybusy.svg';
-export { default as FavoriteFairlyBusyGym} from './map-pins/pin-favorite-gym-fairlybusy.svg';
-export { default as FavoriteNotBusyGym} from './map-pins/pin-favorite-gym-notbusy.svg';
+// Map Pins - Regular
+export { default as PinFoodFairlyBusy } from './map-pins/pin-food-fairlybusy.svg';
+export { default as PinFoodNotBusy } from './map-pins/pin-food-notbusy.svg';
+export { default as PinFoodVeryBusy } from './map-pins/pin-food-verybusy.svg';
+export { default as PinFoodNoInfo } from './map-pins/pin-food-noinfo.svg';
 
+export { default as PinGymFairlyBusy } from './map-pins/pin-gym-fairlybusy.svg';
+export { default as PinGymNotBusy } from './map-pins/pin-gym-notbusy.svg';
+export { default as PinGymVeryBusy } from './map-pins/pin-gym-verybusy.svg';
+export { default as PinGymNoInfo } from './map-pins/pin-gym-noinfo.svg';
 
+export { default as PinStudyFairlyBusy } from './map-pins/pin-study-fairlybusy.svg';
+export { default as PinStudyNotBusy } from './map-pins/pin-study-notbusy.svg';
+export { default as PinStudyVeryBusy } from './map-pins/pin-study-verybusy.svg';
+export { default as PinStudyNoInfo } from './map-pins/pin-study-noinfo.svg';
+
+// Map Pins - Favorites
+export { default as PinFavoriteFoodFairlyBusy } from './map-pins/pin-favorite-food-fairlybusy.svg';
+export { default as PinFavoriteFoodNotBusy } from './map-pins/pin-favorite-food-notbusy.svg';
+export { default as PinFavoriteFoodVeryBusy } from './map-pins/pin-favorite-food-verybusy.svg';
+
+export { default as PinFavoriteGymFairlyBusy } from './map-pins/pin-favorite-gym-fairlybusy.svg.svg';
+export { default as PinFavoriteGymNotBusy } from './map-pins/pin-favorite-gym-notbusy.svg';
+export { default as PinFavoriteGymVeryBusy } from './map-pins/pin-favorite-gym-verybusy.svg';
+
+export { default as PinFavoriteStudyFairlyBusy } from './map-pins/pin-favorite-study-fairlybusy.svg';
+export { default as PinFavoriteStudyNotBusy } from './map-pins/pin-favorite-study-notbusy.svg';
+export { default as PinFavoriteStudyVeryBusy } from './map-pins/pin-favorite-study-verybusy.svg';
 
 // Detailed Card Assets
 export { default as BackArrow } from './detailed-card-assets/Backarrow.svg';
@@ -135,3 +139,43 @@ export { default as StudySelected } from './quick-filter-icons/selected-study.sv
 export { default as DiningSelected } from './quick-filter-icons/selected-dining.svg';
 export { default as GymSelected } from './quick-filter-icons/selected-gym.svg';
 export { default as NotBusySelected } from './quick-filter-icons/selected-not-busy.svg';
+export { default as ADACompliantSelected } from './quick-filter-icons/selected-ADA-Compliant.svg';
+export { default as BrailleSignageSelected } from './quick-filter-icons/selected-Braille-Signage.svg';
+export { default as ChargingPortsSelected } from './quick-filter-icons/selected-Charging-Ports.svg';
+export { default as ComputersSelected } from './quick-filter-icons/selected-Computers.svg';
+export { default as FastWIFISelected } from './quick-filter-icons/selected-Fast-WIFI.svg';
+export { default as FoodSelected } from './quick-filter-icons/selected-Food.svg';
+export { default as ModeratelyBusySelected } from './quick-filter-icons/selected-moderately-busy.svg';
+export { default as PrinterSelected } from './quick-filter-icons/selected-Printer.svg';
+export { default as ProjectorSelected } from './quick-filter-icons/selected-Projector.svg';
+export { default as SortEquipentSelected } from './quick-filter-icons/selected-Sort-Equipent.svg';
+export { default as StudyCagesSelected } from './quick-filter-icons/selected-Study-Cages.svg';
+export { default as StudyRoomsSelected } from './quick-filter-icons/selected-Study-Rooms.svg';
+export { default as VeryBusySelected } from './quick-filter-icons/selected-very-busy.svg';
+export { default as WhiteboardsSelected } from './quick-filter-icons/selected-Whiteboards.svg';
+export { default as WorkTablesSelected } from './quick-filter-icons/selected-Work-Tables.svg';
+
+// Unselected Quick Filter Icons
+export { default as ADACompliantUnselected } from './quick-filter-icons/unselected-ADA-compliant.svg';
+export { default as BrailleSignageUnselected } from './quick-filter-icons/unselected-braille-signage.svg';
+export { default as ChargingPortsUnselected } from './quick-filter-icons/unselected-charging-ports.svg';
+export { default as ComputersUnselected } from './quick-filter-icons/unselected-computers.svg';
+export { default as DiningUnselected } from './quick-filter-icons/unselected-dining.svg';
+export { default as FastWIFIUnselected } from './quick-filter-icons/unselected-fast-WIFI.svg';
+export { default as FoodUnselected } from './quick-filter-icons/unselected-food.svg';
+export { default as GymUnselected } from './quick-filter-icons/unselected-gym.svg';
+export { default as ModeratelyBusyUnselected } from './quick-filter-icons/unselected-moderately-busy.svg';
+export { default as NotBusyUnselected } from './quick-filter-icons/unselected-not-busy.svg';
+export { default as PrinterUnselected } from './quick-filter-icons/unselected-printer.svg';
+export { default as ProjectorUnselected } from './quick-filter-icons/unselected-projector.svg';
+export { default as SportsEquipmentUnselected } from './quick-filter-icons/unselected-sports-equipment.svg';
+export { default as StudyCagesUnselected } from './quick-filter-icons/unselected-study-cages.svg';
+export { default as StudyRoomsUnselected } from './quick-filter-icons/unselected-study-rooms.svg';
+export { default as StudyUnselected } from './quick-filter-icons/unselected-study.svg';
+export { default as VeryBusyUnselected } from './quick-filter-icons/unselected-very-busy.svg';
+export { default as WheelchairAccessibleUnselected } from './quick-filter-icons/unselected-wheelchair-accessible.svg';
+export { default as WhiteboardsUnselected } from './quick-filter-icons/unselected-whiteboards.svg';
+export { default as WorkTablesUnselected } from './quick-filter-icons/unselected-work-tables.svg';
+
+// White Customize Quick Filter Icon
+export { default as WhiteCustomizeQuickFilter } from './quick-filter-icons/white-customize-quick-filter.svg';

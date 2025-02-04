@@ -1,14 +1,27 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
+import { useRouter } from 'expo-router';
 import { QuickFilterButton } from './QuickFilterButton';
-import { filterCategories } from '../data/mockLocations'; // Import filter categories
+import { filterCategories } from '../config/filterConfig';
 import { useFilters } from '../context/FilterContext';
+import { WhiteCustomizeQuickFilter } from '../../assets';
 
 export function QuickFilterBar() {
-  const { selectedFilters, toggleFilter } = useFilters();
+  const { selectedFilters, quickFilterPreferences, toggleFilter, clearFilters } = useFilters();
+  const router = useRouter();
   
-  // Only show main categories (not status filters)
-  const mainFilters = filterCategories.filter(filter => filter.type !== 'status');
+  // Only show preferred filters
+  const mainFilters = filterCategories.filter(filter => 
+    quickFilterPreferences.includes(filter.id)
+  );
+
+  const handleLongPress = () => {
+    clearFilters();
+  };
+
+  const handleEditPress = () => {
+    router.push('../screens/QuickFilterPage');
+  };
 
   return (
     <View className="w-full py-1">
@@ -25,8 +38,22 @@ export function QuickFilterBar() {
             type={filter.id}
             isSelected={selectedFilters.includes(filter.id)}
             onPress={() => toggleFilter(filter.id)}
+            onLongPress={handleLongPress}
           />
         ))}
+        <QuickFilterButton
+          label="Edit"
+          type="edit"
+          isSelected={false}
+          onPress={handleEditPress}
+          customIcon={<WhiteCustomizeQuickFilter width={16} height={16} />}
+          customStyle={{
+            backgroundColor: '#000000',
+          }}
+          customTextStyle={{
+            color: '#FFFFFF'
+          }}
+        />
       </ScrollView>
     </View>
   );
