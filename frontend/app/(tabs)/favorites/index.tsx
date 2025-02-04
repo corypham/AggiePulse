@@ -1,15 +1,15 @@
 import { View, Text, SafeAreaView, ScrollView } from "react-native";
-import { Card } from "../../components";
+import { Card } from "@/app/components";
 import React from "react";
-import { useFavorites } from '../../context/FavoritesContext';
-import { mockLocations } from '../../data/mockLocations';
-import type { Location } from '../../types/location';
+import { useFavorites } from '@/app/context/FavoritesContext';
+import { mockLocations } from '@/app/data/mockLocations';
+import type { Location } from '@/app/types/location';
 
 const FavoritesScreen = () => {
-  const { favorites } = useFavorites();
+  const { favorites, isFavorite } = useFavorites();
 
   // Filter locations to show only favorited ones
-  const favoritedLocations = mockLocations.filter(location => favorites[location.id]);
+  const favoritedLocations = mockLocations.filter(location => isFavorite(location.id));
 
   return (
     <SafeAreaView className="flex-1 bg-background">
