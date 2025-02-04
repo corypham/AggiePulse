@@ -116,7 +116,7 @@ export { default as NotBusyStatus } from './busyness-icons/Property 1=Not_Busy.s
 
 // Black Icons
 export { default as StudyBlack } from './black-icons/black-study.svg';
-export { default as DiningBlack } from './black-icons/black-food.svg';
+export { default as DiningBlack } from './black-icons/black-dining.svg';
 export { default as GymBlack } from './black-icons/black-gym.svg';
 export { default as NotBusyBlack } from './black-icons/black-not-busy.svg';
 export { default as ADABlack } from './black-icons/black-ADA-compliant.svg';
