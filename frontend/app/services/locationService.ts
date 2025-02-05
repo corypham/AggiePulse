@@ -12,16 +12,11 @@ export const LocationService = {
   // Get all locations (will be API-based later)
   getAllLocations: async (): Promise<Location[]> => {
     try {
-      // TODO: Replace with actual API call
-      // const response = await fetch(`${API_BASE_URL}/locations`);
-      // return response.json();
-      
       // Currently using mock data
       await new Promise(resolve => setTimeout(resolve, 500));
       return mockLocations;
     } catch (error) {
-      console.error('Error fetching locations:', error);
-      throw error;
+      throw new Error('Failed to fetch locations');
     }
   },
 
@@ -31,17 +26,12 @@ export const LocationService = {
     lastUpdated: string;
   }> => {
     try {
-      // TODO: Replace with actual API call
-      // return fetch(`${API_BASE_URL}/locations/${locationId}/meters`);
-      
-      // Mock response for now
       return {
         occupancy: Math.floor(Math.random() * 100),
         lastUpdated: new Date().toISOString()
       };
     } catch (error) {
-      console.error('Error fetching business meters:', error);
-      throw error;
+      throw new Error('Failed to fetch business meters');
     }
   },
 
@@ -52,16 +42,11 @@ export const LocationService = {
     schedule: Record<string, { open: string; close: string }>;
   }> => {
     try {
-      // TODO: Replace with actual API call
-      // return fetch(`${API_BASE_URL}/locations/${locationId}/hours`);
-      
-      // Mock response for now
       const location = mockLocations.find(loc => loc.id === locationId);
       return {
         isOpen: location?.isOpen ?? false,
         closingTime: location?.closingTime ?? '',
         schedule: {
-          // Mock weekly schedule
           monday: { open: '7:00', close: '23:00' },
           tuesday: { open: '7:00', close: '23:00' },
           wednesday: { open: '7:00', close: '23:00' },
@@ -72,8 +57,7 @@ export const LocationService = {
         }
       };
     } catch (error) {
-      console.error('Error fetching operating hours:', error);
-      throw error;
+      throw new Error('Failed to fetch operating hours');
     }
   },
 
@@ -102,14 +86,9 @@ export const LocationService = {
   // Get a single location by ID
   getLocationById: async (id: string): Promise<Location | undefined> => {
     try {
-      // TODO: Replace with actual API call
-      // const response = await fetch(`${API_BASE_URL}/locations/${id}`);
-      // return response.json();
-      
       return mockLocations.find(location => location.id === id);
     } catch (error) {
-      console.error('Error fetching location:', error);
-      throw error;
+      throw new Error('Failed to fetch location');
     }
   }
 };

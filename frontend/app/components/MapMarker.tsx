@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Marker, Callout } from 'react-native-maps';
-import { Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import { MiniCard } from './MiniCard';
 import type { Location } from '../types/location';
@@ -35,7 +34,7 @@ import {
 
 interface MapMarkerProps {
   location: Location;
-  onPress?: () => void;
+  onPress?: (location: Location) => void;
 }
 
 export function MapMarker({ location, onPress }: MapMarkerProps) {
@@ -45,7 +44,7 @@ export function MapMarker({ location, onPress }: MapMarkerProps) {
 
   const getPin = () => {
     const type = location.type;
-    const status = location.status || 'No Info';
+    const status = location.currentStatus || 'No Info';
     let PinComponent;
 
     if (isLocationFavorite) {
@@ -114,8 +113,11 @@ export function MapMarker({ location, onPress }: MapMarkerProps) {
   };
 
   const handleMarkerPress = () => {
-    if (onPress) onPress();
+    if (onPress) onPress(location);
   };
+
+  // Get pin based on current state
+  const pin = getPin();
 
   return (
     <Marker
@@ -124,9 +126,9 @@ export function MapMarker({ location, onPress }: MapMarkerProps) {
         longitude: location.coordinates.longitude
       }}
       onPress={handleMarkerPress}
-      tracksViewChanges={false}
+      tracksViewChanges={true}
     >
-      {getPin()}
+      {pin}
       <Callout
         onPress={handleCalloutPress}
         tooltip={true}
