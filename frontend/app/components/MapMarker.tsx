@@ -1,6 +1,6 @@
 // Path: frontend/components/MapMarker.tsx
 
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Marker, Callout } from 'react-native-maps';
 import { useRouter } from 'expo-router';
 import { MiniCard } from './MiniCard';
@@ -31,6 +31,7 @@ import {
   PinFavoriteFoodFairlyBusy,
   PinFavoriteFoodVeryBusy,
 } from '../../assets';
+import EventEmitter from '../_utils/EventEmitter';
 
 interface MapMarkerProps {
   location: Location;
@@ -41,6 +42,20 @@ export function MapMarker({ location, onPress }: MapMarkerProps) {
   const router = useRouter();
   const { isFavorite } = useFavorites();
   const isLocationFavorite = isFavorite(location.id);
+  const markerRef = useRef(null);
+
+  useEffect(() => {
+    const subscription = EventEmitter.addListener('resetHomeScreen', () => {
+      // Hide callout when reset event is fired
+      if (markerRef.current) {
+        (markerRef.current as any).hideCallout();
+      }
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   const getPin = () => {
     const type = location.type;
@@ -121,12 +136,13 @@ export function MapMarker({ location, onPress }: MapMarkerProps) {
 
   return (
     <Marker
+      ref={markerRef}
       coordinate={{
         latitude: location.coordinates.latitude,
         longitude: location.coordinates.longitude
       }}
       onPress={handleMarkerPress}
-      tracksViewChanges={true}
+      tracksViewChanges={false}
     >
       {pin}
       <Callout
