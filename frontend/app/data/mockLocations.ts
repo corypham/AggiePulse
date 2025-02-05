@@ -36,7 +36,7 @@ import {
   DiningUnselected,
 } from '../../assets';
 
-export const mockLocations: Location[] = [
+export const getInitialMockLocations = (): Location[] => [
   {
     id: '1',
     name: 'Peter J. Shields Library',
@@ -125,7 +125,7 @@ export const mockLocations: Location[] = [
       longitude: -121.75904
     },
     imageUrl: ArcDetailedCard,
-    isOpen: true,
+    isOpen: false,
     hours: {
       main: {
         open: '6:00 AM',
@@ -347,6 +347,9 @@ export const mockLocations: Location[] = [
   // Add more locations as needed
 ];
 
+export const mockLocations = getInitialMockLocations();
+
 export default {
   mockLocations,
+  getInitialMockLocations,
 };
