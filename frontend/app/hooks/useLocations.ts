@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Location } from '../types/location';
 import { LocationService } from '../services/locationService';
 
@@ -7,6 +7,7 @@ export const useLocations = (selectedFilters: string[] = []) => {
   const [filteredLocations, setFilteredLocations] = useState<Location[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [updateTrigger, setUpdateTrigger] = useState(0);
 
   // Fetch locations
   useEffect(() => {
@@ -22,7 +23,7 @@ export const useLocations = (selectedFilters: string[] = []) => {
     };
 
     fetchLocations();
-  }, []);
+  }, [updateTrigger]);
 
   // Filter locations based on selected filters
   useEffect(() => {
@@ -54,16 +55,7 @@ export const useLocations = (selectedFilters: string[] = []) => {
     loading,
     error,
     refreshLocations: () => {
-      setLoading(true);
-      LocationService.getAllLocations()
-        .then(data => {
-          setLocations(data);
-          setLoading(false);
-        })
-        .catch(err => {
-          console.error('Error refreshing locations:', err);
-          setLoading(false);
-        });
+      setUpdateTrigger(prev => prev + 1);
     }
   };
 }; 

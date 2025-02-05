@@ -6,6 +6,7 @@ import type { Location } from '../types/location';
 import { useFavorites } from '../context/FavoritesContext';
 import { getStatusIcon } from '../_utils/statusIcons';
 import { DEVICE, CARD } from '../constants/_layout';
+import { getLocationStatus } from '@/app/_utils/locationStatus';
 
 // Calculate sizes based on card height
 const getElementSizes = (cardHeight: number) => ({
@@ -59,6 +60,8 @@ const Card = React.memo(({ location }: CardProps) => {
   const handleFavorite = () => {
     toggleFavorite(location.id);
   };
+
+  const statusInfo = getLocationStatus(location);
  
   return (
     <TouchableOpacity 
@@ -101,18 +104,15 @@ const Card = React.memo(({ location }: CardProps) => {
               {location.title}
             </Text>
             
-            <View 
-              className="flex-row items-center"
-              style={{ marginTop: sizes.spacing.betweenLines }}
-            >
+            <View className="flex-row items-center">
               <Text 
-                className="font-aileron-bold text-open"
+                className={`font-aileron-bold ${statusInfo.colorClass}`}
                 style={{ 
                   fontSize: sizes.status.fontSize,
                   lineHeight: sizes.status.lineHeight,
                 }}
               >
-                Open
+                {statusInfo.statusText}
               </Text>
               <Text 
                 className="font-aileron"
@@ -121,7 +121,7 @@ const Card = React.memo(({ location }: CardProps) => {
                   lineHeight: sizes.status.lineHeight,
                 }}
               >
-                {` until ${location.closingTime} • ${location.distance} mi`}
+                {` ${statusInfo.timeText} • ${location.distance} mi`}
               </Text>
             </View>
           </View>
