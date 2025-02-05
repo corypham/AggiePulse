@@ -1,19 +1,34 @@
 // Path: frontend/services/locationService.ts
 
 import { Location, BusyStatus } from '../types/location';
-import { mockLocations } from '../data/mockLocations';
+import { getInitialMockLocations } from '../data/mockLocations';
 
 // Base API URL - you'll change this later
 const API_BASE_URL = __DEV__ 
   ? 'http://localhost:3000/api'  // Development
   : 'https://your-production-api.com/api'; // Production
 
+// This will be replaced with real API endpoints later
+const API_ENDPOINTS = {
+  getAllLocations: '/locations',
+  getLocationById: (id: string) => `/locations/${id}`,
+  getOperatingHours: (id: string) => `/locations/${id}/hours`,
+  getBusinessMeters: (id: string) => `/locations/${id}/metrics`,
+} as const;
+
 export const LocationService = {
   // Get all locations (will be API-based later)
   getAllLocations: async (): Promise<Location[]> => {
     try {
-      // Remove the delay and just return mock data immediately
-      return mockLocations;
+      // In development, use mock data
+      if (__DEV__) {
+        return getInitialMockLocations();
+      }
+      // In production, this will be replaced with actual API call:
+      // const response = await fetch(API_BASE_URL + API_ENDPOINTS.getAllLocations);
+      // return response.json();
+      
+      return getInitialMockLocations();
     } catch (error) {
       throw new Error('Failed to fetch locations');
     }
@@ -41,7 +56,7 @@ export const LocationService = {
     schedule: Record<string, { open: string; close: string }>;
   }> => {
     try {
-      const location = mockLocations.find(loc => loc.id === locationId);
+      const location = getInitialMockLocations().find(loc => loc.id === locationId);
       return {
         isOpen: location?.isOpen ?? false,
         closingTime: location?.closingTime ?? '',
@@ -63,21 +78,21 @@ export const LocationService = {
   // Search locations (will be API-based later)
   searchLocations: async (query: string): Promise<Location[]> => {
     const searchTerm = query.toLowerCase();
-    return mockLocations.filter(location => 
+    return getInitialMockLocations().filter(location => 
       location.name.toLowerCase().includes(searchTerm)
     );
   },
 
   // Filter locations by type
   filterByType: async (types: string[]): Promise<Location[]> => {
-    return mockLocations.filter(location => 
+    return getInitialMockLocations().filter(location => 
       location.type.some(t => types.includes(t))
     );
   },
 
   // Filter by status
   filterByStatus: async (status: BusyStatus): Promise<Location[]> => {
-    return mockLocations.filter(location => 
+    return getInitialMockLocations().filter(location => 
       location.currentStatus === status
     );
   },
@@ -85,7 +100,8 @@ export const LocationService = {
   // Get a single location by ID
   getLocationById: async (id: string): Promise<Location | undefined> => {
     try {
-      return mockLocations.find(location => location.id === id);
+      // This structure makes it easy to replace with real API call later
+      return getInitialMockLocations().find(location => location.id === id);
     } catch (error) {
       throw new Error('Failed to fetch location');
     }

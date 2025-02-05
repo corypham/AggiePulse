@@ -3,6 +3,7 @@ import { View, Text, Animated } from 'react-native';
 import { formatDistance, formatOpenUntil } from '@/app/_utils/formatters';
 import { getStatusIcon } from '@/app/_utils/statusIcons';
 import type { Location } from '@/app/types/location';
+import { getLocationStatus } from '@/app/_utils/locationStatus';
 
 interface MiniCardProps {
   location: Location;
@@ -11,6 +12,7 @@ interface MiniCardProps {
 export function MiniCard({ location }: MiniCardProps) {
   const StatusIcon = getStatusIcon(location.currentStatus);
   const fadeAnim = React.useRef(new Animated.Value(0)).current;
+  const statusInfo = getLocationStatus(location);
 
   useEffect(() => {
     // Reset animation value
@@ -66,12 +68,12 @@ export function MiniCard({ location }: MiniCardProps) {
                 {location.name}
               </Text>
               <Text className="text-sm text-black" numberOfLines={1}>
-                {location.isOpen ? (
-                  <Text className="text-open font-aileron-bold">Open</Text>
-                ) : (
-                  <Text className="text-closed font-aileron-bold">Closed</Text>
-                )}
-                <Text className="text-sm text-black font-aileron"> until {formatOpenUntil(location.hours.main.close)}</Text>
+                <Text className={`font-aileron-bold ${statusInfo.colorClass}`}>
+                  {statusInfo.statusText}
+                </Text>
+                <Text className="text-sm text-black font-aileron">
+                  {' '}{statusInfo.timeText}
+                </Text>
               </Text>
             </View>
           </View>
