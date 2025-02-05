@@ -6,12 +6,12 @@ import { BackArrow } from '../../assets';
 import { filterCategories } from '../config/filterConfig';
 import { useFilters } from '../context/FilterContext';
 import {
-  StudySelected,
-  DiningSelected,
-  GymSelected,
-  NotBusySelected,
-  VeryBusySelected,
-  ModeratelyBusySelected,
+  StudyWhite,
+  DiningWhite,
+  GymWhite,
+  NotBusyWhite,
+  VeryBusyWhite,
+  FairlyBusyWhite,
   StudyUnselected,
   DiningUnselected,
   GymUnselected,
@@ -28,17 +28,17 @@ export default function QuickFilterPage() {
     if (isSelected) {
       switch (type) {
         case 'study':
-          return <StudySelected width={16} height={16} />;
+          return <StudyWhite width={16} height={16} />;
         case 'dining':
-          return <DiningSelected width={16} height={16} />;
+          return <DiningWhite width={16} height={16} />;
         case 'gym':
-          return <GymSelected width={16} height={16} />;
+          return <GymWhite width={16} height={16} />;
         case 'not-busy':
-          return <NotBusySelected width={16} height={16} />;
+          return <NotBusyWhite width={16} height={16} />;
         case 'very-busy':
-          return <VeryBusySelected width={16} height={16} />;
+          return <VeryBusyWhite width={16} height={16} />;
         case 'fairly-busy':
-          return <ModeratelyBusySelected width={16} height={16} />;
+          return <FairlyBusyWhite width={16} height={16} />;
         default:
           return null;
       }
