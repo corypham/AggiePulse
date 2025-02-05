@@ -8,6 +8,7 @@ import {
   ProfileSelected,
   ProfileUnselected
 } from '../../assets';
+import EventEmitter from '../_utils/EventEmitter';
 
 export const TAB_BAR_HEIGHT = Platform.OS === 'ios' ? 83 : 64;
 interface TabBarProps {
@@ -46,6 +47,21 @@ export default function TabBar({ state, navigation }: TabBarProps) {
     }
   };
 
+  const handlePress = (route: string, isFocused: boolean) => {
+    const event = navigation.emit({
+      type: 'tabPress',
+      target: route,
+      canPreventDefault: true,
+    });
+
+    if (!isFocused && !event.defaultPrevented) {
+      navigation.navigate(route);
+    } else if (isFocused && route === 'home') {
+      // Emit reset event when pressing home while on home screen
+      EventEmitter.emit('resetHomeScreen');
+    }
+  };
+
   return (
     <View className="flex-row justify-around items-center bg-white pt-3 pb-8 border-t border-gray-300"
       style={{ height: TAB_BAR_HEIGHT }}
@@ -53,22 +69,10 @@ export default function TabBar({ state, navigation }: TabBarProps) {
       {state.routes.map((route, index) => {
         const isFocused = state.index === index;
         
-        const onPress = () => {
-          const event = navigation.emit({
-            type: 'tabPress',
-            target: route.key,
-            canPreventDefault: true,
-          });
-
-          if (!isFocused && !event.defaultPrevented) {
-            navigation.navigate(route.name);
-          }
-        };
-
         return (
           <TouchableOpacity
             key={route.key}
-            onPress={onPress}
+            onPress={() => handlePress(route.name, isFocused)}
             className="items-center flex-1"
           >
             {getIcon(route.name, isFocused)}

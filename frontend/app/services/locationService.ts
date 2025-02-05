@@ -12,8 +12,7 @@ export const LocationService = {
   // Get all locations (will be API-based later)
   getAllLocations: async (): Promise<Location[]> => {
     try {
-      // Currently using mock data
-      await new Promise(resolve => setTimeout(resolve, 500));
+      // Remove the delay and just return mock data immediately
       return mockLocations;
     } catch (error) {
       throw new Error('Failed to fetch locations');

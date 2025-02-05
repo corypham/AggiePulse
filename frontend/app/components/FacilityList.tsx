@@ -16,6 +16,7 @@ interface FacilityListProps {
   error: string | null;
   onLocationPress?: (location: { latitude: number; longitude: number }) => void;
   isMapCentered?: boolean;
+  bottomSheetRef?: React.RefObject<BottomSheet>;
 }
 
 export const FacilityList: React.FC<FacilityListProps> = ({
@@ -23,9 +24,9 @@ export const FacilityList: React.FC<FacilityListProps> = ({
   loading,
   error,
   onLocationPress,
-  isMapCentered = false
+  isMapCentered = false,
+  bottomSheetRef
 }) => {
-  const bottomSheetRef = useRef<BottomSheet>(null);
   const { height: screenHeight } = Dimensions.get('window');
   const lastScrollY = useRef(0);
   const [headerVisible, setHeaderVisible] = useState(true);
@@ -51,6 +52,10 @@ export const FacilityList: React.FC<FacilityListProps> = ({
   const SCROLL_THRESHOLD = 70;
   
   const { favorites, toggleFavorite } = useFavorites();
+
+  // Use the passed ref instead of creating a new one
+  const internalRef = useRef<BottomSheet>(null);
+  const actualRef = bottomSheetRef || internalRef;
 
   const handleLocationPress = useCallback(async () => {
     try {
@@ -297,7 +302,7 @@ export const FacilityList: React.FC<FacilityListProps> = ({
       height: '100%'
     }}>
       <BottomSheet
-        ref={bottomSheetRef}
+        ref={actualRef}
         index={0}
         snapPoints={snapPoints}
         enablePanDownToClose={false}

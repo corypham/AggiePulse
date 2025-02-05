@@ -1,6 +1,6 @@
 // Path: frontend/app/(tabs)/home/index.tsx
 
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { View } from 'react-native';
 import { CustomMapView } from '../../components/MapView';
 import { SearchBar } from '../../components/SearchBar';
@@ -12,6 +12,9 @@ import * as Location from 'expo-location';
 import { QuickFilterBar } from '../../components/QuickFilterBar';
 import { useLocations } from '../../hooks/useLocations';
 import { useFilters } from '../../context/FilterContext';
+import { INITIAL_REGION } from '../../constants/map';
+import BottomSheet from '@gorhom/bottom-sheet';
+import EventEmitter  from '../../_utils/EventEmitter';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -21,6 +24,7 @@ export default function HomeScreen() {
   const userLocation = useRef<{ latitude: number; longitude: number } | null>(null);
   const isAnimating = useRef(false);
   const isNavigatingToUser = useRef(false);
+  const bottomSheetRef = useRef<BottomSheet>(null);
 
   const { selectedFilters } = useFilters();
   const { locations, loading, error } = useLocations(selectedFilters);
@@ -85,6 +89,32 @@ export default function HomeScreen() {
     setIsMapCentered(isCentered);
   }, []);
 
+  const handleReset = useCallback(() => {
+    // Reset map to initial region
+    if (mapRef.current) {
+      mapRef.current.animateToRegion(INITIAL_REGION, 1000);
+    }
+    
+    // Collapse bottom sheet
+    if (bottomSheetRef.current) {
+      bottomSheetRef.current.collapse();
+    }
+    
+    // Reset map center state
+    setIsMapCentered(false);
+    
+    // Reset search
+    setSearchQuery('');
+  }, []);
+
+  useEffect(() => {
+    const subscription = EventEmitter.addListener('resetHomeScreen', handleReset);
+    
+    return () => {
+      subscription.remove();
+    };
+  }, [handleReset]);
+
   return (
     <View className="flex-1" style={{ backgroundColor: 'transparent' }}>
       <CustomMapView 
@@ -110,6 +140,7 @@ export default function HomeScreen() {
         error={error}
         onLocationPress={handleLocationPress}
         isMapCentered={isMapCentered}
+        bottomSheetRef={bottomSheetRef}
       />
     </View>
   );
