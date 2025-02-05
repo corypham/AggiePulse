@@ -56,7 +56,6 @@ export const FacilityList: React.FC<FacilityListProps> = ({
     try {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        console.log('Permission denied');
         return;
       }
 
@@ -66,7 +65,6 @@ export const FacilityList: React.FC<FacilityListProps> = ({
         longitude: location.coords.longitude
       });
     } catch (error) {
-      console.error('Error getting location:', error);
     }
   }, [onLocationPress]);
   
