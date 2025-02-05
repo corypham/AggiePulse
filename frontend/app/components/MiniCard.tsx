@@ -9,26 +9,25 @@ interface MiniCardProps {
 }
 
 export function MiniCard({ location }: MiniCardProps) {
-  const StatusIcon = getStatusIcon(location.status);
+  const StatusIcon = getStatusIcon(location.currentStatus);
   const fadeAnim = React.useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    // Start with a slight delay to ensure the callout is fully rendered
-    setTimeout(() => {
+    // Reset animation value
+    fadeAnim.setValue(0);
+    // Start animation with a slight delay
+    const animationTimeout = setTimeout(() => {
       Animated.spring(fadeAnim, {
         toValue: 1,
         useNativeDriver: true,
-        tension: 40,  // Reduced tension for slower animation
-        friction: 8,  // Adjusted friction for smoother movement
-        velocity: 0.5 // Reduced initial velocity
+        tension: 40,
+        friction: 8,
+        velocity: 0.5
       }).start();
     }, 100);
 
-    return () => {
-      // Reset animation when unmounted
-      fadeAnim.setValue(0);
-    };
-  }, []);
+    return () => clearTimeout(animationTimeout);
+  }, []); // Run only on mount
 
   return (
     <Animated.View style={{
@@ -36,7 +35,7 @@ export function MiniCard({ location }: MiniCardProps) {
       transform: [{
         scale: fadeAnim.interpolate({
           inputRange: [0, 1],
-          outputRange: [0.7, 1]  // Start from smaller scale for more noticeable animation
+          outputRange: [0.7, 1]
         })
       }]
     }}>
@@ -73,7 +72,7 @@ export function MiniCard({ location }: MiniCardProps) {
               ) : (
                 <Text className="text-closed font-aileron-bold">Closed</Text>
               )}
-              <Text className="text-sm text-black font-aileron"> until {formatOpenUntil(location.hours.close)}</Text>
+              <Text className="text-sm text-black font-aileron"> until {formatOpenUntil(location.hours.main.close)}</Text>
             </Text>
           </View>
         </View>

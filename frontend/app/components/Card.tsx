@@ -38,8 +38,8 @@ interface CardProps {
 const Card = React.memo(({ location }: CardProps) => {
   const { isFavorite, toggleFavorite } = useFavorites();
   const StatusIcon = React.useMemo(() => 
-    getStatusIcon(location.status), 
-    [location.status]
+    getStatusIcon(location.currentStatus), 
+    [location.currentStatus]
   );
   
   // Get card height based on device size
@@ -147,7 +147,7 @@ const Card = React.memo(({ location }: CardProps) => {
   // Only re-render if these properties change
   return (
     prevProps.location.id === nextProps.location.id &&
-    prevProps.location.status === nextProps.location.status &&
+    prevProps.location.currentStatus === nextProps.location.currentStatus &&
     prevProps.location.isOpen === nextProps.location.isOpen
   );
 });
