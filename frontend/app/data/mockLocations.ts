@@ -1,11 +1,19 @@
 // Path: frontend/data/mockLocations.ts
 
+// This file contains mock data for development and testing purposes.
+// In production, this data will come from the backend API.
+
 import { Location, FilterCategory, BusyStatus } from '../types/location';
 import {
   LibraryDetailedCard,
   ArcDetailedCard,
   SiloDetailedCard,
   MemorialUnionDetailedCard,
+
+  // Busyness Meter Icons
+  NotBusyStatus,
+  FairlyBusyStatus,
+  VeryBusyStatus,
   
   // Blue icons
   StudySpacesBlue,
@@ -18,9 +26,30 @@ import {
   DiningWhite,
   
   // Grey icons
-  StudyGrey,
-  GymGrey,
   DiningGrey,
+  GamesGrey,
+  GymGrey,
+  StudyGrey,
+  ADAGrey,
+  BrailleGrey,
+  ChargingGrey,
+  CollaborativeGrey,
+  ComfortableSeatingGrey,
+  ComputersGrey,
+  FastWifiGrey,
+  FoodGrey,
+  PrinterGrey,
+  ProjectorGrey,
+  QuietAreasGrey,
+  SortEquipmentGrey,
+  StudyCagesGrey,
+  StudyRoomsGrey,
+  WheelchairGrey,
+  WhiteboardsGrey,
+  WorkTablesGrey,
+  VectorGrey,
+  Variant1Grey,
+  Variant4Grey,
   
   // Black icons
   StudyBlack,
@@ -48,12 +77,12 @@ export const getInitialMockLocations = (): Location[] => [
     isOpen: true,
     hours: {
       main: {
-        open: '10:30 AM',
+        open: '1:00 AM',
         close: '8:30 PM',
         label: 'Main Building'
       },
       study: {
-        open: '12:00 AM',
+        open: '1:00 AM',
         close: '12:00 AM',
         label: '24-Hour Study Room'
       }
@@ -125,11 +154,11 @@ export const getInitialMockLocations = (): Location[] => [
       longitude: -121.75904
     },
     imageUrl: ArcDetailedCard,
-    isOpen: false,
+    isOpen: true,
     hours: {
       main: {
-        open: '6:00 AM',
-        close: '12:00 AM',
+        open: '3:00 AM',
+        close: '11:00 AM',
         label: 'Main Building'
       }
     },
@@ -164,7 +193,7 @@ export const getInitialMockLocations = (): Location[] => [
         features: ['Swimming', 'Showers']
       }
     ],
-    closingTime: '12:00 AM',
+    closingTime: '11:00 AM',
     distance: 0.5,
     type: ['gym'],
     title: 'Activities and Recreation Center',
