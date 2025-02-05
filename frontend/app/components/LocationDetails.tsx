@@ -32,9 +32,9 @@ export function LocationDetails({ location }: LocationDetailsProps) {
   };
 
   return (
-    <View className="flex-1 bg-background">
-      {/* Header Image */}
-      <View className="h-72 relative">
+    <ScrollView className="flex-1 bg-background">
+      {/* Header Image & Navigation */}
+      <View className="relative h-48">
         <Image
           source={location.imageUrl}
           className="w-full h-full"
@@ -51,115 +51,104 @@ export function LocationDetails({ location }: LocationDetailsProps) {
             onPress={handleFavorite}
             className="bg-white/90 p-2 rounded-full"
           >
-            <Heart 
-              size={24}
-              color={isLocationFavorite ? "#EF4444" : "#94A3B8"}
-              fill={isLocationFavorite ? "#EF4444" : "transparent"}
-            />
+            <Heart size={24} color={isLocationFavorite ? "#ff4c4c" : "#848484"} />
           </TouchableOpacity>
         </View>
       </View>
 
-      {/* Content */}
-      <ScrollView className="flex-1 px-4 pt-4">
-        {/* Title and Status */}
-        <View className="flex-row items-center justify-between">
-          <Text className="text-2xl font-aileron-bold">{location.name}</Text>
-          <View className="w-14 h-14">
-            <StatusIcon width="100%" height="100%" />
+      {/* Title Section */}
+      <View className="px-4 py-2">
+        <View className="flex-row items-center space-x-2">
+          <Text className="font-aileron-bold text-lg">{location.name}</Text>
+          <View className="bg-[#F3A952] px-2 py-1 rounded-full">
+            <Text className="text-sm font-aileron text-white">Fairly busy</Text>
           </View>
         </View>
+        <Text className="font-aileron text-sm text-textSecondary">
+          Open until {location.closingTime} • {location.distance} mi
+        </Text>
+        <Text className="font-aileron text-sm text-textSecondary mt-1">
+          Best Time: {location.bestTimes.best}
+        </Text>
+      </View>
 
-        {/* Crowd Info */}
-        <View className="mt-2">
-          <Text className="font-aileron text-base text-gray-600">
-            {location.crowdInfo.description} • {location.crowdInfo.percentage}% full
+      {/* Crowd Info Section */}
+      <View className="px-4 py-4 bg-white mt-2">
+        <Text className="font-aileron-bold text-lg mb-4">Crowd Levels</Text>
+        <View className="bg-[#FFF9E7] p-4 rounded-xl">
+          <Text className="font-aileron-bold text-base mb-2">
+            Overall: {location.crowdInfo.percentage}% full
+          </Text>
+          <Text className="font-aileron text-sm text-textSecondary">
+            • {location.currentCapacity}/{location.maxCapacity} of full capacity
+          </Text>
+          <Text className="font-aileron text-sm text-textSecondary">
+            • {location.crowdInfo.description}
           </Text>
         </View>
+      </View>
 
-        {/* Hours and Capacity */}
-        <View className="mt-4 bg-white rounded-xl p-4">
-          <View className="flex-row items-center">
-            <Clock size={20} className="mr-2" />
-            <Text className="font-aileron-bold text-lg">
-              {location.isOpen ? (
-                <Text className="text-open">Open</Text>
-              ) : (
-                <Text className="text-closed">Closed</Text>
-              )}
-              <Text className="font-aileron text-black">
-                {" "}until {location.hours.main.close}
-              </Text>
-            </Text>
-          </View>
-          
-          {/* Capacity */}
-          <View className="flex-row items-center mt-3">
-            <Users size={20} className="mr-2" />
-            <Text className="font-aileron text-base">
-              {location.currentCapacity} / {location.maxCapacity} people
-            </Text>
-          </View>
-        </View>
-
-        {/* Best Times */}
-        <View className="mt-4 bg-white rounded-xl p-4">
-          <Text className="font-aileron-bold text-lg mb-2">Best Times to Visit</Text>
-          <View className="flex-row justify-between">
-            <View>
-              <Text className="font-aileron text-green-600">Best: {location.bestTimes.best}</Text>
+      {/* Sub Locations */}
+      <View className="px-4 py-4 bg-white mt-2">
+        <Text className="font-aileron-bold text-lg mb-4">Best Spot: Main Library</Text>
+        {location.subLocations.map((subLocation, index) => (
+          <TouchableOpacity 
+            key={index}
+            className="flex-row items-center justify-between bg-background p-4 rounded-xl mb-2"
+          >
+            <View className="flex-row items-center space-x-3">
+              <View className={`w-2 h-2 rounded-full ${
+                subLocation.status === 'Not Busy' ? 'bg-open' : 
+                subLocation.status === 'Fairly Busy' ? 'bg-[#F3A952]' : 'bg-closed'
+              }`} />
+              <Text className="font-aileron-bold">{subLocation.name}</Text>
             </View>
-            <View>
-              <Text className="font-aileron text-red-600">Worst: {location.bestTimes.worst}</Text>
-            </View>
-          </View>
-        </View>
-
-        {/* Sub Locations */}
-        {location.subLocations && location.subLocations.length > 0 && (
-          <View className="mt-4">
-            <Text className="font-aileron-bold text-lg mb-2">Areas</Text>
-            {location.subLocations.map((subLocation, index) => (
-              <View key={index} className="bg-white rounded-xl p-4 mb-2">
-                <Text className="font-aileron-bold">{subLocation.name}</Text>
-                <Text className="font-aileron text-gray-600">{subLocation.status}</Text>
-                <View className="flex-row flex-wrap mt-2">
-                  {subLocation.features.map((feature, idx) => (
-                    <Text key={idx} className="font-aileron text-sm mr-2">• {feature}</Text>
-                  ))}
+            <View className="flex-row">
+              {subLocation.features.map((feature, idx) => (
+                <View key={idx} className="ml-2">
+                  {/* You would import and use the appropriate icon here */}
                 </View>
-              </View>
-            ))}
-          </View>
-        )}
+              ))}
+            </View>
+          </TouchableOpacity>
+        ))}
+      </View>
 
-        {/* Amenities */}
-        <View className="mt-4">
-          <Text className="font-aileron-bold text-lg mb-2">Amenities</Text>
-          
-          {/* Atmosphere */}
-          <View className="bg-white rounded-xl p-4 mb-2">
-            <Text className="font-aileron-bold mb-2">Atmosphere</Text>
-            {location.amenities.atmosphere.map((item, index) => (
-              <Text key={index} className="font-aileron text-base mb-1">• {item}</Text>
-            ))}
+      {/* Details Section */}
+      <View className="px-4 py-4 bg-white mt-2">
+        <Text className="font-aileron-bold text-lg mb-2">Details</Text>
+        <Text className="font-aileron text-sm text-textSecondary">
+          {location.description}
+        </Text>
+      </View>
+
+      {/* Hours Section */}
+      <View className="px-4 py-4 bg-white mt-2">
+        <Text className="font-aileron-bold text-lg mb-4">Hours</Text>
+        <View className="space-y-2">
+          <View className="flex-row justify-between">
+            <Text className="font-aileron text-red-500">Closed</Text>
+            <Text className="font-aileron">Main Building: {location.hours.main.open} - {location.hours.main.close}</Text>
           </View>
-          
-          {/* Accessibility */}
-          <View className="bg-white rounded-xl p-4">
-            <Text className="font-aileron-bold mb-2">Accessibility</Text>
-            {location.amenities.accessibility.map((item, index) => (
-              <Text key={index} className="font-aileron text-base mb-1">• {item}</Text>
-            ))}
+          <View className="flex-row justify-between">
+            <Text className="font-aileron text-open">Open</Text>
+            <Text className="font-aileron">24-Hour Study Room: {location.hours.study?.open} - {location.hours.study?.close}</Text>
           </View>
         </View>
+      </View>
 
-        {/* Description */}
-        <View className="mt-4 mb-8">
-          <Text className="font-aileron-bold text-lg mb-2">About</Text>
-          <Text className="font-aileron text-base">{location.description}</Text>
+      {/* Amenities Section */}
+      <View className="px-4 py-4 bg-white mt-2 mb-8">
+        <Text className="font-aileron-bold text-lg mb-4">Amenities</Text>
+        <View className="flex-row flex-wrap">
+          {location.features.map((feature, index) => (
+            <View key={index} className="flex-row items-center mr-4 mb-2">
+              {/* You would import and use the appropriate icon here */}
+              <Text className="font-aileron text-sm ml-2">{feature}</Text>
+            </View>
+          ))}
         </View>
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 } 

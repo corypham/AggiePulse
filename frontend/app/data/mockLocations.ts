@@ -5,7 +5,35 @@ import {
   LibraryDetailedCard,
   ArcDetailedCard,
   SiloDetailedCard,
-  MemorialUnionDetailedCard
+  MemorialUnionDetailedCard,
+  
+  // Blue icons
+  StudySpacesBlue,
+  GymBlue,
+  DiningBlue,
+  
+  // White icons
+  StudyWhite,
+  GymWhite,
+  DiningWhite,
+  
+  // Grey icons
+  StudyGrey,
+  GymGrey,
+  DiningGrey,
+  
+  // Black icons
+  StudyBlack,
+  GymBlack,
+  DiningBlack,
+  
+  // Selected/Unselected icons
+  StudySelected,
+  StudyUnselected,
+  GymSelected,
+  GymUnselected,
+  DiningSelected,
+  DiningUnselected,
 } from '../../assets';
 
 export const mockLocations: Location[] = [
@@ -79,7 +107,15 @@ export const mockLocations: Location[] = [
       level: 'Fairly Busy',
       percentage: 50,
       description: 'Generally moderate seating available'
-    }
+    },
+    icons: {
+      blue: StudySpacesBlue,
+      white: StudyWhite,
+      grey: StudyGrey,
+      black: StudyBlack,
+      selected: StudySelected,
+      unselected: StudyUnselected
+    },
   },
   {
     id: '2',
@@ -136,7 +172,15 @@ export const mockLocations: Location[] = [
       level: 'Very Busy',
       percentage: 90,
       description: 'Limited equipment available'
-    }
+    },
+    icons: {
+      blue: GymBlue,
+      white: GymWhite,
+      grey: GymGrey,
+      black: GymBlack,
+      selected: GymSelected,
+      unselected: GymUnselected
+    },
   },
   {
     id: '3',
@@ -208,7 +252,15 @@ export const mockLocations: Location[] = [
       level: 'Fairly Busy',
       percentage: 60,
       description: 'Moderate wait times for food'
-    }
+    },
+    icons: {
+      blue: DiningBlue,
+      white: DiningWhite,
+      grey: DiningGrey,
+      black: DiningBlack,
+      selected: DiningSelected,
+      unselected: DiningUnselected
+    },
   },
   {
     id: '4',
@@ -281,7 +333,15 @@ export const mockLocations: Location[] = [
       level: 'Not Busy',
       percentage: 30,
       description: 'Plenty of seating available'
-    }
+    },
+    icons: {
+      blue: DiningBlue,
+      white: DiningWhite,
+      grey: DiningGrey,
+      black: DiningBlack,
+      selected: DiningSelected,
+      unselected: DiningUnselected
+    },
   } 
   
   // Add more locations as needed

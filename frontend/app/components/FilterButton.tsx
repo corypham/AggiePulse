@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { SlidersHorizontal } from 'lucide-react-native';
+import { FilterWhite } from '../../assets';
 
 interface FilterButtonProps {
   onPress: () => void;
@@ -12,7 +12,7 @@ const FilterButton: React.FC<FilterButtonProps> = ({ onPress }) => {
       onPress={onPress}
       className="bg-primary rounded-[18px] h-14 w-14 items-center justify-center shadow-lg"
     >
-      <SlidersHorizontal size={24} color="white" />
+      <FilterWhite width={22} height={22} />
     </TouchableOpacity>
   );
 };

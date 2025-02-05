@@ -58,10 +58,29 @@ export { default as Variant4Grey } from './grey-icons/Variant4Shortcuts&Tips.svg
 
 // White Icons
 export { default as DiningWhite } from './white-icons/DLP-Icon-DiningShortcuts&Tips.svg';
+export { default as GamesWhite } from './white-icons/DLP-Icon-GamesShortcuts&Tips.svg';
 export { default as GymWhite } from './white-icons/DLP-Icon-GymShortcuts&Tips.svg';
 export { default as StudyWhite } from './white-icons/DLP-Icon-StudyShortcuts&Tips.svg';
-export { default as GamesWhite } from './white-icons/DLP-Icon-GamesShortcuts&Tips.svg';
+export { default as ADACompliantWhite } from './white-icons/icon-white-ADA-Compliant-Entrance.svg';
+export { default as BrailleSignageWhite } from './white-icons/icon-white-Braille-Signage.svg';
+export { default as ChargingPortsWhite } from './white-icons/icon-white-Charging-Ports.svg';
+export { default as ComputersWhite } from './white-icons/icon-white-Computers.svg';
+export { default as FastWIFIWhite } from './white-icons/icon-white-Fast-WIFI.svg';
+export { default as FoodWhite } from './white-icons/icon-white-Food.svg';
+export { default as HeartWhite } from './white-icons/icon-white-heart.svg';
+export { default as FairlyBusyWhite } from './white-icons/icon-white-kinda-busy.svg';
+export { default as NotBusyWhite } from './white-icons/icon-white-not-busy.svg';
+export { default as PrinterWhite } from './white-icons/icon-white-Printer.svg';
+export { default as ProjectorWhite } from './white-icons/icon-white-Projector.svg';
+export { default as SortEquipmentWhite } from './white-icons/icon-white-Sort-Equipent.svg';
+export { default as StudyCagesWhite } from './white-icons/icon-white-Study-Cages.svg';
+export { default as StudyRoomsWhite } from './white-icons/icon-white-Study-Rooms.svg';
+export { default as VeryBusyWhite } from './white-icons/icon-white-very-busy.svg';
+export { default as WheelchairAccessibleWhite } from './white-icons/icon-white-Wheelchair-Accessible.svg';
+export { default as WhiteboardsWhite } from './white-icons/icon-white-Whiteboards.svg';
+export { default as WorkTablesWhite } from './white-icons/icon-white-Work-Tables.svg';
 export { default as VectorWhite } from './white-icons/VectorShortcuts&Tips.svg';
+export { default as FilterWhite} from './white-icons/icon-white-filter.svg';
 
 // Map Pins - Regular
 export { default as PinFoodFairlyBusy } from './map-pins/pin-food-fairlybusy.svg';
