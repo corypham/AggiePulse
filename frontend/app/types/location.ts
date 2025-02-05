@@ -9,6 +9,14 @@ export interface Location {
   name: string;
   title: string;
   imageUrl: any; // Using 'any' for require() image imports
+  icons: {
+    blue: any;
+    white: any;
+    grey: any;
+    black: any;
+    selected: any;
+    unselected: any;
+  };
   coordinates: {
     latitude: number;
     longitude: number;
