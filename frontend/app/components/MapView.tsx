@@ -8,6 +8,7 @@ import * as Location from 'expo-location';
 import { MapMarker } from './MapMarker';
 import type { Location as LocationType } from '../types/location';
 import { GOOGLE_MAPS_STYLE_ID_IOS, GOOGLE_MAPS_STYLE_ID_ANDROID } from '@env';
+import { MiniCard } from './MiniCard';
 
 interface CustomMapViewProps {
   locations: LocationType[];
