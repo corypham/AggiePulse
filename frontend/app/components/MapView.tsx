@@ -1,13 +1,13 @@
 // Path: frontend/components/MapView.tsx
 
-import React, { forwardRef, useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useState, useRef, useCallback } from 'react';
 import { View, StyleSheet, Platform, Text } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker, Region } from 'react-native-maps';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Location from 'expo-location';
 import { MapMarker } from './MapMarker';
 import type { Location as LocationType } from '../types/location';
-import { GOOGLE_MAPS_API_KEY_IOS, GOOGLE_MAPS_API_KEY_ANDROID, GOOGLE_MAPS_STYLE_ID_IOS, GOOGLE_MAPS_STYLE_ID_ANDROID } from '@env';
+import { GOOGLE_MAPS_STYLE_ID_IOS, GOOGLE_MAPS_STYLE_ID_ANDROID } from '@env';
 
 interface CustomMapViewProps {
   locations: LocationType[];
@@ -19,24 +19,39 @@ interface CustomMapViewProps {
 
 export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
   locations,
-  selectedFilters = [],
+  selectedFilters,
   onMarkerPress,
   onRegionChange,
-  onRegionChangeComplete
+  onRegionChangeComplete,
 }, ref) => {
   const [userLocation, setUserLocation] = useState<{ latitude: number; longitude: number } | null>(null);
   const [mapError, setMapError] = useState<string | null>(null);
   const [hasLocationPermission, setHasLocationPermission] = useState(false);
-
-  const apiKey = Platform.select({
-    ios: GOOGLE_MAPS_API_KEY_IOS,
-    android: GOOGLE_MAPS_API_KEY_ANDROID,
-  });
+  const mapRef = useRef<MapView>(null);
 
   const mapId = Platform.select({
     ios: GOOGLE_MAPS_STYLE_ID_IOS,
     android: GOOGLE_MAPS_STYLE_ID_ANDROID,
   });
+
+  // Forward the ref to parent component
+  useEffect(() => {
+    if (ref) {
+      // @ts-ignore - known issue with forwardRef typing
+      ref.current = mapRef.current;
+    }
+  }, [ref]);
+
+  const handleMarkerPress = useCallback((location: LocationType) => {
+    mapRef.current?.animateToRegion({
+      latitude: location.coordinates.latitude,
+      longitude: location.coordinates.longitude,
+      latitudeDelta: 0.003,
+      longitudeDelta: 0.003,
+    }, 500);
+
+    if (onMarkerPress) onMarkerPress(location);
+  }, [onMarkerPress]);
 
   useEffect(() => {
     const getUserLocation = async () => {
@@ -60,77 +75,53 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
         
         setHasLocationPermission(true);
       } catch (error) {
+        setMapError('Unable to get location');
       }
     };
 
     getUserLocation();
   }, []);
 
-  // UC Davis coordinates
-  const initialRegion = {
-    latitude: 38.5382,
-    longitude: -121.7617,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  };
-
   return (
     <View style={styles.container}>
       <MapView
-        ref={ref}
+        ref={mapRef}
         provider={PROVIDER_GOOGLE}
         style={styles.map}
-        initialRegion={initialRegion}
-        camera={{
-          center: {
-            latitude: 38.5382,
-            longitude: -121.7617,
-          },
-          pitch: 0,
-          altitude: 1000,
-          zoom: 15,
-          heading: 0
+        initialRegion={{
+          latitude: 38.5382,
+          longitude: -121.7617,
+          latitudeDelta: 0.005,
+          longitudeDelta: 0.005,
         }}
-        googleMapId={mapId}
+        showsUserLocation={hasLocationPermission}
+        showsMyLocationButton={false}
+        onRegionChange={onRegionChange}
+        onRegionChangeComplete={onRegionChangeComplete}
         customMapStyle={[
           {
             featureType: "poi",
             elementType: "labels",
-            stylers: [{ visibility: "off" }]
-          },
-          {
-            featureType: "transit",
-            elementType: "labels",
-            stylers: [{ visibility: "on" }]
+            stylers: [{ visibility: "off" }],
           },
           {
             featureType: "road",
             elementType: "labels",
-            stylers: [{ visibility: "on" }]
+            stylers: [{ visibility: "on" }],
           },
           {
-            featureType: "administrative",
+            featureType: "landscape",
             elementType: "labels",
-            stylers: [{ visibility: "on" }]
-          },
-          {
-            featureType: "building",
-            elementType: "geometry",
-            stylers: [{ visibility: "on" }]
+            stylers: [{ visibility: "on" }],
           }
         ]}
-        showsUserLocation={hasLocationPermission}
-        showsMyLocationButton={false}
-        followsUserLocation={false}
-        loadingEnabled={true}
-        onRegionChange={onRegionChange}
-        onRegionChangeComplete={onRegionChangeComplete}
+        googleMapId={mapId}
       >
         {locations.map((location) => (
           <MapMarker
             key={location.id}
             location={location}
-            onPress={() => onMarkerPress?.(location)}
+            onPress={handleMarkerPress}
           />
         ))}
       </MapView>

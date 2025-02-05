@@ -45,24 +45,25 @@ export const useLocations = (selectedFilters: string[] = []) => {
   // Filter locations based on selected filters
   useEffect(() => {
     const filterLocations = () => {
-      let filtered = [...locations];
-
-      if (selectedFilters.length > 0) {
-        filtered = filtered.filter(location => {
-          return selectedFilters.some(filter => {
-            switch (filter) {
-              case 'very-busy':
-                return location.status === 'Very Busy';
-              case 'fairly-busy':
-                return location.status === 'Fairly Busy';
-              case 'not-busy':
-                return location.status === 'Not Busy';
-              default:
-                return location.type.includes(filter);
-            }
-          });
-        });
+      if (selectedFilters.length === 0) {
+        setFilteredLocations(locations);
+        return;
       }
+
+      const filtered = locations.filter(location => {
+        return selectedFilters.some(filter => {
+          switch (filter) {
+            case 'very-busy':
+              return location.currentStatus === 'Very Busy';
+            case 'fairly-busy':
+              return location.currentStatus === 'Fairly Busy';
+            case 'not-busy':
+              return location.currentStatus === 'Not Busy';
+            default:
+              return location.type.includes(filter);
+          }
+        });
+      });
 
       setFilteredLocations(filtered);
     };
@@ -73,6 +74,7 @@ export const useLocations = (selectedFilters: string[] = []) => {
   // Update business meters periodically
   useEffect(() => {
     if (locations.length === 0) return;
+    const isMounted = useRef(true);
 
     const updateBusinessMeters = async () => {
       try {
@@ -89,7 +91,13 @@ export const useLocations = (selectedFilters: string[] = []) => {
         );
 
         if (isMounted.current) {
-          setLocations(updatedLocations);
+          setLocations(prev => {
+            // Only update if there are actual changes
+            const hasChanges = updatedLocations.some((loc, index) => 
+              loc.currentStatus !== prev[index].currentStatus
+            );
+            return hasChanges ? updatedLocations : prev;
+          });
         }
       } catch (error) {
         console.error('Error updating business meters:', error);
@@ -102,7 +110,7 @@ export const useLocations = (selectedFilters: string[] = []) => {
       clearInterval(interval);
       isMounted.current = false;
     };
-  }, [locations]);
+  }, []); // Empty dependency array since we're using setLocations with function update
 
   useEffect(() => {
     return () => {

@@ -6,23 +6,52 @@ export type StatusIconType = typeof VeryBusyStatus | typeof FairlyBusyStatus | t
 
 export interface Location {
   id: string;
-  name: string;  // This will be used for both display name and title
+  name: string;
   title: string;
+  imageUrl: any; // Using 'any' for require() image imports
   coordinates: {
     latitude: number;
     longitude: number;
   };
-  status: BusyStatus;
   isOpen: boolean;
   hours: {
-    open: string;
-    close: string;
+    main: {
+      open: string;
+      close: string;
+      label: string;
+    };
+    study?: {
+      open: string;
+      close: string;
+      label: string;
+    };
+  };
+  currentCapacity: number;
+  maxCapacity: number;
+  features: string[];
+  amenities: {
+    atmosphere: string[];
+    accessibility: string[];
   };
   description: string;
   currentStatus: BusyStatus;
+  bestTimes: {
+    best: string;
+    worst: string;
+  };
+  subLocations: {
+    name: string;
+    status: BusyStatus;
+    features: string[];
+  }[];
   closingTime: string;
   distance: number;
   type: string[];
+  crowdInfo: {
+    level: BusyStatus;
+    percentage: number;
+    description: string;
+  };
 }
 
 export interface FilterCategory {
