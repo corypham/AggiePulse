@@ -25,6 +25,21 @@ export interface SubLocation {
   features: string[];
 }
 
+interface DayHours {
+  open: string;
+  close: string;
+}
+
+interface Hours {
+  monday?: DayHours;
+  tuesday?: DayHours;
+  wednesday?: DayHours;
+  thursday?: DayHours;
+  friday?: DayHours;
+  saturday?: DayHours;
+  sunday?: DayHours;
+}
+
 export interface Location {
   id: string;
   name: string;
@@ -43,7 +58,12 @@ export interface Location {
     longitude: number;
   };
   isOpen: boolean;
-  hours: LocationHours;
+  hours: {
+    [key: string]: {
+      open: string;
+      close: string;
+    } | null;
+  };
   currentCapacity: number;
   maxCapacity: number;
   features: string[];
@@ -63,9 +83,8 @@ export interface Location {
   distance: number;
   type: string[];
   crowdInfo: {
-    level: BusyStatus;
     percentage: number;
-    description: string;
+    level: string;
   };
 }
 
