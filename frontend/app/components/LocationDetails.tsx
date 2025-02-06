@@ -9,6 +9,8 @@ import { getLocationStatus } from '@/app/_utils/locationStatus';
 import type { Location } from '../types/location';
 import { getAmenityIcon } from '../_utils/amenityIcons';
 import { getLocationHours } from '../_utils/hoursUtils';
+import LocationService from '../services/locationService';
+import { CrowdForecast } from '../components/CrowdForecast';
 
 interface LocationDetailsProps {
   location: Location;
@@ -108,6 +110,29 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
       clearInterval(interval);
     };
   }, [location.hours]);
+
+  const [crowdData, setCrowdData] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchCrowdData = async () => {
+      try {
+        console.log('LocationDetails: Starting to fetch crowd data for:', location.id);
+        setIsLoading(true);
+        const data = await LocationService.getLocationCrowdData(location.id);
+        console.log('LocationDetails: Successfully fetched crowd data:', data);
+        setCrowdData(data);
+      } catch (error) {
+        console.error('LocationDetails: Error fetching crowd data:', error);
+        setError(error instanceof Error ? error.message : 'Unknown error');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCrowdData();
+  }, [location.id]);
 
   const renderAmenitySection = (title: string, amenities: string[]) => (
     <View className="my-2">
@@ -360,7 +385,26 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
           
           <View className="px-4 py-6">
             <Text className="font-aileron-bold text-2xl mb-4">Crowd Forecast</Text>
-            {/* ... Forecast content ... */}
+            
+            {isLoading ? (
+              <View className="h-[200] justify-center items-center">
+                <Text className="font-aileron text-gray-500">Loading...</Text>
+              </View>
+            ) : error ? (
+              <View className="h-[200] justify-center items-center">
+                <Text className="font-aileron text-red-500">{error}</Text>
+              </View>
+            ) : crowdData ? (
+              <CrowdForecast
+                currentDay="Monday"
+                dayData={crowdData.weeklyBusyness?.monday || []}
+                currentStatus={crowdData.currentStatus}
+              />
+            ) : (
+              <View className="h-[200] justify-center items-center">
+                <Text className="font-aileron text-gray-500">No data available</Text>
+              </View>
+            )}
           </View>
         </View>
 
