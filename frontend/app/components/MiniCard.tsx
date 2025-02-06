@@ -10,7 +10,7 @@ interface MiniCardProps {
 }
 
 export function MiniCard({ location }: MiniCardProps) {
-  const StatusIcon = getStatusIcon(location.currentStatus);
+  const StatusIcon = getStatusIcon(location.crowdInfo);
   const fadeAnim = React.useRef(new Animated.Value(0)).current;
   const statusInfo = getLocationStatus(location);
 
@@ -60,7 +60,7 @@ export function MiniCard({ location }: MiniCardProps) {
             </View>
 
             <View className="mr-3">
-              <StatusIcon width={56} height={56} fill="#4B5563" />
+              <StatusIcon width={56} height={56} />
             </View>
             
             <View className="flex-1 pr-16">
@@ -68,8 +68,8 @@ export function MiniCard({ location }: MiniCardProps) {
                 {location.name}
               </Text>
               <Text className="text-sm text-black" numberOfLines={1}>
-                <Text className={`font-aileron-bold ${statusInfo.colorClass}`}>
-                  {statusInfo.statusText}
+                <Text className={`font-aileron-bold ${statusInfo.isOpen ? 'text-green-600' : 'text-red-600'}`}>
+                  {statusInfo.isOpen ? 'Open' : 'Closed'}
                 </Text>
                 <Text className="text-sm text-black font-aileron">
                   {' '}{statusInfo.timeText}

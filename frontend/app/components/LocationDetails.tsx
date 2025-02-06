@@ -27,8 +27,8 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
     [isFavorite, location.id]
   );
 
-  const StatusIcon = getStatusIcon(location.currentStatus);
   const statusInfo = getLocationStatus(location);
+  const StatusIcon = getStatusIcon(location.crowdInfo);
 
   const headerHeight = 264; // Height of your header image
   const tabBarHeight = 48; // Height of the tab bar
@@ -79,12 +79,11 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
     });
   };
 
-  const [currentHours, setCurrentHours] = useState(updateFacilityHours(location.hours));
+  const [currentHours, setCurrentHours] = useState(updateFacilityHours(location));
 
   // Add fade animation value
   const fadeAnim = useRef(new Animated.Value(0)).current;
   
-  // Add to your existing useEffect
   useEffect(() => {
     // Start with opacity 0
     fadeAnim.setValue(0);
@@ -99,17 +98,17 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
     }).start();
 
     StatusBar.setBarStyle('light-content');
-    setCurrentHours(updateFacilityHours(location.hours));
+    setCurrentHours(updateFacilityHours(location));
 
     const interval = setInterval(() => {
-      setCurrentHours(updateFacilityHours(location.hours));
+      setCurrentHours(updateFacilityHours(location));
     }, 60000);
 
     return () => {
       StatusBar.setBarStyle('dark-content');
       clearInterval(interval);
     };
-  }, [location.hours]);
+  }, [location]);
 
   const [crowdData, setCrowdData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -118,9 +117,9 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
   useEffect(() => {
     const fetchCrowdData = async () => {
       try {
-        console.log('LocationDetails: Starting to fetch crowd data for:', location.id);
+        console.log('LocationDetails: Fetching data for location:', location.id);
         setIsLoading(true);
-        const data = await LocationService.getLocationCrowdData(location.id);
+        const data = await LocationService.getLocationCrowdData(location.id.toLowerCase());
         console.log('LocationDetails: Successfully fetched crowd data:', data);
         setCrowdData(data);
       } catch (error) {
@@ -203,6 +202,18 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
     );
   };
 
+  const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  const today = days[new Date().getDay()];
+  const todayHours = location.hours?.[today];
+
+  // Safely handle hours display
+  const getHoursDisplay = () => {
+    if (!todayHours?.open || !todayHours?.close) {
+      return 'Hours unavailable';
+    }
+    return `${todayHours.open} - ${todayHours.close}`;
+  };
+
   return (
     <Animated.View 
       className="flex-1 bg-white"
@@ -275,11 +286,15 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
                 {location.name}
               </Text>
               <View className="flex-row items-center mt-0.5">
-                <Text className={`${statusInfo.statusClass} text-lg`}>
-                  {statusInfo.statusText}
+                <Text 
+                  className={`text-lg font-aileron-bold ${
+                    statusInfo.isOpen ? 'text-green-600' : 'text-red-600'
+                  }`}
+                >
+                  {statusInfo.isOpen ? 'Open' : 'Closed'}
                 </Text>
-                <Text className="text-black font-aileron text-lg">
-                  {' '}{statusInfo.timeText} • {location.distance} mi
+                <Text className="text-lg font-aileron ml-1">
+                  {statusInfo.timeText}
                 </Text>
               </View>
               <View className="flex-row items-center space-x-2 mt-3">

@@ -2,6 +2,7 @@
 
 import { Location, BusyStatus } from '../types/location';
 import { getInitialMockLocations } from '../data/mockLocations';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Base API URL - you'll change this later
 const API_BASE_URL = __DEV__ 
@@ -15,6 +16,20 @@ const API_ENDPOINTS = {
   getOperatingHours: (id: string) => `/locations/${id}/hours`,
   getBusinessMeters: (id: string) => `/locations/${id}/metrics`,
 } as const;
+
+interface CachedData {
+  timestamp: number;
+  data: any;
+}
+
+const CACHE_KEYS = {
+  LOCATION_DATA: 'location_data_',  // Will be appended with locationId
+  CACHE_DURATION: {
+    HOURS: 1000 * 60 * 60,         // 1 hour in milliseconds
+    DAY: 1000 * 60 * 60 * 24,      // 1 day in milliseconds
+    WEEK: 1000 * 60 * 60 * 24 * 7  // 1 week in milliseconds
+  }
+};
 
 export const LocationService = {
   // Get all locations (will be API-based later)
@@ -109,18 +124,27 @@ export const LocationService = {
 
   getLocationCrowdData: async (locationId: string) => {
     try {
-      console.log('LocationService: Fetching crowd data for:', locationId);
-      console.log('LocationService: Request URL:', `${API_BASE_URL}/location/${locationId}`);
+      // Try to get cached data first
+      const cachedData = await getCachedData(locationId);
       
+      if (cachedData) {
+        console.log('LocationService: Using cached data for:', locationId);
+        return cachedData;
+      }
+
+      // If no cache or expired, fetch new data
+      console.log('LocationService: Fetching fresh data for:', locationId);
       const response = await fetch(`${API_BASE_URL}/location/${locationId}`);
-      console.log('LocationService: Response status:', response.status);
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       
       const data = await response.json();
-      console.log('LocationService: Received data:', data);
+      
+      // Cache the new data
+      await cacheData(locationId, data);
+      
       return data;
     } catch (error) {
       console.error('LocationService Error:', error);
@@ -128,5 +152,45 @@ export const LocationService = {
     }
   },
 };
+
+async function getCachedData(locationId: string): Promise<any | null> {
+  try {
+    const cached = await AsyncStorage.getItem(CACHE_KEYS.LOCATION_DATA + locationId);
+    if (!cached) return null;
+
+    const { timestamp, data }: CachedData = JSON.parse(cached);
+    const now = Date.now();
+
+    // Different cache durations for different data types
+    const isHoursCurrent = now - timestamp < CACHE_KEYS.CACHE_DURATION.WEEK;  // Weekly for hours
+    const isBusynessCurrent = now - timestamp < CACHE_KEYS.CACHE_DURATION.DAY; // Daily for busyness
+
+    // If either needs updating, return null to trigger fresh fetch
+    if (!isHoursCurrent || !isBusynessCurrent) {
+      console.log('LocationService: Cache expired for:', locationId);
+      return null;
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Cache retrieval error:', error);
+    return null;
+  }
+}
+
+async function cacheData(locationId: string, data: any): Promise<void> {
+  try {
+    const cacheData: CachedData = {
+      timestamp: Date.now(),
+      data
+    };
+    await AsyncStorage.setItem(
+      CACHE_KEYS.LOCATION_DATA + locationId, 
+      JSON.stringify(cacheData)
+    );
+  } catch (error) {
+    console.error('Cache storage error:', error);
+  }
+}
 
 export default LocationService;

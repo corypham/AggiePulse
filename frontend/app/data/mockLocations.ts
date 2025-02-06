@@ -67,20 +67,21 @@ import {
 
 export const getInitialMockLocations = (): Location[] => [
   {
-    id: '1',
+    id: 'library',
     name: 'Peter J. Shields Library',
     coordinates: {
       latitude: 38.5395,
       longitude: -121.7489
     },
     imageUrl: LibraryDetailedCard,
-    isOpen: true,
     hours: {
-      main: {
-        label: 'Main Building',
-        open: '10:30 AM',
-        close: '8:30 PM'
-      }
+      monday: { open: '7:30 AM', close: '10:00 PM' },
+      tuesday: { open: '7:30 AM', close: '10:00 PM' },
+      wednesday: { open: '7:30 AM', close: '10:00 PM' },
+      thursday: { open: '7:30 AM', close: '10:00 PM' },
+      friday: { open: '7:30 AM', close: '6:00 PM' },
+      saturday: { open: '12:00 PM', close: '5:00 PM' },
+      sunday: { open: '12:00 PM', close: '10:00 PM' }
     },
     currentCapacity: 20,
     maxCapacity: 144,
@@ -151,20 +152,21 @@ export const getInitialMockLocations = (): Location[] => [
     },
   },
   {
-    id: '2',
+    id: 'arc',
     name: 'Activities and Recreation Center',
     coordinates: {
       latitude: 38.54272,
       longitude: -121.75904
     },
     imageUrl: ArcDetailedCard,
-    isOpen: true,
     hours: {
-      main: {
-        label: 'Main Building',
-        open: '6:00 AM',
-        close: '12:00 AM'
-      }
+      monday: { open: '6:00 AM', close: '11:30 PM' },
+      tuesday: { open: '6:00 AM', close: '11:30 PM' },
+      wednesday: { open: '6:00 AM', close: '11:30 PM' },
+      thursday: { open: '6:00 AM', close: '11:30 PM' },
+      friday: { open: '6:00 AM', close: '10:00 PM' },
+      saturday: { open: '8:00 AM', close: '8:00 PM' },
+      sunday: { open: '8:00 AM', close: '10:00 PM' }
     },
     currentCapacity: 280,
     maxCapacity: 300,
@@ -223,20 +225,21 @@ export const getInitialMockLocations = (): Location[] => [
     },
   },
   {
-    id: '3',
+    id: 'silo',
     name: 'Silo Market',
     coordinates: {
       latitude: 38.53879,
       longitude: -121.75305
     },
     imageUrl: SiloDetailedCard,
-    isOpen: true,
     hours: {
-      main: {
-        label: 'Main Building',
-        open: '7:00 AM',
-        close: '7:00 PM'
-      }
+      monday: { open: '7:00 AM', close: '5:00 PM' },
+      tuesday: { open: '7:00 AM', close: '5:00 PM' },
+      wednesday: { open: '7:00 AM', close: '5:00 PM' },
+      thursday: { open: '7:00 AM', close: '5:00 PM' },
+      friday: { open: '7:00 AM', close: '3:00 PM' },
+      saturday: { open: 'Closed', close: 'Closed' },
+      sunday: { open: 'Closed', close: 'Closed' }
     },
     currentCapacity: 120,
     maxCapacity: 200,
@@ -312,20 +315,21 @@ export const getInitialMockLocations = (): Location[] => [
     },
   },
   {
-    id: '4',
+    id: 'mu',
     name: 'Memorial Union',
     coordinates: {
       latitude: 38.54229,
       longitude: -121.74963
     },
     imageUrl: MemorialUnionDetailedCard,
-    isOpen: true,
     hours: {
-      main: {
-        label: 'Main Building',
-        open: '7:00 AM',
-        close: '8:00 PM'
-      }
+      monday: { open: '7:00 AM', close: '11:00 PM' },
+      tuesday: { open: '7:00 AM', close: '11:00 PM' },
+      wednesday: { open: '7:00 AM', close: '11:00 PM' },
+      thursday: { open: '7:00 AM', close: '11:00 PM' },
+      friday: { open: '7:00 AM', close: '11:00 PM' },
+      saturday: { open: '9:00 AM', close: '11:00 PM' },
+      sunday: { open: '9:00 AM', close: '11:00 PM' }
     },
     currentCapacity: 90,
     maxCapacity: 300,
