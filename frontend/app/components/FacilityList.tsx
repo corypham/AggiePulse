@@ -47,7 +47,7 @@ export const FacilityList: React.FC<FacilityListProps> = ({
   const HANDLE_HEIGHT = 105;
   const LIST_HEADER_HEIGHT = 60;
   const LIST_HEADER_PADDING = 3;
-  const DYNAMIC_ISLAND_BUFFER = Platform.OS === 'ios' ? 48 : 0;
+  const DYNAMIC_ISLAND_BUFFER = Platform.OS === 'ios' ? 40 : 0;
   const BOTTOM_INSET = Platform.OS === 'ios' ? 34 : 0;
   const SCROLL_THRESHOLD = 70;
   

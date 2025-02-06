@@ -58,4 +58,8 @@ export const useLocations = (selectedFilters: string[] = []) => {
       setUpdateTrigger(prev => prev + 1);
     }
   };
+};
+
+export default {
+  useLocations
 }; 

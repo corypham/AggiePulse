@@ -8,11 +8,11 @@ type FavoritesContextType = {
 };
 
 // Initialize with default values
-const FavoritesContext = createContext<FavoritesContextType>({
+export const FavoritesContext = createContext<FavoritesContextType>({
   favorites: [],
   toggleFavorite: () => {},
   isFavorite: () => false,
-});
+} as FavoritesContextType);
 
 export function FavoritesProvider({ children }: { children: React.ReactNode }) {
   const [favorites, setFavorites] = useState<string[]>([]);
@@ -40,13 +40,16 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
         ? favorites.filter(id => id !== locationId)
         : [...favorites, locationId];
       
-      setFavorites(newFavorites);
-      // Store as object for backward compatibility
+      // Update state immediately before AsyncStorage
+      setFavorites([...newFavorites]); // Create new array reference
+      
+      // Store in AsyncStorage
       const favoritesObj = Object.fromEntries(
         newFavorites.map(id => [id, true])
       );
       await AsyncStorage.setItem('favorites', JSON.stringify(favoritesObj));
     } catch (error) {
+      console.error('Error toggling favorite:', error);
     }
   };
 
@@ -73,4 +76,10 @@ export const useFavorites = () => {
     throw new Error('useFavorites must be used within a FavoritesProvider');
   }
   return context;
+};
+
+// Add default export
+export default {
+  FavoritesContext,
+  FavoritesProvider
 };

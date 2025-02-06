@@ -1,6 +1,6 @@
 // Path: frontend/components/MapMarker.tsx
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState, useMemo, useCallback } from 'react';
 import { Marker, Callout } from 'react-native-maps';
 import { useRouter } from 'expo-router';
 import { MiniCard } from './MiniCard';
@@ -40,24 +40,16 @@ interface MapMarkerProps {
 
 export function MapMarker({ location, onPress }: MapMarkerProps) {
   const router = useRouter();
-  const { isFavorite } = useFavorites();
-  const isLocationFavorite = isFavorite(location.id);
+  const { isFavorite, favorites } = useFavorites();
   const markerRef = useRef(null);
 
-  useEffect(() => {
-    const subscription = EventEmitter.addListener('resetHomeScreen', () => {
-      // Hide callout when reset event is fired
-      if (markerRef.current) {
-        (markerRef.current as any).hideCallout();
-      }
-    });
+  // Memoize the favorite status to ensure it updates properly
+  const isLocationFavorite = useMemo(() => 
+    isFavorite(location.id),
+    [isFavorite, location.id, favorites] // Add favorites as dependency
+  );
 
-    return () => {
-      subscription.remove();
-    };
-  }, []);
-
-  const getPin = () => {
+  const getPin = useCallback(() => {
     const type = location.type;
     const status = location.currentStatus || 'No Info';
     let PinComponent;
@@ -92,10 +84,8 @@ export function MapMarker({ location, onPress }: MapMarkerProps) {
           default: PinComponent = PinFoodNoInfo;
         }
       }
-    }
-
-    // Only use regular pins if no favorite pin was selected
-    if (!PinComponent) {
+    } else {
+      // Regular pins logic
       if (type.includes('study')) {
         switch (status) {
           case 'Not Busy': PinComponent = PinStudyNotBusy; break;
@@ -121,7 +111,28 @@ export function MapMarker({ location, onPress }: MapMarkerProps) {
     }
 
     return PinComponent ? <PinComponent width={40} height={40} /> : null;
-  };
+  }, [location.type, location.currentStatus, isLocationFavorite]); // Add proper dependencies
+
+  // Memoize the pin with all necessary dependencies
+  const pin = useMemo(() => getPin(), [
+    getPin,
+    location.currentStatus,
+    isLocationFavorite,
+    location.type
+  ]);
+
+  useEffect(() => {
+    const subscription = EventEmitter.addListener('resetHomeScreen', () => {
+      // Hide callout when reset event is fired
+      if (markerRef.current) {
+        (markerRef.current as any).hideCallout();
+      }
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   const handleCalloutPress = () => {
     router.push(`/location/${location.id}`);
@@ -131,18 +142,16 @@ export function MapMarker({ location, onPress }: MapMarkerProps) {
     if (onPress) onPress(location);
   };
 
-  // Get pin based on current state
-  const pin = getPin();
-
   return (
     <Marker
+      key={`${location.id}-${isLocationFavorite}-${location.currentStatus}`}
       ref={markerRef}
       coordinate={{
         latitude: location.coordinates.latitude,
         longitude: location.coordinates.longitude
       }}
       onPress={handleMarkerPress}
-      tracksViewChanges={false}
+      tracksViewChanges={true} // Temporarily set to true for testing
     >
       {pin}
       <Callout

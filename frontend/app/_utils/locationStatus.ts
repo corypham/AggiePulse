@@ -6,6 +6,8 @@ interface LocationStatusInfo {
   timeText: string;
   colorClass: string;
   statusClass: string;
+  backgroundClass: string;
+  statusTextClass: string;
 }
 
 function convertTo24Hour(timeStr: string): number {
@@ -26,6 +28,33 @@ function convertTo24Hour(timeStr: string): number {
 }
 
 export function getLocationStatus(location: Location): LocationStatusInfo {
+  const getStatusColors = (status: string) => {
+    switch (status) {
+      case 'Not Busy':
+        return {
+          background: 'bg-[#ECFDF5]',
+          text: 'text-[#059669]'
+        };
+      case 'Fairly Busy':
+        return {
+          background: 'bg-[#FFF9E7]',
+          text: 'text-[#D97706]'
+        };
+      case 'Very Busy':
+        return {
+          background: 'bg-[#FEF2F2]',
+          text: 'text-[#DC2626]'
+        };
+      default:
+        return {
+          background: 'bg-gray-50',
+          text: 'text-gray-600'
+        };
+    }
+  };
+
+  const statusColors = getStatusColors(location.currentStatus);
+
   // First check if location is operationally open
   if (!location.isOpen) {
     return {
@@ -33,7 +62,9 @@ export function getLocationStatus(location: Location): LocationStatusInfo {
       statusText: 'Temporarily Closed',
       timeText: 'Check back later',
       colorClass: 'text-closed',
-      statusClass: 'font-aileron-bold text-closed'
+      statusClass: 'font-aileron-bold text-closed',
+      backgroundClass: statusColors.background,
+      statusTextClass: statusColors.text
     };
   }
 
@@ -44,7 +75,9 @@ export function getLocationStatus(location: Location): LocationStatusInfo {
       statusText: 'Hours Unavailable',
       timeText: 'Contact location',
       colorClass: 'text-closed',
-      statusClass: 'font-aileron-bold text-closed'
+      statusClass: 'font-aileron-bold text-closed',
+      backgroundClass: statusColors.background,
+      statusTextClass: statusColors.text
     };
   }
 
@@ -59,7 +92,9 @@ export function getLocationStatus(location: Location): LocationStatusInfo {
       statusText: 'Open',
       timeText: '24 Hours',
       colorClass: 'text-open',
-      statusClass: 'font-aileron-bold text-open'
+      statusClass: 'font-aileron-bold text-open',
+      backgroundClass: statusColors.background,
+      statusTextClass: statusColors.text
     };
   }
 
@@ -85,6 +120,12 @@ export function getLocationStatus(location: Location): LocationStatusInfo {
     colorClass: isWithinHours ? 'text-open' : 'text-closed',
     statusClass: isWithinHours 
       ? 'font-aileron-bold text-open' 
-      : 'font-aileron-bold text-closed'
+      : 'font-aileron-bold text-closed',
+    backgroundClass: statusColors.background,
+    statusTextClass: statusColors.text
   };
-} 
+}
+
+export default {
+  getLocationStatus
+}; 
