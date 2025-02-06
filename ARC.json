@@ -1,0 +1,1965 @@
+{
+  "search_metadata":
+  {
+  "id":
+  "67a4948d139767c381fee07b",
+  "status":
+  "Success",
+  "json_endpoint":
+  "https://serpapi.com/searches/f1a7f5514cb4be63/67a4948d139767c381fee07b.json",
+  "created_at":
+  "2025-02-06 10:53:01 UTC",
+  "processed_at":
+  "2025-02-06 10:53:01 UTC",
+  "google_url":
+  "https://www.google.com/search?q=UC+Davis+Activities+Recreation+Center&oq=UC+Davis+Activities+Recreation+Center&uule=w+CAIQICIaQXVzdGluLFRleGFzLFVuaXRlZCBTdGF0ZXM&hl=en&gl=us&sourceid=chrome&ie=UTF-8",
+  "raw_html_file":
+  "https://serpapi.com/searches/f1a7f5514cb4be63/67a4948d139767c381fee07b.html",
+  "total_time_taken":
+  2.18
+  },
+  "search_parameters":
+  {
+  "engine":
+  "google",
+  "q":
+  "UC Davis Activities Recreation Center",
+  "location_requested":
+  "Austin, Texas, United States",
+  "location_used":
+  "Austin,Texas,United States",
+  "google_domain":
+  "google.com",
+  "hl":
+  "en",
+  "gl":
+  "us",
+  "device":
+  "desktop"
+  },
+  "search_information":
+  {
+  "query_displayed":
+  "UC Davis Activities Recreation Center",
+  "total_results":
+  1160000,
+  "time_taken_displayed":
+  0.34,
+  "organic_results_state":
+  "Results for exact spelling"
+  },
+  "knowledge_graph":
+  {
+  "title":
+  "Activities and Recreation Center | UC Davis",
+  "thumbnail":
+  "https://serpapi.com/searches/67a4948d139767c381fee07b/images/622cdddfaaeb996b721611da66175c4996d3e0b736cb692f4109162b28725311.jpeg",
+  "type":
+  "Recreation center in University of California-Davis, California",
+  "entity_type":
+  "local_nav",
+  "kgmid":
+  "/g/1tk6qjwy",
+  "knowledge_graph_search_link":
+  "https://www.google.com/search?kgmid=/g/1tk6qjwy&hl=en-US&q=Activities+and+Recreation+Center+%7C+UC+Davis",
+  "serpapi_knowledge_graph_search_link":
+  "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en-US&kgmid=%2Fg%2F1tk6qjwy&location=Austin%2C+Texas%2C+United+States&q=Activities+and+Recreation+Center+%7C+UC+Davis",
+  "place_id":
+  "ChIJNTf1rgAphYAR0hMcYlna148",
+  "website":
+  "https://campusrecreation.ucdavis.edu/arc/hours-location-and-contact-arc",
+  "directions":
+  "https://www.google.com/maps/dir//UC+Davis+Activities+Recreation+Center/data=!4m6!4m5!1m1!4e2!1m2!1m1!1s0x80852900aef53735:0x8fd7da59621c13d2?sa=X&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQ9Rd6BAgqEAA&hl=en&gl=us",
+  "description":
+  "Recreation center housing a gym, fitness center, basketball court, squash court, and exercise classes.",
+  "local_map":
+  {
+  "image":
+  "https://serpapi.com/searches/67a4948d139767c381fee07b/images/622cdddfaaeb996b721611da66175c49f178323c7a86dc3822e13cc8609e8a64.webp",
+  "link":
+  "https://www.google.com/maps/place/Activities+and+Recreation+Center+%7C+UC+Davis/data=!4m2!3m1!1s0x0:0x8fd7da59621c13d2?sa=X&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQ_BJ6BAg-EAA&hl=en&gl=us"
+  },
+  "rating":
+  3.9,
+  "review_count":
+  158,
+  "service_options":
+  "Has basketball court",
+  "located_in":
+  "University of California, Davis",
+  "address":
+  "760 Orchard Rd, Davis, CA 95616",
+  "address_links":
+  [
+  {
+  "text":
+  "Address",
+  "link":
+  "https://www.google.com/search?sca_esv=0af04e46daa0125b&gl=us&hl=en&q=activities+and+recreation+center+%7C+uc+davis+address&ludocid=10364993144849437650&sa=X&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQ6BN6BAg1EAI"
+  }
+  ],
+  "raw_hours":
+  "Closed ⋅ Opens 5 AM",
+  "hours":
+  {
+  "thursday":
+  {
+  "opens":
+  "5 AM",
+  "closes":
+  "12 AM"
+  },
+  "friday":
+  {
+  "opens":
+  "5 AM",
+  "closes":
+  "12 AM"
+  },
+  "saturday":
+  {
+  "opens":
+  "8 AM",
+  "closes":
+  "11 PM"
+  },
+  "sunday":
+  {
+  "opens":
+  "8 AM",
+  "closes":
+  "11 PM"
+  },
+  "monday":
+  {
+  "opens":
+  "5 AM",
+  "closes":
+  "12 AM"
+  },
+  "tuesday":
+  {
+  "opens":
+  "5 AM",
+  "closes":
+  "12 AM"
+  },
+  "wednesday":
+  {
+  "opens":
+  "5 AM",
+  "closes":
+  "12 AM"
+  }
+  },
+  "phone":
+  "(530) 754-5306",
+  "phone_links":
+  [
+  {
+  "text":
+  "Phone",
+  "link":
+  "https://www.google.com/search?sca_esv=0af04e46daa0125b&gl=us&hl=en&q=activities+and+recreation+center+%7C+uc+davis+phone&ludocid=10364993144849437650&sa=X&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQ6BN6BAg0EAI"
+  }
+  ],
+  "popular_times":
+  {
+  "live":
+  {
+  "time":
+  "5 PM",
+  "info":
+  "Usually as busy as it gets",
+  "typical_time_spent":
+  "1.5 hours"
+  },
+  "graph_results":
+  {
+  "monday":
+  [
+  {
+  "time":
+  "4 AM",
+  "busyness_score":
+  0
+  },
+  {
+  "time":
+  "5 AM",
+  "info":
+  "Usually not busy",
+  "busyness_score":
+  12
+  },
+  {
+  "time":
+  "6 AM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  24
+  },
+  {
+  "time":
+  "7 AM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  33
+  },
+  {
+  "time":
+  "8 AM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  43
+  },
+  {
+  "time":
+  "9 AM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  50
+  },
+  {
+  "time":
+  "10 AM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  56
+  },
+  {
+  "time":
+  "11 AM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  62
+  },
+  {
+  "time":
+  "12 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  65
+  },
+  {
+  "time":
+  "1 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  68
+  },
+  {
+  "time":
+  "2 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  70
+  },
+  {
+  "time":
+  "3 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  77
+  },
+  {
+  "time":
+  "4 PM",
+  "info":
+  "Usually as busy as it gets",
+  "busyness_score":
+  89
+  },
+  {
+  "time":
+  "5 PM",
+  "info":
+  "Usually as busy as it gets",
+  "busyness_score":
+  99
+  },
+  {
+  "time":
+  "6 PM",
+  "info":
+  "Usually as busy as it gets",
+  "busyness_score":
+  100
+  },
+  {
+  "time":
+  "7 PM",
+  "info":
+  "Usually as busy as it gets",
+  "busyness_score":
+  88
+  },
+  {
+  "time":
+  "8 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  73
+  },
+  {
+  "time":
+  "9 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  55
+  },
+  {
+  "time":
+  "10 PM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  37
+  },
+  {
+  "time":
+  "11 PM",
+  "info":
+  "Usually not busy",
+  "busyness_score":
+  19
+  }
+  ],
+  "tuesday":
+  [
+  {
+  "time":
+  "4 AM",
+  "busyness_score":
+  0
+  },
+  {
+  "time":
+  "5 AM",
+  "info":
+  "Usually not busy",
+  "busyness_score":
+  17
+  },
+  {
+  "time":
+  "6 AM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  29
+  },
+  {
+  "time":
+  "7 AM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  35
+  },
+  {
+  "time":
+  "8 AM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  44
+  },
+  {
+  "time":
+  "9 AM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  50
+  },
+  {
+  "time":
+  "10 AM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  63
+  },
+  {
+  "time":
+  "11 AM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  69
+  },
+  {
+  "time":
+  "12 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  73
+  },
+  {
+  "time":
+  "1 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  73
+  },
+  {
+  "time":
+  "2 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  72
+  },
+  {
+  "time":
+  "3 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  76
+  },
+  {
+  "time":
+  "4 PM",
+  "info":
+  "Usually as busy as it gets",
+  "busyness_score":
+  86
+  },
+  {
+  "time":
+  "5 PM",
+  "info":
+  "Usually as busy as it gets",
+  "busyness_score":
+  98
+  },
+  {
+  "time":
+  "6 PM",
+  "info":
+  "Usually as busy as it gets",
+  "busyness_score":
+  99
+  },
+  {
+  "time":
+  "7 PM",
+  "info":
+  "Usually as busy as it gets",
+  "busyness_score":
+  83
+  },
+  {
+  "time":
+  "8 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  63
+  },
+  {
+  "time":
+  "9 PM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  49
+  },
+  {
+  "time":
+  "10 PM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  37
+  },
+  {
+  "time":
+  "11 PM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  25
+  }
+  ],
+  "wednesday":
+  [
+  {
+  "time":
+  "4 AM",
+  "busyness_score":
+  0
+  },
+  {
+  "time":
+  "5 AM",
+  "info":
+  "Usually not busy",
+  "busyness_score":
+  18
+  },
+  {
+  "time":
+  "6 AM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  34
+  },
+  {
+  "time":
+  "7 AM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  44
+  },
+  {
+  "time":
+  "8 AM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  54
+  },
+  {
+  "time":
+  "9 AM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  59
+  },
+  {
+  "time":
+  "10 AM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  58
+  },
+  {
+  "time":
+  "11 AM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  59
+  },
+  {
+  "time":
+  "12 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  59
+  },
+  {
+  "time":
+  "1 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  60
+  },
+  {
+  "time":
+  "2 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  67
+  },
+  {
+  "time":
+  "3 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  76
+  },
+  {
+  "time":
+  "4 PM",
+  "info":
+  "Usually as busy as it gets",
+  "busyness_score":
+  88
+  },
+  {
+  "time":
+  "5 PM",
+  "info":
+  "Usually as busy as it gets",
+  "busyness_score":
+  94
+  },
+  {
+  "time":
+  "6 PM",
+  "info":
+  "Usually as busy as it gets",
+  "busyness_score":
+  91
+  },
+  {
+  "time":
+  "7 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  76
+  },
+  {
+  "time":
+  "8 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  60
+  },
+  {
+  "time":
+  "9 PM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  47
+  },
+  {
+  "time":
+  "10 PM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  35
+  },
+  {
+  "time":
+  "11 PM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  21
+  }
+  ],
+  "thursday":
+  [
+  {
+  "time":
+  "4 AM",
+  "busyness_score":
+  0
+  },
+  {
+  "time":
+  "5 AM",
+  "info":
+  "Usually not busy",
+  "busyness_score":
+  10
+  },
+  {
+  "time":
+  "6 AM",
+  "info":
+  "Usually not busy",
+  "busyness_score":
+  19
+  },
+  {
+  "time":
+  "7 AM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  27
+  },
+  {
+  "time":
+  "8 AM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  35
+  },
+  {
+  "time":
+  "9 AM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  43
+  },
+  {
+  "time":
+  "10 AM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  52
+  },
+  {
+  "time":
+  "11 AM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  58
+  },
+  {
+  "time":
+  "12 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  60
+  },
+  {
+  "time":
+  "1 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  61
+  },
+  {
+  "time":
+  "2 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  65
+  },
+  {
+  "time":
+  "3 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  75
+  },
+  {
+  "time":
+  "4 PM",
+  "info":
+  "Usually as busy as it gets",
+  "busyness_score":
+  86
+  },
+  {
+  "time":
+  "5 PM",
+  "info":
+  "Usually as busy as it gets",
+  "busyness_score":
+  91
+  },
+  {
+  "time":
+  "6 PM",
+  "info":
+  "Usually as busy as it gets",
+  "busyness_score":
+  86
+  },
+  {
+  "time":
+  "7 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  74
+  },
+  {
+  "time":
+  "8 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  62
+  },
+  {
+  "time":
+  "9 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  53
+  },
+  {
+  "time":
+  "10 PM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  41
+  },
+  {
+  "time":
+  "11 PM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  24
+  }
+  ],
+  "friday":
+  [
+  {
+  "time":
+  "4 AM",
+  "busyness_score":
+  0
+  },
+  {
+  "time":
+  "5 AM",
+  "info":
+  "Usually not busy",
+  "busyness_score":
+  16
+  },
+  {
+  "time":
+  "6 AM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  26
+  },
+  {
+  "time":
+  "7 AM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  34
+  },
+  {
+  "time":
+  "8 AM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  42
+  },
+  {
+  "time":
+  "9 AM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  48
+  },
+  {
+  "time":
+  "10 AM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  56
+  },
+  {
+  "time":
+  "11 AM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  64
+  },
+  {
+  "time":
+  "12 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  68
+  },
+  {
+  "time":
+  "1 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  68
+  },
+  {
+  "time":
+  "2 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  69
+  },
+  {
+  "time":
+  "3 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  77
+  },
+  {
+  "time":
+  "4 PM",
+  "info":
+  "Usually as busy as it gets",
+  "busyness_score":
+  84
+  },
+  {
+  "time":
+  "5 PM",
+  "info":
+  "Usually as busy as it gets",
+  "busyness_score":
+  88
+  },
+  {
+  "time":
+  "6 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  78
+  },
+  {
+  "time":
+  "7 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  61
+  },
+  {
+  "time":
+  "8 PM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  43
+  },
+  {
+  "time":
+  "9 PM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  29
+  },
+  {
+  "time":
+  "10 PM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  22
+  },
+  {
+  "time":
+  "11 PM",
+  "info":
+  "Usually not busy",
+  "busyness_score":
+  16
+  }
+  ],
+  "saturday":
+  [
+  {
+  "time":
+  "6 AM",
+  "busyness_score":
+  0
+  },
+  {
+  "time":
+  "7 AM",
+  "busyness_score":
+  0
+  },
+  {
+  "time":
+  "8 AM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  27
+  },
+  {
+  "time":
+  "9 AM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  45
+  },
+  {
+  "time":
+  "10 AM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  63
+  },
+  {
+  "time":
+  "11 AM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  73
+  },
+  {
+  "time":
+  "12 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  75
+  },
+  {
+  "time":
+  "1 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  73
+  },
+  {
+  "time":
+  "2 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  72
+  },
+  {
+  "time":
+  "3 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  75
+  },
+  {
+  "time":
+  "4 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  69
+  },
+  {
+  "time":
+  "5 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  58
+  },
+  {
+  "time":
+  "6 PM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  46
+  },
+  {
+  "time":
+  "7 PM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  39
+  },
+  {
+  "time":
+  "8 PM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  34
+  },
+  {
+  "time":
+  "9 PM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  27
+  },
+  {
+  "time":
+  "10 PM",
+  "info":
+  "Usually not busy",
+  "busyness_score":
+  17
+  },
+  {
+  "time":
+  "11 PM",
+  "busyness_score":
+  0
+  }
+  ],
+  "sunday":
+  [
+  {
+  "time":
+  "6 AM",
+  "busyness_score":
+  0
+  },
+  {
+  "time":
+  "7 AM",
+  "busyness_score":
+  0
+  },
+  {
+  "time":
+  "8 AM",
+  "info":
+  "Usually not busy",
+  "busyness_score":
+  13
+  },
+  {
+  "time":
+  "9 AM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  30
+  },
+  {
+  "time":
+  "10 AM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  46
+  },
+  {
+  "time":
+  "11 AM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  58
+  },
+  {
+  "time":
+  "12 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  61
+  },
+  {
+  "time":
+  "1 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  62
+  },
+  {
+  "time":
+  "2 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  65
+  },
+  {
+  "time":
+  "3 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  70
+  },
+  {
+  "time":
+  "4 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  69
+  },
+  {
+  "time":
+  "5 PM",
+  "info":
+  "Usually a little busy",
+  "busyness_score":
+  58
+  },
+  {
+  "time":
+  "6 PM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  45
+  },
+  {
+  "time":
+  "7 PM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  32
+  },
+  {
+  "time":
+  "8 PM",
+  "info":
+  "Usually not too busy",
+  "busyness_score":
+  27
+  },
+  {
+  "time":
+  "9 PM",
+  "info":
+  "Usually not busy",
+  "busyness_score":
+  19
+  },
+  {
+  "time":
+  "10 PM",
+  "info":
+  "Usually not busy",
+  "busyness_score":
+  14
+  },
+  {
+  "time":
+  "11 PM",
+  "busyness_score":
+  0
+  }
+  ]
+  }
+  },
+  "merchant_description":
+  ""The Activities and Recreation Center is home to a wide range of equipment, exercise studios, specialty fitness areas and more. Join an exercise class, find your own routine in our fitness center, or get personalized advice from a certified trainer. Our friendly and knowledgeable staff are here to help you on your way to wellness."",
+  "user_reviews":
+  [
+  {
+  "summary":
+  "Great facility with knowledgeable, friendly staff!",
+  "link":
+  "https://www.google.com/maps/reviews/data=!4m5!14m4!1m3!1m2!1s116788127276130610107!2s0x80852900aef53735:0x8fd7da59621c13d2?ved=1t:31295&ictx=111",
+  "user":
+  {
+  "name":
+  "Jason Lorgan",
+  "link":
+  "https://www.google.com/maps/contrib/116788127276130610107?hl=en-US&ved=1t:31296&ictx=111",
+  "thumbnail":
+  "https://lh3.googleusercontent.com/a/ACg8ocJQhSzFRuzAtZCM-XIKhNdR8xVaRDqH6KIzLSzqhxivh_woZQ=s40-w40-c-h40-rp-br100"
+  }
+  },
+  {
+  "summary":
+  "Pathetic front desk service throwing all on me by saying it is my fault.",
+  "link":
+  "https://www.google.com/maps/reviews/data=!4m5!14m4!1m3!1m2!1s108850336001935978957!2s0x80852900aef53735:0x8fd7da59621c13d2?ved=1t:31295&ictx=111",
+  "user":
+  {
+  "name":
+  "RT Graphix",
+  "link":
+  "https://www.google.com/maps/contrib/108850336001935978957?hl=en-US&ved=1t:31296&ictx=111",
+  "thumbnail":
+  "https://lh3.googleusercontent.com/a/ACg8ocKfyEz0PHePxZscdVQfKyzl1hMPaJPHvPnx9cr9q8j7p0hSSw=s40-w40-c-h40-rp-br100"
+  }
+  },
+  {
+  "summary":
+  "Convenient location, pricey and a little lacking in customer service.",
+  "link":
+  "https://www.google.com/maps/reviews/data=!4m5!14m4!1m3!1m2!1s102498705743074812107!2s0x80852900aef53735:0x8fd7da59621c13d2?ved=1t:31295&ictx=111",
+  "user":
+  {
+  "name":
+  "Kim Johan-Nass",
+  "link":
+  "https://www.google.com/maps/contrib/102498705743074812107?hl=en-US&ved=1t:31296&ictx=111",
+  "thumbnail":
+  "https://lh3.googleusercontent.com/a-/ALV-UjUAMqXVj9LBWrPPl1bkUZqJtYq-pd6A23fNBzta2GcAe76OyV4e=s40-w40-c-h40-rp-ba7-br100"
+  }
+  }
+  ],
+  "unclaimed_listing":
+  true,
+  "appointment_providers":
+  [
+  {
+  "name":
+  "ucdavis.edu",
+  "link":
+  "https://campusrecreation.ucdavis.edu/news/arc-reopening-april-19"
+  }
+  ],
+  "profiles":
+  [
+  {
+  "name":
+  "YouTube",
+  "link":
+  "https://www.youtube.com/channel/UCo76v_kK9P1Tx7iSlAADsqQ",
+  "image":
+  "https://ssl.gstatic.com/kpui/social/youtube_32x32.png"
+  },
+  {
+  "name":
+  "Instagram",
+  "link":
+  "https://www.instagram.com/ucdaviscampusrec/",
+  "image":
+  "https://ssl.gstatic.com/kpui/social/instagram_32x32.png"
+  }
+  ],
+  "people_also_search_for":
+  [
+  {
+  "name":
+  "UC Davis Rec Pool",
+  "extensions":
+  [
+  "Outdoor swimming pool"
+  ],
+  "place_id":
+  "12629757548853350155",
+  "link":
+  "https://www.google.com/search?sca_esv=0af04e46daa0125b&gl=us&hl=en&tbm=lcl&q=Activities+and+Recreation+Center+%7C+UC+Davis&rflfq=1&num=20&uule=w+CAIQICIaQXVzdGluLFRleGFzLFVuaXRlZCBTdGF0ZXM&stick=H4sIAAAAAAAAAB2QO2rcYBSFmcImvYILVX-f5r4fZbAXEAJZgJgoWGBmzMzgKqvJCrIur8JHBiGkX_ee8-n7cj9_ZQnp9HSrclUndp-ndNekIuu0zFBjmicMMgczJ27K1VL7Pou4t0lWs5Kn2jw1VbEnRouTzZIRahYRbZwUJmxKlvOk2Ug3HEsXUyMBoUZ4ze7kyig2QdWU7URB_vlRCRWB0RDBYJOLM4nuXehXZmcX5dAEASixnwRKof0vJKopDftOQpKmWaYsRGqEU2ArHJR5BAGubZ8FZgK4DRtdeJQdlhAEsIS7RgAuwMInoKzcHbAZu6wpuAQGvNwULtD5qRU2A1pSVRQ6S_4fDu-Hhx_r-fVlHcvL9Tyu63I5Po8_58u_u2_fj7ftbbtt63Usp9_j53q8rMttO5_G43q6rZfxd_x6HE_L23b9ANiH2dLjAQAA",
+  "serpapi_link":
+  "https://serpapi.com/search.json?device=desktop&engine=google_local&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=Activities+and+Recreation+Center+%7C+UC+Davis&uule=w+CAIQICIaQXVzdGluLFRleGFzLFVuaXRlZCBTdGF0ZXM",
+  "image":
+  "https://lh5.googleusercontent.com/p/AF1QipM1VItbCV2dugqKaq8GjpSPfs9wKGzh46voKQ8k=w72-h72-n-k-no"
+  },
+  {
+  "name":
+  "AHMCT Research Center",
+  "extensions":
+  [
+  "University"
+  ],
+  "place_id":
+  "7553708049747763410",
+  "link":
+  "https://www.google.com/search?sca_esv=0af04e46daa0125b&gl=us&hl=en&tbm=lcl&q=Activities+and+Recreation+Center+%7C+UC+Davis&rflfq=1&num=20&uule=w+CAIQICIaQXVzdGluLFRleGFzLFVuaXRlZCBTdGF0ZXM&stick=H4sIAAAAAAAAAB2QO2rcYBSFmcImvYILVX-f5r4fZbAXEAJZgJgoWGBmzMzgKqvJCrIur8JHBiGkX_ee8-n7cj9_ZQnp9HSrclUndp-ndNekIuu0zFBjmicMMgczJ27K1VL7Pou4t0lWs5Kn2jw1VbEnRouTzZIRahYRbZwUJmxKlvOk2Ug3HEsXUyMBoUZ4ze7kyig2QdWU7URB_vlRCRWB0RDBYJOLM4nuXehXZmcX5dAEASixnwRKof0vJKopDftOQpKmWaYsRGqEU2ArHJR5BAGubZ8FZgK4DRtdeJQdlhAEsIS7RgAuwMInoKzcHbAZu6wpuAQGvNwULtD5qRU2A1pSVRQ6S_4fDu-Hhx_r-fVlHcvL9Tyu63I5Po8_58u_u2_fj7ftbbtt63Usp9_j53q8rMttO5_G43q6rZfxd_x6HE_L23b9ANiH2dLjAQAA",
+  "serpapi_link":
+  "https://serpapi.com/search.json?device=desktop&engine=google_local&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=Activities+and+Recreation+Center+%7C+UC+Davis&uule=w+CAIQICIaQXVzdGluLFRleGFzLFVuaXRlZCBTdGF0ZXM",
+  "image":
+  "https://lh5.googleusercontent.com/p/AF1QipODRrBe1XKW5wzpJgxlwHfmZVsdlO8fW5uLWrVa=w72-h72-n-k-no"
+  },
+  {
+  "name":
+  "Parks & Recreation Department",
+  "extensions":
+  [
+  "Government office"
+  ],
+  "place_id":
+  "6291161117611318928",
+  "link":
+  "https://www.google.com/search?sca_esv=0af04e46daa0125b&gl=us&hl=en&tbm=lcl&q=Activities+and+Recreation+Center+%7C+UC+Davis&rflfq=1&num=20&uule=w+CAIQICIaQXVzdGluLFRleGFzLFVuaXRlZCBTdGF0ZXM&stick=H4sIAAAAAAAAAB2QO2rcYBSFmcImvYILVX-f5r4fZbAXEAJZgJgoWGBmzMzgKqvJCrIur8JHBiGkX_ee8-n7cj9_ZQnp9HSrclUndp-ndNekIuu0zFBjmicMMgczJ27K1VL7Pou4t0lWs5Kn2jw1VbEnRouTzZIRahYRbZwUJmxKlvOk2Ug3HEsXUyMBoUZ4ze7kyig2QdWU7URB_vlRCRWB0RDBYJOLM4nuXehXZmcX5dAEASixnwRKof0vJKopDftOQpKmWaYsRGqEU2ArHJR5BAGubZ8FZgK4DRtdeJQdlhAEsIS7RgAuwMInoKzcHbAZu6wpuAQGvNwULtD5qRU2A1pSVRQ6S_4fDu-Hhx_r-fVlHcvL9Tyu63I5Po8_58u_u2_fj7ftbbtt63Usp9_j53q8rMttO5_G43q6rZfxd_x6HE_L23b9ANiH2dLjAQAA",
+  "serpapi_link":
+  "https://serpapi.com/search.json?device=desktop&engine=google_local&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=Activities+and+Recreation+Center+%7C+UC+Davis&uule=w+CAIQICIaQXVzdGluLFRleGFzLFVuaXRlZCBTdGF0ZXM",
+  "image":
+  "https://www.google.com/maps/vt/data=HZzCun6999PmGPOD7I3GUdqGOlQ_M7ag4tfvrKM0IpAmlziCNlommBpCzycxzvhW9liJbM9unlgqkCnsJ7GfYqkbIKHtf8hzCorA_EiG0ehPAqJHO0XBBQbYY3pdGzqfVKpE2EzPXAXY7bHyryCUu_LQ8v8TMHbTJzkrhbrRfXrwhzBVTlQ"
+  },
+  {
+  "name":
+  "Edwards Family Athletic Center",
+  "extensions":
+  [
+  "Sports complex"
+  ],
+  "place_id":
+  "12122559427891305734",
+  "link":
+  "https://www.google.com/search?sca_esv=0af04e46daa0125b&gl=us&hl=en&tbm=lcl&q=Activities+and+Recreation+Center+%7C+UC+Davis&rflfq=1&num=20&uule=w+CAIQICIaQXVzdGluLFRleGFzLFVuaXRlZCBTdGF0ZXM&stick=H4sIAAAAAAAAAB2QO2rcYBSFmcImvYILVX-f5r4fZbAXEAJZgJgoWGBmzMzgKqvJCrIur8JHBiGkX_ee8-n7cj9_ZQnp9HSrclUndp-ndNekIuu0zFBjmicMMgczJ27K1VL7Pou4t0lWs5Kn2jw1VbEnRouTzZIRahYRbZwUJmxKlvOk2Ug3HEsXUyMBoUZ4ze7kyig2QdWU7URB_vlRCRWB0RDBYJOLM4nuXehXZmcX5dAEASixnwRKof0vJKopDftOQpKmWaYsRGqEU2ArHJR5BAGubZ8FZgK4DRtdeJQdlhAEsIS7RgAuwMInoKzcHbAZu6wpuAQGvNwULtD5qRU2A1pSVRQ6S_4fDu-Hhx_r-fVlHcvL9Tyu63I5Po8_58u_u2_fj7ftbbtt63Usp9_j53q8rMttO5_G43q6rZfxd_x6HE_L23b9ANiH2dLjAQAA",
+  "serpapi_link":
+  "https://serpapi.com/search.json?device=desktop&engine=google_local&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=Activities+and+Recreation+Center+%7C+UC+Davis&uule=w+CAIQICIaQXVzdGluLFRleGFzLFVuaXRlZCBTdGF0ZXM",
+  "image":
+  "https://lh5.googleusercontent.com/p/AF1QipMLCEceTMt6i2S-ozRKz0K4HoPAgmETWjdaQbWL=w72-h72-n-k-no"
+  }
+  ],
+  "people_also_search_for_link":
+  "https://www.google.com/search?sca_esv=0af04e46daa0125b&gl=us&hl=en&tbm=lcl&q=Activities+and+Recreation+Center+%7C+UC+Davis&rflfq=1&num=20&uule=w+CAIQICIaQXVzdGluLFRleGFzLFVuaXRlZCBTdGF0ZXM&stick=H4sIAAAAAAAAAB2QO2rcYBSFmcImvYILVX-f5r4fZbAXEAJZgJgoWGBmzMzgKqvJCrIur8JHBiGkX_ee8-n7cj9_ZQnp9HSrclUndp-ndNekIuu0zFBjmicMMgczJ27K1VL7Pou4t0lWs5Kn2jw1VbEnRouTzZIRahYRbZwUJmxKlvOk2Ug3HEsXUyMBoUZ4ze7kyig2QdWU7URB_vlRCRWB0RDBYJOLM4nuXehXZmcX5dAEASixnwRKof0vJKopDftOQpKmWaYsRGqEU2ArHJR5BAGubZ8FZgK4DRtdeJQdlhAEsIS7RgAuwMInoKzcHbAZu6wpuAQGvNwULtD5qRU2A1pSVRQ6S_4fDu-Hhx_r-fVlHcvL9Tyu63I5Po8_58u_u2_fj7ftbbtt63Usp9_j53q8rMttO5_G43q6rZfxd_x6HE_L23b9ANiH2dLjAQAA&sa=X&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQ6nUoAHoECEAQAQ",
+  "people_also_search_for_stick":
+  "H4sIAAAAAAAAAB2QO2rcYBSFmcImvYILVX-f5r4fZbAXEAJZgJgoWGBmzMzgKqvJCrIur8JHBiGkX_ee8-n7cj9_ZQnp9HSrclUndp-ndNekIuu0zFBjmicMMgczJ27K1VL7Pou4t0lWs5Kn2jw1VbEnRouTzZIRahYRbZwUJmxKlvOk2Ug3HEsXUyMBoUZ4ze7kyig2QdWU7URB_vlRCRWB0RDBYJOLM4nuXehXZmcX5dAEASixnwRKof0vJKopDftOQpKmWaYsRGqEU2ArHJR5BAGubZ8FZgK4DRtdeJQdlhAEsIS7RgAuwMInoKzcHbAZu6wpuAQGvNwULtD5qRU2A1pSVRQ6S_4fDu-Hhx_r-fVlHcvL9Tyu63I5Po8_58u_u2_fj7ftbbtt63Usp9_j53q8rMttO5_G43q6rZfxd_x6HE_L23b9ANiH2dLjAQAA"
+  },
+  "related_questions":
+  [
+  {
+  "question":
+  "What activities can you participate in at UC Davis?",
+  "snippet":
+  "Active Campus Recreation members may take as many group exercise, dance, martial arts, and small group training classes as they'd like each quarter with a GX Pass! It's just $35 per quarter or $75 for the academic year.",
+  "title":
+  "Home | Campus Recreation - UC Davis",
+  "link":
+  "https://campusrecreation.ucdavis.edu/#:~:text=Active%20Campus%20Recreation%20members%20may,%2475%20for%20the%20academic%20year.",
+  "displayed_link":
+  ,
+  "next_page_token":
+  "eyJvbnMiOiIxMDA0MSIsImZjIjoiRXFFQkNtSkJRUzFMVkdobFdVZzFSV3BSVEZneGVtOUlTRGh2UVVOSE1qVkJXbFZOZUZsemVqbGhORm8yZVdOQlpWbEpObGQ2YmtNNFdFbENPQzFLZERGeGFraENlazA1VFZNelF5MVJibFZWVldwNWVuQTBabWx4YWt0TWJrdHFTazVVV21aRGR4SVhhbkJUYTFvM1lVbE5ZbVZGZDJKclVIRk5RMTl2VVdNYUlrRkRSRmhNTkd4blprSlFSRmxrV2pacFUxRktWbkUzZW01RmIwVmxXWG80TmxFIiwiZmN2IjoiMyIsImVpIjoianBTa1o3YUlNYmVFd2JrUHFNQ19vUWMiLCJxYyI6IkNpVjFZeUJrWVhacGN5QmhZM1JwZG1sMGFXVnpJSEpsWTNKbFlYUnBiMjRnWTJWdWRHVnlFQUI5bkNsT1B3IiwicXVlc3Rpb24iOiJXaGF0IGFjdGl2aXRpZXMgY2FuIHlvdSBwYXJ0aWNpcGF0ZSBpbiBhdCBVQyBEYXZpcz8iLCJsayI6IkdqSjNhR0YwSUdGamRHbDJhWFJwWlhNZ1kyRnVJSGx2ZFNCd1lYSjBhV05wY0dGMFpTQnBiaUJoZENCMVl5QmtZWFpwY3ciLCJicyI6ImM0MlFQUTZDUUJCR1l6dVZqUW5aUkpoS3JWZjdMU1Rld0o5MnNvNHloUXRaRmdnWE1OekhDd29tZEdpczU3MlhMd01PdHVlTUFwSU5Va3NRTHRHU3d6YXZzQ0FmeEVwQmdWRWM5dEJ4anluVlVwcm9tZW1kMHMzZlptWHhPcGh3Z25XYTktaVl3b3hxUmtMUDFqTUZ5UjFhZG9HOWlWNEx2VkdyNjBDUC1sY2FVb2dudXpmUGpQZjJZYUxPNkVRdEozTWpCQWRJUHRfb1Q4UHVxVlhkUmFPS201X1VmUFlHIiwiaWQiOiJmY19qcFNrWjdhSU1iZUV3YmtQcU1DX29RY180In0=",
+  "serpapi_link":
+  "https://serpapi.com/search.json?device=desktop&engine=google_related_questions&google_domain=google.com&next_page_token=eyJvbnMiOiIxMDA0MSIsImZjIjoiRXFFQkNtSkJRUzFMVkdobFdVZzFSV3BSVEZneGVtOUlTRGh2UVVOSE1qVkJXbFZOZUZsemVqbGhORm8yZVdOQlpWbEpObGQ2YmtNNFdFbENPQzFLZERGeGFraENlazA1VFZNelF5MVJibFZWVldwNWVuQTBabWx4YWt0TWJrdHFTazVVV21aRGR4SVhhbkJUYTFvM1lVbE5ZbVZGZDJKclVIRk5RMTl2VVdNYUlrRkRSRmhNTkd4blprSlFSRmxrV2pacFUxRktWbkUzZW01RmIwVmxXWG80TmxFIiwiZmN2IjoiMyIsImVpIjoianBTa1o3YUlNYmVFd2JrUHFNQ19vUWMiLCJxYyI6IkNpVjFZeUJrWVhacGN5QmhZM1JwZG1sMGFXVnpJSEpsWTNKbFlYUnBiMjRnWTJWdWRHVnlFQUI5bkNsT1B3IiwicXVlc3Rpb24iOiJXaGF0IGFjdGl2aXRpZXMgY2FuIHlvdSBwYXJ0aWNpcGF0ZSBpbiBhdCBVQyBEYXZpcz8iLCJsayI6IkdqSjNhR0YwSUdGamRHbDJhWFJwWlhNZ1kyRnVJSGx2ZFNCd1lYSjBhV05wY0dGMFpTQnBiaUJoZENCMVl5QmtZWFpwY3ciLCJicyI6ImM0MlFQUTZDUUJCR1l6dVZqUW5aUkpoS3JWZjdMU1Rld0o5MnNvNHloUXRaRmdnWE1OekhDd29tZEdpczU3MlhMd01PdHVlTUFwSU5Va3NRTHRHU3d6YXZzQ0FmeEVwQmdWRWM5dEJ4anluVlVwcm9tZW1kMHMzZlptWHhPcGh3Z25XYTktaVl3b3hxUmtMUDFqTUZ5UjFhZG9HOWlWNEx2VkdyNjBDUC1sY2FVb2dudXpmUGpQZjJZYUxPNkVRdEozTWpCQWRJUHRfb1Q4UHVxVlhkUmFPS201X1VmUFlHIiwiaWQiOiJmY19qcFNrWjdhSU1iZUV3YmtQcU1DX29RY180In0%3D"
+  },
+  {
+  "question":
+  "Does UC Davis have a recreation center?",
+  "snippet":
+  "UC Davis Campus Recreation is an inclusive environment where everyone is welcome regardless of background or level of experience. With six centers, 11 program areas and five outdoor fields, Campus Recreation can help you find your center.",
+  "title":
+  "Programs and Facilities - UC Davis Campus Recreation",
+  "link":
+  "https://campusrecreation.ucdavis.edu/recreation#:~:text=UC%20Davis%20Campus%20Recreation%20is,help%20you%20find%20your%20center.",
+  "displayed_link":
+  "https://campusrecreation.ucdavis.edu › recreation",
+  "thumbnail":
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVzKOJs6RaVyKYMyC1JWdmyq3SYFecfpQORV6rEgsh6g&s",
+  "next_page_token":
+  "eyJvbnMiOiIxMDA0MSIsImZjIjoiRXFFQkNtSkJRUzFMVkdobFdVZzFSV3BSVEZneGVtOUlTRGh2UVVOSE1qVkJXbFZOZUZsemVqbGhORm8yZVdOQlpWbEpObGQ2YmtNNFdFbENPQzFLZERGeGFraENlazA1VFZNelF5MVJibFZWVldwNWVuQTBabWx4YWt0TWJrdHFTazVVV21aRGR4SVhhbkJUYTFvM1lVbE5ZbVZGZDJKclVIRk5RMTl2VVdNYUlrRkRSRmhNTkd4blprSlFSRmxrV2pacFUxRktWbkUzZW01RmIwVmxXWG80TmxFIiwiZmN2IjoiMyIsImVpIjoianBTa1o3YUlNYmVFd2JrUHFNQ19vUWMiLCJxYyI6IkNpVjFZeUJrWVhacGN5QmhZM1JwZG1sMGFXVnpJSEpsWTNKbFlYUnBiMjRnWTJWdWRHVnlFQUI5bkNsT1B3IiwicXVlc3Rpb24iOiJEb2VzIFVDIERhdmlzIGhhdmUgYSByZWNyZWF0aW9uIGNlbnRlcj8iLCJsayI6IkdpWmtiMlZ6SUhWaklHUmhkbWx6SUdoaGRtVWdZU0J5WldOeVpXRjBhVzl1SUdObGJuUmxjZyIsImJzIjoiYzQyUVBRNkNRQkJHWXp1VmpRblpSSmhLclZmN0xTVGV3Sjkyc280eWhRdFpGZ2dYTU56SEN3b21kR2lzNTcyWEx3TU90dWVNQXBJTlVrc1FMdEdTd3phdnNDQWZ4RXBCZ1ZFYzl0QnhqeW5WVXByb21lbWQwczNmWm1YeE9waHdnbldhOS1pWXdveHFSa0xQMWpNRnlSMWFkb0c5aVY0THZWR3I2MENQLWxjYVVvZ251emZQalBmMllhTE82RVF0SjNNakJBZElQdF9vVDhQdXFWWGRSYU9LbTVfVWZQWUciLCJpZCI6ImZjX2pwU2taN2FJTWJlRXdia1BxTUNfb1FjXzQifQ==",
+  "serpapi_link":
+  "https://serpapi.com/search.json?device=desktop&engine=google_related_questions&google_domain=google.com&next_page_token=eyJvbnMiOiIxMDA0MSIsImZjIjoiRXFFQkNtSkJRUzFMVkdobFdVZzFSV3BSVEZneGVtOUlTRGh2UVVOSE1qVkJXbFZOZUZsemVqbGhORm8yZVdOQlpWbEpObGQ2YmtNNFdFbENPQzFLZERGeGFraENlazA1VFZNelF5MVJibFZWVldwNWVuQTBabWx4YWt0TWJrdHFTazVVV21aRGR4SVhhbkJUYTFvM1lVbE5ZbVZGZDJKclVIRk5RMTl2VVdNYUlrRkRSRmhNTkd4blprSlFSRmxrV2pacFUxRktWbkUzZW01RmIwVmxXWG80TmxFIiwiZmN2IjoiMyIsImVpIjoianBTa1o3YUlNYmVFd2JrUHFNQ19vUWMiLCJxYyI6IkNpVjFZeUJrWVhacGN5QmhZM1JwZG1sMGFXVnpJSEpsWTNKbFlYUnBiMjRnWTJWdWRHVnlFQUI5bkNsT1B3IiwicXVlc3Rpb24iOiJEb2VzIFVDIERhdmlzIGhhdmUgYSByZWNyZWF0aW9uIGNlbnRlcj8iLCJsayI6IkdpWmtiMlZ6SUhWaklHUmhkbWx6SUdoaGRtVWdZU0J5WldOeVpXRjBhVzl1SUdObGJuUmxjZyIsImJzIjoiYzQyUVBRNkNRQkJHWXp1VmpRblpSSmhLclZmN0xTVGV3Sjkyc280eWhRdFpGZ2dYTU56SEN3b21kR2lzNTcyWEx3TU90dWVNQXBJTlVrc1FMdEdTd3phdnNDQWZ4RXBCZ1ZFYzl0QnhqeW5WVXByb21lbWQwczNmWm1YeE9waHdnbldhOS1pWXdveHFSa0xQMWpNRnlSMWFkb0c5aVY0THZWR3I2MENQLWxjYVVvZ251emZQalBmMllhTE82RVF0SjNNakJBZElQdF9vVDhQdXFWWGRSYU9LbTVfVWZQWUciLCJpZCI6ImZjX2pwU2taN2FJTWJlRXdia1BxTUNfb1FjXzQifQ%3D%3D"
+  },
+  {
+  "question":
+  "Does UC Davis have a free gym?",
+  "snippet":
+  "Campus Recreation memberships are based on the university's academic calendar; access is therefore granted based on student fees. In other words, your Campus Recreation membership is only active during quarters or semesters in which you are enrolled in classes and paying fees.",
+  "title":
+  "Membership Pricing - UC Davis Campus Recreation",
+  "link":
+  "https://campusrecreation.ucdavis.edu/membership-and-pricing#:~:text=Campus%20Recreation%20memberships%20are%20based,in%20classes%20and%20paying%20fees.",
+  "displayed_link":
+  "https://campusrecreation.ucdavis.edu › membership-and-...",
+  "source_logo":
+  "https://serpapi.com/searches/67a4948d139767c381fee07b/images/f4f38278835cf52ea1cf706fc1c388b2b6b8c184dd906fa23e8c3972b2d988a6.png",
+  "next_page_token":
+  "eyJvbnMiOiIxMDA0MSIsImZjIjoiRXFFQkNtSkJRUzFMVkdobFdVZzFSV3BSVEZneGVtOUlTRGh2UVVOSE1qVkJXbFZOZUZsemVqbGhORm8yZVdOQlpWbEpObGQ2YmtNNFdFbENPQzFLZERGeGFraENlazA1VFZNelF5MVJibFZWVldwNWVuQTBabWx4YWt0TWJrdHFTazVVV21aRGR4SVhhbkJUYTFvM1lVbE5ZbVZGZDJKclVIRk5RMTl2VVdNYUlrRkRSRmhNTkd4blprSlFSRmxrV2pacFUxRktWbkUzZW01RmIwVmxXWG80TmxFIiwiZmN2IjoiMyIsImVpIjoianBTa1o3YUlNYmVFd2JrUHFNQ19vUWMiLCJxYyI6IkNpVjFZeUJrWVhacGN5QmhZM1JwZG1sMGFXVnpJSEpsWTNKbFlYUnBiMjRnWTJWdWRHVnlFQUI5bkNsT1B3IiwicXVlc3Rpb24iOiJEb2VzIFVDIERhdmlzIGhhdmUgYSBmcmVlIGd5bT8iLCJsayI6IkdoMWtiMlZ6SUhWaklHUmhkbWx6SUdoaGRtVWdZU0JtY21WbElHZDViUSIsImJzIjoiYzQyUVBRNkNRQkJHWXp1VmpRblpSSmhLclZmN0xTVGV3Sjkyc280eWhRdFpGZ2dYTU56SEN3b21kR2lzNTcyWEx3TU90dWVNQXBJTlVrc1FMdEdTd3phdnNDQWZ4RXBCZ1ZFYzl0QnhqeW5WVXByb21lbWQwczNmWm1YeE9waHdnbldhOS1pWXdveHFSa0xQMWpNRnlSMWFkb0c5aVY0THZWR3I2MENQLWxjYVVvZ251emZQalBmMllhTE82RVF0SjNNakJBZElQdF9vVDhQdXFWWGRSYU9LbTVfVWZQWUciLCJpZCI6ImZjX2pwU2taN2FJTWJlRXdia1BxTUNfb1FjXzQifQ==",
+  "serpapi_link":
+  "https://serpapi.com/search.json?device=desktop&engine=google_related_questions&google_domain=google.com&next_page_token=eyJvbnMiOiIxMDA0MSIsImZjIjoiRXFFQkNtSkJRUzFMVkdobFdVZzFSV3BSVEZneGVtOUlTRGh2UVVOSE1qVkJXbFZOZUZsemVqbGhORm8yZVdOQlpWbEpObGQ2YmtNNFdFbENPQzFLZERGeGFraENlazA1VFZNelF5MVJibFZWVldwNWVuQTBabWx4YWt0TWJrdHFTazVVV21aRGR4SVhhbkJUYTFvM1lVbE5ZbVZGZDJKclVIRk5RMTl2VVdNYUlrRkRSRmhNTkd4blprSlFSRmxrV2pacFUxRktWbkUzZW01RmIwVmxXWG80TmxFIiwiZmN2IjoiMyIsImVpIjoianBTa1o3YUlNYmVFd2JrUHFNQ19vUWMiLCJxYyI6IkNpVjFZeUJrWVhacGN5QmhZM1JwZG1sMGFXVnpJSEpsWTNKbFlYUnBiMjRnWTJWdWRHVnlFQUI5bkNsT1B3IiwicXVlc3Rpb24iOiJEb2VzIFVDIERhdmlzIGhhdmUgYSBmcmVlIGd5bT8iLCJsayI6IkdoMWtiMlZ6SUhWaklHUmhkbWx6SUdoaGRtVWdZU0JtY21WbElHZDViUSIsImJzIjoiYzQyUVBRNkNRQkJHWXp1VmpRblpSSmhLclZmN0xTVGV3Sjkyc280eWhRdFpGZ2dYTU56SEN3b21kR2lzNTcyWEx3TU90dWVNQXBJTlVrc1FMdEdTd3phdnNDQWZ4RXBCZ1ZFYzl0QnhqeW5WVXByb21lbWQwczNmWm1YeE9waHdnbldhOS1pWXdveHFSa0xQMWpNRnlSMWFkb0c5aVY0THZWR3I2MENQLWxjYVVvZ251emZQalBmMllhTE82RVF0SjNNakJBZElQdF9vVDhQdXFWWGRSYU9LbTVfVWZQWUciLCJpZCI6ImZjX2pwU2taN2FJTWJlRXdia1BxTUNfb1FjXzQifQ%3D%3D"
+  },
+  {
+  "question":
+  "What is in a recreation center?",
+  "snippet":
+  "Promoting community fitness Your average community center might offer facilities like gyms, pools, and sports courts where people can work out how they want. They'll often host specialized training programs like yoga, Zumba, and pool fitness, or wellness training events like nutrition workshops.",
+  "title":
+  "Why are Recreation Centers Important to the Community? - ABC Trainerize",
+  "date":
+  "Jun 27, 2023",
+  "link":
+  "https://www.trainerize.com/blog/why-recreation-centers-are-important-to-community/#:~:text=Promoting%20community%20fitness&text=Your%20average%20community%20center%20might,training%20events%20like%20nutrition%20workshops.",
+  "displayed_link":
+  "https://www.trainerize.com › blog › why-recreation-cent...",
+  "thumbnail":
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV4rwCEJy18FLMxbmCa_tDyBBjkAvGX8LDTCkWy0lhqw&s",
+  "source_logo":
+  "https://serpapi.com/searches/67a4948d139767c381fee07b/images/f4f38278835cf52ea1cf706fc1c388b2cbfa9b5b231ffeed2ab1bf87a79f8654.png",
+  "next_page_token":
+  "eyJvbnMiOiIxMDA0MSIsImZjIjoiRXFFQkNtSkJRUzFMVkdobFdVZzFSV3BSVEZneGVtOUlTRGh2UVVOSE1qVkJXbFZOZUZsemVqbGhORm8yZVdOQlpWbEpObGQ2YmtNNFdFbENPQzFLZERGeGFraENlazA1VFZNelF5MVJibFZWVldwNWVuQTBabWx4YWt0TWJrdHFTazVVV21aRGR4SVhhbkJUYTFvM1lVbE5ZbVZGZDJKclVIRk5RMTl2VVdNYUlrRkRSRmhNTkd4blprSlFSRmxrV2pacFUxRktWbkUzZW01RmIwVmxXWG80TmxFIiwiZmN2IjoiMyIsImVpIjoianBTa1o3YUlNYmVFd2JrUHFNQ19vUWMiLCJxYyI6IkNpVjFZeUJrWVhacGN5QmhZM1JwZG1sMGFXVnpJSEpsWTNKbFlYUnBiMjRnWTJWdWRHVnlFQUI5bkNsT1B3IiwicXVlc3Rpb24iOiJXaGF0IGlzIGluIGEgcmVjcmVhdGlvbiBjZW50ZXI/IiwibGsiOiJHaDUzYUdGMElHbHpJR2x1SUdFZ2NtVmpjbVZoZEdsdmJpQmpaVzUwWlhJIiwiYnMiOiJjNDJRUFE2Q1FCQkdZenVWalFuWlJKaEtyVmY3TFNUZXdKOTJzbzR5aFF0WkZnZ1hNTnpIQ3dvbWRHaXM1NzJYTHdNT3R1ZU1BcElOVWtzUUx0R1N3emF2c0NBZnhFcEJnVkVjOXRCeGp5blZVcHJvbWVtZDBzM2ZabVh4T3Bod2duV2E5LWlZd294cVJrTFAxak1GeVIxYWRvRzlpVjRMdlZHcjYwQ1AtbGNhVW9nbnV6ZlBqUGYyWWFMTzZFUXRKM01qQkFkSVB0X29UOFB1cVZYZFJhT0ttNV9VZlBZRyIsImlkIjoiZmNfanBTa1o3YUlNYmVFd2JrUHFNQ19vUWNfNCJ9",
+  "serpapi_link":
+  "https://serpapi.com/search.json?device=desktop&engine=google_related_questions&google_domain=google.com&next_page_token=eyJvbnMiOiIxMDA0MSIsImZjIjoiRXFFQkNtSkJRUzFMVkdobFdVZzFSV3BSVEZneGVtOUlTRGh2UVVOSE1qVkJXbFZOZUZsemVqbGhORm8yZVdOQlpWbEpObGQ2YmtNNFdFbENPQzFLZERGeGFraENlazA1VFZNelF5MVJibFZWVldwNWVuQTBabWx4YWt0TWJrdHFTazVVV21aRGR4SVhhbkJUYTFvM1lVbE5ZbVZGZDJKclVIRk5RMTl2VVdNYUlrRkRSRmhNTkd4blprSlFSRmxrV2pacFUxRktWbkUzZW01RmIwVmxXWG80TmxFIiwiZmN2IjoiMyIsImVpIjoianBTa1o3YUlNYmVFd2JrUHFNQ19vUWMiLCJxYyI6IkNpVjFZeUJrWVhacGN5QmhZM1JwZG1sMGFXVnpJSEpsWTNKbFlYUnBiMjRnWTJWdWRHVnlFQUI5bkNsT1B3IiwicXVlc3Rpb24iOiJXaGF0IGlzIGluIGEgcmVjcmVhdGlvbiBjZW50ZXI%2FIiwibGsiOiJHaDUzYUdGMElHbHpJR2x1SUdFZ2NtVmpjbVZoZEdsdmJpQmpaVzUwWlhJIiwiYnMiOiJjNDJRUFE2Q1FCQkdZenVWalFuWlJKaEtyVmY3TFNUZXdKOTJzbzR5aFF0WkZnZ1hNTnpIQ3dvbWRHaXM1NzJYTHdNT3R1ZU1BcElOVWtzUUx0R1N3emF2c0NBZnhFcEJnVkVjOXRCeGp5blZVcHJvbWVtZDBzM2ZabVh4T3Bod2duV2E5LWlZd294cVJrTFAxak1GeVIxYWRvRzlpVjRMdlZHcjYwQ1AtbGNhVW9nbnV6ZlBqUGYyWWFMTzZFUXRKM01qQkFkSVB0X29UOFB1cVZYZFJhT0ttNV9VZlBZRyIsImlkIjoiZmNfanBTa1o3YUlNYmVFd2JrUHFNQ19vUWNfNCJ9"
+  }
+  ],
+  "ai_overview":
+  {
+  "page_token":
+  "bETNcnicvZXdsqI4EMcv90nWG-coKn6dKmoqiaL4jV9HvaEAYxDBKAER7-Zd5qn2aTaAOuqZc7FbW5sLTDrpdNP_H-2Pn852v_vrj5-W7x_Yez4fhmGOUEocnDOpm9dZtDfzG-owz7S-B4GDpTCLgKIqSNHVxfyybjlBTx47uCVfevI80BdjZ4XgdN2ShdWinyGOFLCM5Uh4n4lOUiljMknI4K1kHya7VVVX-gZuhsZudOwjjapmJokoaYbOsM0TOtssr-X5Y_dnqcEXOZbD-1x7KAYVqzecMZIrCoVabpjXXX4A_JvRfDUolBvVdA4BoA9bULnNUGxXZ_GaXO8JE7tMEd-4eyQzFQG07Gma-RSH343u9wWx7xuwquTX7mN2KH7ISXoviaPbeQRGN2fwtAV4Zl2AEGiHV0M_vR4lz8YoBP17FZagBuwQN9WQ9sDL4KE7xHZVjSq3_J7GDnWoeFJa_I3za8IFEfKGx38KeY_F8qBpXaDNk7swWCvwwCkaW2fXGB7sut3026ROviXCm-yuPHtUfq67urm7GISFuV4OFu6yDzmQcaXT0qhcpe5DnT6NzmNhwVUjJXZAoE92fGENY2WGSbkaIvc4d8m1mkp8XrmWnNuaJAkN0zvV64Uf6cnUZ_mR1jxZIoiS0InNJClSVgiGahtAlVx9-BGoAlhBSxU0ZRU0hvyjS8PDayCUvEIjllZJ3roCgA1gDR3QJE6JxGB2-SR2uIGhKkmiUH-VnYv3Zb1ug3xZU-U3Orcqg6jiFWvN7TLsNba4V63XwUEph0IArjpT1_gHn7j5f5EQN4CWeieBPpAA7yQ8NYCUhDAOnTaA2TMJ9wbwSkKMWUpCwElIG8CVBPgVCcqNBDklAd1IQN0R_T0JSQOYIMgbQEpCH4xjEhD8TMJ_1gASIHD689wNApt8ooUI5ULYPpaacrjy18U-DC_V4sJlhhV-0zau_37wKO8P2_U7LHb8aJ05SjOUbeinLcsC09-etv4Ws-wYmx7W_S3dZxHe-9jLuI5HJUEXwXjptbTADjTbX4pQphvrUGLKOtqvo8FltQFuL5rTkniuLjH_G8MfjcZEi8TNVFyd90cF0Y0WlafRBZ99dYDeDjXj0sAR7LToiH-26j4i43p38DadjHAdw4Vx0cV-vT0cHI3SxO0I81XRomWn02fNmbNKsmJSQbFm9cliIcvLDDN1DbMTT3UjiFisrHVdKBTLRsYlfnSQxMLfWvpIQw",
+  "serpapi_link":
+  "https://serpapi.com/search.json?engine=google_ai_overview&page_token=bETNcnicvZXdsqI4EMcv90nWG-coKn6dKmoqiaL4jV9HvaEAYxDBKAER7-Zd5qn2aTaAOuqZc7FbW5sLTDrpdNP_H-2Pn852v_vrj5-W7x_Yez4fhmGOUEocnDOpm9dZtDfzG-owz7S-B4GDpTCLgKIqSNHVxfyybjlBTx47uCVfevI80BdjZ4XgdN2ShdWinyGOFLCM5Uh4n4lOUiljMknI4K1kHya7VVVX-gZuhsZudOwjjapmJokoaYbOsM0TOtssr-X5Y_dnqcEXOZbD-1x7KAYVqzecMZIrCoVabpjXXX4A_JvRfDUolBvVdA4BoA9bULnNUGxXZ_GaXO8JE7tMEd-4eyQzFQG07Gma-RSH343u9wWx7xuwquTX7mN2KH7ISXoviaPbeQRGN2fwtAV4Zl2AEGiHV0M_vR4lz8YoBP17FZagBuwQN9WQ9sDL4KE7xHZVjSq3_J7GDnWoeFJa_I3za8IFEfKGx38KeY_F8qBpXaDNk7swWCvwwCkaW2fXGB7sut3026ROviXCm-yuPHtUfq67urm7GISFuV4OFu6yDzmQcaXT0qhcpe5DnT6NzmNhwVUjJXZAoE92fGENY2WGSbkaIvc4d8m1mkp8XrmWnNuaJAkN0zvV64Uf6cnUZ_mR1jxZIoiS0InNJClSVgiGahtAlVx9-BGoAlhBSxU0ZRU0hvyjS8PDayCUvEIjllZJ3roCgA1gDR3QJE6JxGB2-SR2uIGhKkmiUH-VnYv3Zb1ug3xZU-U3Orcqg6jiFWvN7TLsNba4V63XwUEph0IArjpT1_gHn7j5f5EQN4CWeieBPpAA7yQ8NYCUhDAOnTaA2TMJ9wbwSkKMWUpCwElIG8CVBPgVCcqNBDklAd1IQN0R_T0JSQOYIMgbQEpCH4xjEhD8TMJ_1gASIHD689wNApt8ooUI5ULYPpaacrjy18U-DC_V4sJlhhV-0zau_37wKO8P2_U7LHb8aJ05SjOUbeinLcsC09-etv4Ws-wYmx7W_S3dZxHe-9jLuI5HJUEXwXjptbTADjTbX4pQphvrUGLKOtqvo8FltQFuL5rTkniuLjH_G8MfjcZEi8TNVFyd90cF0Y0WlafRBZ99dYDeDjXj0sAR7LToiH-26j4i43p38DadjHAdw4Vx0cV-vT0cHI3SxO0I81XRomWn02fNmbNKsmJSQbFm9cliIcvLDDN1DbMTT3UjiFisrHVdKBTLRsYlfnSQxMLfWvpIQw"
+  },
+  "organic_results":
+  [
+  {
+  "position":
+  1,
+  "title":
+  "About the ARC | Campus Recreation",
+  "link":
+  "https://campusrecreation.ucdavis.edu/arc",
+  "redirect_link":
+  "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://campusrecreation.ucdavis.edu/arc&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQFnoECBAQAQ",
+  "displayed_link":
+  "https://campusrecreation.ucdavis.edu › arc",
+  "favicon":
+  "https://serpapi.com/searches/67a4948d139767c381fee07b/images/d68cc73919fed1c42144a7ad6a4185ef45014be7689b1f65fdb2b435dd59d001.png",
+  "snippet":
+  "The Activities and Recreation Center is home to a wide range of equipment, exercise studios, specialty fitness areas and more.",
+  "snippet_highlighted_words":
+  [
+  "Activities",
+  "Recreation Center"
+  ],
+  "sitelinks":
+  {
+  "expanded":
+  [
+  {
+  "title":
+  "Hours, Location and Contact",
+  "link":
+  "https://campusrecreation.ucdavis.edu/arc/hours-location-and-contact-arc",
+  "snippet":
+  "Aquatics · Craft Center · Dairy Outdoor Recreation Complex ..."
+  },
+  {
+  "title":
+  "Memberships",
+  "link":
+  "https://campusrecreation.ucdavis.edu/memberships",
+  "snippet":
+  "Campus Recreation memberships are affordable and available to ..."
+  }
+  ]
+  },
+  "source":
+  "UC Davis Campus Recreation"
+  },
+  {
+  "position":
+  2,
+  "title":
+  "Home | Campus Recreation - UC Davis",
+  "link":
+  "https://campusrecreation.ucdavis.edu/",
+  "redirect_link":
+  "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://campusrecreation.ucdavis.edu/&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQFnoECA4QAQ",
+  "displayed_link":
+  "https://campusrecreation.ucdavis.edu",
+  "favicon":
+  "https://serpapi.com/searches/67a4948d139767c381fee07b/images/d68cc73919fed1c42144a7ad6a4185efb55da4eeec44de2eeb931f097470a7b1.png",
+  "snippet":
+  "From lap swimming and swim lessons to Triathlon Club practices and competitive men's and women's water polo, the center is a dynamic environment that meets the ...",
+  "snippet_highlighted_words":
+  [
+  "center"
+  ],
+  "sitelinks":
+  {
+  "inline":
+  [
+  {
+  "title":
+  "About the ARC",
+  "link":
+  "https://campusrecreation.ucdavis.edu/arc"
+  },
+  {
+  "title":
+  "ARC Hours",
+  "link":
+  "https://campusrecreation.ucdavis.edu/arc/hours-location-and-contact-arc"
+  },
+  {
+  "title":
+  "Programs and Facilities",
+  "link":
+  "https://campusrecreation.ucdavis.edu/recreation"
+  },
+  {
+  "title":
+  "Memberships",
+  "link":
+  "https://campusrecreation.ucdavis.edu/memberships"
+  }
+  ]
+  },
+  "source":
+  "UC Davis Campus Recreation"
+  },
+  {
+  "position":
+  3,
+  "title":
+  "Activities and Recreation Center",
+  "link":
+  "https://campusrecreation.ucdavis.edu/person-type/activities-and-recreation-center",
+  "redirect_link":
+  "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://campusrecreation.ucdavis.edu/person-type/activities-and-recreation-center&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQFnoECFsQAQ",
+  "displayed_link":
+  "https://campusrecreation.ucdavis.edu › person-type › ac...",
+  "favicon":
+  "https://serpapi.com/searches/67a4948d139767c381fee07b/images/d68cc73919fed1c42144a7ad6a4185efd85d31b114fe15f8a11fd30137a07cc8.png",
+  "snippet":
+  "Rec Sports · UC Davis Marching Band · Youth Programs. Enroll Now. Aquatics · Craft Center · Equestrian Center · Fee Waiver · Living Well · UC Davis Marching ...",
+  "snippet_highlighted_words":
+  [
+  "Rec",
+  "UC Davis",
+  "Center",
+  "Center",
+  "UC Davis"
+  ],
+  "source":
+  "UC Davis Campus Recreation"
+  },
+  {
+  "position":
+  4,
+  "title":
+  "Programs and Facilities | Campus Recreation",
+  "link":
+  "https://campusrecreation.ucdavis.edu/recreation",
+  "redirect_link":
+  "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://campusrecreation.ucdavis.edu/recreation&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQFnoECGEQAQ",
+  "displayed_link":
+  "https://campusrecreation.ucdavis.edu › recreation",
+  "favicon":
+  "https://serpapi.com/searches/67a4948d139767c381fee07b/images/d68cc73919fed1c42144a7ad6a4185ef1f8485c8e4eb590c5c41aff32f1fa02f.png",
+  "snippet":
+  "With six centers, 11 program areas and five outdoor fields, Campus Recreation can help you find your center.",
+  "snippet_highlighted_words":
+  [
+  "Recreation",
+  "center"
+  ],
+  "sitelinks":
+  {
+  "inline":
+  [
+  {
+  "title":
+  "About the ARC",
+  "link":
+  "https://campusrecreation.ucdavis.edu/arc"
+  },
+  {
+  "title":
+  "UC Davis Marching Band",
+  "link":
+  "https://campusrecreation.ucdavis.edu/band"
+  },
+  {
+  "title":
+  "Amenities and Equipment",
+  "link":
+  "https://campusrecreation.ucdavis.edu/arc/amenities-and-equipment"
+  },
+  {
+  "title":
+  "Craft Center",
+  "link":
+  "https://campusrecreation.ucdavis.edu/recreation/craft-center"
+  }
+  ]
+  },
+  "source":
+  "UC Davis Campus Recreation"
+  },
+  {
+  "position":
+  5,
+  "title":
+  "Activities and Recreation Center (ARC) | Hidden Hangouts",
+  "link":
+  "https://www.youtube.com/watch?v=1PafB3RcPVI",
+  "displayed_link":
+  "450+ views · 1 year ago",
+  "thumbnail":
+  "https://i.ytimg.com/vi/1PafB3RcPVI/mqdefault.jpg?sqp=-oaymwEFCJQBEFM&rs=AMzJL3mz-HNhmPm9WZIj9Yef2ooCU4lO9w",
+  "favicon":
+  "https://serpapi.com/searches/67a4948d139767c381fee07b/images/d68cc73919fed1c42144a7ad6a4185ef485866305cbfb8394463bb5e52ec201e.png",
+  "snippet":
+  "Activities and Recreation Center is your ultimate destination for wellness and fun. It's a place where you can reconnect with your body.",
+  "duration":
+  "2:39",
+  "source":
+  "YouTube · UC Davis Development & Alumni Relations"
+  },
+  {
+  "position":
+  6,
+  "title":
+  "UC Davis Campus Recreation (@ucdaviscampusrec)",
+  "link":
+  "https://www.instagram.com/ucdaviscampusrec/?hl=en",
+  "redirect_link":
+  "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.instagram.com/ucdaviscampusrec/%3Fhl%3Den&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQFnoECHQQAQ",
+  "displayed_link":
+  "6.5K+ followers",
+  "thumbnail":
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRggmZCpAwh1LNzK8FBi5odriDNXoToGpPRQJhvgb6qVrq8wgEEHM7z&usqp=CAE&s",
+  "favicon":
+  "https://serpapi.com/searches/67a4948d139767c381fee07b/images/d68cc73919fed1c42144a7ad6a4185ef608687426786e754e05fa433a7f19697.png",
+  "snippet":
+  "UC Davis Campus Recreation: Aquatics, Craft Center, Equestrian, Live Well, Rec Sports, Sport Clubs, Marching Band, Outdoor Adventures, Youth Programs.",
+  "snippet_highlighted_words":
+  [
+  "UC Davis",
+  "Recreation",
+  "Center",
+  "Rec"
+  ],
+  "source":
+  "Instagram · ucdaviscampusrec"
+  },
+  {
+  "position":
+  7,
+  "title":
+  "UC Davis Activities & Recreation Center - Visit Yolo",
+  "link":
+  "https://visityolo.com/listing/uc-davis-activities-recreation-center/",
+  "redirect_link":
+  "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://visityolo.com/listing/uc-davis-activities-recreation-center/&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQFnoECF8QAQ",
+  "displayed_link":
+  "https://visityolo.com › Listings",
+  "thumbnail":
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX2b0gYY7BJ25euVJFtgbTOeb5cn82Ka5h0kfTdyNO83nEhV59iEpq&usqp=CAE&s",
+  "favicon":
+  "https://serpapi.com/searches/67a4948d139767c381fee07b/images/d68cc73919fed1c42144a7ad6a4185ef3917007df186d23ed3d0dd353346eb8d.png",
+  "snippet":
+  "UC Davis Campus. (530) 752-2675. This campus facility can accommodate small and large groups, offering two meeting rooms (from roughly 400 to 900 square ...",
+  "snippet_highlighted_words":
+  [
+  "UC Davis"
+  ],
+  "source":
+  "visityolo.com"
+  },
+  {
+  "position":
+  8,
+  "title":
+  "Events | Campus Recreation",
+  "link":
+  "https://campusrecreation.ucdavis.edu/events",
+  "redirect_link":
+  "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://campusrecreation.ucdavis.edu/events&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQFnoECFoQAQ",
+  "displayed_link":
+  "https://campusrecreation.ucdavis.edu › events",
+  "favicon":
+  "https://serpapi.com/searches/67a4948d139767c381fee07b/images/d68cc73919fed1c42144a7ad6a4185efe67f6457efc0c748cc2b7abd947a91f5.png",
+  "snippet":
+  "Beginner and Intermediate gymnastics lessons hosted by Club Gymnastics at UC Davis. No experience necessary! Learn acrobatic, strength, and flexibility skills!",
+  "snippet_highlighted_words":
+  [
+  "UC Davis"
+  ],
+  "source":
+  "UC Davis Campus Recreation"
+  },
+  {
+  "position":
+  9,
+  "title":
+  "UC Davis Recreation Portal",
+  "link":
+  "https://rec.ucdavis.edu/",
+  "redirect_link":
+  "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://rec.ucdavis.edu/&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQFnoECGAQAQ",
+  "displayed_link":
+  "https://rec.ucdavis.edu",
+  "favicon":
+  "https://serpapi.com/searches/67a4948d139767c381fee07b/images/d68cc73919fed1c42144a7ad6a4185efe5a8f895123a40c7bbbecc0ab4ad6075.png",
+  "snippet":
+  "Calendar · W Club Basketball Practice · Squash Court Reservation · Table Tennis Reservation · Racquetball Court Reservation · Winter Quarter 2025 - Riding 200 - ...",
+  "sitelinks":
+  {
+  "inline":
+  [
+  {
+  "title":
+  "Campus Recreation",
+  "link":
+  "https://campusrecreation.ucdavis.edu/"
+  },
+  {
+  "title":
+  "Fitness_center Living Well",
+  "link":
+  "https://rec.ucdavis.edu/Program/GetProducts?classification=00000000-0000-0000-0000-000000026002"
+  },
+  {
+  "title":
+  "Link Craft Center",
+  "link":
+  "https://rec.ucdavis.edu/Program/GetProducts?classification=8180d6a3-9056-4c56-b53c-15686cc3d315"
+  },
+  {
+  "title":
+  "Sign In",
+  "link":
+  "https://rec.ucdavis.edu/MemberDetails"
+  }
+  ]
+  },
+  "source":
+  "UC Davis Recreation Portal"
+  }
+  ],
+  "menu_highlights":
+  [ ],
+  "related_searches":
+  [
+  {
+  "block_position":
+  1,
+  "query":
+  "Uc davis activities recreation center schedule",
+  "link":
+  "https://www.google.com/search?sca_esv=0af04e46daa0125b&gl=us&hl=en&q=Uc+davis+activities+recreation+center+schedule&sa=X&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQ1QJ6BAhvEAE",
+  "serpapi_link":
+  "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=Uc+davis+activities+recreation+center+schedule"
+  },
+  {
+  "block_position":
+  1,
+  "query":
+  "Uc davis activities recreation center map",
+  "link":
+  "https://www.google.com/search?sca_esv=0af04e46daa0125b&gl=us&hl=en&q=Uc+davis+activities+recreation+center+map&sa=X&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQ1QJ6BAhxEAE",
+  "serpapi_link":
+  "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=Uc+davis+activities+recreation+center+map"
+  },
+  {
+  "block_position":
+  1,
+  "query":
+  "Uc davis activities recreation center hours",
+  "link":
+  "https://www.google.com/search?sca_esv=0af04e46daa0125b&gl=us&hl=en&q=Uc+davis+activities+recreation+center+hours&sa=X&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQ1QJ6BAhuEAE",
+  "serpapi_link":
+  "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=Uc+davis+activities+recreation+center+hours"
+  },
+  {
+  "block_position":
+  1,
+  "query":
+  "UC Davis Recreation",
+  "link":
+  "https://www.google.com/search?sca_esv=0af04e46daa0125b&gl=us&hl=en&q=UC+Davis+Recreation&sa=X&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQ1QJ6BAhqEAE",
+  "serpapi_link":
+  "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=UC+Davis+Recreation"
+  },
+  {
+  "block_position":
+  1,
+  "query":
+  "UC Davis extracurricular activities",
+  "link":
+  "https://www.google.com/search?sca_esv=0af04e46daa0125b&gl=us&hl=en&q=UC+Davis+extracurricular+activities&sa=X&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQ1QJ6BAhjEAE",
+  "serpapi_link":
+  "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=UC+Davis+extracurricular+activities"
+  },
+  {
+  "block_position":
+  1,
+  "query":
+  "ARC Market UC Davis",
+  "link":
+  "https://www.google.com/search?sca_esv=0af04e46daa0125b&gl=us&hl=en&q=ARC+Market+UC+Davis&sa=X&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQ1QJ6BAhiEAE",
+  "serpapi_link":
+  "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=ARC+Market+UC+Davis"
+  },
+  {
+  "block_position":
+  1,
+  "query":
+  "UC Davis clubs",
+  "link":
+  "https://www.google.com/search?sca_esv=0af04e46daa0125b&gl=us&hl=en&q=UC+Davis+clubs&sa=X&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQ1QJ6BAheEAE",
+  "serpapi_link":
+  "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=UC+Davis+clubs"
+  },
+  {
+  "block_position":
+  1,
+  "query":
+  "UC Davis ARC membership",
+  "link":
+  "https://www.google.com/search?sca_esv=0af04e46daa0125b&gl=us&hl=en&q=UC+Davis+ARC+membership&sa=X&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQ1QJ6BAhZEAE",
+  "serpapi_link":
+  "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=UC+Davis+ARC+membership"
+  }
+  ],
+  "pagination":
+  {
+  "current":
+  1,
+  "next":
+  "https://www.google.com/search?q=UC+Davis+Activities+Recreation+Center&sca_esv=0af04e46daa0125b&gl=us&hl=en&ei=jpSkZ7aIMbeEwbkPqMC_oQc&start=10&sa=N&sstk=Af40H4XB0tnrxUJZq8HlLswGrtyM76OyAr_WzaTtGrZ-oY6Xi-41wF8zn5wWwBgbwuTeFsgYdtS3ZlguUG_RFpFS0TUOGFJWKlggGg&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQ8NMDegQICBAW",
+  "other_pages":
+  {
+  "2":
+  "https://www.google.com/search?q=UC+Davis+Activities+Recreation+Center&sca_esv=0af04e46daa0125b&gl=us&hl=en&ei=jpSkZ7aIMbeEwbkPqMC_oQc&start=10&sa=N&sstk=Af40H4XB0tnrxUJZq8HlLswGrtyM76OyAr_WzaTtGrZ-oY6Xi-41wF8zn5wWwBgbwuTeFsgYdtS3ZlguUG_RFpFS0TUOGFJWKlggGg&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQ8tMDegQICBAE",
+  "3":
+  "https://www.google.com/search?q=UC+Davis+Activities+Recreation+Center&sca_esv=0af04e46daa0125b&gl=us&hl=en&ei=jpSkZ7aIMbeEwbkPqMC_oQc&start=20&sa=N&sstk=Af40H4XB0tnrxUJZq8HlLswGrtyM76OyAr_WzaTtGrZ-oY6Xi-41wF8zn5wWwBgbwuTeFsgYdtS3ZlguUG_RFpFS0TUOGFJWKlggGg&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQ8tMDegQICBAG",
+  "4":
+  "https://www.google.com/search?q=UC+Davis+Activities+Recreation+Center&sca_esv=0af04e46daa0125b&gl=us&hl=en&ei=jpSkZ7aIMbeEwbkPqMC_oQc&start=30&sa=N&sstk=Af40H4XB0tnrxUJZq8HlLswGrtyM76OyAr_WzaTtGrZ-oY6Xi-41wF8zn5wWwBgbwuTeFsgYdtS3ZlguUG_RFpFS0TUOGFJWKlggGg&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQ8tMDegQICBAI",
+  "5":
+  "https://www.google.com/search?q=UC+Davis+Activities+Recreation+Center&sca_esv=0af04e46daa0125b&gl=us&hl=en&ei=jpSkZ7aIMbeEwbkPqMC_oQc&start=40&sa=N&sstk=Af40H4XB0tnrxUJZq8HlLswGrtyM76OyAr_WzaTtGrZ-oY6Xi-41wF8zn5wWwBgbwuTeFsgYdtS3ZlguUG_RFpFS0TUOGFJWKlggGg&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQ8tMDegQICBAK",
+  "6":
+  "https://www.google.com/search?q=UC+Davis+Activities+Recreation+Center&sca_esv=0af04e46daa0125b&gl=us&hl=en&ei=jpSkZ7aIMbeEwbkPqMC_oQc&start=50&sa=N&sstk=Af40H4XB0tnrxUJZq8HlLswGrtyM76OyAr_WzaTtGrZ-oY6Xi-41wF8zn5wWwBgbwuTeFsgYdtS3ZlguUG_RFpFS0TUOGFJWKlggGg&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQ8tMDegQICBAM",
+  "7":
+  "https://www.google.com/search?q=UC+Davis+Activities+Recreation+Center&sca_esv=0af04e46daa0125b&gl=us&hl=en&ei=jpSkZ7aIMbeEwbkPqMC_oQc&start=60&sa=N&sstk=Af40H4XB0tnrxUJZq8HlLswGrtyM76OyAr_WzaTtGrZ-oY6Xi-41wF8zn5wWwBgbwuTeFsgYdtS3ZlguUG_RFpFS0TUOGFJWKlggGg&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQ8tMDegQICBAO",
+  "8":
+  "https://www.google.com/search?q=UC+Davis+Activities+Recreation+Center&sca_esv=0af04e46daa0125b&gl=us&hl=en&ei=jpSkZ7aIMbeEwbkPqMC_oQc&start=70&sa=N&sstk=Af40H4XB0tnrxUJZq8HlLswGrtyM76OyAr_WzaTtGrZ-oY6Xi-41wF8zn5wWwBgbwuTeFsgYdtS3ZlguUG_RFpFS0TUOGFJWKlggGg&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQ8tMDegQICBAQ",
+  "9":
+  "https://www.google.com/search?q=UC+Davis+Activities+Recreation+Center&sca_esv=0af04e46daa0125b&gl=us&hl=en&ei=jpSkZ7aIMbeEwbkPqMC_oQc&start=80&sa=N&sstk=Af40H4XB0tnrxUJZq8HlLswGrtyM76OyAr_WzaTtGrZ-oY6Xi-41wF8zn5wWwBgbwuTeFsgYdtS3ZlguUG_RFpFS0TUOGFJWKlggGg&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQ8tMDegQICBAS",
+  "10":
+  "https://www.google.com/search?q=UC+Davis+Activities+Recreation+Center&sca_esv=0af04e46daa0125b&gl=us&hl=en&ei=jpSkZ7aIMbeEwbkPqMC_oQc&start=90&sa=N&sstk=Af40H4XB0tnrxUJZq8HlLswGrtyM76OyAr_WzaTtGrZ-oY6Xi-41wF8zn5wWwBgbwuTeFsgYdtS3ZlguUG_RFpFS0TUOGFJWKlggGg&ved=2ahUKEwi2h8De8K6LAxU3QjABHSjgL3QQ8tMDegQICBAU"
+  }
+  },
+  "serpapi_pagination":
+  {
+  "current":
+  1,
+  "next_link":
+  "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=UC+Davis+Activities+Recreation+Center&start=10",
+  "next":
+  "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=UC+Davis+Activities+Recreation+Center&start=10",
+  "other_pages":
+  {
+  "2":
+  "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=UC+Davis+Activities+Recreation+Center&start=10",
+  "3":
+  "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=UC+Davis+Activities+Recreation+Center&start=20",
+  "4":
+  "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=UC+Davis+Activities+Recreation+Center&start=30",
+  "5":
+  "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=UC+Davis+Activities+Recreation+Center&start=40",
+  "6":
+  "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=UC+Davis+Activities+Recreation+Center&start=50",
+  "7":
+  "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=UC+Davis+Activities+Recreation+Center&start=60",
+  "8":
+  "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=UC+Davis+Activities+Recreation+Center&start=70",
+  "9":
+  "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=UC+Davis+Activities+Recreation+Center&start=80",
+  "10":
+  "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Austin%2C+Texas%2C+United+States&q=UC+Davis+Activities+Recreation+Center&start=90"
+  }

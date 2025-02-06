@@ -3,7 +3,7 @@
 import React, { useRef, useEffect, useState, useMemo, useCallback } from 'react';
 import { Marker, Callout } from 'react-native-maps';
 import { useRouter } from 'expo-router';
-import { MiniCard } from './MiniCard';
+import  {MiniCard}  from './MiniCard';
 import type { Location } from '../types/location';
 import { useFavorites } from '../context/FavoritesContext';
 import {
