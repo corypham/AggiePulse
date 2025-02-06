@@ -77,17 +77,12 @@ export const getInitialMockLocations = (): Location[] => [
     isOpen: true,
     hours: {
       main: {
-        open: '1:00 AM',
-        close: '8:30 PM',
-        label: 'Main Building'
-      },
-      study: {
-        open: '1:00 AM',
-        close: '12:00 AM',
-        label: '24-Hour Study Room'
+        label: 'Main Building',
+        open: '10:30 AM',
+        close: '8:30 PM'
       }
     },
-    currentCapacity: 90,
+    currentCapacity: 20,
     maxCapacity: 144,
     features: [
       'Charging Ports',
@@ -99,6 +94,15 @@ export const getInitialMockLocations = (): Location[] => [
       'Study Cages'
     ],
     amenities: {
+      general: [
+        'Charging Ports',
+        'Study Rooms',
+        'Fast Wi-Fi',
+        'Projector',
+        'Printers',
+        '24 Hour Study Room',
+        'Study Cages'
+      ],
       atmosphere: [
         'Generally quiet',
         'Collaboration zones',
@@ -111,7 +115,7 @@ export const getInitialMockLocations = (): Location[] => [
       ]
     },
     description: 'The Peter J. Shields Library, or Shields Library, is a four-story library named after Peter J. Shields. It is located in the eastern part of main campus of UC Davis in unincorporated Yolo County, adjacent to Davis.',
-    currentStatus: 'Fairly Busy',
+    currentStatus: 'Not Busy',
     bestTimes: {
       best: '10am - 12pm',
       worst: '1p - 3p'
@@ -133,7 +137,7 @@ export const getInitialMockLocations = (): Location[] => [
     type: ['study'],
     title: 'Peter J. Shields Library',
     crowdInfo: {
-      level: 'Fairly Busy',
+      level: 'Not Busy',
       percentage: 50,
       description: 'Generally moderate seating available'
     },
@@ -157,22 +161,29 @@ export const getInitialMockLocations = (): Location[] => [
     isOpen: true,
     hours: {
       main: {
-        open: '3:00 AM',
-        close: '11:00 AM',
-        label: 'Main Building'
+        label: 'Main Building',
+        open: '6:00 AM',
+        close: '12:00 AM'
       }
     },
     currentCapacity: 280,
     maxCapacity: 300,
     features: ['Gym Equipment', 'Pool', 'Basketball Courts'],
     amenities: {
+      general: [
+        'Gym Equipment',
+        'Pool',
+        'Basketball Courts'
+      ],
       atmosphere: [
-        'Energetic environment',
+        'High energy',
+        'Active environment',
         'Multiple workout zones'
       ],
       accessibility: [
         'Wheelchair accessible',
-        'ADA-compliant entrance'
+        'ADA-compliant equipment',
+        'Elevator access'
       ]
     },
     description: 'Gym and fitness center',
@@ -222,9 +233,9 @@ export const getInitialMockLocations = (): Location[] => [
     isOpen: true,
     hours: {
       main: {
+        label: 'Main Building',
         open: '7:00 AM',
-        close: '7:00 PM',
-        label: 'Main Building'
+        close: '7:00 PM'
       }
     },
     currentCapacity: 120,
@@ -235,19 +246,28 @@ export const getInitialMockLocations = (): Location[] => [
       'Coffee Shop',
       'Fast Wi-Fi',
       'Charging Ports',
-      'Outdoor Seating',
+      'Work Tables',
       'Microwave Station'
     ],
     amenities: {
+      general: [
+        'Food Court',
+        'Study Tables',
+        'Coffee Shop',
+        'Fast Wi-Fi',
+        'Charging Ports',
+        'Work Tables',
+        'Microwave Station'
+      ],
       atmosphere: [
-        'Casual dining environment',
-        'Natural lighting',
-        'Mixed indoor/outdoor seating'
+        'Comfortable seating',
+        'Collaboration Zones',
+        'Mixed-use space'
       ],
       accessibility: [
         'Wheelchair accessible',
-        'ADA-compliant entrance',
-        'Ground floor access'
+        'Ground floor access',
+        'Wide pathways'
       ]
     },
     description: 'The Silo Market is a central dining and study hub, offering a variety of food options and comfortable spaces for students to eat, study, and socialize.',
@@ -302,9 +322,9 @@ export const getInitialMockLocations = (): Location[] => [
     isOpen: true,
     hours: {
       main: {
+        label: 'Main Building',
         open: '7:00 AM',
-        close: '8:00 PM',
-        label: 'Main Building'
+        close: '8:00 PM'
       }
     },
     currentCapacity: 90,
@@ -319,16 +339,24 @@ export const getInitialMockLocations = (): Location[] => [
       'ATMs'
     ],
     amenities: {
+      general: [
+        'Food Court',
+        'Study Areas',
+        'Student Services',
+        'Bookstore',
+        'Meeting Rooms',
+        'Information Desk',
+        'ATMs'
+      ],
       atmosphere: [
-        'Vibrant student center',
-        'Multiple seating areas',
-        'Social gathering spaces'
+        'Mixed environment',
+        'Social spaces',
+        'Quiet study areas'
       ],
       accessibility: [
         'Wheelchair accessible',
         'Elevator access',
-        'ADA-compliant restrooms',
-        'Service animal friendly'
+        'ADA-compliant restrooms'
       ]
     },
     description: 'The Memorial Union is the heart of campus life, offering dining options, study spaces, and essential student services all under one roof.',

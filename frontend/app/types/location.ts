@@ -4,6 +4,27 @@ import { VeryBusyStatus, FairlyBusyStatus, NotBusyStatus } from "../../assets";
 export type BusyStatus = 'Not Busy' | 'Fairly Busy' | 'Very Busy';
 export type StatusIconType = typeof VeryBusyStatus | typeof FairlyBusyStatus | typeof NotBusyStatus;
 
+export interface FacilityHours {
+  open: string;
+  close: string;
+  label: string;
+}
+
+export interface LocationHours {
+  main: FacilityHours;
+  subLocations?: FacilityHours[];
+}
+
+export interface SubLocation {
+  name: string;
+  hours?: {
+    open: string;
+    close: string;
+  };
+  status: BusyStatus;
+  features: string[];
+}
+
 export interface Location {
   id: string;
   name: string;
@@ -22,22 +43,12 @@ export interface Location {
     longitude: number;
   };
   isOpen: boolean;
-  hours: {
-    main: {
-      open: string;
-      close: string;
-      label: string;
-    };
-    study?: {
-      open: string;
-      close: string;
-      label: string;
-    };
-  };
+  hours: LocationHours;
   currentCapacity: number;
   maxCapacity: number;
   features: string[];
   amenities: {
+    general: string[];
     atmosphere: string[];
     accessibility: string[];
   };
@@ -47,11 +58,7 @@ export interface Location {
     best: string;
     worst: string;
   };
-  subLocations: {
-    name: string;
-    status: BusyStatus;
-    features: string[];
-  }[];
+  subLocations?: SubLocation[];
   closingTime: string;
   distance: number;
   type: string[];

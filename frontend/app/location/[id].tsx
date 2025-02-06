@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
-import { LocationDetails } from '../components/LocationDetails';
+import LocationDetails from '../components/LocationDetails';
 import { useLocations } from '../hooks/useLocations';
 
 export default function LocationPage() {
