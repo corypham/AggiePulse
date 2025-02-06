@@ -105,7 +105,28 @@ export const LocationService = {
     } catch (error) {
       throw new Error('Failed to fetch location');
     }
-  }
+  },
+
+  getLocationCrowdData: async (locationId: string) => {
+    try {
+      console.log('LocationService: Fetching crowd data for:', locationId);
+      console.log('LocationService: Request URL:', `${API_BASE_URL}/location/${locationId}`);
+      
+      const response = await fetch(`${API_BASE_URL}/location/${locationId}`);
+      console.log('LocationService: Response status:', response.status);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      console.log('LocationService: Received data:', data);
+      return data;
+    } catch (error) {
+      console.error('LocationService Error:', error);
+      throw error;
+    }
+  },
 };
 
 export default LocationService;
