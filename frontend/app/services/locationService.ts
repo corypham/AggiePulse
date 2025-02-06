@@ -105,7 +105,25 @@ export const LocationService = {
     } catch (error) {
       throw new Error('Failed to fetch location');
     }
-  }
+  },
+
+  getLocationCrowdData: async (locationId: string): Promise<{
+    currentStatus: {
+      busyness: number;
+      description: string;
+      typicalDuration: string;
+    };
+    weeklyData: any;
+    operatingHours: any;
+  }> => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/location/${locationId}`);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      throw new Error('Failed to fetch crowd data');
+    }
+  },
 };
 
 export default LocationService;
