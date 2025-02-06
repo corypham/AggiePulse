@@ -1,5 +1,5 @@
+import React from 'react';
 import { View, Text, TouchableOpacity, Dimensions } from "react-native";
-import React from "react";
 import { Heart } from "lucide-react-native";
 import { router } from 'expo-router';
 import type { Location } from '../types/location';
@@ -7,6 +7,7 @@ import { useFavorites } from '../context/FavoritesContext';
 import { getStatusIcon } from '../_utils/statusIcons';
 import { DEVICE, CARD } from '../constants/_layout';
 import { getLocationStatus } from '@/app/_utils/locationStatus';
+import { updateFacilityHours, formatOpenUntil } from '../_utils/timeUtils';
 
 // Calculate sizes based on card height
 const getElementSizes = (cardHeight: number) => ({
@@ -34,13 +35,14 @@ const getElementSizes = (cardHeight: number) => ({
 
 interface CardProps {
   location: Location;
+  onPress?: (location: Location) => void;
 }
 
-const Card = React.memo(({ location }: CardProps) => {
+const Card = React.memo(({ location, onPress }: CardProps) => {
   const { isFavorite, toggleFavorite } = useFavorites();
   const StatusIcon = React.useMemo(() => 
-    getStatusIcon(location.currentStatus), 
-    [location.currentStatus]
+    getStatusIcon(location.crowdInfo), 
+    [location.crowdInfo]
   );
   
   // Get card height based on device size
@@ -53,11 +55,31 @@ const Card = React.memo(({ location }: CardProps) => {
   // Get proportional sizes for all elements
   const sizes = getElementSizes(cardHeight);
   
+  // Get current hours and format the status
+  const currentHours = React.useMemo(() => 
+    updateFacilityHours(location),
+    [location.hours]
+  );
+
+  const hoursDisplay = React.useMemo(() => 
+    formatOpenUntil(currentHours),
+    [currentHours]
+  );
+
+  // Add this for debugging
+  console.log('Location:', location.name);
+  console.log('Hours:', location.hours);
+  console.log('Current Hours:', currentHours);
+  console.log('Hours Display:', hoursDisplay);
+
   const handlePress = () => {
     router.push(`/location/${location.id}`);
   };
 
-  const handleFavorite = () => {
+  
+  
+  const handleFavorite = (e: any) => {
+    e.stopPropagation();
     toggleFavorite(location.id);
   };
 
@@ -101,27 +123,17 @@ const Card = React.memo(({ location }: CardProps) => {
                 lineHeight: sizes.title.lineHeight,
               }}
             >
-              {location.title}
+              {location.title || location.name}
             </Text>
             
             <View className="flex-row items-center">
-              <Text 
-                className={`font-aileron-bold ${statusInfo.colorClass}`}
-                style={{ 
-                  fontSize: sizes.status.fontSize,
-                  lineHeight: sizes.status.lineHeight,
-                }}
-              >
-                {statusInfo.statusText}
+              <Text className={`font-aileron-bold ${
+                currentHours && currentHours.open !== 'Closed' ? 'text-green-600' : 'text-red-600'
+              }`}>
+                {currentHours && currentHours.open !== 'Closed' ? 'Open' : 'Closed'}
               </Text>
-              <Text 
-                className="font-aileron"
-                style={{ 
-                  fontSize: sizes.status.fontSize,
-                  lineHeight: sizes.status.lineHeight,
-                }}
-              >
-                {` ${statusInfo.timeText} • ${location.distance} mi`}
+              <Text className="font-aileron text-black">
+                {` ${hoursDisplay} • ${location.distance} mi`}
               </Text>
             </View>
           </View>
