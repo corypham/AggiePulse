@@ -1,126 +1,50 @@
 import { Location } from '../types/location';
+import { isCurrentlyOpen, formatTime } from './timeUtils';
 
-interface LocationStatusInfo {
-  isOpen: boolean;
-  statusText: string;
-  timeText: string;
-  colorClass: string;
-  statusClass: string;
-  backgroundClass: string;
-  statusTextClass: string;
+interface StatusColors {
+  background: string;
+  text: string;
 }
 
-function convertTo24Hour(timeStr: string): number {
-  
-  if (!timeStr) return 0;
-  timeStr = timeStr.trim();
-  
-  const [time, period] = timeStr.split(' ');
-  let [hours, minutes] = time.split(':').map(Number);
-  
-  if (period === 'PM' && hours !== 12) {
-    hours += 12;
-  } else if (period === 'AM' && hours === 12) {
-    hours = 0;
-  }
-  
-  return hours * 60 + minutes;
-}
-
-export function getLocationStatus(location: Location): LocationStatusInfo {
-  const getStatusColors = (status: string) => {
-    switch (status) {
-      case 'Not Busy':
-        return {
-          background: 'bg-[#ECFDF5]',
-          text: 'text-[#059669]'
-        };
-      case 'Fairly Busy':
-        return {
-          background: 'bg-[#FFF9E7]',
-          text: 'text-[#D97706]'
-        };
-      case 'Very Busy':
-        return {
-          background: 'bg-[#FEF2F2]',
-          text: 'text-[#DC2626]'
-        };
-      default:
-        return {
-          background: 'bg-gray-50',
-          text: 'text-gray-600'
-        };
-    }
-  };
-
-  const statusColors = getStatusColors(location.currentStatus);
-
-  // First check if location is operationally open
-  if (!location.isOpen) {
+const getStatusColors = (busyness: number): StatusColors => {
+  if (busyness >= 75) {
     return {
-      isOpen: false,
-      statusText: 'Temporarily Closed',
-      timeText: 'Check back later',
-      colorClass: 'text-closed',
-      statusClass: 'font-aileron-bold text-closed',
-      backgroundClass: statusColors.background,
-      statusTextClass: statusColors.text
+      background: 'bg-[#FEF2F2]',
+      text: 'text-[#DC2626]'
     };
-  }
-
-  // Then check regular hours
-  if (!location.hours?.main) {
+  } else if (busyness >= 40) {
     return {
-      isOpen: false,
-      statusText: 'Hours Unavailable',
-      timeText: 'Contact location',
-      colorClass: 'text-closed',
-      statusClass: 'font-aileron-bold text-closed',
-      backgroundClass: statusColors.background,
-      statusTextClass: statusColors.text
+      background: 'bg-[#FFF9E7]',
+      text: 'text-[#D97706]'
     };
-  }
-
-  // Get current time in local timezone
-  const now = new Date();
-  const currentMinutes = now.getHours() * 60 + now.getMinutes();
-
-  // Handle 24-hour locations
-  if (location.hours.main.open === '12:00 AM' && location.hours.main.close === '12:00 AM') {
-    return {
-      isOpen: true,
-      statusText: 'Open',
-      timeText: '24 Hours',
-      colorClass: 'text-open',
-      statusClass: 'font-aileron-bold text-open',
-      backgroundClass: statusColors.background,
-      statusTextClass: statusColors.text
-    };
-  }
-
-  const openMinutes = convertTo24Hour(location.hours.main.open);
-  const closeMinutes = convertTo24Hour(location.hours.main.close);
-
-  // Handle locations that close after midnight
-  const isOpenPastMidnight = closeMinutes < openMinutes;
-  let isWithinHours;
-
-  if (isOpenPastMidnight) {
-    isWithinHours = currentMinutes >= openMinutes || currentMinutes <= closeMinutes;
   } else {
-    isWithinHours = currentMinutes >= openMinutes && currentMinutes <= closeMinutes;
+    return {
+      background: 'bg-[#ECFDF5]',
+      text: 'text-[#059669]'
+    };
   }
+};
+
+export function getLocationStatus(location: Location) {
+  const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  const today = days[new Date().getDay()];
+  const todayHours = location.hours?.[today];
+
+  const isOpen = todayHours ? isCurrentlyOpen(todayHours) : false;
+  const statusColors = getStatusColors(location.crowdInfo?.percentage || 0);
 
   return {
-    isOpen: isWithinHours,
-    statusText: isWithinHours ? 'Open' : 'Closed',
-    timeText: isWithinHours 
-      ? `until ${location.hours.main.close}`
-      : `until ${location.hours.main.open}`,
-    colorClass: isWithinHours ? 'text-open' : 'text-closed',
-    statusClass: isWithinHours 
-      ? 'font-aileron-bold text-open' 
-      : 'font-aileron-bold text-closed',
+    isOpen,
+    statusText: location.crowdInfo?.level || 'Unknown',
+    timeText: isOpen 
+      ? `until ${todayHours?.close}`
+      : todayHours?.open 
+        ? `Opens ${todayHours.open}`
+        : 'Hours unavailable',
+    colorClass: isOpen ? 'text-green-600' : 'text-red-600',
+    statusClass: isOpen 
+      ? 'font-aileron-bold text-green-600' 
+      : 'font-aileron-bold text-red-600',
     backgroundClass: statusColors.background,
     statusTextClass: statusColors.text
   };

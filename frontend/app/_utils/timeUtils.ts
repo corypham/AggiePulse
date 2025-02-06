@@ -1,52 +1,90 @@
-import { FacilityHours, LocationHours } from '../types/location';
+import { Location } from '../types/location';
+
+// Convert 12-hour format to 24-hour format
+const convertTo24Hour = (timeStr: string): string => {
+  if (!timeStr || timeStr === 'Closed') return '';
+  
+  // Split time and period
+  const [time, period] = timeStr.split(' ');
+  let [hours, minutes = '00'] = time.split(':');
+  let hour = parseInt(hours);
+
+  // Special handling for 12 AM/PM
+  if (hour === 12) {
+    hour = period === 'AM' ? 0 : 12;
+  } else if (period === 'PM') {
+    hour += 12;
+  }
+
+  return `${hour.toString().padStart(2, '0')}:${minutes.padStart(2, '0')}`;
+};
 
 export const parseTime = (timeStr: string): number => {
-  const [time, period] = timeStr.split(' ');
-  const [hours, minutes] = time.split(':').map(Number);
+  if (!timeStr || timeStr === 'Closed') return -1;
   
-  let totalMinutes = hours * 60 + minutes;
-  if (period === 'PM' && hours !== 12) {
-    totalMinutes += 12 * 60;
-  } else if (period === 'AM' && hours === 12) {
-    totalMinutes = minutes;
-  }
+  const time24 = convertTo24Hour(timeStr);
+  if (!time24) return -1;
   
-  return totalMinutes;
+  const [hours, minutes] = time24.split(':').map(Number);
+  return hours * 60 + minutes;
 };
 
 export const formatTime = (timeStr: string): string => {
-  return timeStr; // Already in correct format from mock data
+  if (!timeStr || timeStr === 'Closed') return 'Closed';
+  return timeStr; // API already returns formatted time
 };
 
-export const isCurrentlyOpen = (facility: FacilityHours): boolean => {
+export const isCurrentlyOpen = (hours: { open: string; close: string } | null): boolean => {
+  if (!hours?.open || !hours?.close) return false;
+  
   const now = new Date();
   const currentTime = now.getHours() * 60 + now.getMinutes();
   
-  const openTime = parseTime(facility.open);
-  const closeTime = parseTime(facility.close);
+  const openTime = parseTime(hours.open);
+  const closeTime = parseTime(hours.close);
 
-  if (facility.open === '12:00 AM' && facility.close === '12:00 AM') {
-    return true;
+  if (openTime === -1 || closeTime === -1) return false;
+
+  // Handle midnight closing (12 AM)
+  if (hours.close.includes('12 AM')) {
+    return currentTime >= openTime || currentTime < 0; // Open until midnight
   }
 
+  // Normal case
   return closeTime > openTime
-    ? currentTime >= openTime && currentTime < closeTime
-    : currentTime >= openTime || currentTime < closeTime;
+    ? currentTime >= openTime && currentTime < closeTime  // Same day
+    : currentTime >= openTime || currentTime < closeTime; // Overnight
 };
 
-export const updateFacilityHours = (hours: LocationHours): LocationHours => {
-  return {
-    main: {
-      open: hours.main.open,
-      close: hours.main.close,
-      label: hours.main.label
+export const updateFacilityHours = (location: Location) => {
+  if (!location?.hours) return null;
+
+  const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  const today = days[new Date().getDay()];
+  const todayHours = location.hours[today];
+
+  return todayHours || null;
+};
+
+export const formatOpenUntil = (hours: { open: string; close: string } | null): string => {
+  if (!hours) return 'Hours unavailable';
+  if (hours.open === 'Closed') return 'Closed today';
+  
+  const isOpen = isCurrentlyOpen(hours);
+  if (isOpen) {
+    // Special handling for midnight
+    if (hours.close === '12 AM') {
+      return 'until midnight';
     }
-  };
-};
-
-export const formatOpenUntil = (facility: FacilityHours): string => {
-  const isOpen = isCurrentlyOpen(facility);
-  return isOpen 
-    ? `Until ${facility.close}`
-    : `Opens ${facility.open}`;
+    return `until ${hours.close}`;
+  } else {
+    const currentTime = new Date().getHours() * 60 + new Date().getMinutes();
+    const openTime = parseTime(hours.open);
+    
+    if (openTime > currentTime) {
+      return `Opens ${hours.open}`;
+    } else {
+      return 'Closed for today';
+    }
+  }
 }; 
