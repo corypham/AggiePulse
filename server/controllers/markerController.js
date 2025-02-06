@@ -1,20 +1,26 @@
 const { getJson } = require('serpapi');
+const NodeCache = require('node-cache');
+
+// Server-side cache
+const cache = new NodeCache({
+  stdTTL: 24 * 60 * 60, // 1 day default
+  checkperiod: 60 * 60   // Check for expired keys every hour
+});
 
 exports.getLocationData = async (req, res) => {
   const { locationId } = req.params;
   
   try {
-    console.log('markerController: Received request for locationId:', locationId);
-    console.log('markerController: SERPAPI_KEY value:', process.env.SERPAPI_KEY?.slice(0, 5) + '...');
-    
-    if (!process.env.SERPAPI_KEY) {
-      throw new Error('SERPAPI_KEY is not configured');
+    // Check cache first
+    const cachedData = cache.get(locationId);
+    if (cachedData) {
+      console.log('Serving cached data for:', locationId);
+      return res.json(cachedData);
     }
 
+    // Fetch new data if not cached
     const searchQuery = getSearchQuery(locationId);
-    console.log('markerController: Search query:', searchQuery);
-    
-    const params = {
+    const results = await getJson({
       api_key: process.env.SERPAPI_KEY,
       engine: "google",
       q: searchQuery,
@@ -22,26 +28,10 @@ exports.getLocationData = async (req, res) => {
       hl: "en",
       gl: "us",
       type: "place"
-    };
-    
-    console.log('markerController: Fetching data with params:', { ...params, api_key: '[REDACTED]' });
-
-    const results = await getJson(params);
-    console.log('markerController: Raw results received:', {
-      hasKnowledgeGraph: !!results.knowledge_graph,
-      hasPopularTimes: !!results.knowledge_graph?.popular_times,
-      hasHours: !!results.knowledge_graph?.hours
     });
-    
-    if (!results.knowledge_graph) {
-      console.log('markerController: No knowledge graph data found');
-      return res.status(404).json({ 
-        error: 'Location data not found',
-        locationId 
-      });
-    }
 
-    const response = {
+    // Process and cache the results
+    const processedData = {
       currentStatus: {
         busyness: results.knowledge_graph?.popular_times?.live?.busyness_score || 0,
         description: results.knowledge_graph?.popular_times?.live?.info || "No current data",
@@ -64,37 +54,40 @@ exports.getLocationData = async (req, res) => {
       }, {})
     };
 
-    console.log('Sending formatted response:', {
-      currentStatus: response.currentStatus,
-      hoursAvailable: !!Object.keys(response.hours).length,
-      daysWithData: Object.keys(response.weeklyBusyness)
-    });
+    // Cache the processed data
+    cache.set(locationId, processedData);
 
-    res.json(response);
+    res.json(processedData);
   } catch (error) {
-    console.error('markerController Error:', error);
-    res.status(500).json({ 
-      error: error.message,
-      locationId 
-    });
+    console.error('Error:', error);
+    res.status(500).json({ error: error.message });
   }
 };
 
 function getSearchQuery(locationId) {
   // Convert locationId to string and handle numeric IDs
-  const id = locationId.toString();
+  const id = locationId.toString().toLowerCase();
   
   const locations = {
-    '1': 'UC Davis shields library',
-    '2': 'UC Davis memorial union games area',
-    '3': 'UC Davis Activities Recreation Center',
-    '4': 'UC Davis silo market',
-    'mu': 'UC Davis memorial union games area',
-    'library': 'UC Davis shields library',
+    'silo': 'UC Davis Silo Market',
     'arc': 'UC Davis Activities Recreation Center',
-    'silo-market': 'UC Davis silo market'
+    'mu': 'UC Davis Memorial Union Coffee House',
+    'library': 'UC Davis Peter J. Shields Library',
+    // Numeric fallbacks
+    '1': 'UC Davis Peter J. Shields Library',
+    '2': 'UC Davis Memorial Union Coffee House',
+    '3': 'UC Davis Activities Recreation Center',
+    '4': 'UC Davis Silo Market'
   };
   
   console.log('markerController: Looking up location:', id, 'in:', Object.keys(locations));
-  return locations[id];
+  const query = locations[id];
+  
+  if (!query) {
+    console.log('markerController: No matching location found for ID:', id);
+    return null;
+  }
+  
+  console.log('markerController: Found matching query:', query);
+  return query;
 }
