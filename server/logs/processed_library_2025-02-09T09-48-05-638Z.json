@@ -1,0 +1,683 @@
+{
+  "currentStatus": {
+    "busyness": 0,
+    "description": "Usually not too busy",
+    "typicalDuration": "3 hours"
+  },
+  "hours": {
+    "sunday": {
+      "open": "12 PM",
+      "close": "12 AM"
+    },
+    "monday": {
+      "open": "7:30 AM",
+      "close": "12 AM"
+    },
+    "tuesday": {
+      "open": "7:30 AM",
+      "close": "12 AM"
+    },
+    "wednesday": {
+      "open": "7:30 AM",
+      "close": "12 AM"
+    },
+    "thursday": {
+      "open": "7:30 AM",
+      "close": "12 AM"
+    },
+    "friday": {
+      "open": "7:30 AM",
+      "close": "6 PM"
+    },
+    "saturday": {
+      "open": "12",
+      "close": "6 PM"
+    }
+  },
+  "weeklyBusyness": {
+    "monday": [
+      {
+        "time": "6 AM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "7 AM",
+        "busyness": 14,
+        "description": "Usually not busy"
+      },
+      {
+        "time": "8 AM",
+        "busyness": 23,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "9 AM",
+        "busyness": 36,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "10 AM",
+        "busyness": 47,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "11 AM",
+        "busyness": 58,
+        "description": "Usually a little busy"
+      },
+      {
+        "time": "12 PM",
+        "busyness": 69,
+        "description": "Usually a little busy"
+      },
+      {
+        "time": "1 PM",
+        "busyness": 81,
+        "description": "Usually as busy as it gets"
+      },
+      {
+        "time": "2 PM",
+        "busyness": 90,
+        "description": "Usually as busy as it gets"
+      },
+      {
+        "time": "3 PM",
+        "busyness": 90,
+        "description": "Usually as busy as it gets"
+      },
+      {
+        "time": "4 PM",
+        "busyness": 79,
+        "description": "Usually a little busy"
+      },
+      {
+        "time": "5 PM",
+        "busyness": 64,
+        "description": "Usually a little busy"
+      },
+      {
+        "time": "6 PM",
+        "busyness": 51,
+        "description": "Usually a little busy"
+      },
+      {
+        "time": "7 PM",
+        "busyness": 41,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "8 PM",
+        "busyness": 33,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "9 PM",
+        "busyness": 25,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "10 PM",
+        "busyness": 18,
+        "description": "Usually not busy"
+      },
+      {
+        "time": "11 PM",
+        "busyness": 12,
+        "description": "Usually not busy"
+      }
+    ],
+    "tuesday": [
+      {
+        "time": "6 AM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "7 AM",
+        "busyness": 15,
+        "description": "Usually not busy"
+      },
+      {
+        "time": "8 AM",
+        "busyness": 25,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "9 AM",
+        "busyness": 35,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "10 AM",
+        "busyness": 49,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "11 AM",
+        "busyness": 64,
+        "description": "Usually a little busy"
+      },
+      {
+        "time": "12 PM",
+        "busyness": 82,
+        "description": "Usually as busy as it gets"
+      },
+      {
+        "time": "1 PM",
+        "busyness": 96,
+        "description": "Usually as busy as it gets"
+      },
+      {
+        "time": "2 PM",
+        "busyness": 100,
+        "description": "Usually as busy as it gets"
+      },
+      {
+        "time": "3 PM",
+        "busyness": 97,
+        "description": "Usually as busy as it gets"
+      },
+      {
+        "time": "4 PM",
+        "busyness": 89,
+        "description": "Usually as busy as it gets"
+      },
+      {
+        "time": "5 PM",
+        "busyness": 75,
+        "description": "Usually a little busy"
+      },
+      {
+        "time": "6 PM",
+        "busyness": 59,
+        "description": "Usually a little busy"
+      },
+      {
+        "time": "7 PM",
+        "busyness": 47,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "8 PM",
+        "busyness": 37,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "9 PM",
+        "busyness": 26,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "10 PM",
+        "busyness": 18,
+        "description": "Usually not busy"
+      },
+      {
+        "time": "11 PM",
+        "busyness": 11,
+        "description": "Usually not busy"
+      }
+    ],
+    "wednesday": [
+      {
+        "time": "6 AM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "7 AM",
+        "busyness": 11,
+        "description": "Usually not busy"
+      },
+      {
+        "time": "8 AM",
+        "busyness": 23,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "9 AM",
+        "busyness": 38,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "10 AM",
+        "busyness": 57,
+        "description": "Usually a little busy"
+      },
+      {
+        "time": "11 AM",
+        "busyness": 70,
+        "description": "Usually a little busy"
+      },
+      {
+        "time": "12 PM",
+        "busyness": 83,
+        "description": "Usually as busy as it gets"
+      },
+      {
+        "time": "1 PM",
+        "busyness": 92,
+        "description": "Usually as busy as it gets"
+      },
+      {
+        "time": "2 PM",
+        "busyness": 99,
+        "description": "Usually as busy as it gets"
+      },
+      {
+        "time": "3 PM",
+        "busyness": 98,
+        "description": "Usually as busy as it gets"
+      },
+      {
+        "time": "4 PM",
+        "busyness": 92,
+        "description": "Usually as busy as it gets"
+      },
+      {
+        "time": "5 PM",
+        "busyness": 76,
+        "description": "Usually a little busy"
+      },
+      {
+        "time": "6 PM",
+        "busyness": 61,
+        "description": "Usually a little busy"
+      },
+      {
+        "time": "7 PM",
+        "busyness": 46,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "8 PM",
+        "busyness": 34,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "9 PM",
+        "busyness": 27,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "10 PM",
+        "busyness": 19,
+        "description": "Usually not busy"
+      },
+      {
+        "time": "11 PM",
+        "busyness": 14,
+        "description": "Usually not busy"
+      }
+    ],
+    "thursday": [
+      {
+        "time": "6 AM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "7 AM",
+        "busyness": 11,
+        "description": "Usually not busy"
+      },
+      {
+        "time": "8 AM",
+        "busyness": 19,
+        "description": "Usually not busy"
+      },
+      {
+        "time": "9 AM",
+        "busyness": 30,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "10 AM",
+        "busyness": 46,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "11 AM",
+        "busyness": 62,
+        "description": "Usually a little busy"
+      },
+      {
+        "time": "12 PM",
+        "busyness": 77,
+        "description": "Usually a little busy"
+      },
+      {
+        "time": "1 PM",
+        "busyness": 88,
+        "description": "Usually as busy as it gets"
+      },
+      {
+        "time": "2 PM",
+        "busyness": 88,
+        "description": "Usually as busy as it gets"
+      },
+      {
+        "time": "3 PM",
+        "busyness": 87,
+        "description": "Usually as busy as it gets"
+      },
+      {
+        "time": "4 PM",
+        "busyness": 78,
+        "description": "Usually a little busy"
+      },
+      {
+        "time": "5 PM",
+        "busyness": 62,
+        "description": "Usually a little busy"
+      },
+      {
+        "time": "6 PM",
+        "busyness": 45,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "7 PM",
+        "busyness": 33,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "8 PM",
+        "busyness": 26,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "9 PM",
+        "busyness": 20,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "10 PM",
+        "busyness": 16,
+        "description": "Usually not busy"
+      },
+      {
+        "time": "11 PM",
+        "busyness": 11,
+        "description": "Usually not busy"
+      }
+    ],
+    "friday": [
+      {
+        "time": "6 AM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "7 AM",
+        "busyness": 11,
+        "description": "Usually not busy"
+      },
+      {
+        "time": "8 AM",
+        "busyness": 23,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "9 AM",
+        "busyness": 34,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "10 AM",
+        "busyness": 46,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "11 AM",
+        "busyness": 54,
+        "description": "Usually a little busy"
+      },
+      {
+        "time": "12 PM",
+        "busyness": 61,
+        "description": "Usually a little busy"
+      },
+      {
+        "time": "1 PM",
+        "busyness": 68,
+        "description": "Usually a little busy"
+      },
+      {
+        "time": "2 PM",
+        "busyness": 71,
+        "description": "Usually a little busy"
+      },
+      {
+        "time": "3 PM",
+        "busyness": 64,
+        "description": "Usually a little busy"
+      },
+      {
+        "time": "4 PM",
+        "busyness": 55,
+        "description": "Usually a little busy"
+      },
+      {
+        "time": "5 PM",
+        "busyness": 41,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "6 PM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "7 PM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "8 PM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "9 PM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "10 PM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "11 PM",
+        "busyness": 0,
+        "description": ""
+      }
+    ],
+    "saturday": [
+      {
+        "time": "6 AM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "7 AM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "8 AM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "9 AM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "10 AM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "11 AM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "12 PM",
+        "busyness": 14,
+        "description": "Usually not busy"
+      },
+      {
+        "time": "1 PM",
+        "busyness": 23,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "2 PM",
+        "busyness": 26,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "3 PM",
+        "busyness": 29,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "4 PM",
+        "busyness": 26,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "5 PM",
+        "busyness": 21,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "6 PM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "7 PM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "8 PM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "9 PM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "10 PM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "11 PM",
+        "busyness": 0,
+        "description": ""
+      }
+    ],
+    "sunday": [
+      {
+        "time": "6 AM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "7 AM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "8 AM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "9 AM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "10 AM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "11 AM",
+        "busyness": 0,
+        "description": ""
+      },
+      {
+        "time": "12 PM",
+        "busyness": 21,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "1 PM",
+        "busyness": 31,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "2 PM",
+        "busyness": 37,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "3 PM",
+        "busyness": 44,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "4 PM",
+        "busyness": 43,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "5 PM",
+        "busyness": 36,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "6 PM",
+        "busyness": 24,
+        "description": "Usually not too busy"
+      },
+      {
+        "time": "7 PM",
+        "busyness": 12,
+        "description": "Usually not busy"
+      },
+      {
+        "time": "8 PM",
+        "busyness": 10,
+        "description": "Usually not busy"
+      },
+      {
+        "time": "9 PM",
+        "busyness": 13,
+        "description": "Usually not busy"
+      },
+      {
+        "time": "10 PM",
+        "busyness": 16,
+        "description": "Usually not busy"
+      },
+      {
+        "time": "11 PM",
+        "busyness": 13,
+        "description": "Usually not busy"
+      }
+    ]
+  }
+}

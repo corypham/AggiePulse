@@ -40,15 +40,16 @@ interface MapMarkerProps {
 
 export function MapMarker({ location, onPress }: MapMarkerProps) {
   const router = useRouter();
-  const { isFavorite, favorites } = useFavorites();
+  const { isFavorite } = useFavorites();
   const markerRef = useRef(null);
 
   const isLocationFavorite = useMemo(() => 
     isFavorite(location.id),
-    [isFavorite, location.id, favorites]
+    [isFavorite, location.id]
   );
 
   const getBusynessStatus = (crowdInfo: { percentage: number }) => {
+    
     const busyness = crowdInfo?.percentage || 0;
     if (busyness >= 75) return 'Very Busy';
     if (busyness >= 40) return 'Fairly Busy';
@@ -59,6 +60,7 @@ export function MapMarker({ location, onPress }: MapMarkerProps) {
     const type = location.type;
     const status = getBusynessStatus(location.crowdInfo);
     let PinComponent;
+
 
     if (isLocationFavorite) {
       if (type.includes('study')) {
