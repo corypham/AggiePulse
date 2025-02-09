@@ -27,7 +27,22 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
     [isFavorite, location.id]
   );
 
-  const statusInfo = getLocationStatus(location);
+  const [apiData, setApiData] = useState<any>(null);
+  
+  useEffect(() => {
+    const fetchLocationData = async () => {
+      try {
+        const data = await LocationService.getLocationCrowdData(location.id.toLowerCase());
+        setApiData(data);
+      } catch (error) {
+        console.error('Error fetching location data:', error);
+      }
+    };
+
+    fetchLocationData();
+  }, [location.id]);
+
+  const statusInfo = getLocationStatus(location, apiData);
   const StatusIcon = getStatusIcon(location.crowdInfo);
 
   const headerHeight = 264; // Height of your header image
@@ -154,39 +169,40 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
   );
 
   const renderHoursSection = () => {
-    const facilityHours = getLocationHours(location);
-
+    // Use API hours if available, fall back to mock data
+    const hours = apiData?.hours || location.hours;
+    
     return (
       <>
         <Text className="font-aileron-bold text-2xl mb-4">Hours</Text>
         <View className="space-y-4">
-          {facilityHours.map((facility, index) => (
-            <View key={index} className="flex-row items-start">
+          {Object.entries(hours || {}).map(([day, times]: [string, any]) => (
+            <View key={day} className="flex-row items-start">
               <Text 
                 className={`${
-                  facility.isAlwaysOpen || isCurrentlyOpen({
-                    open: facility.open,
-                    close: facility.close,
-                    label: facility.facilityName
+                  times.isAlwaysOpen || isCurrentlyOpen({
+                    open: times.open,
+                    close: times.close,
+                    label: times.facilityName
                   }) 
                   ? 'text-[#22C55E]' 
                   : 'text-[#EF4444]'
                 } font-aileron-bold w-[72px]`}
               >
-                {facility.isAlwaysOpen || isCurrentlyOpen({
-                  open: facility.open,
-                  close: facility.close,
-                  label: facility.facilityName
+                {times.isAlwaysOpen || isCurrentlyOpen({
+                  open: times.open,
+                  close: times.close,
+                  label: times.facilityName
                 }) ? 'Open' : 'Closed'}
               </Text>
               <View className="flex-1">
                 <Text className="font-aileron text-[#6B7280] text-lg">
-                  {facility.facilityName}:
+                  {times.facilityName}:
                 </Text>
                 <Text className="font-aileron text-[#6B7280] text-lg">
-                  {facility.isAlwaysOpen 
+                  {times.isAlwaysOpen 
                     ? '12:00 AM - 12:00 AM'
-                    : `${facility.open} - ${facility.close}`
+                    : `${times.open} - ${times.close}`
                   }
                 </Text>
               </View>

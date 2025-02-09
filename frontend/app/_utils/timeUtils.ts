@@ -1,4 +1,7 @@
+import { formatInTimeZone, toZonedTime, format } from 'date-fns-tz';
 import { Location } from '../types/location';
+
+const TIMEZONE = 'America/Los_Angeles';  // PST/PDT timezone
 
 // Convert 12-hour format to 24-hour format
 const convertTo24Hour = (timeStr: string): string => {
@@ -35,9 +38,10 @@ export const formatTime = (timeStr: string): string => {
 };
 
 export const isCurrentlyOpen = (hours: { open: string; close: string } | null): boolean => {
-  if (!hours?.open || !hours?.close) return false;
+  if (!hours?.open || !hours?.close || hours.open === 'Closed') return false;
   
-  const now = new Date();
+  // Get current time in PST/PDT
+  const now = toZonedTime(new Date(), TIMEZONE);
   const currentTime = now.getHours() * 60 + now.getMinutes();
   
   const openTime = parseTime(hours.open);
@@ -60,7 +64,8 @@ export const updateFacilityHours = (location: Location) => {
   if (!location?.hours) return null;
 
   const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-  const today = days[new Date().getDay()];
+  const now = toZonedTime(new Date(), TIMEZONE);
+  const today = days[now.getDay()];
   const todayHours = location.hours[today];
 
   return todayHours || null;
@@ -78,7 +83,8 @@ export const formatOpenUntil = (hours: { open: string; close: string } | null): 
     }
     return `until ${hours.close}`;
   } else {
-    const currentTime = new Date().getHours() * 60 + new Date().getMinutes();
+    const now = toZonedTime(new Date(), TIMEZONE);
+    const currentTime = now.getHours() * 60 + now.getMinutes();
     const openTime = parseTime(hours.open);
     
     if (openTime > currentTime) {

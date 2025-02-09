@@ -1,8 +1,9 @@
 // Path: frontend/services/locationService.ts
 
-import { Location, BusyStatus } from '../types/location';
+import { Location, BusyStatus, StaticLocation, DynamicLocation } from '../types/location';
 import { getInitialMockLocations } from '../data/mockLocations';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { staticLocations } from '../data/staticLocations';
 
 // Base API URL - you'll change this later
 const API_BASE_URL = __DEV__ 
@@ -35,15 +36,20 @@ export const LocationService = {
   // Get all locations (will be API-based later)
   getAllLocations: async (): Promise<Location[]> => {
     try {
-      // In development, use mock data
       if (__DEV__) {
-        return getInitialMockLocations();
+        // Combine static data with mock dynamic data
+        return Object.values(staticLocations).map(staticLoc => ({
+          ...staticLoc,
+          ...getMockDynamicData(staticLoc.id)
+        }));
       }
-      // In production, this will be replaced with actual API call:
-      // const response = await fetch(API_BASE_URL + API_ENDPOINTS.getAllLocations);
-      // return response.json();
       
-      return getInitialMockLocations();
+      // In production:
+      const dynamicData = await fetchDynamicLocationData();
+      return Object.values(staticLocations).map(staticLoc => ({
+        ...staticLoc,
+        ...dynamicData[staticLoc.id]
+      }));
     } catch (error) {
       throw new Error('Failed to fetch locations');
     }
@@ -114,9 +120,15 @@ export const LocationService = {
 
   // Get a single location by ID
   getLocationById: async (id: string): Promise<Location | undefined> => {
+    const staticData = staticLocations[id];
+    if (!staticData) return undefined;
+
     try {
-      // This structure makes it easy to replace with real API call later
-      return getInitialMockLocations().find(location => location.id === id);
+      const dynamicData = await LocationService.getLocationCrowdData(id);
+      return {
+        ...staticData,
+        ...dynamicData
+      };
     } catch (error) {
       throw new Error('Failed to fetch location');
     }
@@ -161,14 +173,22 @@ async function getCachedData(locationId: string): Promise<any | null> {
     const { timestamp, data }: CachedData = JSON.parse(cached);
     const now = Date.now();
 
-    // Different cache durations for different data types
-    const isHoursCurrent = now - timestamp < CACHE_KEYS.CACHE_DURATION.WEEK;  // Weekly for hours
-    const isBusynessCurrent = now - timestamp < CACHE_KEYS.CACHE_DURATION.DAY; // Daily for busyness
+    // Weekly cache for hours
+    const isHoursCurrent = now - timestamp < CACHE_KEYS.CACHE_DURATION.WEEK;
+    
+    // Hourly cache for current status
+    const isStatusCurrent = now - timestamp < CACHE_KEYS.CACHE_DURATION.HOURS;
 
-    // If either needs updating, return null to trigger fresh fetch
-    if (!isHoursCurrent || !isBusynessCurrent) {
-      console.log('LocationService: Cache expired for:', locationId);
+    if (!isHoursCurrent) {
+      // Fetch new weekly data
       return null;
+    }
+
+    if (!isStatusCurrent) {
+      // Only update current status
+      const newStatus = await fetchCurrentStatus(locationId);
+      data.currentStatus = newStatus;
+      await cacheData(locationId, data);
     }
 
     return data;

@@ -1,5 +1,5 @@
 import { Location } from '../types/location';
-import { isCurrentlyOpen, formatTime } from './timeUtils';
+import { isCurrentlyOpen, formatTime, formatOpenUntil, updateFacilityHours } from './timeUtils';
 
 interface StatusColors {
   background: string;
@@ -25,22 +25,15 @@ const getStatusColors = (busyness: number): StatusColors => {
   }
 };
 
-export function getLocationStatus(location: Location) {
-  const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-  const today = days[new Date().getDay()];
-  const todayHours = location.hours?.[today];
-
-  const isOpen = todayHours ? isCurrentlyOpen(todayHours) : false;
-  const statusColors = getStatusColors(location.crowdInfo?.percentage || 0);
+export function getLocationStatus(location: Location, apiData?: any) {
+  const todayHours = updateFacilityHours(location);
+  const isOpen = isCurrentlyOpen(todayHours);
+  const statusColors = getStatusColors(apiData?.currentStatus?.busyness || 0);
 
   return {
     isOpen,
-    statusText: location.crowdInfo?.level || 'Unknown',
-    timeText: isOpen 
-      ? `until ${todayHours?.close}`
-      : todayHours?.open 
-        ? `Opens ${todayHours.open}`
-        : 'Hours unavailable',
+    statusText: apiData?.currentStatus?.description || 'Unknown',
+    timeText: formatOpenUntil(todayHours),
     colorClass: isOpen ? 'text-green-600' : 'text-red-600',
     statusClass: isOpen 
       ? 'font-aileron-bold text-green-600' 

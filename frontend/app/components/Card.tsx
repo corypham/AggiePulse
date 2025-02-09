@@ -35,10 +35,11 @@ const getElementSizes = (cardHeight: number) => ({
 
 interface CardProps {
   location: Location;
+  apiData?: any;
   onPress?: (location: Location) => void;
 }
 
-const Card = React.memo(({ location, onPress }: CardProps) => {
+const Card = React.memo(({ location, apiData, onPress }: CardProps) => {
   const { isFavorite, toggleFavorite } = useFavorites();
   const StatusIcon = React.useMemo(() => 
     getStatusIcon(location.crowdInfo), 
@@ -83,7 +84,7 @@ const Card = React.memo(({ location, onPress }: CardProps) => {
     toggleFavorite(location.id);
   };
 
-  const statusInfo = getLocationStatus(location);
+  const statusInfo = getLocationStatus(location, apiData);
  
   return (
     <TouchableOpacity 
@@ -127,13 +128,11 @@ const Card = React.memo(({ location, onPress }: CardProps) => {
             </Text>
             
             <View className="flex-row items-center">
-              <Text className={`font-aileron-bold ${
-                currentHours && currentHours.open !== 'Closed' ? 'text-green-600' : 'text-red-600'
-              }`}>
-                {currentHours && currentHours.open !== 'Closed' ? 'Open' : 'Closed'}
+              <Text className={`font-aileron-bold ${statusInfo.colorClass}`}>
+                {statusInfo.isOpen ? 'Open' : 'Closed'}
               </Text>
               <Text className="font-aileron text-black">
-                {` ${hoursDisplay} • ${location.distance} mi`}
+                {` ${statusInfo.timeText} • ${location.distance} mi`}
               </Text>
             </View>
           </View>

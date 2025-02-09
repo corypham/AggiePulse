@@ -27,6 +27,7 @@
     "@testing-library/jest-native": "^5.4.3",
     "@testing-library/react-native": "^12.8.1",
     "axios": "^1.7.7",
+    "date-fns-tz": "^3.2.0",
     "expo": "^52.0.17",
     "expo-asset": "~11.0.3",
     "expo-constants": "~17.0.5",

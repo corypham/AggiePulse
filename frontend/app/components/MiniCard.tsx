@@ -7,12 +7,13 @@ import { getLocationStatus } from '@/app/_utils/locationStatus';
 
 interface MiniCardProps {
   location: Location;
+  apiData?: any;
 }
 
-export function MiniCard({ location }: MiniCardProps) {
+export function MiniCard({ location, apiData }: MiniCardProps) {
   const StatusIcon = getStatusIcon(location.crowdInfo);
   const fadeAnim = React.useRef(new Animated.Value(0)).current;
-  const statusInfo = getLocationStatus(location);
+  const statusInfo = getLocationStatus(location, apiData);
 
   useEffect(() => {
     // Reset animation value
