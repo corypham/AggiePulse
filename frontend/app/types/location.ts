@@ -40,31 +40,15 @@ interface Hours {
   sunday?: DayHours;
 }
 
-export interface Location {
+// Static data interface
+export interface LocationStatic {
   id: string;
-  name: string;
-  title: string;
-  imageUrl: any; // Using 'any' for require() image imports
-  icons: {
-    blue: any;
-    white: any;
-    grey: any;
-    black: any;
-    selected: any;
-    unselected: any;
-  };
+  title: string;  // We'll use this for display names
   coordinates: {
     latitude: number;
     longitude: number;
   };
-  isOpen: boolean;
-  hours: {
-    [key: string]: {
-      open: string;
-      close: string;
-    } | null;
-  };
-  currentCapacity: number;
+  imageUrl: any;
   maxCapacity: number;
   features: string[];
   amenities: {
@@ -73,18 +57,81 @@ export interface Location {
     accessibility: string[];
   };
   description: string;
-  currentStatus: BusyStatus;
+  type: string[];
+  icons: {
+    blue: any;
+    white: any;
+    grey: any;
+    black: any;
+    selected: any;
+    unselected: any;
+  };
+}
+
+// Dynamic data from API
+export interface LocationDynamic {
+  hours: {
+    [key: string]: {
+      open: string;
+      close: string;
+    };
+  };
+  currentStatus: {
+    statusText: string;
+    currentCapacity: {
+      current: number;
+      percentage: number;
+    };
+    description: string;
+    untilText: string;
+  };
   bestTimes: {
     best: string;
     worst: string;
   };
-  subLocations?: SubLocation[];
-  closingTime: string;
-  distance: number;
-  type: string[];
+  weeklyBusyness?: {
+    [key: string]: Array<{
+      time: string;
+      busyness: number;
+      description: string;
+    }>;
+  };
+}
+
+// Combined interface for complete location data
+export interface Location extends LocationStatic {
+  id: string;
+  title: string;
+  hours: {
+    [key: string]: {
+      open: string;
+      close: string;
+    };
+  };
+  currentStatus: string;
+  currentCapacity: number;
+  bestTimes: {
+    best: string;
+    worst: string;
+  };
   crowdInfo: {
-    percentage: number;
     level: string;
+    percentage: number;
+    description: string;
+  };
+  closingTime: string;
+  distance?: number;
+  crowdData?: Array<{
+    hour: number;
+    percentage: number;
+    status: string;
+  }>;
+  weeklyBusyness?: {
+    [key: string]: Array<{
+      time: string;
+      busyness: number;
+      description: string;
+    }>;
   };
 }
 

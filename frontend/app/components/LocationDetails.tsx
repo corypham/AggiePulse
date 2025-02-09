@@ -1,16 +1,42 @@
-import React, { useMemo, useEffect, useState, useRef } from 'react';
+import React, { useMemo, useEffect, useState, useRef, useCallback } from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity, StatusBar, Animated } from 'react-native';
 import { useRouter, Stack } from 'expo-router';
 import { Heart, ChevronLeft, Share2 } from 'lucide-react-native';
 import { useFavorites } from '../context/FavoritesContext';
-import { formatOpenUntil, formatTime, updateFacilityHours, isCurrentlyOpen } from '../_utils/timeUtils';
+import { formatOpenUntil, formatTime, updateFacilityHours, isCurrentlyOpen, getOpenStatusText, getLocationHours, isLocationOpen } from '../_utils/timeUtils';
 import { getStatusIcon } from '@/app/_utils/statusIcons';
-import { getLocationStatus } from '@/app/_utils/locationStatus';
 import type { Location } from '../types/location';
 import { getAmenityIcon } from '../_utils/amenityIcons';
-import { getLocationHours } from '../_utils/hoursUtils';
+import { getLocationHours as getLocationHoursUtils } from '../_utils/hoursUtils';
 import LocationService from '../services/locationService';
-import { CrowdForecast } from '../components/CrowdForecast';
+import CrowdForecast  from '../components/CrowdForecast';
+
+import { formatDistance } from '../_utils/distanceUtils';
+
+// Helper function to get location status
+const getLocationStatus = (location: Location) => {
+  const percentage = (location.currentCapacity / location.maxCapacity) * 100;
+  
+  if (percentage >= 75) {
+    return {
+      statusTextClass: 'text-red-600',
+      backgroundClass: 'bg-red-100',
+      text: 'Very Busy'
+    };
+  } else if (percentage >= 40) {
+    return {
+      statusTextClass: 'text-yellow-600',
+      backgroundClass: 'bg-yellow-100',
+      text: 'Fairly Busy'
+    };
+  } else {
+    return {
+      statusTextClass: 'text-green-600',
+      backgroundClass: 'bg-green-100',
+      text: 'Not Busy'
+    };
+  }
+};
 
 interface LocationDetailsProps {
   location: Location;
@@ -28,7 +54,7 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
   );
 
   const statusInfo = getLocationStatus(location);
-  const StatusIcon = getStatusIcon(location.crowdInfo);
+  const StatusIcon = location.icons?.blue || null;
 
   const headerHeight = 264; // Height of your header image
   const tabBarHeight = 48; // Height of the tab bar
@@ -79,16 +105,104 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
     });
   };
 
-  const [currentHours, setCurrentHours] = useState(updateFacilityHours(location));
+  const renderHoursSection = () => {
+    const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    const today = days[new Date().getDay()];
+    
+    return (
+      <>
+        <Text className="font-aileron-bold text-2xl mb-4">Hours</Text>
+        <View className="space-y-4">
+          {days.map((day, index) => {
+            const dayHours = location.hours?.[day];
+            const isToday = day === today;
+            
+            // Check if this day's schedule is currently active
+            const isCurrentlyOpen = isToday && isLocationOpen(location);
+            
+            return (
+              <View key={index} className="flex-row items-start">
+                <Text 
+                  className={`${
+                    isCurrentlyOpen ? 'text-[#22C55E]' : 'text-[#EF4444]'
+                  } font-aileron-bold w-[72px]`}
+                >
+                  {day.charAt(0).toUpperCase() + day.slice(1, 3)}
+                </Text>
+                <View className="flex-1">
+                  <Text className="font-aileron text-[#6B7280] text-lg">
+                    {dayHours?.open === 'Closed' 
+                      ? 'Closed'
+                      : dayHours?.open && dayHours?.close
+                        ? `${dayHours.open} - ${dayHours.close}`
+                        : 'Hours unavailable'
+                    }
+                  </Text>
+                </View>
+              </View>
+            );
+          })}
+        </View>
+        
+        {/* Thin Grey Divider */}
+        <View className="flex-row justify-center py-4">
+          <View className="h-[1px] bg-gray-200 flex-1 mx-1" />
+        </View>
+      </>
+    );
+  };
+
+  // Get hours data using the new utilities
+  const { nextOpenDay, openTime, closeTime } = React.useMemo(() => 
+    getLocationHours(location),
+    [location.hours]
+  );
+
+  // Check if location is currently open
+  const isOpen = React.useMemo(() => 
+    isLocationOpen(location),
+    [location.hours]
+  );
+
+  // Get status text
+  const statusText = React.useMemo(() => {
+    if (!location.hours) return 'Hours unavailable';
+
+    const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    const today = days[new Date().getDay()];
+    const todayHours = location.hours[today];
+
+    if (isOpen && todayHours?.close) {
+      return `until ${todayHours.close}`;
+    }
+
+    // If it's closed, find next opening time
+    if (todayHours?.open === 'Closed') {
+      // Find next day that's not closed
+      for (let i = 1; i <= 7; i++) {
+        const nextDay = days[(new Date().getDay() + i) % 7];
+        const nextDayHours = location.hours[nextDay];
+        if (nextDayHours?.open && nextDayHours.open !== 'Closed') {
+          const dayName = i === 1 ? 'Mon' : nextDay.slice(0, 3).charAt(0).toUpperCase() + nextDay.slice(1, 3);
+          return `until ${nextDayHours.open} ${dayName}`;
+        }
+      }
+    }
+
+    // If opening later today
+    if (todayHours?.open) {
+      return `until ${todayHours.open}`;
+    }
+
+    return 'Hours unavailable';
+  }, [location.hours, isOpen]);
 
   // Add fade animation value
   const fadeAnim = useRef(new Animated.Value(0)).current;
   
   useEffect(() => {
-    // Start with opacity 0
     fadeAnim.setValue(0);
     
-    // Animate in with spring effect
     Animated.spring(fadeAnim, {
       toValue: 1,
       useNativeDriver: true,
@@ -97,41 +211,12 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
       velocity: 0.5
     }).start();
 
-    StatusBar.setBarStyle('light-content');
-    setCurrentHours(updateFacilityHours(location));
-
-    const interval = setInterval(() => {
-      setCurrentHours(updateFacilityHours(location));
-    }, 60000);
+    StatusBar.setBarStyle('dark-content');
 
     return () => {
       StatusBar.setBarStyle('dark-content');
-      clearInterval(interval);
     };
   }, [location]);
-
-  const [crowdData, setCrowdData] = useState<any>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchCrowdData = async () => {
-      try {
-        console.log('LocationDetails: Fetching data for location:', location.id);
-        setIsLoading(true);
-        const data = await LocationService.getLocationCrowdData(location.id.toLowerCase());
-        console.log('LocationDetails: Successfully fetched crowd data:', data);
-        setCrowdData(data);
-      } catch (error) {
-        console.error('LocationDetails: Error fetching crowd data:', error);
-        setError(error instanceof Error ? error.message : 'Unknown error');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchCrowdData();
-  }, [location.id]);
 
   const renderAmenitySection = (title: string, amenities: string[]) => (
     <View className="my-2">
@@ -153,55 +238,6 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
     </View>
   );
 
-  const renderHoursSection = () => {
-    const facilityHours = getLocationHours(location);
-
-    return (
-      <>
-        <Text className="font-aileron-bold text-2xl mb-4">Hours</Text>
-        <View className="space-y-4">
-          {facilityHours.map((facility, index) => (
-            <View key={index} className="flex-row items-start">
-              <Text 
-                className={`${
-                  facility.isAlwaysOpen || isCurrentlyOpen({
-                    open: facility.open,
-                    close: facility.close,
-                    label: facility.facilityName
-                  }) 
-                  ? 'text-[#22C55E]' 
-                  : 'text-[#EF4444]'
-                } font-aileron-bold w-[72px]`}
-              >
-                {facility.isAlwaysOpen || isCurrentlyOpen({
-                  open: facility.open,
-                  close: facility.close,
-                  label: facility.facilityName
-                }) ? 'Open' : 'Closed'}
-              </Text>
-              <View className="flex-1">
-                <Text className="font-aileron text-[#6B7280] text-lg">
-                  {facility.facilityName}:
-                </Text>
-                <Text className="font-aileron text-[#6B7280] text-lg">
-                  {facility.isAlwaysOpen 
-                    ? '12:00 AM - 12:00 AM'
-                    : `${facility.open} - ${facility.close}`
-                  }
-                </Text>
-              </View>
-            </View>
-          ))}
-        </View>
-        
-        {/* Thin Grey Divider */}
-        <View className="flex-row justify-center py-4">
-          <View className="h-[1px] bg-gray-200 flex-1 mx-1" />
-        </View>
-      </>
-    );
-  };
-
   const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
   const today = days[new Date().getDay()];
   const todayHours = location.hours?.[today];
@@ -212,6 +248,44 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
       return 'Hours unavailable';
     }
     return `${todayHours.open} - ${todayHours.close}`;
+  };
+
+  const [crowdData, setCrowdData] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchCrowdData = async () => {
+      try {
+        const data = await LocationService.getLocationCrowdData(location.id);
+        console.log('Crowd Data Fetched:', data);
+        setCrowdData(data);
+      } catch (error) {
+        console.error('Error fetching crowd data:', error);
+      }
+    };
+
+    fetchCrowdData();
+  }, [location.id]);
+
+  // Get status color based on current status
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'Not Busy':
+        return 'bg-[#0fbc43]';
+      case 'A Bit Busy':
+      case 'Fairly Busy':
+        return 'bg-[#ff8003]';
+      case 'Very Busy':
+      case 'Extremely Busy':
+        return 'bg-[#EF4444]';
+      default:
+        return 'bg-[#0fbc43]'; // Default to green for closed/not busy
+    }
+  };
+
+  // Get current status text
+  const getCurrentStatus = () => {
+    if (!isOpen) return 'Not Busy';
+    return location.currentStatus || 'Not Busy';
   };
 
   return (
@@ -278,37 +352,39 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
         {/* Title Section with Icon */}
         <View className="px-5 pt-5 bg-white -mt-5 rounded-t-3xl">
           <View className="flex-row items-start p-4 space-x-3">
-            <View className="mt-1.5">
-              <location.icons.blue width={28} height={28} />
-            </View>
+            {StatusIcon && (
+              <View className="mt-1.5">
+                <StatusIcon width={28} height={28} />
+              </View>
+            )}
             <View className="flex-1 pl-6">
               <Text className="font-aileron-bold text-[22px] text-black">
-                {location.name}
+                {location.title}
               </Text>
               <View className="flex-row items-center mt-0.5">
                 <Text 
                   className={`text-lg font-aileron-bold ${
-                    statusInfo.isOpen ? 'text-green-600' : 'text-red-600'
+                    isOpen ? 'text-green-600' : 'text-red-600'
                   }`}
                 >
-                  {statusInfo.isOpen ? 'Open' : 'Closed'}
+                  {isOpen ? 'Open' : 'Closed'}
                 </Text>
                 <Text className="text-lg font-aileron ml-1">
-                  {statusInfo.timeText}
+                  {statusText}
                 </Text>
               </View>
               <View className="flex-row items-center space-x-2 mt-3">
                 <View className={`
-                  ${location.currentStatus === 'Not Busy' ? 'bg-[#22C55E]' : 
-                    location.currentStatus === 'Fairly Busy' ? 'bg-[#ff8003]' : 
-                    'bg-[#EF4444]'} 
+                  ${getStatusColor(getCurrentStatus())}
                   px-3 py-1.5 rounded-lg
                 `}>
-                  <Text className="text-sm font-aileron-semibold text-white">{location.currentStatus}</Text>
+                  <Text className="text-sm font-aileron-semibold text-white">
+                    {getCurrentStatus()}
+                  </Text>
                 </View>
                 <View className="bg-[#f5f4f4] px-3 py-1.5 ml-3 rounded-lg">
                   <Text className="text-[#585555] text-sm font-aileron-semibold">
-                    Best Time: {location.bestTimes.best}
+                    {isOpen ? `Best Time: ${location.bestTimes.best}` : 'Opens at 12 PM'}
                   </Text>
                 </View>
               </View>
@@ -364,7 +440,11 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
             <Text className="font-aileron-bold text-2xl mb-2">Crowd Levels</Text>
             <View className="flex-row items-start pl-2">
               <View className="flex-1">
-                <StatusIcon width={124} height={124} />
+                {/* Use StatusIcon from getStatusIcon utility */}
+                {(() => {
+                  const StatusIcon = getStatusIcon(location.currentStatus);
+                  return StatusIcon ? <StatusIcon width={124} height={124} /> : null;
+                })()}
               </View>
               <View className="flex-1">
                 <View className="">
@@ -398,35 +478,23 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
           
           <View className="h-2 bg-gray-100" />
           
-          <View className="px-4 py-6">
-            <Text className="font-aileron-bold text-2xl mb-4">Crowd Forecast</Text>
+          <View className="">
+              <Text className="text-white text-center text-lg">
+                {getCurrentStatus()}
+              </Text>
+            </View>
             
-            {isLoading ? (
-              <View className="h-[200] justify-center items-center">
-                <Text className="font-aileron text-gray-500">Loading...</Text>
-              </View>
-            ) : error ? (
-              <View className="h-[200] justify-center items-center">
-                <Text className="font-aileron text-red-500">{error}</Text>
-              </View>
-            ) : crowdData ? (
-              <CrowdForecast
-                currentDay="Monday"
-                dayData={crowdData.weeklyBusyness?.monday || []}
-                currentStatus={crowdData.currentStatus}
-              />
-            ) : (
-              <View className="h-[200] justify-center items-center">
-                <Text className="font-aileron text-gray-500">No data available</Text>
-              </View>
-            )}
+            <CrowdForecast
+              location={location}
+              currentDay={new Date().toLocaleDateString('en-US', { weekday: 'long' })}
+              dayData={crowdData?.weeklyBusyness?.[today] ?? []}
+            />
           </View>
-        </View>
 
         {/* Grey Divider */}
         <View className="h-2 bg-gray-100" />
 
-        {/* Best Spot Section */}
+        {/* Best Spot Section
         <View className="px-4 py-4">
           <Text className="font-aileron-bold text-xl mb-4">Best Spot: Main Library</Text>
           {location.subLocations.map((subLocation, index) => (
@@ -446,7 +514,7 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
               </View>
             </View>
           ))}
-        </View>
+        </View> */}
 
         {/* Grey Divider */}
         <View className="h-2 bg-gray-100" />
@@ -488,6 +556,17 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
             </View>
             
             {renderAmenitySection('Accessibility', location.amenities.accessibility)}
+
+            {/* Plan Your Visit Section */}
+            <Text className="font-aileron-bold text-2xl mb-4">Plan Your Visit!</Text>
+            <View className="bg-gray-100 p-4 rounded-xl flex-row justify-between">
+              <View>
+                <Text className="text-[#22C55E] font-aileron">Best time: {location.bestTimes.best}</Text>
+              </View>
+              <View>
+                <Text className="text-[#EF4444] font-aileron">Worst time: {location.bestTimes.worst}</Text>
+              </View>
+            </View>
           </View>
         </View>
 
@@ -560,7 +639,7 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
           >
             <ChevronLeft size={24} color="#535353" />
           </TouchableOpacity>
-          <Text className="font-aileron-bold text-black flex-1">{location.name}</Text>
+          <Text className="font-aileron-bold text-black flex-1">{location.title}</Text>
           <View className="flex-row space-x-2">
             <TouchableOpacity onPress={handleFavorite}>
               <Heart 

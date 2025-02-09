@@ -1,90 +1,128 @@
 import { Location } from '../types/location';
 
-// Convert 12-hour format to 24-hour format
-const convertTo24Hour = (timeStr: string): string => {
-  if (!timeStr || timeStr === 'Closed') return '';
-  
-  // Split time and period
-  const [time, period] = timeStr.split(' ');
-  let [hours, minutes = '00'] = time.split(':');
-  let hour = parseInt(hours);
-
-  // Special handling for 12 AM/PM
-  if (hour === 12) {
-    hour = period === 'AM' ? 0 : 12;
-  } else if (period === 'PM') {
-    hour += 12;
-  }
-
-  return `${hour.toString().padStart(2, '0')}:${minutes.padStart(2, '0')}`;
-};
-
-export const parseTime = (timeStr: string): number => {
-  if (!timeStr || timeStr === 'Closed') return -1;
-  
-  const time24 = convertTo24Hour(timeStr);
-  if (!time24) return -1;
-  
-  const [hours, minutes] = time24.split(':').map(Number);
-  return hours * 60 + minutes;
-};
-
-export const formatTime = (timeStr: string): string => {
-  if (!timeStr || timeStr === 'Closed') return 'Closed';
-  return timeStr; // API already returns formatted time
-};
-
-export const isCurrentlyOpen = (hours: { open: string; close: string } | null): boolean => {
-  if (!hours?.open || !hours?.close) return false;
+function isCurrentlyOpen(hours: { open: string; close: string }): boolean {
+  if (!hours || !hours.open || !hours.close) return false;
   
   const now = new Date();
-  const currentTime = now.getHours() * 60 + now.getMinutes();
+  const currentTime = now.getHours() * 100 + now.getMinutes();
   
-  const openTime = parseTime(hours.open);
-  const closeTime = parseTime(hours.close);
-
-  if (openTime === -1 || closeTime === -1) return false;
-
-  // Handle midnight closing (12 AM)
-  if (hours.close.includes('12 AM')) {
-    return currentTime >= openTime || currentTime < 0; // Open until midnight
+  try {
+    const openTime = convertTimeStringToNumber(hours.open);
+    const closeTime = convertTimeStringToNumber(hours.close);
+    
+    return currentTime >= openTime && currentTime < closeTime;
+  } catch (error) {
+    console.error('Error parsing time:', error);
+    return false;
   }
+}
 
-  // Normal case
-  return closeTime > openTime
-    ? currentTime >= openTime && currentTime < closeTime  // Same day
-    : currentTime >= openTime || currentTime < closeTime; // Overnight
-};
+function convertTimeStringToNumber(timeStr: string): number {
+  if (!timeStr) return 0;
+  
+  try {
+    // Handle 24-hour format (e.g., "14:30")
+    if (timeStr.includes(':') && !timeStr.includes(' ')) {
+      const [hours, minutes] = timeStr.split(':').map(Number);
+      return hours * 100 + (minutes || 0);
+    }
+    
+    // Handle 12-hour format (e.g., "2:30 PM")
+    const [time, period] = timeStr.split(' ');
+    const [hours, minutes] = time.split(':').map(Number);
+    
+    let hour = hours;
+    if (period === 'PM' && hours !== 12) hour += 12;
+    if (period === 'AM' && hours === 12) hour = 0;
+    
+    return hour * 100 + (minutes || 0);
+  } catch (error) {
+    console.error('Error converting time string:', timeStr, error);
+    return 0;
+  }
+}
 
-export const updateFacilityHours = (location: Location) => {
-  if (!location?.hours) return null;
+function getNextOpenDay(location: Location, startDay: number): { day: string; hours: { open: string; close: string } } | null {
+  const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  const shortDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  
+  // Check next 7 days starting from today
+  for (let i = 0; i < 7; i++) {
+    const checkDay = (startDay + i) % 7;
+    const dayHours = location.hours?.[days[checkDay]];
+    
+    if (dayHours?.open && dayHours?.close) {
+      return {
+        day: i === 0 ? '' : shortDays[checkDay], // Empty string for today
+        hours: dayHours
+      };
+    }
+  }
+  
+  return null;
+}
+
+// Export the hours data for use in Card component
+export const getLocationHours = (location: Location): { 
+  nextOpenDay: string; 
+  openTime: string;
+  closeTime: string;
+} => {
+  if (!location.hours) {
+    return { nextOpenDay: '', openTime: '', closeTime: '' };
+  }
 
   const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-  const today = days[new Date().getDay()];
-  const todayHours = location.hours[today];
+  const today = new Date().getDay();
+  const todayHours = location.hours[days[today]];
 
-  return todayHours || null;
+  // Find next opening time
+  const nextOpen = getNextOpenDay(location, today);
+  if (!nextOpen) {
+    return { nextOpenDay: '', openTime: '', closeTime: '' };
+  }
+
+  return {
+    nextOpenDay: nextOpen.day,
+    openTime: nextOpen.hours.open,
+    closeTime: nextOpen.hours.close
+  };
 };
 
-export const formatOpenUntil = (hours: { open: string; close: string } | null): string => {
-  if (!hours) return 'Hours unavailable';
-  if (hours.open === 'Closed') return 'Closed today';
-  
-  const isOpen = isCurrentlyOpen(hours);
-  if (isOpen) {
-    // Special handling for midnight
-    if (hours.close === '12 AM') {
-      return 'until midnight';
-    }
-    return `until ${hours.close}`;
-  } else {
-    const currentTime = new Date().getHours() * 60 + new Date().getMinutes();
-    const openTime = parseTime(hours.open);
-    
-    if (openTime > currentTime) {
-      return `Opens ${hours.open}`;
-    } else {
-      return 'Closed for today';
-    }
+// Keep existing functions for backward compatibility
+export const getOpenStatusText = (location: Location): string => {
+  if (!location.hours) {
+    return 'Hours unavailable';
   }
-}; 
+
+  const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  const today = new Date().getDay();
+  const todayHours = location.hours[days[today]];
+
+  if (todayHours?.open && todayHours?.close && isCurrentlyOpen(todayHours)) {
+    return `until ${todayHours.close}`;
+  }
+
+  const nextOpen = getNextOpenDay(location, today);
+  if (!nextOpen) {
+    return 'Hours unavailable';
+  }
+
+  if (!nextOpen.day && todayHours?.open) {
+    return `until ${todayHours.open}`;
+  }
+
+  return `until ${nextOpen.hours.open} ${nextOpen.day}`;
+};
+
+export const isLocationOpen = (location: Location): boolean => {
+  if (!location.hours) return false;
+  
+  const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  const today = new Date().getDay();
+  const todayHours = location.hours[days[today]];
+  
+  if (!todayHours) return false;
+  
+  return isCurrentlyOpen(todayHours);
+};

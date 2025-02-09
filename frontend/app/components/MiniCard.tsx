@@ -1,18 +1,68 @@
 import React, { useEffect } from 'react';
 import { View, Text, Animated } from 'react-native';
-import { formatDistance, formatOpenUntil } from '@/app/_utils/formatters';
 import { getStatusIcon } from '@/app/_utils/statusIcons';
 import type { Location } from '@/app/types/location';
-import { getLocationStatus } from '@/app/_utils/locationStatus';
+import { getLocationHours, isLocationOpen, getOpenStatusText } from '../_utils/timeUtils';
+import { formatDistance } from '../_utils/distanceUtils';
 
 interface MiniCardProps {
   location: Location;
 }
 
 export function MiniCard({ location }: MiniCardProps) {
-  const StatusIcon = getStatusIcon(location.crowdInfo);
+  const StatusIcon = getStatusIcon(location);
   const fadeAnim = React.useRef(new Animated.Value(0)).current;
-  const statusInfo = getLocationStatus(location);
+
+  // Get hours data
+  const { nextOpenDay, openTime, closeTime } = React.useMemo(() => 
+    getLocationHours(location),
+    [location.hours]
+  );
+
+  // Check if location is currently open
+  const isOpen = React.useMemo(() => 
+    isLocationOpen(location),
+    [location.hours]
+  );
+
+  // Get status text
+  const statusText = React.useMemo(() => {
+    if (!location.hours) return 'Hours unavailable';
+
+    const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    const today = days[new Date().getDay()];
+    const todayHours = location.hours[today];
+
+    if (isOpen && todayHours?.close) {
+      return `until ${todayHours.close}`;
+    }
+
+    // If it's closed, find next opening time
+    if (todayHours?.open === 'Closed') {
+      // Find next day that's not closed
+      for (let i = 1; i <= 7; i++) {
+        const nextDay = days[(new Date().getDay() + i) % 7];
+        const nextDayHours = location.hours[nextDay];
+        if (nextDayHours?.open && nextDayHours.open !== 'Closed') {
+          const dayName = i === 1 ? 'Mon' : nextDay.slice(0, 3).charAt(0).toUpperCase() + nextDay.slice(1, 3);
+          return `until ${nextDayHours.open} ${dayName}`;
+        }
+      }
+    }
+
+    // If opening later today
+    if (todayHours?.open) {
+      return `until ${todayHours.open}`;
+    }
+
+    return 'Hours unavailable';
+  }, [location.hours, isOpen]);
+
+  // Get formatted distance
+  const distance = React.useMemo(() => 
+    formatDistance(location),
+    [location.distance]
+  );
 
   useEffect(() => {
     // Reset animation value
@@ -55,7 +105,7 @@ export function MiniCard({ location }: MiniCardProps) {
             {/* Distance (top-right) */}
             <View className="absolute top-3 right-3">
               <Text className="text-xs font-aileron text-black">
-                {formatDistance(location.distance)} mi
+                {distance}
               </Text>
             </View>
 
@@ -63,18 +113,29 @@ export function MiniCard({ location }: MiniCardProps) {
               <StatusIcon width={56} height={56} />
             </View>
             
-            <View className="flex-1 pr-16">
-              <Text className="text-base font-aileron-bold text-black mb-1" numberOfLines={2}>
-                {location.name}
+            <View className="flex-1 pr-12">
+              <Text 
+                className="text-base font-aileron-bold text-black mb-0.5"
+                numberOfLines={2}
+              >
+                {location.title}
               </Text>
-              <Text className="text-sm text-black" numberOfLines={1}>
-                <Text className={`font-aileron-bold ${statusInfo.isOpen ? 'text-green-600' : 'text-red-600'}`}>
-                  {statusInfo.isOpen ? 'Open' : 'Closed'}
+              <View className="flex-row items-center">
+                <Text 
+                  style={{ fontSize: 12 }}
+                  className={`font-aileron-bold ${
+                    isOpen ? 'text-green-600' : 'text-red-600'
+                  }`}
+                >
+                  {isOpen ? 'Open' : 'Closed'}
                 </Text>
-                <Text className="text-sm text-black font-aileron">
-                  {' '}{statusInfo.timeText}
+                <Text 
+                  style={{ fontSize: 12 }}
+                  className="font-aileron text-black ml-1"
+                >
+                  {statusText}
                 </Text>
-              </Text>
+              </View>
             </View>
           </View>
 
