@@ -21,19 +21,14 @@ function convertTimeStringToNumber(timeStr: string): number {
   if (!timeStr) return 0;
   
   try {
-    // Handle 24-hour format (e.g., "14:30")
-    if (timeStr.includes(':') && !timeStr.includes(' ')) {
-      const [hours, minutes] = timeStr.split(':').map(Number);
-      return hours * 100 + (minutes || 0);
-    }
-    
     // Handle 12-hour format (e.g., "2:30 PM")
     const [time, period] = timeStr.split(' ');
-    const [hours, minutes] = time.split(':').map(Number);
+      const [hours, minutes] = time.split(':').map(Number);
     
     let hour = hours;
-    if (period === 'PM' && hours !== 12) hour += 12;
-    if (period === 'AM' && hours === 12) hour = 0;
+    // Fix PM conversion
+    if (period?.toUpperCase() === 'PM' && hours !== 12) hour += 12;
+    if (period?.toUpperCase() === 'AM' && hours === 12) hour = 0;
     
     return hour * 100 + (minutes || 0);
   } catch (error) {
@@ -125,4 +120,94 @@ export const isLocationOpen = (location: Location): boolean => {
   if (!todayHours) return false;
   
   return isCurrentlyOpen(todayHours);
+};
+
+interface TimeSlot {
+  time: string;
+  busyness: number;
+  description: string;
+}
+
+interface BestWorstTimes {
+  bestTime: string;
+  worstTime: string;
+}
+
+export const calculateBestWorstTimes = (
+  dayData: TimeSlot[],
+  hours?: { open: string; close: string }
+): BestWorstTimes => {
+  try {
+    // Simplified validation that matches our actual data format
+    const validHours = dayData.filter(timeSlot => {
+      return (
+        timeSlot &&
+        typeof timeSlot.busyness === 'number' &&
+        typeof timeSlot.time === 'string'
+      );
+    });
+
+    if (validHours.length === 0) {
+      return { 
+        bestTime: 'N/A', 
+        worstTime: 'N/A' 
+      };
+    }
+
+    // Find first non-zero busyness slot
+    const firstNonZeroSlot = validHours.find(slot => slot.busyness > 0);
+
+    // Find best time (least busy) - skip zero values
+    const bestTimeSlot = validHours.reduce((best, current) => {
+      if (current.busyness === 0) return best;
+      if (best.busyness === 0) return current;
+      return (current.busyness < best.busyness) ? current : best;
+    }, firstNonZeroSlot || validHours[0]);
+
+    // Find worst time (busiest)
+    const worstTimeSlot = validHours.reduce((worst, current) => {
+      return (current.busyness > worst.busyness) ? current : worst;
+    }, validHours[0]);
+
+    // Format the time ranges
+    const formatTimeRange = (timeSlot: TimeSlot): string => {
+      try {
+        // Handle single-digit hours (e.g., "6 AM")
+        const timeRegex = /(\d+)\s*(AM|PM)/i;
+        const match = timeSlot.time.match(timeRegex);
+        
+        if (!match) return 'N/A';
+        
+        const startHour = parseInt(match[1]);
+        const period = match[2];
+        const endHour = (startHour % 12) + 1;
+        // Just take first letter of period and make it lowercase
+        const periodLetter = period.charAt(0).toLowerCase();
+        
+        return `${startHour}${periodLetter} - ${endHour}${periodLetter}`;
+      } catch (error) {
+        console.error('Error formatting time range:', error);
+        return 'N/A';
+      }
+    };
+
+    return {
+      bestTime: bestTimeSlot && bestTimeSlot.busyness > 0 ? formatTimeRange(bestTimeSlot) : 'N/A',
+      worstTime: worstTimeSlot && worstTimeSlot.busyness > 0 ? formatTimeRange(worstTimeSlot) : 'N/A'
+    };
+  } catch (error) {
+    console.error('Error calculating best/worst times:', error);
+    return {
+      bestTime: 'N/A',
+      worstTime: 'N/A'
+    };
+  }
+};
+
+// Add this utility function
+export const formatTimeRangeWithMeridiem = (timeRange: string): string => {
+  // Convert "5a - 6a" or "2p - 3p" format to "5AM - 6AM" or "2PM - 3PM"
+  return timeRange.replace(/(\d+)(a|p) - (\d+)(a|p)/i, (_, h1, m1, h2, m2) => 
+    `${h1}${m1.toUpperCase()}M - ${h2}${m2.toUpperCase()}M`
+  );
 };

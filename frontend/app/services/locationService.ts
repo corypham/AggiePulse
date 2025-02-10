@@ -8,13 +8,25 @@ const API_BASE_URL = __DEV__
   : 'https://your-production-api.com/api';
 
 const CACHE_KEYS = {
-  LOCATION_DATA: 'location_data_',  // Will be appended with locationId
+  LOCATION_DATA: 'location_data_',
+  WEEKLY_DATA: 'weekly_data_',  // New key for weekly data
   CACHE_DURATION: {
-    HOURS: 1000 * 60 * 60,         // 1 hour in milliseconds
-    DAY: 1000 * 60 * 60 * 24,      // 1 day in milliseconds
-    WEEK: 1000 * 60 * 60 * 24 * 7  // 1 week in milliseconds
+    HOUR: 1000 * 60 * 60,      // For current status updates
+    WEEK: 1000 * 60 * 60 * 24 * 7  // For weekly patterns
   }
 };
+
+interface WeeklyData {
+  timestamp: number;
+  weeklyBusyness: LocationDynamic['weeklyBusyness'];
+  hours: LocationDynamic['hours'];
+  bestTimes: LocationDynamic['bestTimes'];
+}
+
+interface CurrentData {
+  timestamp: number;
+  currentStatus: LocationDynamic['currentStatus'];
+}
 
 interface CachedData {
   timestamp: number;
@@ -252,50 +264,95 @@ export const LocationService = {
         hours: {}
       };
     }
+  },
+
+  // 2. Add bulk fetch method
+  async getAllLocationsData(): Promise<Location[]> {
+    try {
+      // Single API call to get all locations
+      const response = await fetch(`${API_BASE_URL}/locations/bulk-data`);
+      if (!response.ok) throw new Error('Bulk fetch failed');
+      const data = await response.json();
+      
+      // Cache all locations at once
+      Object.entries(data).forEach(([id, locationData]) => {
+        cacheData(id, locationData as LocationDynamic);
+      });
+      
+      return this.getAllLocations(); // Use existing method to combine with static data
+    } catch (error) {
+      console.error('Bulk fetch failed:', error);
+      return this.getAllLocations(); // Fallback to individual fetches
+    }
   }
 };
 
 // Cache helper functions
 async function getCachedData(locationId: string): Promise<LocationDynamic | null> {
   try {
-    const cached = await AsyncStorage.getItem(CACHE_KEYS.LOCATION_DATA + locationId);
-    console.log('Raw cached data:', cached);
-    
-    if (!cached) {
-      console.log('No cached data found');
-      return null;
-    }
+    // Get weekly data (patterns and hours)
+    const weeklyCache = await AsyncStorage.getItem(CACHE_KEYS.WEEKLY_DATA + locationId);
+    const weeklyData: WeeklyData | null = weeklyCache ? JSON.parse(weeklyCache) : null;
 
-    const { timestamp, data }: CachedData = JSON.parse(cached);
+    // Get current status (updates hourly)
+    const currentCache = await AsyncStorage.getItem(CACHE_KEYS.LOCATION_DATA + locationId);
+    const currentData: CurrentData | null = currentCache ? JSON.parse(currentCache) : null;
+
     const now = Date.now();
-    console.log('Parsed cached data:', {
-      timestamp,
-      age: (now - timestamp) / 1000 / 60, // minutes
-      data
-    });
 
-    // Check if cache is still valid (less than 1 day old)
-    if (now - timestamp > CACHE_KEYS.CACHE_DURATION.DAY) {
-      console.log('Cache expired');
+    // Check if we need new weekly data
+    const needWeeklyUpdate = !weeklyData || (now - weeklyData.timestamp > CACHE_KEYS.CACHE_DURATION.WEEK);
+    
+    // Check if we need new current data
+    const needCurrentUpdate = !currentData || (now - currentData.timestamp > CACHE_KEYS.CACHE_DURATION.HOUR);
+
+    if (needWeeklyUpdate || needCurrentUpdate) {
       return null;
     }
 
-    return data;
+    // Combine data with bestTimes
+    return {
+      hours: weeklyData.hours,
+      weeklyBusyness: weeklyData.weeklyBusyness,
+      currentStatus: currentData.currentStatus,
+      bestTimes: weeklyData.bestTimes || {
+        best: 'Unknown',
+        worst: 'Unknown'
+      }
+    };
   } catch (error) {
     console.error('Cache retrieval error:', error);
     return null;
   }
 }
 
-async function cacheData(locationId: string, data: LocationDynamic): Promise<void> {
+async function cacheData(locationId: string, data: LocationDynamic) {
   try {
-    const cacheData: CachedData = {
-      timestamp: Date.now(),
-      data
+    const now = Date.now();
+    
+    // Cache weekly data
+    const weeklyData: WeeklyData = {
+      timestamp: now,
+      weeklyBusyness: data.weeklyBusyness,
+      hours: data.hours,
+      bestTimes: data.bestTimes || {
+        best: 'Unknown',
+        worst: 'Unknown'
+      }
+    };
+    await AsyncStorage.setItem(
+      CACHE_KEYS.WEEKLY_DATA + locationId, 
+      JSON.stringify(weeklyData)
+    );
+
+    // Cache current status
+    const currentData: CurrentData = {
+      timestamp: now,
+      currentStatus: data.currentStatus
     };
     await AsyncStorage.setItem(
       CACHE_KEYS.LOCATION_DATA + locationId, 
-      JSON.stringify(cacheData)
+      JSON.stringify(currentData)
     );
   } catch (error) {
     console.error('Cache storage error:', error);

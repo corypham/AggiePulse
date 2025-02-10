@@ -1,0 +1,827 @@
+{
+  "search_metadata": {
+    "id": "67a9988556dc3dd36540d5cb",
+    "status": "Success",
+    "json_endpoint": "https://serpapi.com/searches/773e8f4065951b6f/67a9988556dc3dd36540d5cb.json",
+    "created_at": "2025-02-10 06:11:17 UTC",
+    "processed_at": "2025-02-10 06:11:17 UTC",
+    "google_url": "https://www.google.com/search?q=UC+Davis+Memorial+Union+Coffee+House&oq=UC+Davis+Memorial+Union+Coffee+House&uule=w+CAIQICIeRGF2aXMsQ2FsaWZvcm5pYSxVbml0ZWQgU3RhdGVz&hl=en&gl=us&sourceid=chrome&ie=UTF-8",
+    "raw_html_file": "https://serpapi.com/searches/773e8f4065951b6f/67a9988556dc3dd36540d5cb.html",
+    "total_time_taken": 1.97
+  },
+  "search_parameters": {
+    "engine": "google",
+    "q": "UC Davis Memorial Union Coffee House",
+    "location_requested": "Davis, California, United States",
+    "location_used": "Davis,California,United States",
+    "google_domain": "google.com",
+    "hl": "en",
+    "gl": "us",
+    "device": "desktop"
+  },
+  "search_information": {
+    "query_displayed": "UC Davis Memorial Union Coffee House",
+    "total_results": 802000,
+    "time_taken_displayed": 0.36,
+    "organic_results_state": "Results for exact spelling"
+  },
+  "knowledge_graph": {
+    "title": "The Coffee House",
+    "thumbnail": "https://serpapi.com/searches/67a9988556dc3dd36540d5cb/images/1637142a8cb2044bd8737d463d6acab6591dd1a82c2468b47b796b062619f565.jpeg",
+    "type": "Coffee shop",
+    "entity_type": "local_nav",
+    "kgmid": "/g/1tg81phd",
+    "knowledge_graph_search_link": "https://www.google.com/search?kgmid=/g/1tg81phd&hl=en-US&q=The+Coffee+House",
+    "serpapi_knowledge_graph_search_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en-US&kgmid=%2Fg%2F1tg81phd&location=Davis%2C+California%2C+United+States&q=The+Coffee+House",
+    "place_id": "ChIJK0oJGg8phYARUPGTT8ClXTU",
+    "website": "http://coffeehouse.ucdavis.edu/",
+    "directions": "https://maps.google.com/maps?gl=us&hl=en&uule=w+CAIQICIeRGF2aXMsQ2FsaWZvcm5pYSxVbml0ZWQgU3RhdGVz&um=1&ie=UTF-8&fb=1&sa=X&geocode=KStKCRoPKYWAMVDxk0_ApV01&daddr=1+Shields+Ave,+Davis,+CA+95616",
+    "reviews": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&si=APYL9btvhO6SAb8jF9HqTZMMa7vs_teLnZaEVrJZwRKFIIKjoUIaUDwp2zgzLWnr8zM3mzHev_HkA4VSLo1vLPn6Haa8Vu3URQbD6bb7Gq7Ui3bpFlvwtY8qDEKDdHg6QuWDq_J131EU&q=The+Coffee+House+Reviews&sa=X&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4Q0bkNegQIQhAE",
+    "description": "Bright, roomy cafe on the UC Davis campus, providing coffee, sandwiches & other light fare.",
+    "local_map": {
+      "image": "https://serpapi.com/searches/67a9988556dc3dd36540d5cb/images/1637142a8cb2044bd8737d463d6acab65659a57cc48a769b8d708d8cb3e5828e.webp",
+      "link": "https://www.google.com/maps/place/The+Coffee+House/data=!4m2!3m1!1s0x0:0x355da5c04f93f150?sa=X&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4Q_BJ6BAgUEAA&hl=en&gl=us"
+    },
+    "rating": 4.3,
+    "review_count": 267,
+    "price": "$1–10",
+    "price_details": {
+      "distribution": [
+        {
+          "price": "$1–10",
+          "percentage": 69.23077
+        },
+        {
+          "price": "$10–20",
+          "percentage": 23.076923
+        },
+        {
+          "price": "$20–30",
+          "percentage": 7.6923075
+        }
+      ],
+      "total_reported": 13
+    },
+    "located_in": "UC Davis Memorial Union",
+    "address": "1 Shields Ave, Davis, CA 95616",
+    "address_links": [
+      {
+        "text": "Address",
+        "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=the+coffee+house+davis+address&ludocid=3845411902231671120&sa=X&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4Q6BN6BAhPEAI"
+      }
+    ],
+    "raw_hours": "Closed ⋅ Opens 8 - 30 AM Mon · More hours",
+    "hours": {
+      "sunday": {
+        "opens": "Closed"
+      },
+      "monday": {
+        "opens": "8:30 AM",
+        "closes": "8 PM"
+      },
+      "tuesday": {
+        "opens": "8:30 AM",
+        "closes": "8 PM"
+      },
+      "wednesday": {
+        "opens": "8:30 AM",
+        "closes": "8 PM"
+      },
+      "thursday": {
+        "opens": "8:30 AM",
+        "closes": "8 PM"
+      },
+      "friday": {
+        "opens": "8:30 AM",
+        "closes": "4 PM"
+      },
+      "saturday": {
+        "opens": "Closed"
+      }
+    },
+    "phone": "(530) 754-2646",
+    "popular_times": {
+      "live": {
+        "typical_time_spent": "1 hour"
+      },
+      "graph_results": {
+        "monday": [
+          {
+            "time": "6 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "7 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "8 AM",
+            "info": "Usually not busy",
+            "busyness_score": 1
+          },
+          {
+            "time": "9 AM",
+            "info": "Usually not busy",
+            "busyness_score": 10
+          },
+          {
+            "time": "10 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 30
+          },
+          {
+            "time": "11 AM",
+            "info": "Usually a little busy",
+            "busyness_score": 58
+          },
+          {
+            "time": "12 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 72
+          },
+          {
+            "time": "1 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 70
+          },
+          {
+            "time": "2 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 42
+          },
+          {
+            "time": "3 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 28
+          },
+          {
+            "time": "4 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 28
+          },
+          {
+            "time": "5 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 28
+          },
+          {
+            "time": "6 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 22
+          },
+          {
+            "time": "7 PM",
+            "info": "Usually not busy",
+            "busyness_score": 12
+          },
+          {
+            "time": "8 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "9 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "10 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "11 PM",
+            "busyness_score": 0
+          }
+        ],
+        "tuesday": [
+          {
+            "time": "6 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "7 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "8 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 42
+          },
+          {
+            "time": "9 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 44
+          },
+          {
+            "time": "10 AM",
+            "info": "Usually a little busy",
+            "busyness_score": 55
+          },
+          {
+            "time": "11 AM",
+            "info": "Usually a little busy",
+            "busyness_score": 72
+          },
+          {
+            "time": "12 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 91
+          },
+          {
+            "time": "1 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 100
+          },
+          {
+            "time": "2 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 88
+          },
+          {
+            "time": "3 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 62
+          },
+          {
+            "time": "4 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 52
+          },
+          {
+            "time": "5 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 41
+          },
+          {
+            "time": "6 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 32
+          },
+          {
+            "time": "7 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 28
+          },
+          {
+            "time": "8 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "9 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "10 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "11 PM",
+            "busyness_score": 0
+          }
+        ],
+        "wednesday": [
+          {
+            "time": "6 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "7 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "8 AM",
+            "info": "Usually not busy",
+            "busyness_score": 18
+          },
+          {
+            "time": "9 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 30
+          },
+          {
+            "time": "10 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 42
+          },
+          {
+            "time": "11 AM",
+            "info": "Usually a little busy",
+            "busyness_score": 58
+          },
+          {
+            "time": "12 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 62
+          },
+          {
+            "time": "1 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 51
+          },
+          {
+            "time": "2 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 42
+          },
+          {
+            "time": "3 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 31
+          },
+          {
+            "time": "4 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 22
+          },
+          {
+            "time": "5 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 27
+          },
+          {
+            "time": "6 PM",
+            "info": "Usually not busy",
+            "busyness_score": 14
+          },
+          {
+            "time": "7 PM",
+            "info": "Usually not busy",
+            "busyness_score": 12
+          },
+          {
+            "time": "8 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "9 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "10 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "11 PM",
+            "busyness_score": 0
+          }
+        ],
+        "thursday": [
+          {
+            "time": "6 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "7 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "8 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 38
+          },
+          {
+            "time": "9 AM",
+            "info": "Usually a little busy",
+            "busyness_score": 51
+          },
+          {
+            "time": "10 AM",
+            "info": "Usually a little busy",
+            "busyness_score": 55
+          },
+          {
+            "time": "11 AM",
+            "info": "Usually a little busy",
+            "busyness_score": 58
+          },
+          {
+            "time": "12 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 65
+          },
+          {
+            "time": "1 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 74
+          },
+          {
+            "time": "2 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 62
+          },
+          {
+            "time": "3 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 41
+          },
+          {
+            "time": "4 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 47
+          },
+          {
+            "time": "5 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 40
+          },
+          {
+            "time": "6 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 52
+          },
+          {
+            "time": "7 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 30
+          },
+          {
+            "time": "8 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "9 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "10 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "11 PM",
+            "busyness_score": 0
+          }
+        ],
+        "friday": [
+          {
+            "time": "6 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "7 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "8 AM",
+            "info": "Usually not busy",
+            "busyness_score": 14
+          },
+          {
+            "time": "9 AM",
+            "info": "Usually not busy",
+            "busyness_score": 12
+          },
+          {
+            "time": "10 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 28
+          },
+          {
+            "time": "11 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 50
+          },
+          {
+            "time": "12 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 75
+          },
+          {
+            "time": "1 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 82
+          },
+          {
+            "time": "2 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 71
+          },
+          {
+            "time": "3 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 44
+          },
+          {
+            "time": "4 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "5 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "6 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "7 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "8 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "9 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "10 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "11 PM",
+            "busyness_score": 0
+          }
+        ]
+      }
+    },
+    "user_reviews": [
+      {
+        "summary": "Great service and a wide variety of pastries.",
+        "link": "https://www.google.com/maps/reviews/data=!4m5!14m4!1m3!1m2!1s111468194102632457093!2s0x8085290f1a094a2b:0x355da5c04f93f150?ved=1t:31295&ictx=111",
+        "user": {
+          "name": "Marina Luzzi Santana",
+          "link": "https://www.google.com/maps/contrib/111468194102632457093?hl=en-US&ved=1t:31296&ictx=111",
+          "thumbnail": "https://serpapi.com/searches/67a9988556dc3dd36540d5cb/images/1637142a8cb2044bd8737d463d6acab6fa6c6812b7e92328132e7af93ce6d57e583daf35ad648b9acfb5d198a048ed6b.png"
+        }
+      },
+      {
+        "summary": "It tasted like raspberry, which is a very distinct flavor from strawberry.",
+        "link": "https://www.google.com/maps/reviews/data=!4m5!14m4!1m3!1m2!1s104352234523135430555!2s0x8085290f1a094a2b:0x355da5c04f93f150?ved=1t:31295&ictx=111",
+        "user": {
+          "name": "Aly Mello",
+          "link": "https://www.google.com/maps/contrib/104352234523135430555?hl=en-US&ved=1t:31296&ictx=111",
+          "thumbnail": "https://serpapi.com/searches/67a9988556dc3dd36540d5cb/images/1637142a8cb2044bd8737d463d6acab6fa6c6812b7e92328573672d3aedc4b18a4137a26df898804402b6281e615bfe6.png"
+        }
+      },
+      {
+        "summary": "The Burrito I got was excellent and the staff were super friendly and helpful.",
+        "link": "https://www.google.com/maps/reviews/data=!4m5!14m4!1m3!1m2!1s108871686559628651190!2s0x8085290f1a094a2b:0x355da5c04f93f150?ved=1t:31295&ictx=111",
+        "user": {
+          "name": "Ava Bostock",
+          "link": "https://www.google.com/maps/contrib/108871686559628651190?hl=en-US&ved=1t:31296&ictx=111",
+          "thumbnail": "https://serpapi.com/searches/67a9988556dc3dd36540d5cb/images/1637142a8cb2044bd8737d463d6acab6fa6c6812b7e92328c80911fa23f0c46414220e0437192e9d9d940059702d66de.png"
+        }
+      }
+    ],
+    "reviews_from_the_web": [
+      {
+        "company": "Facebook",
+        "link": "https://m.facebook.com/ASUCDCoffeeHouse/?profile_tab_item_selected=about",
+        "rating": 4.3,
+        "review_count": 96
+      }
+    ],
+    "unclaimed_listing": true,
+    "profiles": [
+      {
+        "name": "Facebook",
+        "link": "https://www.facebook.com/CoHoSouthCafe/",
+        "image": "https://ssl.gstatic.com/kpui/social/fb_32x32.png"
+      },
+      {
+        "name": "Instagram",
+        "link": "https://www.instagram.com/asucdcoffeehouse/",
+        "image": "https://ssl.gstatic.com/kpui/social/instagram_32x32.png"
+      }
+    ]
+  },
+  "organic_results": [
+    {
+      "position": 1,
+      "title": "ASUCD Coffee House - UC Davis",
+      "link": "https://coffeehouse.ucdavis.edu/",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://coffeehouse.ucdavis.edu/&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4QFnoECCUQAQ",
+      "displayed_link": "https://coffeehouse.ucdavis.edu",
+      "favicon": "https://serpapi.com/searches/67a9988556dc3dd36540d5cb/images/f3af2276459c24754cb0a98af19e8ec6be95d36b4ef308c396440636169b38f5.png",
+      "snippet": "As the most popular dining facility at UC Davis, the ASUCD Coffee House has been providing some of the most inexpensive and nutritious food on campus for the ...",
+      "snippet_highlighted_words": [
+        "UC Davis",
+        "Coffee House"
+      ],
+      "sitelinks": {
+        "expanded": [
+          {
+            "title": "Hours",
+            "link": "https://coffeehouse.ucdavis.edu/hours",
+            "snippet": "PLEASE NOTE: Coffee House Swirlz Bakery will be open ..."
+          },
+          {
+            "title": "Our Platforms",
+            "link": "https://coffeehouse.ucdavis.edu/asucd-coffee-house",
+            "snippet": "In 1973 the Coffee House changed location to the East Side of the ..."
+          },
+          {
+            "title": "TxMx",
+            "link": "https://coffeehouse.ucdavis.edu/texmex",
+            "snippet": "Our most popular platform with everything ranging from ..."
+          },
+          {
+            "title": "About",
+            "link": "https://coffeehouse.ucdavis.edu/about",
+            "snippet": "In 1973 the Coffee House changed location to the East Side of the ..."
+          },
+          {
+            "title": "CoHo South Cafe",
+            "link": "https://coffeehouse.ucdavis.edu/coho-south-cafe",
+            "snippet": "The CoHo South Café, located in the Student Community Center ..."
+          }
+        ]
+      },
+      "source": "ASUCD Coffee House"
+    },
+    {
+      "position": 2,
+      "title": "ASUCD Coffee House (@asucdcoffeehouse)",
+      "link": "https://www.instagram.com/asucdcoffeehouse/?hl=en",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.instagram.com/asucdcoffeehouse/%3Fhl%3Den&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4QFnoECCQQAQ",
+      "displayed_link": "3.8K+ followers",
+      "favicon": "https://serpapi.com/searches/67a9988556dc3dd36540d5cb/images/f3af2276459c24754cb0a98af19e8ec66bf3ac352354c79190f3885c758405be.png",
+      "snippet": "Food & Drink. Peace, love, coho. Located in the Memorial Union. See pinned post for up to date hours. coffeehouse.ucdavis.edu",
+      "snippet_highlighted_words": [
+        "coho",
+        "Memorial Union",
+        "coffeehouse",
+        "ucdavis"
+      ],
+      "source": "Instagram · asucdcoffeehouse"
+    },
+    {
+      "position": 3,
+      "title": "ASUCD COFFEE HOUSE COHO - Updated February 2025",
+      "link": "https://www.yelp.com/biz/asucd-coffee-house-coho-davis",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.yelp.com/biz/asucd-coffee-house-coho-davis&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4QFnoECCoQAQ",
+      "displayed_link": "https://www.yelp.com › Davis, CA › Food › Coffee & Tea",
+      "thumbnail": "https://serpapi.com/searches/67a9988556dc3dd36540d5cb/images/f3af2276459c24754cb0a98af19e8ec6d10fd042a57037e0619948c94fc33d4c.jpeg",
+      "favicon": "https://serpapi.com/searches/67a9988556dc3dd36540d5cb/images/f3af2276459c24754cb0a98af19e8ec64f3e3e88e12b922e37c922f1ec975a8d.png",
+      "snippet": "1 Shields Ave. Davis, CA 95616 ; (530) 752-6622 ; Visit Website. https://coffeehouse.ucdavis.edu ; More Info. Hours ...",
+      "snippet_highlighted_words": [
+        "coffeehouse",
+        "ucdavis"
+      ],
+      "rich_snippet": {
+        "top": {
+          "detected_extensions": {
+            "rating": 3.7,
+            "reviews": 179,
+            "price_range": "$"
+          },
+          "extensions": [
+            "3.7(179)",
+            "Price range: $"
+          ]
+        }
+      },
+      "source": "Yelp"
+    },
+    {
+      "position": 4,
+      "title": "Coffee House - Davis",
+      "link": "https://localwiki.org/davis/Coffee_House",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://localwiki.org/davis/Coffee_House&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4QFnoECCgQAQ",
+      "displayed_link": "https://localwiki.org › davis › Coffee_House",
+      "thumbnail": "https://serpapi.com/searches/67a9988556dc3dd36540d5cb/images/f3af2276459c24754cb0a98af19e8ec6767053871523f9179c1b69e94dc90e2d.jpeg",
+      "favicon": "https://serpapi.com/searches/67a9988556dc3dd36540d5cb/images/f3af2276459c24754cb0a98af19e8ec60e340c5126d76b3e278778025295a7a6.png",
+      "snippet": "The ASUCD Coffee House, or CoHo for short, is the largest student-run \"restaurant\" in the United States. The coffee, supplied by Beantrees roasting company, ...",
+      "snippet_highlighted_words": [
+        "Coffee House",
+        "CoHo",
+        "student"
+      ],
+      "source": "LocalWiki"
+    },
+    {
+      "position": 5,
+      "title": "ASUCD Coffee House (@UCDCoffeeHouse) / X",
+      "link": "https://x.com/ucdcoffeehouse",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://x.com/ucdcoffeehouse&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4QFnoECCMQAQ",
+      "displayed_link": "https://x.com › ucdcoffeehouse",
+      "favicon": "https://serpapi.com/searches/67a9988556dc3dd36540d5cb/images/f3af2276459c24754cb0a98af19e8ec62817c50a8595345c2e831dba6670fade.png",
+      "snippet": "CLOSURE UPDATE: Dear Coffee House Customers, Due to the campus closure, the Coffee House, CoHo South Cafe and BioBrew operations will now be CLOSED through ...",
+      "snippet_highlighted_words": [
+        "Coffee House",
+        "Coffee House",
+        "CoHo",
+        "Cafe"
+      ],
+      "source": "x.com"
+    },
+    {
+      "position": 6,
+      "title": "Coffee House West Addition and Renovation",
+      "link": "https://dcm.ucdavis.edu/projects/coffee-house-west-addition-and-renovation",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://dcm.ucdavis.edu/projects/coffee-house-west-addition-and-renovation&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4QFnoECG0QAQ",
+      "displayed_link": "https://dcm.ucdavis.edu › projects › coffee-house-west-a...",
+      "thumbnail": "https://serpapi.com/searches/67a9988556dc3dd36540d5cb/images/f3af2276459c24754cb0a98af19e8ec6c18ac7e267c31fbbd852f39957ff5f97.jpeg",
+      "snippet": "This 1200 square foot expansion of the Coffee House will serve CoHo employees and patrons with new and renovated spaces.",
+      "snippet_highlighted_words": [
+        "Coffee House",
+        "CoHo"
+      ],
+      "source": "UC Davis Design and Construction management"
+    }
+  ],
+  "top_stories_link": "https://www.google.com/search?q=UC+Davis+Memorial+Union+Coffee+House&sca_esv=f49db6828bbb6a84&gl=us&hl=en&udm=18&sa=X&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4Q8poLegQIIRAD",
+  "top_stories_serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Memorial+Union+Coffee+House",
+  "related_searches": [
+    {
+      "block_position": 1,
+      "query": "Uc davis memorial union coffee house hours",
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=Uc+davis+memorial+union+coffee+house+hours&sa=X&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4Q1QJ6BAhpEAE",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Uc+davis+memorial+union+coffee+house+hours"
+    },
+    {
+      "block_position": 1,
+      "query": "Uc davis memorial union coffee house menu",
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=Uc+davis+memorial+union+coffee+house+menu&sa=X&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4Q1QJ6BAhrEAE",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Uc+davis+memorial+union+coffee+house+menu"
+    },
+    {
+      "block_position": 1,
+      "query": "Uc davis memorial union coffee house reviews",
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=Uc+davis+memorial+union+coffee+house+reviews&sa=X&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4Q1QJ6BAhsEAE",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Uc+davis+memorial+union+coffee+house+reviews"
+    },
+    {
+      "block_position": 1,
+      "query": "UC Davis CoHo menu",
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=UC+Davis+CoHo+menu&sa=X&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4Q1QJ6BAhqEAE",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+CoHo+menu"
+    },
+    {
+      "block_position": 1,
+      "query": "UC Davis CoHo hours",
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=UC+Davis+CoHo+hours&sa=X&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4Q1QJ6BAhoEAE",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+CoHo+hours"
+    },
+    {
+      "block_position": 1,
+      "query": "UC Davis Memorial Union food hours",
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=UC+Davis+Memorial+Union+food+hours&sa=X&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4Q1QJ6BAhnEAE",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Memorial+Union+food+hours"
+    },
+    {
+      "block_position": 1,
+      "query": "Asucd coffee house menu",
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=Asucd+coffee+house+menu&sa=X&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4Q1QJ6BAhlEAE",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Asucd+coffee+house+menu"
+    },
+    {
+      "block_position": 1,
+      "query": "UC Davis Coffee",
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=UC+Davis+Coffee&sa=X&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4Q1QJ6BAhmEAE",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Coffee"
+    }
+  ],
+  "discussions_and_forums": [
+    {
+      "title": "the COHO. - Davis",
+      "link": "https://www.reddit.com/r/UCDavis/comments/12yaxiq/the_coho/",
+      "date": "1 year ago",
+      "extensions": [
+        "r/UCDavis",
+        "10+ comments"
+      ],
+      "source": "Reddit"
+    },
+    {
+      "title": "Coffee shop in the union... - UCDavis",
+      "link": "https://www.reddit.com/r/UCDavis/comments/1gbg350/coffee_shop_in_the_union/",
+      "date": "3 months ago",
+      "extensions": [
+        "r/UCDavis",
+        "20+ comments"
+      ],
+      "source": "Reddit"
+    }
+  ],
+  "pagination": {
+    "current": 1,
+    "next": "https://www.google.com/search?q=UC+Davis+Memorial+Union+Coffee+House&sca_esv=f49db6828bbb6a84&gl=us&hl=en&ei=hpipZ5uuOcDk5NoP0bS38Qg&start=10&sa=N&sstk=Af40H4UDMK-dgcaPMQMBuB6Cm1JUZbmZal2jhUs3fW72WIb9UyA4KTcTvBDmYYUCw6G9M0OG_lBjDvC8qs0OZJo8GB2_mBb4assnxQ&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4Q8NMDegQIDRAW",
+    "other_pages": {
+      "2": "https://www.google.com/search?q=UC+Davis+Memorial+Union+Coffee+House&sca_esv=f49db6828bbb6a84&gl=us&hl=en&ei=hpipZ5uuOcDk5NoP0bS38Qg&start=10&sa=N&sstk=Af40H4UDMK-dgcaPMQMBuB6Cm1JUZbmZal2jhUs3fW72WIb9UyA4KTcTvBDmYYUCw6G9M0OG_lBjDvC8qs0OZJo8GB2_mBb4assnxQ&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4Q8tMDegQIDRAE",
+      "3": "https://www.google.com/search?q=UC+Davis+Memorial+Union+Coffee+House&sca_esv=f49db6828bbb6a84&gl=us&hl=en&ei=hpipZ5uuOcDk5NoP0bS38Qg&start=20&sa=N&sstk=Af40H4UDMK-dgcaPMQMBuB6Cm1JUZbmZal2jhUs3fW72WIb9UyA4KTcTvBDmYYUCw6G9M0OG_lBjDvC8qs0OZJo8GB2_mBb4assnxQ&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4Q8tMDegQIDRAG",
+      "4": "https://www.google.com/search?q=UC+Davis+Memorial+Union+Coffee+House&sca_esv=f49db6828bbb6a84&gl=us&hl=en&ei=hpipZ5uuOcDk5NoP0bS38Qg&start=30&sa=N&sstk=Af40H4UDMK-dgcaPMQMBuB6Cm1JUZbmZal2jhUs3fW72WIb9UyA4KTcTvBDmYYUCw6G9M0OG_lBjDvC8qs0OZJo8GB2_mBb4assnxQ&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4Q8tMDegQIDRAI",
+      "5": "https://www.google.com/search?q=UC+Davis+Memorial+Union+Coffee+House&sca_esv=f49db6828bbb6a84&gl=us&hl=en&ei=hpipZ5uuOcDk5NoP0bS38Qg&start=40&sa=N&sstk=Af40H4UDMK-dgcaPMQMBuB6Cm1JUZbmZal2jhUs3fW72WIb9UyA4KTcTvBDmYYUCw6G9M0OG_lBjDvC8qs0OZJo8GB2_mBb4assnxQ&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4Q8tMDegQIDRAK",
+      "6": "https://www.google.com/search?q=UC+Davis+Memorial+Union+Coffee+House&sca_esv=f49db6828bbb6a84&gl=us&hl=en&ei=hpipZ5uuOcDk5NoP0bS38Qg&start=50&sa=N&sstk=Af40H4UDMK-dgcaPMQMBuB6Cm1JUZbmZal2jhUs3fW72WIb9UyA4KTcTvBDmYYUCw6G9M0OG_lBjDvC8qs0OZJo8GB2_mBb4assnxQ&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4Q8tMDegQIDRAM",
+      "7": "https://www.google.com/search?q=UC+Davis+Memorial+Union+Coffee+House&sca_esv=f49db6828bbb6a84&gl=us&hl=en&ei=hpipZ5uuOcDk5NoP0bS38Qg&start=60&sa=N&sstk=Af40H4UDMK-dgcaPMQMBuB6Cm1JUZbmZal2jhUs3fW72WIb9UyA4KTcTvBDmYYUCw6G9M0OG_lBjDvC8qs0OZJo8GB2_mBb4assnxQ&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4Q8tMDegQIDRAO",
+      "8": "https://www.google.com/search?q=UC+Davis+Memorial+Union+Coffee+House&sca_esv=f49db6828bbb6a84&gl=us&hl=en&ei=hpipZ5uuOcDk5NoP0bS38Qg&start=70&sa=N&sstk=Af40H4UDMK-dgcaPMQMBuB6Cm1JUZbmZal2jhUs3fW72WIb9UyA4KTcTvBDmYYUCw6G9M0OG_lBjDvC8qs0OZJo8GB2_mBb4assnxQ&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4Q8tMDegQIDRAQ",
+      "9": "https://www.google.com/search?q=UC+Davis+Memorial+Union+Coffee+House&sca_esv=f49db6828bbb6a84&gl=us&hl=en&ei=hpipZ5uuOcDk5NoP0bS38Qg&start=80&sa=N&sstk=Af40H4UDMK-dgcaPMQMBuB6Cm1JUZbmZal2jhUs3fW72WIb9UyA4KTcTvBDmYYUCw6G9M0OG_lBjDvC8qs0OZJo8GB2_mBb4assnxQ&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4Q8tMDegQIDRAS",
+      "10": "https://www.google.com/search?q=UC+Davis+Memorial+Union+Coffee+House&sca_esv=f49db6828bbb6a84&gl=us&hl=en&ei=hpipZ5uuOcDk5NoP0bS38Qg&start=90&sa=N&sstk=Af40H4UDMK-dgcaPMQMBuB6Cm1JUZbmZal2jhUs3fW72WIb9UyA4KTcTvBDmYYUCw6G9M0OG_lBjDvC8qs0OZJo8GB2_mBb4assnxQ&ved=2ahUKEwibiYSdubiLAxVAMlkFHVHaLY4Q8tMDegQIDRAU"
+    }
+  },
+  "serpapi_pagination": {
+    "current": 1,
+    "next_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Memorial+Union+Coffee+House&start=10",
+    "next": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Memorial+Union+Coffee+House&start=10",
+    "other_pages": {
+      "2": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Memorial+Union+Coffee+House&start=10",
+      "3": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Memorial+Union+Coffee+House&start=20",
+      "4": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Memorial+Union+Coffee+House&start=30",
+      "5": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Memorial+Union+Coffee+House&start=40",
+      "6": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Memorial+Union+Coffee+House&start=50",
+      "7": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Memorial+Union+Coffee+House&start=60",
+      "8": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Memorial+Union+Coffee+House&start=70",
+      "9": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Memorial+Union+Coffee+House&start=80",
+      "10": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Memorial+Union+Coffee+House&start=90"
+    }
+  }
+}

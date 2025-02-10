@@ -1,0 +1,1214 @@
+{
+  "search_metadata": {
+    "id": "67a99885dfa7aabddeed878b",
+    "status": "Success",
+    "json_endpoint": "https://serpapi.com/searches/111dc4f5007537c8/67a99885dfa7aabddeed878b.json",
+    "created_at": "2025-02-10 06:11:17 UTC",
+    "processed_at": "2025-02-10 06:11:17 UTC",
+    "google_url": "https://www.google.com/search?q=UC+Davis+Peter+J.+Shields+Library&oq=UC+Davis+Peter+J.+Shields+Library&uule=w+CAIQICIeRGF2aXMsQ2FsaWZvcm5pYSxVbml0ZWQgU3RhdGVz&hl=en&gl=us&sourceid=chrome&ie=UTF-8",
+    "raw_html_file": "https://serpapi.com/searches/111dc4f5007537c8/67a99885dfa7aabddeed878b.html",
+    "total_time_taken": 2.41
+  },
+  "search_parameters": {
+    "engine": "google",
+    "q": "UC Davis Peter J. Shields Library",
+    "location_requested": "Davis, California, United States",
+    "location_used": "Davis,California,United States",
+    "google_domain": "google.com",
+    "hl": "en",
+    "gl": "us",
+    "device": "desktop"
+  },
+  "search_information": {
+    "query_displayed": "UC Davis Peter J. Shields Library",
+    "total_results": 165000,
+    "time_taken_displayed": 0.31,
+    "organic_results_state": "Results for exact spelling"
+  },
+  "knowledge_graph": {
+    "title": "Peter J. Shields Library",
+    "thumbnail": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/f6423e0593a372e9d5d3bb39f2a333add9a4ccd882b909e98ec2bcc9046f58d4.jpeg",
+    "type": "Library in University of California-Davis, California",
+    "entity_type": "related_questions",
+    "kgmid": "/m/02wyfhf",
+    "knowledge_graph_search_link": "https://www.google.com/search?kgmid=/m/02wyfhf&hl=en-US&q=Peter+J.+Shields+Library",
+    "serpapi_knowledge_graph_search_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en-US&kgmid=%2Fm%2F02wyfhf&location=Davis%2C+California%2C+United+States&q=Peter+J.+Shields+Library",
+    "place_id": "ChIJnSVZS2wphYARWwKl68pnU3s",
+    "website": "https://www.library.ucdavis.edu/",
+    "directions": "https://maps.google.com/maps?gl=us&uule=w+CAIQICIeRGF2aXMsQ2FsaWZvcm5pYSxVbml0ZWQgU3RhdGVz&hl=en&um=1&ie=UTF-8&fb=1&sa=X&geocode=KZ0lWUtsKYWAMVsCpevKZ1N7&daddr=100+N+Quad,+Davis,+CA+95616",
+    "reviews": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&si=APYL9bsoWDx2JgPUFzNAbypa-an1_VM7gtP0FcPg90QFu0bDXSN_s-z-pxhdouhNKdMzYbplW60ZuZkmzVFRsARzddf2QD_3ADE6IQpBR2kSWs0oetqDaKBAOECyDg6f8C4PEPLCOs2YJZdBJaMtgd6ZnRAa9fCo_Q%3D%3D&q=Peter+J.+Shields+Library+Reviews&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ0bkNegQIHhAE",
+    "description": "The Peter J. Shields Library, or Shields Library, is a four-story library named after Peter J. Shields. It is located in the eastern part of main campus of UC Davis in unincorporated Yolo County, adjacent to Davis.",
+    "local_map": {
+      "image": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/f6423e0593a372e9d5d3bb39f2a333adc18fee617272e5d73ebd67e427c0aa10.webp",
+      "link": "https://www.google.com/maps/place/Peter+J.+Shields+Library/data=!4m2!3m1!1s0x0:0x7b5367caeba5025b?sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ_BJ6BAgQEAA&hl=en&gl=us"
+    },
+    "rating": 4.6,
+    "review_count": 110,
+    "source": {
+      "name": "Wikipedia",
+      "link": "https://en.wikipedia.org/wiki/Shields_Library"
+    },
+    "address": "100 N Quad, Davis, CA 95616",
+    "address_links": [
+      {
+        "text": "Address",
+        "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=shields+library+address&ludocid=8886560610966635099&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ6BN6BAggEAI"
+      }
+    ],
+    "raw_hours": "Open ⋅ Closes 12 AM",
+    "hours": {
+      "sunday": {
+        "opens": "12 PM",
+        "closes": "12 AM"
+      },
+      "monday": {
+        "opens": "7:30 AM",
+        "closes": "12 AM"
+      },
+      "tuesday": {
+        "opens": "7:30 AM",
+        "closes": "12 AM"
+      },
+      "wednesday": {
+        "opens": "7:30 AM",
+        "closes": "12 AM"
+      },
+      "thursday": {
+        "opens": "7:30 AM",
+        "closes": "12 AM"
+      },
+      "friday": {
+        "opens": "7:30 AM",
+        "closes": "6 PM"
+      },
+      "saturday": {
+        "opens": "12",
+        "closes": "6 PM"
+      }
+    },
+    "opened": "1908",
+    "phone": "(530) 752-8792",
+    "function": "Library",
+    "function_links": [
+      {
+        "text": "Library",
+        "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=&si=APYL9bu1Sl4M4TWndGcDs6ZL5WJXWNYEL_kgEEwAe0iMZIocdWuxSriJMKXdr1w5T6kgjvMuSUBkIyQej5P7Lhtt-bRhm2zaQwipp7GtXvJ7jz5Zi4NLSkNDjSlLTSa1cCfwUM4-0d1kNtCzIZ2h5MToey_ro_6XfM0wEAuB3jiuigK79hWvPSg%3D&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQmxMoAHoECCQQAg"
+      }
+    ],
+    "mon_tue_wed_thu_fri_sat_sun_live": "Not busy9a12p3p6p9pPeople typically spend up to 3 hours here",
+    "popular_times": {
+      "live": {
+        "time": "Live",
+        "info": "Not busy",
+        "busyness_score": 11,
+        "typical_time_spent": "3 hours"
+      },
+      "graph_results": {
+        "monday": [
+          {
+            "time": "6 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "7 AM",
+            "info": "Usually not busy",
+            "busyness_score": 14
+          },
+          {
+            "time": "8 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 23
+          },
+          {
+            "time": "9 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 36
+          },
+          {
+            "time": "10 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 47
+          },
+          {
+            "time": "11 AM",
+            "info": "Usually a little busy",
+            "busyness_score": 58
+          },
+          {
+            "time": "12 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 69
+          },
+          {
+            "time": "1 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 81
+          },
+          {
+            "time": "2 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 90
+          },
+          {
+            "time": "3 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 90
+          },
+          {
+            "time": "4 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 79
+          },
+          {
+            "time": "5 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 64
+          },
+          {
+            "time": "6 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 51
+          },
+          {
+            "time": "7 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 41
+          },
+          {
+            "time": "8 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 33
+          },
+          {
+            "time": "9 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 25
+          },
+          {
+            "time": "10 PM",
+            "info": "Usually not busy",
+            "busyness_score": 18
+          },
+          {
+            "time": "11 PM",
+            "info": "Usually not busy",
+            "busyness_score": 12
+          }
+        ],
+        "tuesday": [
+          {
+            "time": "6 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "7 AM",
+            "info": "Usually not busy",
+            "busyness_score": 15
+          },
+          {
+            "time": "8 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 25
+          },
+          {
+            "time": "9 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 35
+          },
+          {
+            "time": "10 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 49
+          },
+          {
+            "time": "11 AM",
+            "info": "Usually a little busy",
+            "busyness_score": 64
+          },
+          {
+            "time": "12 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 82
+          },
+          {
+            "time": "1 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 96
+          },
+          {
+            "time": "2 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 100
+          },
+          {
+            "time": "3 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 97
+          },
+          {
+            "time": "4 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 89
+          },
+          {
+            "time": "5 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 75
+          },
+          {
+            "time": "6 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 59
+          },
+          {
+            "time": "7 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 47
+          },
+          {
+            "time": "8 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 37
+          },
+          {
+            "time": "9 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 26
+          },
+          {
+            "time": "10 PM",
+            "info": "Usually not busy",
+            "busyness_score": 18
+          },
+          {
+            "time": "11 PM",
+            "info": "Usually not busy",
+            "busyness_score": 11
+          }
+        ],
+        "wednesday": [
+          {
+            "time": "6 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "7 AM",
+            "info": "Usually not busy",
+            "busyness_score": 11
+          },
+          {
+            "time": "8 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 23
+          },
+          {
+            "time": "9 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 38
+          },
+          {
+            "time": "10 AM",
+            "info": "Usually a little busy",
+            "busyness_score": 57
+          },
+          {
+            "time": "11 AM",
+            "info": "Usually a little busy",
+            "busyness_score": 70
+          },
+          {
+            "time": "12 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 83
+          },
+          {
+            "time": "1 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 92
+          },
+          {
+            "time": "2 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 99
+          },
+          {
+            "time": "3 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 98
+          },
+          {
+            "time": "4 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 92
+          },
+          {
+            "time": "5 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 76
+          },
+          {
+            "time": "6 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 61
+          },
+          {
+            "time": "7 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 46
+          },
+          {
+            "time": "8 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 34
+          },
+          {
+            "time": "9 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 27
+          },
+          {
+            "time": "10 PM",
+            "info": "Usually not busy",
+            "busyness_score": 19
+          },
+          {
+            "time": "11 PM",
+            "info": "Usually not busy",
+            "busyness_score": 14
+          }
+        ],
+        "thursday": [
+          {
+            "time": "6 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "7 AM",
+            "info": "Usually not busy",
+            "busyness_score": 11
+          },
+          {
+            "time": "8 AM",
+            "info": "Usually not busy",
+            "busyness_score": 19
+          },
+          {
+            "time": "9 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 30
+          },
+          {
+            "time": "10 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 46
+          },
+          {
+            "time": "11 AM",
+            "info": "Usually a little busy",
+            "busyness_score": 62
+          },
+          {
+            "time": "12 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 77
+          },
+          {
+            "time": "1 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 88
+          },
+          {
+            "time": "2 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 88
+          },
+          {
+            "time": "3 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 87
+          },
+          {
+            "time": "4 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 78
+          },
+          {
+            "time": "5 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 62
+          },
+          {
+            "time": "6 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 45
+          },
+          {
+            "time": "7 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 33
+          },
+          {
+            "time": "8 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 26
+          },
+          {
+            "time": "9 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 20
+          },
+          {
+            "time": "10 PM",
+            "info": "Usually not busy",
+            "busyness_score": 16
+          },
+          {
+            "time": "11 PM",
+            "info": "Usually not busy",
+            "busyness_score": 11
+          }
+        ],
+        "friday": [
+          {
+            "time": "6 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "7 AM",
+            "info": "Usually not busy",
+            "busyness_score": 11
+          },
+          {
+            "time": "8 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 23
+          },
+          {
+            "time": "9 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 34
+          },
+          {
+            "time": "10 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 46
+          },
+          {
+            "time": "11 AM",
+            "info": "Usually a little busy",
+            "busyness_score": 54
+          },
+          {
+            "time": "12 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 61
+          },
+          {
+            "time": "1 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 68
+          },
+          {
+            "time": "2 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 71
+          },
+          {
+            "time": "3 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 64
+          },
+          {
+            "time": "4 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 55
+          },
+          {
+            "time": "5 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 41
+          },
+          {
+            "time": "6 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "7 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "8 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "9 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "10 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "11 PM",
+            "busyness_score": 0
+          }
+        ],
+        "saturday": [
+          {
+            "time": "6 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "7 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "8 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "9 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "10 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "11 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "12 PM",
+            "info": "Usually not busy",
+            "busyness_score": 14
+          },
+          {
+            "time": "1 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 23
+          },
+          {
+            "time": "2 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 26
+          },
+          {
+            "time": "3 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 29
+          },
+          {
+            "time": "4 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 26
+          },
+          {
+            "time": "5 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 21
+          },
+          {
+            "time": "6 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "7 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "8 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "9 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "10 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "11 PM",
+            "busyness_score": 0
+          }
+        ],
+        "sunday": [
+          {
+            "time": "6 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "7 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "8 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "9 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "10 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "11 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "12 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 21
+          },
+          {
+            "time": "1 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 31
+          },
+          {
+            "time": "2 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 37
+          },
+          {
+            "time": "3 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 44
+          },
+          {
+            "time": "4 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 43
+          },
+          {
+            "time": "5 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 36
+          },
+          {
+            "time": "6 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 24
+          },
+          {
+            "time": "7 PM",
+            "info": "Usually not busy",
+            "busyness_score": 12
+          },
+          {
+            "time": "8 PM",
+            "info": "Usually not busy",
+            "busyness_score": 10
+          },
+          {
+            "time": "9 PM",
+            "info": "Usually not busy",
+            "busyness_score": 13
+          },
+          {
+            "time": "10 PM",
+            "info": "Usually not busy",
+            "busyness_score": 16
+          },
+          {
+            "time": "11 PM",
+            "info": "Usually not busy",
+            "busyness_score": 13
+          }
+        ]
+      }
+    },
+    "user_reviews": [
+      {
+        "summary": "Nice atmosphere, a good place to go and get work done.",
+        "link": "https://www.google.com/maps/reviews/data=!4m5!14m4!1m3!1m2!1s104900080043252911608!2s0x8085296c4b59259d:0x7b5367caeba5025b?ved=1t:31295&ictx=111",
+        "user": {
+          "name": "Abby Reilly",
+          "link": "https://www.google.com/maps/contrib/104900080043252911608?hl=en-US&ved=1t:31296&ictx=111",
+          "thumbnail": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/f6423e0593a372e9d5d3bb39f2a333ad2911c37533fec85c8bfa54640550b5b923a3bca7990b6fb78be1805491845bf7.png"
+        }
+      },
+      {
+        "summary": "The supervisors at the library main office were not nice people at all!!!",
+        "link": "https://www.google.com/maps/reviews/data=!4m5!14m4!1m3!1m2!1s117518972459085567925!2s0x8085296c4b59259d:0x7b5367caeba5025b?ved=1t:31295&ictx=111",
+        "user": {
+          "name": "Patricia Johnson-Chew",
+          "link": "https://www.google.com/maps/contrib/117518972459085567925?hl=en-US&ved=1t:31296&ictx=111",
+          "thumbnail": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/f6423e0593a372e9d5d3bb39f2a333ad2911c37533fec85cab288b7cd45abc582806aeff0eb5d7deb6f430693ad58a5b.png"
+        }
+      },
+      {
+        "summary": "A decent university library collection with good staff.",
+        "link": "https://www.google.com/maps/reviews/data=!4m5!14m4!1m3!1m2!1s104519778164757393519!2s0x8085296c4b59259d:0x7b5367caeba5025b?ved=1t:31295&ictx=111",
+        "user": {
+          "name": "Kendon Kurzer",
+          "link": "https://www.google.com/maps/contrib/104519778164757393519?hl=en-US&ved=1t:31296&ictx=111",
+          "thumbnail": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/f6423e0593a372e9d5d3bb39f2a333ad2911c37533fec85cdc35239716185a78f13a9cfdf7e7e8bbf8eecfba14313dbe.png"
+        }
+      }
+    ],
+    "unclaimed_listing": true,
+    "profiles": [
+      {
+        "name": "YouTube",
+        "link": "https://www.youtube.com/channel/UCRjjo_jpHml_Z3_5ctYq1lA",
+        "image": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/f6423e0593a372e9d5d3bb39f2a333adc848ed5569a685e96a4b06b3e66b5de92eeff020f0025fef.png"
+      },
+      {
+        "name": "Facebook",
+        "link": "https://www.facebook.com/UCDavisLibrary",
+        "image": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/f6423e0593a372e9d5d3bb39f2a333adc848ed5569a685e9f9baa3c211a6212561e3ac5a1ac6f8ac.png"
+      },
+      {
+        "name": "Instagram",
+        "link": "https://www.instagram.com/ucdavislibrary/",
+        "image": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/f6423e0593a372e9d5d3bb39f2a333adc848ed5569a685e96af32a8832e3a3db3c171364a7e197f7.png"
+      },
+      {
+        "name": "LinkedIn",
+        "link": "https://www.linkedin.com/company/shields-library",
+        "image": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/f6423e0593a372e9d5d3bb39f2a333adc848ed5569a685e91e7c1b124c9df32dfc9bc893fca23856.png"
+      }
+    ]
+  },
+  "inline_images": [
+    {
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=Shields+Library&stick=H4sIAAAAAAAAAONgFuLSz9U3MCqvTMtIU0JiawkGZ6aklidWFvulVpQEl6QWFP9iFAtIzS_ISVVIzCnOVyhOTSxKzlBIyy9axMofnJGZmpNSrOCTmVSUWFS5g5XxFpskQ5hf-OclNWvcOTVCUlIdIza5cRf7_FTiPAoAz4M9encAAAA&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ_R16BAh_EAA#imgrc=7F-mlHuBkdahnM",
+      "source": "https://www.usgbc.org/projects/uc-davis-shields-library",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2_2coSjCRu9NKNpN8ETUQRWPnHAAotSR6rcx9QeFIUQ&s",
+      "original": "https://www.usgbc.org/sites/default/files/2021-06/2__main_reading_room.jpg",
+      "title": "UC Davis Shields Library | U.S. Green Building Council",
+      "source_name": "USGBC"
+    },
+    {
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=Shields+Library&stick=H4sIAAAAAAAAAONgFuLSz9U3MCqvTMtIU0JiawkGZ6aklidWFvulVpQEl6QWFP9iFAtIzS_ISVVIzCnOVyhOTSxKzlBIyy9axMofnJGZmpNSrOCTmVSUWFS5g5XxFpskQ5hf-OclNWvcOTVCUlIdIza5cRf7_FTiPAoAz4M9encAAAA&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ_R16BQiBARAA#imgrc=NfxnVnMoKPwIfM",
+      "source": "https://en.wikipedia.org/wiki/Shields_Library",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqztdGLfZ7vrcVHrasWMofxlG90_zuKfvMECMVad6G&s",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/UC_Davis_Shields_Library.jpg/640px-UC_Davis_Shields_Library.jpg",
+      "title": "Shields Library - Wikipedia",
+      "source_name": "Wikipedia"
+    },
+    {
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=Shields+Library&stick=H4sIAAAAAAAAAONgFuLSz9U3MCqvTMtIU0JiawkGZ6aklidWFvulVpQEl6QWFP9iFAtIzS_ISVVIzCnOVyhOTSxKzlBIyy9axMofnJGZmpNSrOCTmVSUWFS5g5XxFpskQ5hf-OclNWvcOTVCUlIdIza5cRf7_FTiPAoAz4M9encAAAA&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ_R16BQiGARAA#imgrc=j9pbGUcwTbzfTM",
+      "source": "https://library.ucdavis.edu/library-history/",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUc-yBett1d5Flthen-gcuUMLOy9Ly5D1obfQ4_D61NQ&s",
+      "original": "https://library.ucdavis.edu/wp-content/uploads/2022/08/AR_185_Western_Signal_Corps_3_01small-edited-e1659735042438.jpg",
+      "title": "History of the Library – UC Davis Library",
+      "source_name": "UC Davis Library"
+    },
+    {
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=Shields+Library&stick=H4sIAAAAAAAAAONgFuLSz9U3MCqvTMtIU0JiawkGZ6aklidWFvulVpQEl6QWFP9iFAtIzS_ISVVIzCnOVyhOTSxKzlBIyy9axMofnJGZmpNSrOCTmVSUWFS5g5XxFpskQ5hf-OclNWvcOTVCUlIdIza5cRf7_FTiPAoAz4M9encAAAA&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ_R16BQiHARAA#imgrc=LPx8eu6i6Y5WqM",
+      "source": "https://localwiki.org/davis/Shields_Library",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNWrXmmmoOrCRJb4eSQ_4fN9VGNHr79hO0vDmIz7O8Ow&s",
+      "original": "https://localwiki.org/media/cache/c3/14/c31425e1f156c3fb68f62f1a615fb302.jpg",
+      "title": "Shields Library - Davis - LocalWiki",
+      "source_name": "LocalWiki"
+    },
+    {
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=Shields+Library&stick=H4sIAAAAAAAAAONgFuLSz9U3MCqvTMtIU0JiawkGZ6aklidWFvulVpQEl6QWFP9iFAtIzS_ISVVIzCnOVyhOTSxKzlBIyy9axMofnJGZmpNSrOCTmVSUWFS5g5XxFpskQ5hf-OclNWvcOTVCUlIdIza5cRf7_FTiPAoAz4M9encAAAA&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ_R16BQiIARAA#imgrc=3QQQqiHl8xEeWM",
+      "source": "https://library.ucdavis.edu/study-spaces/shields-library-study-spaces/",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiJ2ss1HbTtlhLB2-Gi3Ao3xuewKMx5Ix45OwurMHMLg&s",
+      "original": "https://library.ucdavis.edu/wp-content/uploads/2022/05/24-hour-study-2022_4-3.jpg",
+      "title": "Shields Library Study Spaces – UC Davis Library",
+      "source_name": "UC Davis Library"
+    },
+    {
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=Shields+Library&stick=H4sIAAAAAAAAAONgFuLSz9U3MCqvTMtIU0JiawkGZ6aklidWFvulVpQEl6QWFP9iFAtIzS_ISVVIzCnOVyhOTSxKzlBIyy9axMofnJGZmpNSrOCTmVSUWFS5g5XxFpskQ5hf-OclNWvcOTVCUlIdIza5cRf7_FTiPAoAz4M9encAAAA&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ_R16BQiKARAA#imgrc=kUzkXBIfZYQDiM",
+      "source": "https://www.instagram.com/ucdavis.life/p/C6NCa2TB3UZ/",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSWlEJiYUteBVGjDd2dNHegofzd0daWP-BiH3Zk7g7Qg&s",
+      "original": "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3354347926683176148",
+      "title": "In honor of midterms and all the studying going down this ...",
+      "source_name": "Instagram"
+    },
+    {
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=Shields+Library&stick=H4sIAAAAAAAAAONgFuLSz9U3MCqvTMtIU0JiawkGZ6aklidWFvulVpQEl6QWFP9iFAtIzS_ISVVIzCnOVyhOTSxKzlBIyy9axMofnJGZmpNSrOCTmVSUWFS5g5XxFpskQ5hf-OclNWvcOTVCUlIdIza5cRf7_FTiPAoAz4M9encAAAA&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ_R16BQiLARAA#imgrc=jbitL9ioHYHkvM",
+      "source": "https://www.usgbc.org/projects/uc-davis-shields-library",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ53Qtt6n9uFjfyBolzay7CHKUK0gei1om_bJmQKwm4sr1eblFC0hG_Hp6pZQ&s",
+      "original": "https://www.usgbc.org/sites/default/files/2021-06/3__bookstacks.jpg",
+      "title": "UC Davis Shields Library | U.S. Green Building Council",
+      "source_name": "USGBC"
+    },
+    {
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=Shields+Library&stick=H4sIAAAAAAAAAONgFuLSz9U3MCqvTMtIU0JiawkGZ6aklidWFvulVpQEl6QWFP9iFAtIzS_ISVVIzCnOVyhOTSxKzlBIyy9axMofnJGZmpNSrOCTmVSUWFS5g5XxFpskQ5hf-OclNWvcOTVCUlIdIza5cRf7_FTiPAoAz4M9encAAAA&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ_R16BQiJARAA#imgrc=7L4_b6fYEP9l9M",
+      "source": "https://en.wikipedia.org/wiki/Shields_Library",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQo5Qkb-7jcCYvetYTaTpRSM4zUqERtMRso5OGT2u1zJg&s",
+      "original": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/UCDavis_PeterJShieldsLibrary.jpg/220px-UCDavis_PeterJShieldsLibrary.jpg",
+      "title": "Shields Library - Wikipedia",
+      "source_name": "Wikipedia"
+    },
+    {
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=Shields+Library&stick=H4sIAAAAAAAAAONgFuLSz9U3MCqvTMtIU0JiawkGZ6aklidWFvulVpQEl6QWFP9iFAtIzS_ISVVIzCnOVyhOTSxKzlBIyy9axMofnJGZmpNSrOCTmVSUWFS5g5XxFpskQ5hf-OclNWvcOTVCUlIdIza5cRf7_FTiPAoAz4M9encAAAA&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ_R16BQiCARAA#imgrc=OBtQ27-u9YIj7M",
+      "source": "https://theaggie.org/2022/05/19/best-study-spot-shields-library/",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVUMUufPT6LApO0FtmyQDNf-8x4kY-l9OKxkD8bHVLAUZp05WBCLiLin7oeQ&s",
+      "original": "https://theaggie.org/wp-content/uploads/2022/05/studyspot_fe_KAYLA_BRUCKMAN2-400x267.jpg",
+      "title": "Best Study Spot: Shields Library - The Aggie",
+      "source_name": "The California Aggie"
+    },
+    {
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=Shields+Library&stick=H4sIAAAAAAAAAONgFuLSz9U3MCqvTMtIU0JiawkGZ6aklidWFvulVpQEl6QWFP9iFAtIzS_ISVVIzCnOVyhOTSxKzlBIyy9axMofnJGZmpNSrOCTmVSUWFS5g5XxFpskQ5hf-OclNWvcOTVCUlIdIza5cRf7_FTiPAoAz4M9encAAAA&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ_R16BQiFARAA#imgrc=xXkRBwcfTUyfLM",
+      "source": "https://www.youtube.com/watch?v=TUhd_2ulrNU",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFLai9EPJ94zqPDU5FahfL4J-eU9cijyQszMFRvY2UABrYaLdC1TbxIF-cdw&s",
+      "original": "https://i.ytimg.com/vi/TUhd_2ulrNU/maxresdefault.jpg",
+      "title": "New Public Art Installed at UC Davis Peter J. Shields Library",
+      "source_name": "YouTube"
+    }
+  ],
+  "related_questions": [
+    {
+      "question": "Can anyone go to UC Davis library?",
+      "snippet": "Plan Ahead for the Best Experience. Archives and Special Collections welcomes students, faculty and members of the general public to visit us. We are open Monday-Friday, 10-12pm and 1-3pm.",
+      "title": "Visitor Information - UC Davis Library",
+      "link": "https://library.ucdavis.edu/archives-and-special-collections/visitor-information/#:~:text=Plan%20Ahead%20for%20the%20Best,%2D12pm%20and%201%2D3pm.",
+      "displayed_link": "https://library.ucdavis.edu › visitor-information",
+      "source_logo": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/21ea319f9efd6ebb6d7569ebbd0bd21f4cd1ef9a2bfaa02040a17ba22edd049d.png",
+      "next_page_token": "eyJvbnMiOiIxMDA0MSIsImZjIjoiRXFFQkNtSkJRUzFMVkdobWJWRmtURWt6ZDJoNVRtVjFja3ByWlhSbFpIUm9WV0pSYVZkdFkwRlFabFExWVhscVUzUm5iblZpUzJsS1lYRk5iMjlrYURCV1RHVTJOSFJRUkd4cVJHOTJRMlpHYkROa2VqUm5RMFZxUjJaaVZIQnpRbWRhY2xwQmR4SVhhRFZwY0ZvM2RsRkVjV1ZLY0hSUlVIRkpZUzB5UVVrYUlrRkRSRmhNTkd3eFdIZ3RVM0F6ZW14b1dIRnpNR0ZYT1VadVFVZGpjRVZFYkVFIiwiZmN2IjoiMyIsImVpIjoiaDVpcFo3dlFEcWVKcHRRUHFJYS0yQUkiLCJxYyI6IkNpQjFZeUJrWVhacGN5QndaWFJsY2lCcUlITm9hV1ZzWkhNZ2JHbGljbUZ5ZVJBQWZWYUhWajgiLCJxdWVzdGlvbiI6IkNhbiBhbnlvbmUgZ28gdG8gVUMgRGF2aXMgbGlicmFyeT8iLCJsayI6IkdpRmpZVzRnWVc1NWIyNWxJR2R2SUhSdklIVmpJR1JoZG1seklHeHBZbkpoY25rIiwiYnMiOiJjLVB5NFZKeVRzeFRTTXlyek05TFZValBWeWpKVndoMVZuQkpMTXNzVnNqSlRDcEtMS3EwbDVqcFphUXNwWmlNcnJBMFdTRUZXU0dYRTVkc2VFWmlpVUpLdmtKQmFuNUJUcXBDY21KT0R0eEFlNGxyY1VaeVVqTGxXTlRBekFLWkFYSlJaWDZwUW5saVRyWkNZbEYtYVY0S2tobnJfRUJtSkdOUkF6Y2ppa3ZUSTc5Y0lSZm9XcWpiTWxPTGdhcFNGVW95VW9Ga1poNlNlVXVNamJTa05ESUlxSWVaTGNBSUFBIiwiaWQiOiJmY19oNWlwWjd2UURxZUpwdFFQcUlhLTJBSV8xIn0=",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google_related_questions&google_domain=google.com&next_page_token=eyJvbnMiOiIxMDA0MSIsImZjIjoiRXFFQkNtSkJRUzFMVkdobWJWRmtURWt6ZDJoNVRtVjFja3ByWlhSbFpIUm9WV0pSYVZkdFkwRlFabFExWVhscVUzUm5iblZpUzJsS1lYRk5iMjlrYURCV1RHVTJOSFJRUkd4cVJHOTJRMlpHYkROa2VqUm5RMFZxUjJaaVZIQnpRbWRhY2xwQmR4SVhhRFZwY0ZvM2RsRkVjV1ZLY0hSUlVIRkpZUzB5UVVrYUlrRkRSRmhNTkd3eFdIZ3RVM0F6ZW14b1dIRnpNR0ZYT1VadVFVZGpjRVZFYkVFIiwiZmN2IjoiMyIsImVpIjoiaDVpcFo3dlFEcWVKcHRRUHFJYS0yQUkiLCJxYyI6IkNpQjFZeUJrWVhacGN5QndaWFJsY2lCcUlITm9hV1ZzWkhNZ2JHbGljbUZ5ZVJBQWZWYUhWajgiLCJxdWVzdGlvbiI6IkNhbiBhbnlvbmUgZ28gdG8gVUMgRGF2aXMgbGlicmFyeT8iLCJsayI6IkdpRmpZVzRnWVc1NWIyNWxJR2R2SUhSdklIVmpJR1JoZG1seklHeHBZbkpoY25rIiwiYnMiOiJjLVB5NFZKeVRzeFRTTXlyek05TFZValBWeWpKVndoMVZuQkpMTXNzVnNqSlRDcEtMS3EwbDVqcFphUXNwWmlNcnJBMFdTRUZXU0dYRTVkc2VFWmlpVUpLdmtKQmFuNUJUcXBDY21KT0R0eEFlNGxyY1VaeVVqTGxXTlRBekFLWkFYSlJaWDZwUW5saVRyWkNZbEYtYVY0S2tobnJfRUJtSkdOUkF6Y2ppa3ZUSTc5Y0lSZm9XcWpiTWxPTGdhcFNGVW95VW9Ga1poNlNlVXVNamJTa05ESUlxSWVaTGNBSUFBIiwiaWQiOiJmY19oNWlwWjd2UURxZUpwdFFQcUlhLTJBSV8xIn0%3D"
+    },
+    {
+      "question": "What do people call UC Davis?",
+      "snippet": "University of California, Davis",
+      "table": [
+        [
+          "Nickname",
+          "Aggies"
+        ],
+        [
+          "Sporting affiliations",
+          "NCAA Division I FCS – Big Sky Big West America East ECAC WWPA Big 12 Mountain West (2026)"
+        ],
+        [
+          "Mascot",
+          "Gunrock the Mustang"
+        ],
+        [
+          "Website",
+          "ucdavis.edu"
+        ],
+        [
+          "ASN",
+          "6192"
+        ]
+      ],
+      "formatted": [
+        {
+          "nickname": "Sporting affiliations",
+          "aggies": "NCAA Division I FCS – Big Sky Big West America East ECAC WWPA Big 12 Mountain West (2026)"
+        },
+        {
+          "nickname": "Mascot",
+          "aggies": "Gunrock the Mustang"
+        },
+        {
+          "nickname": "Website",
+          "aggies": "ucdavis.edu"
+        },
+        {
+          "nickname": "ASN",
+          "aggies": "6192"
+        }
+      ],
+      "title": "Aggies",
+      "link": "https://en.wikipedia.org/wiki/University_of_California,_Davis",
+      "displayed_link": "https://en.wikipedia.org › wiki › University_of_Californi...",
+      "source_logo": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/21ea319f9efd6ebb6d7569ebbd0bd21f45eabe8d6727c29e5b06a166fcabe4e4.png",
+      "next_page_token": "eyJvbnMiOiIxMDA0MSIsImZjIjoiRXFFQkNtSkJRUzFMVkdobWJWRmtURWt6ZDJoNVRtVjFja3ByWlhSbFpIUm9WV0pSYVZkdFkwRlFabFExWVhscVUzUm5iblZpUzJsS1lYRk5iMjlrYURCV1RHVTJOSFJRUkd4cVJHOTJRMlpHYkROa2VqUm5RMFZxUjJaaVZIQnpRbWRhY2xwQmR4SVhhRFZwY0ZvM2RsRkVjV1ZLY0hSUlVIRkpZUzB5UVVrYUlrRkRSRmhNTkd3eFdIZ3RVM0F6ZW14b1dIRnpNR0ZYT1VadVFVZGpjRVZFYkVFIiwiZmN2IjoiMyIsImVpIjoiaDVpcFo3dlFEcWVKcHRRUHFJYS0yQUkiLCJxYyI6IkNpQjFZeUJrWVhacGN5QndaWFJsY2lCcUlITm9hV1ZzWkhNZ2JHbGljbUZ5ZVJBQWZWYUhWajgiLCJxdWVzdGlvbiI6IldoYXQgZG8gcGVvcGxlIGNhbGwgVUMgRGF2aXM/IiwibGsiOiJHaHgzYUdGMElHUnZJSEJsYjNCc1pTQmpZV3hzSUhWaklHUmhkbWx6IiwiYnMiOiJjLVB5NFZKeVRzeFRTTXlyek05TFZValBWeWpKVndoMVZuQkpMTXNzVnNqSlRDcEtMS3EwbDVqcFphUXNwWmlNcnJBMFdTRUZXU0dYRTVkc2VFWmlpVUpLdmtKQmFuNUJUcXBDY21KT0R0eEFlNGxyY1VaeVVqTGxXTlRBekFLWkFYSlJaWDZwUW5saVRyWkNZbEYtYVY0S2tobnJfRUJtSkdOUkF6Y2ppa3ZUSTc5Y0lSZm9XcWpiTWxPTGdhcFNGVW95VW9Ga1poNlNlVXVNamJTa05ESUlxSWVaTGNBSUFBIiwiaWQiOiJmY19oNWlwWjd2UURxZUpwdFFQcUlhLTJBSV8xIn0=",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google_related_questions&google_domain=google.com&next_page_token=eyJvbnMiOiIxMDA0MSIsImZjIjoiRXFFQkNtSkJRUzFMVkdobWJWRmtURWt6ZDJoNVRtVjFja3ByWlhSbFpIUm9WV0pSYVZkdFkwRlFabFExWVhscVUzUm5iblZpUzJsS1lYRk5iMjlrYURCV1RHVTJOSFJRUkd4cVJHOTJRMlpHYkROa2VqUm5RMFZxUjJaaVZIQnpRbWRhY2xwQmR4SVhhRFZwY0ZvM2RsRkVjV1ZLY0hSUlVIRkpZUzB5UVVrYUlrRkRSRmhNTkd3eFdIZ3RVM0F6ZW14b1dIRnpNR0ZYT1VadVFVZGpjRVZFYkVFIiwiZmN2IjoiMyIsImVpIjoiaDVpcFo3dlFEcWVKcHRRUHFJYS0yQUkiLCJxYyI6IkNpQjFZeUJrWVhacGN5QndaWFJsY2lCcUlITm9hV1ZzWkhNZ2JHbGljbUZ5ZVJBQWZWYUhWajgiLCJxdWVzdGlvbiI6IldoYXQgZG8gcGVvcGxlIGNhbGwgVUMgRGF2aXM%2FIiwibGsiOiJHaHgzYUdGMElHUnZJSEJsYjNCc1pTQmpZV3hzSUhWaklHUmhkbWx6IiwiYnMiOiJjLVB5NFZKeVRzeFRTTXlyek05TFZValBWeWpKVndoMVZuQkpMTXNzVnNqSlRDcEtMS3EwbDVqcFphUXNwWmlNcnJBMFdTRUZXU0dYRTVkc2VFWmlpVUpLdmtKQmFuNUJUcXBDY21KT0R0eEFlNGxyY1VaeVVqTGxXTlRBekFLWkFYSlJaWDZwUW5saVRyWkNZbEYtYVY0S2tobnJfRUJtSkdOUkF6Y2ppa3ZUSTc5Y0lSZm9XcWpiTWxPTGdhcFNGVW95VW9Ga1poNlNlVXVNamJTa05ESUlxSWVaTGNBSUFBIiwiaWQiOiJmY19oNWlwWjd2UURxZUpwdFFQcUlhLTJBSV8xIn0%3D"
+    },
+    {
+      "question": "Can you walk around UC Davis?",
+      "snippet": "At UC Davis, you can walk through our campus gardens, discover art and insects at our museums, and stock up on Aggie gear at the UC Davis Stores.",
+      "title": "Plan your visit - UC Davis",
+      "date": "Oct 19, 2023",
+      "link": "https://www.ucdavis.edu/about/visit/plan-your-visit#:~:text=At%20UC%20Davis%2C%20you%20can,at%20the%20UC%20Davis%20Stores.",
+      "displayed_link": "https://www.ucdavis.edu › about › visit › plan-your-visit",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4MAlcSuQYJiN0ZwWfhlSWXF9C4dLesI4sW2Ry-ik7jA&s",
+      "source_logo": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/21ea319f9efd6ebb6d7569ebbd0bd21fd4ec8aa3bcf24904c1b8973eb6952c18.png",
+      "next_page_token": "eyJvbnMiOiIxMDA0MSIsImZjIjoiRXFFQkNtSkJRUzFMVkdobWJWRmtURWt6ZDJoNVRtVjFja3ByWlhSbFpIUm9WV0pSYVZkdFkwRlFabFExWVhscVUzUm5iblZpUzJsS1lYRk5iMjlrYURCV1RHVTJOSFJRUkd4cVJHOTJRMlpHYkROa2VqUm5RMFZxUjJaaVZIQnpRbWRhY2xwQmR4SVhhRFZwY0ZvM2RsRkVjV1ZLY0hSUlVIRkpZUzB5UVVrYUlrRkRSRmhNTkd3eFdIZ3RVM0F6ZW14b1dIRnpNR0ZYT1VadVFVZGpjRVZFYkVFIiwiZmN2IjoiMyIsImVpIjoiaDVpcFo3dlFEcWVKcHRRUHFJYS0yQUkiLCJxYyI6IkNpQjFZeUJrWVhacGN5QndaWFJsY2lCcUlITm9hV1ZzWkhNZ2JHbGljbUZ5ZVJBQWZWYUhWajgiLCJxdWVzdGlvbiI6IkNhbiB5b3Ugd2FsayBhcm91bmQgVUMgRGF2aXM/IiwibGsiOiJHaHhqWVc0Z2VXOTFJSGRoYkdzZ1lYSnZkVzVrSUhWaklHUmhkbWx6IiwiYnMiOiJjLVB5NFZKeVRzeFRTTXlyek05TFZValBWeWpKVndoMVZuQkpMTXNzVnNqSlRDcEtMS3EwbDVqcFphUXNwWmlNcnJBMFdTRUZXU0dYRTVkc2VFWmlpVUpLdmtKQmFuNUJUcXBDY21KT0R0eEFlNGxyY1VaeVVqTGxXTlRBekFLWkFYSlJaWDZwUW5saVRyWkNZbEYtYVY0S2tobnJfRUJtSkdOUkF6Y2ppa3ZUSTc5Y0lSZm9XcWpiTWxPTGdhcFNGVW95VW9Ga1poNlNlVXVNamJTa05ESUlxSWVaTGNBSUFBIiwiaWQiOiJmY19oNWlwWjd2UURxZUpwdFFQcUlhLTJBSV8xIn0=",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google_related_questions&google_domain=google.com&next_page_token=eyJvbnMiOiIxMDA0MSIsImZjIjoiRXFFQkNtSkJRUzFMVkdobWJWRmtURWt6ZDJoNVRtVjFja3ByWlhSbFpIUm9WV0pSYVZkdFkwRlFabFExWVhscVUzUm5iblZpUzJsS1lYRk5iMjlrYURCV1RHVTJOSFJRUkd4cVJHOTJRMlpHYkROa2VqUm5RMFZxUjJaaVZIQnpRbWRhY2xwQmR4SVhhRFZwY0ZvM2RsRkVjV1ZLY0hSUlVIRkpZUzB5UVVrYUlrRkRSRmhNTkd3eFdIZ3RVM0F6ZW14b1dIRnpNR0ZYT1VadVFVZGpjRVZFYkVFIiwiZmN2IjoiMyIsImVpIjoiaDVpcFo3dlFEcWVKcHRRUHFJYS0yQUkiLCJxYyI6IkNpQjFZeUJrWVhacGN5QndaWFJsY2lCcUlITm9hV1ZzWkhNZ2JHbGljbUZ5ZVJBQWZWYUhWajgiLCJxdWVzdGlvbiI6IkNhbiB5b3Ugd2FsayBhcm91bmQgVUMgRGF2aXM%2FIiwibGsiOiJHaHhqWVc0Z2VXOTFJSGRoYkdzZ1lYSnZkVzVrSUhWaklHUmhkbWx6IiwiYnMiOiJjLVB5NFZKeVRzeFRTTXlyek05TFZValBWeWpKVndoMVZuQkpMTXNzVnNqSlRDcEtMS3EwbDVqcFphUXNwWmlNcnJBMFdTRUZXU0dYRTVkc2VFWmlpVUpLdmtKQmFuNUJUcXBDY21KT0R0eEFlNGxyY1VaeVVqTGxXTlRBekFLWkFYSlJaWDZwUW5saVRyWkNZbEYtYVY0S2tobnJfRUJtSkdOUkF6Y2ppa3ZUSTc5Y0lSZm9XcWpiTWxPTGdhcFNGVW95VW9Ga1poNlNlVXVNamJTa05ESUlxSWVaTGNBSUFBIiwiaWQiOiJmY19oNWlwWjd2UURxZUpwdFFQcUlhLTJBSV8xIn0%3D"
+    },
+    {
+      "question": "How many libraries are there in UC Davis?",
+      "snippet": "The UC Davis University Library consists of the Peter J. Shields Library, the Physical Sciences & Engineering Library, the Carlson Health Sciences Library, and the Blaisdell Medical Library in Sacramento.",
+      "title": "Buildings and Facilities - UC Davis Library",
+      "link": "https://library.ucdavis.edu/exhibit/uc-davis-centennial/buildings-and-facilities/#:~:text=The%20UC%20Davis%20University%20Library,Blaisdell%20Medical%20Library%20in%20Sacramento.",
+      "displayed_link": "https://library.ucdavis.edu › exhibit › uc-davis-centennial",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiVUOsbAsYqZMckV5Ljz9B3NENXkZxXgcw3OVPrOG35ThP1vDyHnzXbjOdOA&s",
+      "source_logo": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/21ea319f9efd6ebb6d7569ebbd0bd21fb621090b824f283d81ae99cb33e8236a.png",
+      "next_page_token": "eyJvbnMiOiIxMDA0MSIsImZjIjoiRXFFQkNtSkJRUzFMVkdobWJWRmtURWt6ZDJoNVRtVjFja3ByWlhSbFpIUm9WV0pSYVZkdFkwRlFabFExWVhscVUzUm5iblZpUzJsS1lYRk5iMjlrYURCV1RHVTJOSFJRUkd4cVJHOTJRMlpHYkROa2VqUm5RMFZxUjJaaVZIQnpRbWRhY2xwQmR4SVhhRFZwY0ZvM2RsRkVjV1ZLY0hSUlVIRkpZUzB5UVVrYUlrRkRSRmhNTkd3eFdIZ3RVM0F6ZW14b1dIRnpNR0ZYT1VadVFVZGpjRVZFYkVFIiwiZmN2IjoiMyIsImVpIjoiaDVpcFo3dlFEcWVKcHRRUHFJYS0yQUkiLCJxYyI6IkNpQjFZeUJrWVhacGN5QndaWFJsY2lCcUlITm9hV1ZzWkhNZ2JHbGljbUZ5ZVJBQWZWYUhWajgiLCJxdWVzdGlvbiI6IkhvdyBtYW55IGxpYnJhcmllcyBhcmUgdGhlcmUgaW4gVUMgRGF2aXM/IiwibGsiOiJHaWhvYjNjZ2JXRnVlU0JzYVdKeVlYSnBaWE1nWVhKbElIUm9aWEpsSUdsdUlIVmpJR1JoZG1seiIsImJzIjoiYy1QeTRWSnlUc3hUU015cnpNOUxWVWpQVnlqSlZ3aDFWbkJKTE1zc1ZzakpUQ3BLTEtxMGw1anBaYVFzcFppTXJyQTBXU0VGV1NHWEU1ZHNlRVppaVVKS3ZrSkJhbjVCVHFwQ2NtSk9EdHhBZTRscmNVWnlVakxsV05UQXpBS1pBWEpSWlg2cFFubGlUclpDWWxGLWFWNEtraG5yX0VCbUpHTlJBemNqaWt2VEk3OWNJUmZvV3FqYk1sT0xnYXBTRlVveVVvRmtaaDZTZVV1TWpiU2tORElJcUllWkxjQUlBQSIsImlkIjoiZmNfaDVpcFo3dlFEcWVKcHRRUHFJYS0yQUlfMSJ9",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google_related_questions&google_domain=google.com&next_page_token=eyJvbnMiOiIxMDA0MSIsImZjIjoiRXFFQkNtSkJRUzFMVkdobWJWRmtURWt6ZDJoNVRtVjFja3ByWlhSbFpIUm9WV0pSYVZkdFkwRlFabFExWVhscVUzUm5iblZpUzJsS1lYRk5iMjlrYURCV1RHVTJOSFJRUkd4cVJHOTJRMlpHYkROa2VqUm5RMFZxUjJaaVZIQnpRbWRhY2xwQmR4SVhhRFZwY0ZvM2RsRkVjV1ZLY0hSUlVIRkpZUzB5UVVrYUlrRkRSRmhNTkd3eFdIZ3RVM0F6ZW14b1dIRnpNR0ZYT1VadVFVZGpjRVZFYkVFIiwiZmN2IjoiMyIsImVpIjoiaDVpcFo3dlFEcWVKcHRRUHFJYS0yQUkiLCJxYyI6IkNpQjFZeUJrWVhacGN5QndaWFJsY2lCcUlITm9hV1ZzWkhNZ2JHbGljbUZ5ZVJBQWZWYUhWajgiLCJxdWVzdGlvbiI6IkhvdyBtYW55IGxpYnJhcmllcyBhcmUgdGhlcmUgaW4gVUMgRGF2aXM%2FIiwibGsiOiJHaWhvYjNjZ2JXRnVlU0JzYVdKeVlYSnBaWE1nWVhKbElIUm9aWEpsSUdsdUlIVmpJR1JoZG1seiIsImJzIjoiYy1QeTRWSnlUc3hUU015cnpNOUxWVWpQVnlqSlZ3aDFWbkJKTE1zc1ZzakpUQ3BLTEtxMGw1anBaYVFzcFppTXJyQTBXU0VGV1NHWEU1ZHNlRVppaVVKS3ZrSkJhbjVCVHFwQ2NtSk9EdHhBZTRscmNVWnlVakxsV05UQXpBS1pBWEpSWlg2cFFubGlUclpDWWxGLWFWNEtraG5yX0VCbUpHTlJBemNqaWt2VEk3OWNJUmZvV3FqYk1sT0xnYXBTRlVveVVvRmtaaDZTZVV1TWpiU2tORElJcUllWkxjQUlBQSIsImlkIjoiZmNfaDVpcFo3dlFEcWVKcHRRUHFJYS0yQUlfMSJ9"
+    }
+  ],
+  "organic_results": [
+    {
+      "position": 1,
+      "title": "Peter J. Shields Library",
+      "link": "https://library.ucdavis.edu/location/peter-j-shields-library/",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://library.ucdavis.edu/location/peter-j-shields-library/&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQFnoECDsQAQ",
+      "displayed_link": "https://library.ucdavis.edu › location › peter-j-shields-li...",
+      "thumbnail": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/69b698b4f8e3886d118ef5ce31dcef7fd6c8a70b1d0a07ad27b45e72b7d4ceff.jpeg",
+      "favicon": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/69b698b4f8e3886d118ef5ce31dcef7fa79dad8d948419924a2c8e6beee026dc.png",
+      "snippet": "Located at the center of campus, the Peter J. Shields Library is the main library for UC Davis. Collections at this library: Arts • Humanities • Social Sciences",
+      "snippet_highlighted_words": [
+        "Located at the center of campus"
+      ],
+      "source": "UC Davis Library"
+    },
+    {
+      "position": 2,
+      "title": "UC Davis Library",
+      "link": "https://library.ucdavis.edu/",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://library.ucdavis.edu/&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQFnoECDcQAQ",
+      "displayed_link": "https://library.ucdavis.edu",
+      "favicon": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/69b698b4f8e3886d118ef5ce31dcef7f36f435d80a3b5277b5f5a2b0bdf1e1de.png",
+      "snippet": "UC Davis Logo. UC Davis Library 100 NW Quad University of California, Davis Davis, CA 95616. 530-752-8792 · Contact Us. Locations. Peter J. Shields Library.",
+      "snippet_highlighted_words": [
+        "100 NW Quad University of California, Davis Davis, CA 95616"
+      ],
+      "sitelinks": {
+        "inline": [
+          {
+            "title": "Peter J. Shields Library",
+            "link": "https://library.ucdavis.edu/location/peter-j-shields-library/"
+          },
+          {
+            "title": "Hours",
+            "link": "https://library.ucdavis.edu/hours/"
+          },
+          {
+            "title": "Databases",
+            "link": "https://guides.library.ucdavis.edu/az.php"
+          },
+          {
+            "title": "Off-Campus Access",
+            "link": "https://library.ucdavis.edu/off-campus-access/"
+          }
+        ]
+      },
+      "source": "UC Davis Library"
+    },
+    {
+      "position": 3,
+      "title": "Hours",
+      "link": "https://library.ucdavis.edu/hours/",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://library.ucdavis.edu/hours/&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQFnoECDQQAQ",
+      "displayed_link": "https://library.ucdavis.edu › hours",
+      "favicon": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/69b698b4f8e3886d118ef5ce31dcef7f3920c5c41d2da60c9b2e6bed58243e31.png",
+      "snippet": "Peter J. Shields Library · Blaisdell Medical Library · Mabie Law Library · Archives and Special Collections · DataLab. Support The Library. Make a gift to ...",
+      "snippet_highlighted_words": [
+        "Peter J. Shields Library"
+      ],
+      "source": "UC Davis Library"
+    },
+    {
+      "position": 4,
+      "title": "Behind the Name: Peter J. Shields",
+      "link": "https://library.ucdavis.edu/behind-the-name-shields/",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://library.ucdavis.edu/behind-the-name-shields/&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQFnoECDwQAQ",
+      "displayed_link": "https://library.ucdavis.edu › behind-the-name-shields",
+      "thumbnail": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/69b698b4f8e3886d118ef5ce31dcef7f24417dccffdbe465ec99948cf81302fa.jpeg",
+      "favicon": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/69b698b4f8e3886d118ef5ce31dcef7fd451cc590e9782125eeaa1ef0b8f962d.png",
+      "snippet": "As one of the founders of the UC Davis campus, he maintained a lifelong interest in the university community and its students. In 1939 a Peter J. Shields ...",
+      "snippet_highlighted_words": [
+        "UC Davis",
+        "Peter J",
+        "Shields"
+      ],
+      "source": "UC Davis Library"
+    },
+    {
+      "position": 5,
+      "title": "Shields Library Floor Maps",
+      "link": "https://library.ucdavis.edu/floor-map-shields/",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://library.ucdavis.edu/floor-map-shields/&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQFnoECDgQAQ",
+      "displayed_link": "https://library.ucdavis.edu › floor-map-shields",
+      "thumbnail": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/69b698b4f8e3886d118ef5ce31dcef7fb1e26912a92d7182ac24f5c95eb5a78b.png",
+      "favicon": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/69b698b4f8e3886d118ef5ce31dcef7f93142025bcec9cb754853f2a2f89dd45.png",
+      "snippet": "UC Davis Logo. UC Davis Library 100 NW Quad University of California, Davis Davis, CA 95616. 530-752-8792 · Contact Us. Locations. Peter J. Shields Library.",
+      "snippet_highlighted_words": [
+        "100 NW Quad University of California, Davis Davis, CA 95616"
+      ],
+      "source": "UC Davis Library"
+    },
+    {
+      "position": 6,
+      "title": "Shields Library Study Spaces",
+      "link": "https://library.ucdavis.edu/study-spaces/shields-library-study-spaces/",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://library.ucdavis.edu/study-spaces/shields-library-study-spaces/&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQFnoECHAQAQ",
+      "displayed_link": "https://library.ucdavis.edu › study-spaces › shields-libra...",
+      "thumbnail": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/69b698b4f8e3886d118ef5ce31dcef7f0ea08e5693507082b73010040446732b.jpeg",
+      "favicon": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/69b698b4f8e3886d118ef5ce31dcef7f45af08d6062ae9a63be68d41c5016dff.png",
+      "snippet": "Shields Library provides 24-hour access to study space year-round for currently-enrolled undergraduate and graduate students.",
+      "snippet_highlighted_words": [
+        "Shields Library"
+      ],
+      "source": "UC Davis Library"
+    },
+    {
+      "position": 7,
+      "title": "UC Davis Shields Library",
+      "link": "https://www.usgbc.org/projects/uc-davis-shields-library",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.usgbc.org/projects/uc-davis-shields-library&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQFnoECHEQAQ",
+      "displayed_link": "https://www.usgbc.org › projects › uc-davis-shields-libr...",
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOwUcriqC3bgl8aUmDB01R5W-xkGGMj3h-WwuscabRQD-3gJ_iir_R&usqp=CAE&s",
+      "favicon": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/69b698b4f8e3886d118ef5ce31dcef7fe58366de0f6c16d85954c3987a412acb.png",
+      "snippet": "At over 410,000 gross square feet, Peter J. Shields Library is the largest building on the University of California, Davis main campus.",
+      "snippet_highlighted_words": [
+        "Peter J. Shields Library"
+      ],
+      "source": "U.S. Green Building Council"
+    },
+    {
+      "position": 8,
+      "title": "Peter J. Shields Library",
+      "link": "https://maps.apple.com/place?auid=1362150282641206757&lsp=9902",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://maps.apple.com/place%3Fauid%3D1362150282641206757%26lsp%3D9902&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQFnoECG8QAQ",
+      "displayed_link": "https://maps.apple.com › place",
+      "favicon": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/69b698b4f8e3886d118ef5ce31dcef7f7b57bbe8d2cd39bd69dea25bf8d0a91b.png",
+      "snippet": "A four-story library named after Peter J. Shields. It is located in the eastern part of main campus of UC Davis in Davis near downtown Davis.",
+      "snippet_highlighted_words": [
+        "A four-story library named after Peter J. Shields"
+      ],
+      "source": "Apple"
+    },
+    {
+      "position": 9,
+      "title": "UC Davis Library Search",
+      "link": "https://search.library.ucdavis.edu/",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://search.library.ucdavis.edu/&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQFnoECG4QAQ",
+      "displayed_link": "https://search.library.ucdavis.edu",
+      "favicon": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/69b698b4f8e3886d118ef5ce31dcef7f9f304c70c64e1d03bf175bef2d983690.png",
+      "snippet": "Use UC Library Search to find: Articles; Books (print and electronic); Dissertations; Films, videos, music; Government documents; Course reserves.",
+      "snippet_highlighted_words": [
+        "UC Library"
+      ],
+      "source": "UC Davis"
+    }
+  ],
+  "top_stories_link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=Shields+Library&stick=H4sIAAAAAAAAAONgFuLSz9U3MCqvTMtIU0JiawkGZ6aklidWFvulVpQEl6QWFP9iFAtIzS_ISVVIzCnOVyhOTSxKzlBIyy9axMofnJGZmpNSrOCTmVSUWFS5g5XxFpskQ5hf-OclNWvcOTVCUlIdIza5cRf7_FTiPAoAz4M9encAAAA&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQzO0BKAR6BAgbEBM",
+  "top_stories_serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Shields+Library&stick=H4sIAAAAAAAAAONgFuLSz9U3MCqvTMtIU0JiawkGZ6aklidWFvulVpQEl6QWFP9iFAtIzS_ISVVIzCnOVyhOTSxKzlBIyy9axMofnJGZmpNSrOCTmVSUWFS5g5XxFpskQ5hf-OclNWvcOTVCUlIdIza5cRf7_FTiPAoAz4M9encAAAA",
+  "related_searches": [
+    {
+      "block_position": 1,
+      "items": [
+        {
+          "name": "Peter J. Shields Library",
+          "image": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/21ea319f9efd6ebbff5308652063198d977f594e650e7d34a2bdab17cdf98436b84ec825092c9d1b.gif",
+          "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=Shields+Library&stick=H4sIAAAAAAAAAOMwVOLSz9U3MCqvTMtI-8XIsIGF4RULDxeS4CsWLi4OENe8LKPkFQsvF7d-ur5hSVquWUVe0isWPi4eED8j2dA0raKg_BULNxcnSHWakWVVAUJ5ulF2hYnxKxZ-Ll4Q37CoINmkyiQpHW5ZQXZVmUU6QkO2WWFWeSXcOEtz87L0Raz8wRmZqTkpxQo-mUlFiUWVt9gkGcL8wj8nzjjM9m5fVVpxgiKX5qzoRwfuWa1bxCEWkJpfkJOqkJhTnK9QnJpYlJyhkJZftIKDEQC3FcBX-AAAAA&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQs9oBKAB6BAhyEAk",
+          "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Shields+Library&stick=H4sIAAAAAAAAAOMwVOLSz9U3MCqvTMtI-8XIsIGF4RULDxeS4CsWLi4OENe8LKPkFQsvF7d-ur5hSVquWUVe0isWPi4eED8j2dA0raKg_BULNxcnSHWakWVVAUJ5ulF2hYnxKxZ-Ll4Q37CoINmkyiQpHW5ZQXZVmUU6QkO2WWFWeSXcOEtz87L0Raz8wRmZqTkpxQo-mUlFiUWVt9gkGcL8wj8nzjjM9m5fVVpxgiKX5qzoRwfuWa1bxCEWkJpfkJOqkJhTnK9QnJpYlJyhkJZftIKDEQC3FcBX-AAAAA"
+        },
+        {
+          "name": "University of California, Davis",
+          "image": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/21ea319f9efd6ebbff5308652063198d977f594e650e7d345cecbda8a2f87266275d678be524a1a4.gif",
+          "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=University+of+California,+Davis&stick=H4sIAAAAAAAAAOMwVOLQz9U3MC_LKPnFyLCBheEVCw8XF0jIqLwyLSPtFQsXF1zFKxZeLm79dH3DkrRcs4q8pFcsfFw8IH5GsqFpWkVB-SsWbi5OkOo0I8uqAoTydKPsChPjVyz8XLwgvmFRQbJJlUlSOtyyguyqMot0hIZss8Ks8kq4cZbm5mXpi1jlQ_Myy1KLijNLKhXy0xScE3My0_KL8jITdRRcEssyi2-xSTKE-YV_TpxxmO3dvqq04gRFLs1Z0Y8O3LNat4hDLCA1vyAnVSExpzhfoTg1sSg5QwGofQUHIwBuunIwBgEAAA&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQs9oBKAB6BAhyEA4",
+          "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=University+of+California%2C+Davis&stick=H4sIAAAAAAAAAOMwVOLQz9U3MC_LKPnFyLCBheEVCw8XF0jIqLwyLSPtFQsXF1zFKxZeLm79dH3DkrRcs4q8pFcsfFw8IH5GsqFpWkVB-SsWbi5OkOo0I8uqAoTydKPsChPjVyz8XLwgvmFRQbJJlUlSOtyyguyqMot0hIZss8Ks8kq4cZbm5mXpi1jlQ_Myy1KLijNLKhXy0xScE3My0_KL8jITdRRcEssyi2-xSTKE-YV_TpxxmO3dvqq04gRFLs1Z0Y8O3LNat4hDLCA1vyAnVSExpzhfoTg1sSg5QwGofQUHIwBuunIwBgEAAA"
+        },
+        {
+          "name": "UC Davis | F. William Blaisdell M...",
+          "image": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/21ea319f9efd6ebbff5308652063198d977f594e650e7d34460f1e8c66d7c39adda3d0e5878c2497.gif",
+          "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=UC+Davis+%7C+F.+William+Blaisdell+Medical+Library+Sacramento&stick=H4sIAAAAAAAAAOMwVOLWT9c3LEnLNavIS_rFyLCBheEVCw8Xl36uvoFReWVaRtorFi4uDhDXvCyj5BULLxeyjlcsfFw8IH5GsqFpWkVB-SsWbi5OkOo0I8uqAoTydKPsChPjVyz8XLwgvmFRQbJJlUlSOtyyguyqMot0hIZss8Ks8kq4cZbm5mXpi1itQp0VXBLLMosVahTc9BTCM3NyMhNzFZxyEjOLU1JzchR8U1MykxNzFHwyk4oSiyoVghOTixJzU_NK8m-xSTKE-YV_TpxxmO3dvqq04gRFLs1Z0Y8O3LNat4hDLCA1vyAnVSExpzhfoTg1sSg5QyEtv2gFByMA02TEmSQBAAA&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQs9oBKAB6BAhyEBM",
+          "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+%7C+F.+William+Blaisdell+Medical+Library+Sacramento&stick=H4sIAAAAAAAAAOMwVOLWT9c3LEnLNavIS_rFyLCBheEVCw8Xl36uvoFReWVaRtorFi4uDhDXvCyj5BULLxeyjlcsfFw8IH5GsqFpWkVB-SsWbi5OkOo0I8uqAoTydKPsChPjVyz8XLwgvmFRQbJJlUlSOtyyguyqMot0hIZss8Ks8kq4cZbm5mXpi1itQp0VXBLLMosVahTc9BTCM3NyMhNzFZxyEjOLU1JzchR8U1MykxNzFHwyk4oSiyoVghOTixJzU_NK8m-xSTKE-YV_TpxxmO3dvqq04gRFLs1Z0Y8O3LNat4hDLCA1vyAnVSExpzhfoTg1sSg5QyEtv2gFByMA02TEmSQBAAA"
+        },
+        {
+          "name": "Physical Sciences & Engineerin...",
+          "image": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/21ea319f9efd6ebbff5308652063198d977f594e650e7d34f2caedff6d13214fe8114757681fb1b4.gif",
+          "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=Physical+Sciences+and+Engineering+Library+Davis&stick=H4sIAAAAAAAAAOMwVOLRT9c3zEg2NE2rKCj_xciwgYXhFQsPF5d-rr6BUXllWkbaKxYuLg4Q17wso-QVCy8XN0hLSVquWUVe0isWPi4UI16xcHNxglSnGVlWFSCUpxtlV5gYv2Lh5-IF8Q2LCpJNqkyS0uGWFWRXlVmkIzRkmxVmlVfCjbM0Ny9LX8SqH5BRWZyZnJijEJycmZqXnFqskJiXouCal56Zl5palJmXruCTmVSUWFSp4JJYlll8i02SIcwv_HPijMNs7_ZVpRUnKHJpzop-dOCe1bpFHGIBqfkFOakKiTnF-QrFqYlFyRkKaflFKzgYAbiKgoIaAQAA&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQs9oBKAB6BAhyEBg",
+          "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Physical+Sciences+and+Engineering+Library+Davis&stick=H4sIAAAAAAAAAOMwVOLRT9c3zEg2NE2rKCj_xciwgYXhFQsPF5d-rr6BUXllWkbaKxYuLg4Q17wso-QVCy8XN0hLSVquWUVe0isWPi4UI16xcHNxglSnGVlWFSCUpxtlV5gYv2Lh5-IF8Q2LCpJNqkyS0uGWFWRXlVmkIzRkmxVmlVfCjbM0Ny9LX8SqH5BRWZyZnJijEJycmZqXnFqskJiXouCal56Zl5palJmXruCTmVSUWFSp4JJYlll8i02SIcwv_HPijMNs7_ZVpRUnKHJpzop-dOCe1bpFHGIBqfkFOakKiTnF-QrFqYlFyRkKaflFKzgYAbiKgoIaAQAA"
+        },
+        {
+          "name": "Geisel Library",
+          "image": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/21ea319f9efd6ebbff5308652063198d977f594e650e7d34335eaf694272dcafb51d7ac85b0e6f79.gif",
+          "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=Geisel+Library&stick=H4sIAAAAAAAAAOMwVOLUz9U3SDOyrCr4xciwgYXhFQsPFxdIzKi8Mi0j7RULFxcHiGtellHyioWXi1s_Xd-wJC3XrCIv6RULHxcPiJ-RbGiaVlFQ_oqFmwthIEJ5ulF2hYnxKxZ-Ll4Q37CoINmkyiQpHW5ZQXZVmUU6QkO2WWFWeSXcOEtz87L0Rax87qmZxak5Cj6ZSUWJRZW32CQZwvzCPyfOOMz2bl9VWnGCIpfmrOhHB-5ZrVvEIRaQml-Qk6qQmFOcr1CcmliUnKGQll-0goMRAHe0aTr2AAAA&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQs9oBKAB6BAhyEB0",
+          "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Geisel+Library&stick=H4sIAAAAAAAAAOMwVOLUz9U3SDOyrCr4xciwgYXhFQsPFxdIzKi8Mi0j7RULFxcHiGtellHyioWXi1s_Xd-wJC3XrCIv6RULHxcPiJ-RbGiaVlFQ_oqFmwthIEJ5ulF2hYnxKxZ-Ll4Q37CoINmkyiQpHW5ZQXZVmUU6QkO2WWFWeSXcOEtz87L0Rax87qmZxak5Cj6ZSUWJRZW32CQZwvzCPyfOOMz2bl9VWnGCIpfmrOhHB-5ZrVvEIRaQml-Qk6qQmFOcr1CcmliUnKGQll-0goMRAHe0aTr2AAAA"
+        },
+        {
+          "name": "Mary L. Stephens Davis Library",
+          "image": "https://serpapi.com/searches/67a99885dfa7aabddeed878b/images/21ea319f9efd6ebbff5308652063198d977f594e650e7d34ba66f05488326092ebd0c3e03c67cd6f.gif",
+          "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=Mary+L.+Stephens+Davis+Library&stick=H4sIAAAAAAAAAOMwVOLWT9c3LEk3yq4wMf7FyLCBheEVCw8Xl36uvoFReWVaRtorFi4uDhDXvCyj5BULLxdER1quWUVe0isWPi4eED8j2dA0raKg_BULNxcnSHWakWVVAUI5xIJXLPxcvCC-YVFBskmVSVI63LKC7Koyi3SEhmyzwqzySrhxlubmZemLWOV8E4sqFXz0FIJLUgsyUvOKFVwSyzKLFXwyk4qAMrfYJBnC_MI_J844zPZuX1VacYIil-as6EcH7lmtW8QhFpCaX5CTqpCYU5yvUJyaWJScoZCWX7SCgxEAdOfRPQgBAAA&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQs9oBKAB6BAhyECI",
+          "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Mary+L.+Stephens+Davis+Library&stick=H4sIAAAAAAAAAOMwVOLWT9c3LEk3yq4wMf7FyLCBheEVCw8Xl36uvoFReWVaRtorFi4uDhDXvCyj5BULLxdER1quWUVe0isWPi4eED8j2dA0raKg_BULNxcnSHWakWVVAUI5xIJXLPxcvCC-YVFBskmVSVI63LKC7Koyi3SEhmyzwqzySrhxlubmZemLWOV8E4sqFXz0FIJLUgsyUvOKFVwSyzKLFXwyk4qAMrfYJBnC_MI_J844zPZuX1VacYIil-as6EcH7lmtW8QhFpCaX5CTqpCYU5yvUJyaWJScoZCWX7SCgxEAdOfRPQgBAAA"
+        }
+      ]
+    },
+    {
+      "block_position": 1,
+      "query": "UC Davis Library",
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=UC+Davis+Library&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ1QJ6BQiNARAB",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Library"
+    },
+    {
+      "block_position": 1,
+      "query": "Uc davis library hours",
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=Uc+davis+library+hours&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ1QJ6BQiQARAB",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Uc+davis+library+hours"
+    },
+    {
+      "block_position": 1,
+      "query": "uc davis library 24-hour room",
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=uc+davis+library+24-hour+room&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ1QJ6BQiPARAB",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=uc+davis+library+24-hour+room"
+    },
+    {
+      "block_position": 1,
+      "query": "Uc davis Shields library hours",
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=Uc+davis+Shields+library+hours&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ1QJ6BQiRARAB",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Uc+davis+Shields+library+hours"
+    },
+    {
+      "block_position": 1,
+      "query": "UC Davis library VPN",
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=UC+Davis+library+VPN&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ1QJ6BQiUARAB",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+library+VPN"
+    },
+    {
+      "block_position": 1,
+      "query": "UC Davis library login",
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=UC+Davis+library+login&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ1QJ6BQiSARAB",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+library+login"
+    },
+    {
+      "block_position": 1,
+      "query": "UC Davis library Map",
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=UC+Davis+library+Map&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ1QJ6BQiOARAB",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+library+Map"
+    },
+    {
+      "block_position": 1,
+      "query": "UC Davis Library Search",
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&gl=us&hl=en&q=UC+Davis+Library+Search&sa=X&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ1QJ6BQiTARAB",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Library+Search"
+    }
+  ],
+  "pagination": {
+    "current": 1,
+    "next": "https://www.google.com/search?q=UC+Davis+Peter+J.+Shields+Library&sca_esv=f49db6828bbb6a84&gl=us&hl=en&ei=h5ipZ7vQDqeJptQPqIa-2AI&start=10&sa=N&sstk=Af40H4UmYgMwTZfPbD8t7YycRkAS4SBBsu9zD0Z2VAhz8_6KF41VGGjk0HZ0yDa985jwimRdIVGoll91VmU9xOZtekEqTBrIwsP11g&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ8NMDegQIBxAW",
+    "other_pages": {
+      "2": "https://www.google.com/search?q=UC+Davis+Peter+J.+Shields+Library&sca_esv=f49db6828bbb6a84&gl=us&hl=en&ei=h5ipZ7vQDqeJptQPqIa-2AI&start=10&sa=N&sstk=Af40H4UmYgMwTZfPbD8t7YycRkAS4SBBsu9zD0Z2VAhz8_6KF41VGGjk0HZ0yDa985jwimRdIVGoll91VmU9xOZtekEqTBrIwsP11g&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ8tMDegQIBxAE",
+      "3": "https://www.google.com/search?q=UC+Davis+Peter+J.+Shields+Library&sca_esv=f49db6828bbb6a84&gl=us&hl=en&ei=h5ipZ7vQDqeJptQPqIa-2AI&start=20&sa=N&sstk=Af40H4UmYgMwTZfPbD8t7YycRkAS4SBBsu9zD0Z2VAhz8_6KF41VGGjk0HZ0yDa985jwimRdIVGoll91VmU9xOZtekEqTBrIwsP11g&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ8tMDegQIBxAG",
+      "4": "https://www.google.com/search?q=UC+Davis+Peter+J.+Shields+Library&sca_esv=f49db6828bbb6a84&gl=us&hl=en&ei=h5ipZ7vQDqeJptQPqIa-2AI&start=30&sa=N&sstk=Af40H4UmYgMwTZfPbD8t7YycRkAS4SBBsu9zD0Z2VAhz8_6KF41VGGjk0HZ0yDa985jwimRdIVGoll91VmU9xOZtekEqTBrIwsP11g&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ8tMDegQIBxAI",
+      "5": "https://www.google.com/search?q=UC+Davis+Peter+J.+Shields+Library&sca_esv=f49db6828bbb6a84&gl=us&hl=en&ei=h5ipZ7vQDqeJptQPqIa-2AI&start=40&sa=N&sstk=Af40H4UmYgMwTZfPbD8t7YycRkAS4SBBsu9zD0Z2VAhz8_6KF41VGGjk0HZ0yDa985jwimRdIVGoll91VmU9xOZtekEqTBrIwsP11g&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ8tMDegQIBxAK",
+      "6": "https://www.google.com/search?q=UC+Davis+Peter+J.+Shields+Library&sca_esv=f49db6828bbb6a84&gl=us&hl=en&ei=h5ipZ7vQDqeJptQPqIa-2AI&start=50&sa=N&sstk=Af40H4UmYgMwTZfPbD8t7YycRkAS4SBBsu9zD0Z2VAhz8_6KF41VGGjk0HZ0yDa985jwimRdIVGoll91VmU9xOZtekEqTBrIwsP11g&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ8tMDegQIBxAM",
+      "7": "https://www.google.com/search?q=UC+Davis+Peter+J.+Shields+Library&sca_esv=f49db6828bbb6a84&gl=us&hl=en&ei=h5ipZ7vQDqeJptQPqIa-2AI&start=60&sa=N&sstk=Af40H4UmYgMwTZfPbD8t7YycRkAS4SBBsu9zD0Z2VAhz8_6KF41VGGjk0HZ0yDa985jwimRdIVGoll91VmU9xOZtekEqTBrIwsP11g&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ8tMDegQIBxAO",
+      "8": "https://www.google.com/search?q=UC+Davis+Peter+J.+Shields+Library&sca_esv=f49db6828bbb6a84&gl=us&hl=en&ei=h5ipZ7vQDqeJptQPqIa-2AI&start=70&sa=N&sstk=Af40H4UmYgMwTZfPbD8t7YycRkAS4SBBsu9zD0Z2VAhz8_6KF41VGGjk0HZ0yDa985jwimRdIVGoll91VmU9xOZtekEqTBrIwsP11g&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ8tMDegQIBxAQ",
+      "9": "https://www.google.com/search?q=UC+Davis+Peter+J.+Shields+Library&sca_esv=f49db6828bbb6a84&gl=us&hl=en&ei=h5ipZ7vQDqeJptQPqIa-2AI&start=80&sa=N&sstk=Af40H4UmYgMwTZfPbD8t7YycRkAS4SBBsu9zD0Z2VAhz8_6KF41VGGjk0HZ0yDa985jwimRdIVGoll91VmU9xOZtekEqTBrIwsP11g&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ8tMDegQIBxAS",
+      "10": "https://www.google.com/search?q=UC+Davis+Peter+J.+Shields+Library&sca_esv=f49db6828bbb6a84&gl=us&hl=en&ei=h5ipZ7vQDqeJptQPqIa-2AI&start=90&sa=N&sstk=Af40H4UmYgMwTZfPbD8t7YycRkAS4SBBsu9zD0Z2VAhz8_6KF41VGGjk0HZ0yDa985jwimRdIVGoll91VmU9xOZtekEqTBrIwsP11g&ved=2ahUKEwj7r5adubiLAxWnhIkEHSiDDysQ8tMDegQIBxAU"
+    }
+  },
+  "serpapi_pagination": {
+    "current": 1,
+    "next_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Peter+J.+Shields+Library&start=10",
+    "next": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Peter+J.+Shields+Library&start=10",
+    "other_pages": {
+      "2": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Peter+J.+Shields+Library&start=10",
+      "3": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Peter+J.+Shields+Library&start=20",
+      "4": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Peter+J.+Shields+Library&start=30",
+      "5": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Peter+J.+Shields+Library&start=40",
+      "6": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Peter+J.+Shields+Library&start=50",
+      "7": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Peter+J.+Shields+Library&start=60",
+      "8": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Peter+J.+Shields+Library&start=70",
+      "9": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Peter+J.+Shields+Library&start=80",
+      "10": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Peter+J.+Shields+Library&start=90"
+    }
+  }
+}

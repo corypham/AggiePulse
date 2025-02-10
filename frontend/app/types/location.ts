@@ -161,3 +161,13 @@ export const LOCATION_DETAILS: { [key: string]: { id: string; title: string } } 
     title: 'Peter J. Shields Library',
   },
 };
+
+// Add new types for bulk operations
+interface BulkLocationResponse {
+  [locationId: string]: LocationDynamic;
+}
+
+interface CachedBulkData {
+  timestamp: number;
+  data: BulkLocationResponse;
+}
