@@ -3,7 +3,7 @@ import { View, Text, Image, ScrollView, TouchableOpacity, StatusBar, Animated } 
 import { useRouter, Stack } from 'expo-router';
 import { Heart, ChevronLeft, Share2 } from 'lucide-react-native';
 import { useFavorites } from '../context/FavoritesContext';
-import { formatOpenUntil, formatTime, updateFacilityHours, isCurrentlyOpen, getOpenStatusText, getLocationHours, isLocationOpen } from '../_utils/timeUtils';
+import { formatOpenUntil, formatTime, updateFacilityHours, isCurrentlyOpen, getOpenStatusText, getLocationHours, isLocationOpen, formatTimeRangeWithMeridiem, calculateBestWorstTimes } from '../_utils/timeUtils';
 import { getStatusIcon } from '@/app/_utils/statusIcons';
 import type { Location } from '../types/location';
 import { getAmenityIcon } from '../_utils/amenityIcons';
@@ -11,7 +11,6 @@ import { getLocationHours as getLocationHoursUtils } from '../_utils/hoursUtils'
 import LocationService from '../services/locationService';
 import CrowdForecast  from '../components/CrowdForecast';
 
-import { formatDistance } from '../_utils/distanceUtils';
 
 // Helper function to get location status
 const getLocationStatus = (location: Location) => {
@@ -117,20 +116,19 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
             const dayHours = location.hours?.[day];
             const isToday = day === today;
             
-            // Check if this day's schedule is currently active
-            const isCurrentlyOpen = isToday && isLocationOpen(location);
-            
             return (
-              <View key={index} className="flex-row items-start">
+              <View key={index} className="flex-row items-start pl-2">
                 <Text 
-                  className={`${
-                    isCurrentlyOpen ? 'text-[#22C55E]' : 'text-[#EF4444]'
-                  } font-aileron-bold w-[72px]`}
+                  className={`w-[72px] ${
+                    isToday ? 'font-aileron-heavy' : 'font-aileron text-[#6B7280]'
+                  }`}
                 >
                   {day.charAt(0).toUpperCase() + day.slice(1, 3)}
                 </Text>
                 <View className="flex-1">
-                  <Text className="font-aileron text-[#6B7280] text-lg">
+                  <Text className={`text-[#6B7280] text-lg ${
+                    isToday ? 'font-aileron-heavy text-black' : 'font-aileron'
+                  }`}>
                     {dayHours?.open === 'Closed' 
                       ? 'Closed'
                       : dayHours?.open && dayHours?.close
@@ -142,11 +140,6 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
               </View>
             );
           })}
-        </View>
-        
-        {/* Thin Grey Divider */}
-        <View className="flex-row justify-center py-4">
-          <View className="h-[1px] bg-gray-200 flex-1 mx-1" />
         </View>
       </>
     );
@@ -168,34 +161,12 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
   const statusText = React.useMemo(() => {
     if (!location.hours) return 'Hours unavailable';
 
-    const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-    const today = days[new Date().getDay()];
-    const todayHours = location.hours[today];
-
-    if (isOpen && todayHours?.close) {
-      return `until ${todayHours.close}`;
+    if (isOpen) {
+      return `until ${closeTime}`;
     }
-
-    // If it's closed, find next opening time
-    if (todayHours?.open === 'Closed') {
-      // Find next day that's not closed
-      for (let i = 1; i <= 7; i++) {
-        const nextDay = days[(new Date().getDay() + i) % 7];
-        const nextDayHours = location.hours[nextDay];
-        if (nextDayHours?.open && nextDayHours.open !== 'Closed') {
-          const dayName = i === 1 ? 'Mon' : nextDay.slice(0, 3).charAt(0).toUpperCase() + nextDay.slice(1, 3);
-          return `until ${nextDayHours.open} ${dayName}`;
-        }
-      }
-    }
-
-    // If opening later today
-    if (todayHours?.open) {
-      return `until ${todayHours.open}`;
-    }
-
-    return 'Hours unavailable';
-  }, [location.hours, isOpen]);
+    
+    return `until ${openTime}${nextOpenDay ? ` ${nextOpenDay}` : ''}`;
+  }, [location.hours, isOpen, closeTime, openTime, nextOpenDay]);
 
   // Add fade animation value
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -287,6 +258,10 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
     if (!isOpen) return 'Not Busy';
     return location.currentStatus || 'Not Busy';
   };
+
+  const { bestTime, worstTime } = calculateBestWorstTimes(
+    crowdData?.weeklyBusyness?.[today] ?? []
+  );
 
   return (
     <Animated.View 
@@ -384,7 +359,7 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
                 </View>
                 <View className="bg-[#f5f4f4] px-3 py-1.5 ml-3 rounded-lg">
                   <Text className="text-[#585555] text-sm font-aileron-semibold">
-                    {isOpen ? `Best Time: ${location.bestTimes.best}` : 'Opens at 12 PM'}
+                    {`Best Time: ${bestTime.replace(/(\d+)(a|p) - (\d+)(a|p)/, '$1$2m - $3$4m')}`}
                   </Text>
                 </View>
               </View>
@@ -432,7 +407,7 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
         </Animated.View>
 
         {/* Grey Divider */}
-        <View className="h-2 bg-gray-100" />
+        <View className="h-3 bg-gray-100" />
 
         {/* Crowd Levels Section */}
         <View ref={sectionRefs.crowd} className="mb-6">
@@ -476,7 +451,7 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
             </View>
           </View>
           
-          <View className="h-2 bg-gray-100" />
+          <View className="h-3 bg-gray-100" />
           
           <View className="">
               <Text className="text-white text-center text-lg">
@@ -492,7 +467,7 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
           </View>
 
         {/* Grey Divider */}
-        <View className="h-2 bg-gray-100" />
+        <View className="h-3 bg-gray-100" />
 
         {/* Best Spot Section
         <View className="px-4 py-4">
@@ -516,8 +491,8 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
           ))}
         </View> */}
 
-        {/* Grey Divider */}
-        <View className="h-2 bg-gray-100" />
+        {/* Grey Divider
+        <View className="h-2 bg-gray-100" /> */}
 
         {/* Details Section */}
         <View ref={sectionRefs.details} className="mb-6">
@@ -572,7 +547,7 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
 
         {/* Discussion Section */}
         <View ref={sectionRefs.discussion} className="mb-6">
-          <View className="h-2 bg-gray-100" />
+          <View className="h-3 bg-gray-100" />
           
           <View className="px-4 py-4">
             <Text className="font-aileron-bold text-xl mb-4">Discussions</Text>
