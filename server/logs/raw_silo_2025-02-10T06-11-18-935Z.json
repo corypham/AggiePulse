@@ -1,0 +1,892 @@
+{
+  "search_metadata": {
+    "id": "67a99885b2a5f0f017c0b71d",
+    "status": "Success",
+    "json_endpoint": "https://serpapi.com/searches/7489e61352a7f6fb/67a99885b2a5f0f017c0b71d.json",
+    "created_at": "2025-02-10 06:11:17 UTC",
+    "processed_at": "2025-02-10 06:11:17 UTC",
+    "google_url": "https://www.google.com/search?q=UC+Davis+Silo+Market&oq=UC+Davis+Silo+Market&uule=w+CAIQICIeRGF2aXMsQ2FsaWZvcm5pYSxVbml0ZWQgU3RhdGVz&hl=en&gl=us&sourceid=chrome&ie=UTF-8",
+    "raw_html_file": "https://serpapi.com/searches/7489e61352a7f6fb/67a99885b2a5f0f017c0b71d.html",
+    "total_time_taken": 1.19
+  },
+  "search_parameters": {
+    "engine": "google",
+    "q": "UC Davis Silo Market",
+    "location_requested": "Davis, California, United States",
+    "location_used": "Davis,California,United States",
+    "google_domain": "google.com",
+    "hl": "en",
+    "gl": "us",
+    "device": "desktop"
+  },
+  "search_information": {
+    "query_displayed": "UC Davis Silo Market",
+    "total_results": 125000,
+    "time_taken_displayed": 0.27,
+    "organic_results_state": "Results for exact spelling"
+  },
+  "knowledge_graph": {
+    "title": "Silo Market",
+    "thumbnail": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/ecd03e4fe5b9158e6b016c58757b37f16a360a8bdeb1eda75199525b872efd07.jpeg",
+    "type": "Cafe",
+    "entity_type": "related_questions",
+    "kgmid": "/g/11h84c2r_0",
+    "knowledge_graph_search_link": "https://www.google.com/search?kgmid=/g/11h84c2r_0&hl=en-US&q=Silo+Market",
+    "serpapi_knowledge_graph_search_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en-US&kgmid=%2Fg%2F11h84c2r_0&location=Davis%2C+California%2C+United+States&q=Silo+Market",
+    "place_id": "ChIJidwTEHYphYARb_pIHkjRWII",
+    "website": "https://housing.ucdavis.edu/dining/markets/silo-market/",
+    "directions": "https://maps.google.com/maps?hl=en&gl=us&uule=w+CAIQICIeRGF2aXMsQ2FsaWZvcm5pYSxVbml0ZWQgU3RhdGVz&um=1&ie=UTF-8&fb=1&sa=X&geocode=KYncExB2KYWAMW_6SB5I0ViC&daddr=University+of+California,+Davis,+Silo+South,+Davis,+CA+95616",
+    "reviews": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&hl=en&gl=us&si=APYL9bs7Hg2KMLB-4tSoTdxuOx8BdRvHbByC_AuVpNyh0x2KzUnMI1TnRBgO_RJsJoHlpRyCp0OU4XutbhQlNQW8b5N9jp8mhZo47KH-deWipsKRzMhCmyDWlQ1E5FnU4Ic8cy_bbhOq&q=Silo+Market+Reviews&sa=X&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQ0bkNegQIHhAE",
+    "local_map": {
+      "image": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/ecd03e4fe5b9158e6b016c58757b37f1f9fc05d6c1090dc58456ebdfcea110d1.webp",
+      "link": "https://www.google.com/maps/place/Silo+Market/data=!4m2!3m1!1s0x0:0x8258d1481e48fa6f?sa=X&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQ_BJ6BAgVEAA&hl=en&gl=us"
+    },
+    "rating": 3.4,
+    "review_count": 7,
+    "located_in": "University of California, Davis",
+    "address": "University of California, Davis, Silo South, Davis, CA 95616",
+    "address_links": [
+      {
+        "text": "Address",
+        "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&hl=en&gl=us&q=silo+market+address&ludocid=9392487130557119087&sa=X&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQ6BN6BAglEAI"
+      }
+    ],
+    "raw_hours": "Closed ⋅ Opens 9 AM Mon",
+    "hours": {
+      "sunday": {
+        "opens": "Closed"
+      },
+      "monday": {
+        "opens": "9 AM",
+        "closes": "5:30 PM"
+      },
+      "tuesday": {
+        "opens": "9 AM",
+        "closes": "5:30 PM"
+      },
+      "wednesday": {
+        "opens": "9 AM",
+        "closes": "5:30 PM"
+      },
+      "thursday": {
+        "opens": "9 AM",
+        "closes": "5:30 PM"
+      },
+      "friday": {
+        "opens": "9 AM",
+        "closes": "5:30 PM"
+      },
+      "saturday": {
+        "opens": "Closed"
+      }
+    },
+    "popular_times": {
+      "graph_results": {
+        "monday": [
+          {
+            "time": "6 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "7 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "8 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "9 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 21
+          },
+          {
+            "time": "10 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 26
+          },
+          {
+            "time": "11 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 21
+          },
+          {
+            "time": "12 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 40
+          },
+          {
+            "time": "1 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 51
+          },
+          {
+            "time": "2 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 57
+          },
+          {
+            "time": "3 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 42
+          },
+          {
+            "time": "4 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 36
+          },
+          {
+            "time": "5 PM",
+            "info": "Usually not busy",
+            "busyness_score": 13
+          },
+          {
+            "time": "6 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "7 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "8 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "9 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "10 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "11 PM",
+            "busyness_score": 0
+          }
+        ],
+        "tuesday": [
+          {
+            "time": "6 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "7 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "8 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "9 AM",
+            "info": "Usually a little busy",
+            "busyness_score": 73
+          },
+          {
+            "time": "10 AM",
+            "info": "Usually a little busy",
+            "busyness_score": 78
+          },
+          {
+            "time": "11 AM",
+            "info": "Usually a little busy",
+            "busyness_score": 71
+          },
+          {
+            "time": "12 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 61
+          },
+          {
+            "time": "1 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 63
+          },
+          {
+            "time": "2 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 82
+          },
+          {
+            "time": "3 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 78
+          },
+          {
+            "time": "4 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 82
+          },
+          {
+            "time": "5 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 55
+          },
+          {
+            "time": "6 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "7 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "8 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "9 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "10 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "11 PM",
+            "busyness_score": 0
+          }
+        ],
+        "wednesday": [
+          {
+            "time": "6 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "7 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "8 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "9 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 21
+          },
+          {
+            "time": "10 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 30
+          },
+          {
+            "time": "11 AM",
+            "info": "Usually a little busy",
+            "busyness_score": 51
+          },
+          {
+            "time": "12 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 69
+          },
+          {
+            "time": "1 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 71
+          },
+          {
+            "time": "2 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 84
+          },
+          {
+            "time": "3 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 92
+          },
+          {
+            "time": "4 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 100
+          },
+          {
+            "time": "5 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 63
+          },
+          {
+            "time": "6 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "7 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "8 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "9 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "10 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "11 PM",
+            "busyness_score": 0
+          }
+        ],
+        "thursday": [
+          {
+            "time": "6 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "7 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "8 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "9 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 38
+          },
+          {
+            "time": "10 AM",
+            "info": "Usually a little busy",
+            "busyness_score": 57
+          },
+          {
+            "time": "11 AM",
+            "info": "Usually a little busy",
+            "busyness_score": 59
+          },
+          {
+            "time": "12 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 73
+          },
+          {
+            "time": "1 PM",
+            "info": "Usually as busy as it gets",
+            "busyness_score": 86
+          },
+          {
+            "time": "2 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 76
+          },
+          {
+            "time": "3 PM",
+            "info": "Usually a little busy",
+            "busyness_score": 63
+          },
+          {
+            "time": "4 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 32
+          },
+          {
+            "time": "5 PM",
+            "info": "Usually not busy",
+            "busyness_score": 11
+          },
+          {
+            "time": "6 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "7 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "8 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "9 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "10 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "11 PM",
+            "busyness_score": 0
+          }
+        ],
+        "friday": [
+          {
+            "time": "6 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "7 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "8 AM",
+            "busyness_score": 0
+          },
+          {
+            "time": "9 AM",
+            "info": "Usually a little busy",
+            "busyness_score": 61
+          },
+          {
+            "time": "10 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 42
+          },
+          {
+            "time": "11 AM",
+            "info": "Usually not too busy",
+            "busyness_score": 46
+          },
+          {
+            "time": "12 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 48
+          },
+          {
+            "time": "1 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 34
+          },
+          {
+            "time": "2 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 34
+          },
+          {
+            "time": "3 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 30
+          },
+          {
+            "time": "4 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 25
+          },
+          {
+            "time": "5 PM",
+            "info": "Usually not too busy",
+            "busyness_score": 28
+          },
+          {
+            "time": "6 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "7 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "8 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "9 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "10 PM",
+            "busyness_score": 0
+          },
+          {
+            "time": "11 PM",
+            "busyness_score": 0
+          }
+        ]
+      }
+    },
+    "user_reviews": [
+      {
+        "summary": "Its a tiny slice of heaven for those that study and/or work near the silo.",
+        "link": "https://www.google.com/maps/reviews/data=!4m5!14m4!1m3!1m2!1s110234013360916426986!2s0x808529761013dc89:0x8258d1481e48fa6f?ved=1t:31295&ictx=111",
+        "user": {
+          "name": "Catrina Porter",
+          "link": "https://www.google.com/maps/contrib/110234013360916426986?hl=en-US&ved=1t:31296&ictx=111",
+          "thumbnail": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/ecd03e4fe5b9158e6b016c58757b37f187d4559079c41729200da6df354a81f225d846d5b26d42ccb288298288954cef.png"
+        }
+      },
+      {
+        "summary": "Prices for the snacks are high.",
+        "link": "https://www.google.com/maps/reviews/data=!4m5!14m4!1m3!1m2!1s112156718922630809570!2s0x808529761013dc89:0x8258d1481e48fa6f?ved=1t:31295&ictx=111",
+        "user": {
+          "name": "Jasmine B",
+          "link": "https://www.google.com/maps/contrib/112156718922630809570?hl=en-US&ved=1t:31296&ictx=111",
+          "thumbnail": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/ecd03e4fe5b9158e6b016c58757b37f187d4559079c41729109eb705e25eec4f31fed474d8312cc32bd1c9f6f14b2fbc.png"
+        }
+      }
+    ],
+    "unclaimed_listing": true,
+    "profiles": [
+      {
+        "name": "Instagram",
+        "link": "https://www.instagram.com/ucdavisdiningservices/",
+        "image": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/ecd03e4fe5b9158e6b016c58757b37f14d79ca9579fa54edc306c2583e381249c78ae5ef3584e832.png"
+      }
+    ],
+    "people_also_search_for": [
+      {
+        "name": "The Coffee House",
+        "extensions": [
+          "Coffee shop"
+        ],
+        "place_id": "3845411902231671120",
+        "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&hl=en&gl=us&tbm=lcl&q=Silo+Market&rflfq=1&num=20&uule=w+CAIQICIeRGF2aXMsQ2FsaWZvcm5pYSxVbml0ZWQgU3RhdGVz&stick=H4sIAAAAAAAAABWQTUrFAAyE6UIRXEnFRVc9Qib_OYQgeIIiFcVCH32eyBN4Lk9hus18mczk7nYaJdUUKGIWeABM04gKaFIxk_Q8XTA9wpy5vFiUE0QVVdOoVCWSZSgIlBI9bKU4OM3cg8NTMY2W7a1CqKzKJC2bHsIikpDStIidx60UTYiHlWepZju2VRpCXCjdCqnaMZUDTp5MULN2lDMmCTk3BwtkOnv2PjP3HdO0btAdihpVd8PJebiUd-xGEWzRSJcn65aW0aE4z59oJ3A6daneZ1MjeIMkKl5K9DsMf8PTy7pftnVetus-X9flePuY3_fj5-b-9XPb5-fl-Fq__wG_BHvMfgEAAA",
+        "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google_local&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Silo+Market&uule=w+CAIQICIeRGF2aXMsQ2FsaWZvcm5pYSxVbml0ZWQgU3RhdGVz",
+        "image": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/ecd03e4fe5b9158e6b016c58757b37f117d006c24bff5fa8d50be9cd5586a4d4e10edd285335b1d1e0140da42ce3fc9c.jpeg"
+      },
+      {
+        "name": "Cooks",
+        "extensions": [
+          "Food court"
+        ],
+        "place_id": "1971480922032238631",
+        "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&hl=en&gl=us&tbm=lcl&q=Silo+Market&rflfq=1&num=20&uule=w+CAIQICIeRGF2aXMsQ2FsaWZvcm5pYSxVbml0ZWQgU3RhdGVz&stick=H4sIAAAAAAAAABWQTUrFAAyE6UIRXEnFRVc9Qib_OYQgeIIiFcVCH32eyBN4Lk9hus18mczk7nYaJdUUKGIWeABM04gKaFIxk_Q8XTA9wpy5vFiUE0QVVdOoVCWSZSgIlBI9bKU4OM3cg8NTMY2W7a1CqKzKJC2bHsIikpDStIidx60UTYiHlWepZju2VRpCXCjdCqnaMZUDTp5MULN2lDMmCTk3BwtkOnv2PjP3HdO0btAdihpVd8PJebiUd-xGEWzRSJcn65aW0aE4z59oJ3A6daneZ1MjeIMkKl5K9DsMf8PTy7pftnVetus-X9flePuY3_fj5-b-9XPb5-fl-Fq__wG_BHvMfgEAAA",
+        "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google_local&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Silo+Market&uule=w+CAIQICIeRGF2aXMsQ2FsaWZvcm5pYSxVbml0ZWQgU3RhdGVz",
+        "image": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/ecd03e4fe5b9158e6b016c58757b37f117d006c24bff5fa8d50be9cd5586a4d4656096ce9bb13f194c32d24bc7b1af2e.png"
+      },
+      {
+        "name": "WESTLA... MARKET",
+        "place_id": "15622969234281009799",
+        "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&hl=en&gl=us&tbm=lcl&q=Silo+Market&rflfq=1&num=20&uule=w+CAIQICIeRGF2aXMsQ2FsaWZvcm5pYSxVbml0ZWQgU3RhdGVz&stick=H4sIAAAAAAAAABWQTUrFAAyE6UIRXEnFRVc9Qib_OYQgeIIiFcVCH32eyBN4Lk9hus18mczk7nYaJdUUKGIWeABM04gKaFIxk_Q8XTA9wpy5vFiUE0QVVdOoVCWSZSgIlBI9bKU4OM3cg8NTMY2W7a1CqKzKJC2bHsIikpDStIidx60UTYiHlWepZju2VRpCXCjdCqnaMZUDTp5MULN2lDMmCTk3BwtkOnv2PjP3HdO0btAdihpVd8PJebiUd-xGEWzRSJcn65aW0aE4z59oJ3A6daneZ1MjeIMkKl5K9DsMf8PTy7pftnVetus-X9flePuY3_fj5-b-9XPb5-fl-Fq__wG_BHvMfgEAAA",
+        "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google_local&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Silo+Market&uule=w+CAIQICIeRGF2aXMsQ2FsaWZvcm5pYSxVbml0ZWQgU3RhdGVz",
+        "image": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/ecd03e4fe5b9158e6b016c58757b37f117d006c24bff5fa8d50be9cd5586a4d44e2cf39605bd28ccbe467498a865a006.png"
+      },
+      {
+        "name": "Local Kitchens",
+        "extensions": [
+          "Restaurant"
+        ],
+        "place_id": "4099338951913140819",
+        "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&hl=en&gl=us&tbm=lcl&q=Silo+Market&rflfq=1&num=20&uule=w+CAIQICIeRGF2aXMsQ2FsaWZvcm5pYSxVbml0ZWQgU3RhdGVz&stick=H4sIAAAAAAAAABWQTUrFAAyE6UIRXEnFRVc9Qib_OYQgeIIiFcVCH32eyBN4Lk9hus18mczk7nYaJdUUKGIWeABM04gKaFIxk_Q8XTA9wpy5vFiUE0QVVdOoVCWSZSgIlBI9bKU4OM3cg8NTMY2W7a1CqKzKJC2bHsIikpDStIidx60UTYiHlWepZju2VRpCXCjdCqnaMZUDTp5MULN2lDMmCTk3BwtkOnv2PjP3HdO0btAdihpVd8PJebiUd-xGEWzRSJcn65aW0aE4z59oJ3A6daneZ1MjeIMkKl5K9DsMf8PTy7pftnVetus-X9flePuY3_fj5-b-9XPb5-fl-Fq__wG_BHvMfgEAAA",
+        "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google_local&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Silo+Market&uule=w+CAIQICIeRGF2aXMsQ2FsaWZvcm5pYSxVbml0ZWQgU3RhdGVz",
+        "image": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/ecd03e4fe5b9158e6b016c58757b37f117d006c24bff5fa8d50be9cd5586a4d4e7bc8291775d1f35ad65cc13b5e1ffe1.jpeg"
+      },
+      {
+        "name": "Scrubs Cafe",
+        "extensions": [
+          "Cafe"
+        ],
+        "place_id": "7999272855667276841",
+        "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&hl=en&gl=us&tbm=lcl&q=Silo+Market&rflfq=1&num=20&uule=w+CAIQICIeRGF2aXMsQ2FsaWZvcm5pYSxVbml0ZWQgU3RhdGVz&stick=H4sIAAAAAAAAABWQTUrFAAyE6UIRXEnFRVc9Qib_OYQgeIIiFcVCH32eyBN4Lk9hus18mczk7nYaJdUUKGIWeABM04gKaFIxk_Q8XTA9wpy5vFiUE0QVVdOoVCWSZSgIlBI9bKU4OM3cg8NTMY2W7a1CqKzKJC2bHsIikpDStIidx60UTYiHlWepZju2VRpCXCjdCqnaMZUDTp5MULN2lDMmCTk3BwtkOnv2PjP3HdO0btAdihpVd8PJebiUd-xGEWzRSJcn65aW0aE4z59oJ3A6daneZ1MjeIMkKl5K9DsMf8PTy7pftnVetus-X9flePuY3_fj5-b-9XPb5-fl-Fq__wG_BHvMfgEAAA",
+        "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google_local&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Silo+Market&uule=w+CAIQICIeRGF2aXMsQ2FsaWZvcm5pYSxVbml0ZWQgU3RhdGVz",
+        "image": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/ecd03e4fe5b9158e6b016c58757b37f117d006c24bff5fa8d50be9cd5586a4d41a1e0a2a251846d67497ca0e89848c05.jpeg"
+      }
+    ]
+  },
+  "related_questions": [
+    {
+      "question": "What time does UC Davis Silo Peets open in the summer?",
+      "snippet": "Peet's Coffee at the Silo: Open weekdays 7:30 a.m.-2:30 p.m. Peet's Coffee at the ARC and King Hall Coffee: Both are open weekdays 8 a.m.-2 p.m., and all three Peet's locations are serving summer drinks: sparkling grapefruit cold brew, sparkling passion fruit tea and sparkling lemonade.",
+      "title": "What's Open, What's Closed: Summer 2024 | UC Davis",
+      "date": "Jul 16, 2024",
+      "link": "https://www.ucdavis.edu/news/whats-open-whats-closed-summer-2024#:~:text=Peet's%20Coffee%20at%20the%20Silo,fruit%20tea%20and%20sparkling%20lemonade.",
+      "displayed_link": "https://www.ucdavis.edu › news › whats-open-whats-clos...",
+      "source_logo": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/2c7ef4e25a883df268ee67279e109c17ae01fece303634beae9b4598433c749d.png",
+      "next_page_token": "eyJvbnMiOiIxMDA0MSIsImZjIjoiRXFFQkNtSkJRUzFMVkdoa1NHVk1iMGsxVjJoZllXeGlZa2QzUVd4T1VubzNkVzlEUVRkT1dGbHdXR2hIZW5nMk4zbFZPVzE2YjBrMFlYRnVjbTkwVnkxVlptdHNORjlQUzBNMFIzZExjM2hHU2tvMVNETm5TR0V3VXpOU2FEQnViMHR6T1ZONlFSSVhhRnBwY0ZvMFQwSlBObE42Y0hSUlVETTNTMjFyUVZFYUlrRkRSRmhNTkcxQmVFWnVOSGRsVXpreVpVeDVNSE5wZDBsYWJ6ZGhPV2x6ZEhjIiwiZmN2IjoiMyIsImVpIjoiaFppcFo0T0JPNlN6cHRRUDM3S21rQVEiLCJxYyI6IkNoUjFZeUJrWVhacGN5QnphV3h2SUcxaGNtdGxkQkFBZlZJLUNqOCIsInF1ZXN0aW9uIjoiV2hhdCB0aW1lIGRvZXMgVUMgRGF2aXMgU2lsbyBQZWV0cyBvcGVuIGluIHRoZSBzdW1tZXI/IiwibGsiOiJHaUIxWXlCa1lYWnBjeUJ6YVd4dklIQmxaWFJ6SUhOMWJXMWxjaUJvYjNWeWN3IiwiYnMiOiJjLU9LNXpJTHowZ3NVU2pKekUxVlNNbFBMVllJZFZad1NTekxMRllJenN6SlZ3aElUUzBwVnNndlNNMVR5TXhUS01sSVZTZ3V6YzFOTGJLWDZCRTFVcEpTS0UxV1NBR3JMZ2FwTGdDcmhxaFF5TWd2TFNybWN1R1M4MFF5dENTX05EMERTQ3FrcDVZQVRTekp0NWU0cTJza0x5VUxsSU9iaGFHSXk0SkxBdXpNVENTamxBMFYwdktCRG5sYmJTUXBKVjRPbFlZYkFwSG1DdUpTUjdiZkp6T3BLTEdvRXVJam9BMGdIeFdVSnVWa0p0dEx6UFF5VXBGU1FqWWpCMDAxUktVQUl3QSIsImlkIjoiZmNfaFppcFo0T0JPNlN6cHRRUDM3S21rQVFfMSJ9",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google_related_questions&google_domain=google.com&next_page_token=eyJvbnMiOiIxMDA0MSIsImZjIjoiRXFFQkNtSkJRUzFMVkdoa1NHVk1iMGsxVjJoZllXeGlZa2QzUVd4T1VubzNkVzlEUVRkT1dGbHdXR2hIZW5nMk4zbFZPVzE2YjBrMFlYRnVjbTkwVnkxVlptdHNORjlQUzBNMFIzZExjM2hHU2tvMVNETm5TR0V3VXpOU2FEQnViMHR6T1ZONlFSSVhhRnBwY0ZvMFQwSlBObE42Y0hSUlVETTNTMjFyUVZFYUlrRkRSRmhNTkcxQmVFWnVOSGRsVXpreVpVeDVNSE5wZDBsYWJ6ZGhPV2x6ZEhjIiwiZmN2IjoiMyIsImVpIjoiaFppcFo0T0JPNlN6cHRRUDM3S21rQVEiLCJxYyI6IkNoUjFZeUJrWVhacGN5QnphV3h2SUcxaGNtdGxkQkFBZlZJLUNqOCIsInF1ZXN0aW9uIjoiV2hhdCB0aW1lIGRvZXMgVUMgRGF2aXMgU2lsbyBQZWV0cyBvcGVuIGluIHRoZSBzdW1tZXI%2FIiwibGsiOiJHaUIxWXlCa1lYWnBjeUJ6YVd4dklIQmxaWFJ6SUhOMWJXMWxjaUJvYjNWeWN3IiwiYnMiOiJjLU9LNXpJTHowZ3NVU2pKekUxVlNNbFBMVllJZFZad1NTekxMRllJenN6SlZ3aElUUzBwVnNndlNNMVR5TXhUS01sSVZTZ3V6YzFOTGJLWDZCRTFVcEpTS0UxV1NBR3JMZ2FwTGdDcmhxaFF5TWd2TFNybWN1R1M4MFF5dENTX05EMERTQ3FrcDVZQVRTekp0NWU0cTJza0x5VUxsSU9iaGFHSXk0SkxBdXpNVENTamxBMFYwdktCRG5sYmJTUXBKVjRPbFlZYkFwSG1DdUpTUjdiZkp6T3BLTEdvRXVJam9BMGdIeFdVSnVWa0p0dEx6UFF5VXBGU1FqWWpCMDAxUktVQUl3QSIsImlkIjoiZmNfaFppcFo0T0JPNlN6cHRRUDM3S21rQVFfMSJ9"
+    },
+    {
+      "question": "Is UC Davis tough to get into?",
+      "snippet": "This tells you how competitive the school is and how serious their requirements are. The acceptance rate at UC Davis is 46.3%. For every 100 applicants, 46 are admitted. This means the school is moderately selective.",
+      "title": "This Year's UC Davis Admission Requirements - PrepScholar",
+      "link": "https://www.prepscholar.com/sat/s/colleges/UC-Davis-admission-requirements#:~:text=This%20tells%20you%20how%20competitive,the%20school%20is%20moderately%20selective.",
+      "displayed_link": "https://www.prepscholar.com › sat › colleges › UC-Davis...",
+      "source_logo": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/2c7ef4e25a883df268ee67279e109c17a091c48d4d43061414ba1f86dbb9ab42.png",
+      "next_page_token": "eyJvbnMiOiIxMDA0MSIsImZjIjoiRXFFQkNtSkJRUzFMVkdoa1NHVk1iMGsxVjJoZllXeGlZa2QzUVd4T1VubzNkVzlEUVRkT1dGbHdXR2hIZW5nMk4zbFZPVzE2YjBrMFlYRnVjbTkwVnkxVlptdHNORjlQUzBNMFIzZExjM2hHU2tvMVNETm5TR0V3VXpOU2FEQnViMHR6T1ZONlFSSVhhRnBwY0ZvMFQwSlBObE42Y0hSUlVETTNTMjFyUVZFYUlrRkRSRmhNTkcxQmVFWnVOSGRsVXpreVpVeDVNSE5wZDBsYWJ6ZGhPV2x6ZEhjIiwiZmN2IjoiMyIsImVpIjoiaFppcFo0T0JPNlN6cHRRUDM3S21rQVEiLCJxYyI6IkNoUjFZeUJrWVhacGN5QnphV3h2SUcxaGNtdGxkQkFBZlZJLUNqOCIsInF1ZXN0aW9uIjoiSXMgVUMgRGF2aXMgdG91Z2ggdG8gZ2V0IGludG8/IiwibGsiOiJjNU9TelN4V0tFMVdTRWtzQXpKSzhrdlRNNENrUW5wcWlVSm1Ya2stQUEiLCJicyI6ImMtT0s1eklMejBnc1VTakp6RTFWU01sUExWWUlkVlp3U1N6TExGWUl6c3pKVndoSVRTMHBWc2d2U00xVHlNeFRLTWxJVlNndXpjMU5MYktYNkJFMVVwSlNLRTFXU0FHckxnYXBMZ0NyaHFoUXlNZ3ZMU3JtY3VHUzgwUXl0Q1NfTkQwRFNDcWtwNVlBVFN6SnQ1ZTRxMnNrTHlVTGxJT2JoYUdJeTRKTEF1ek1UQ1NqbEEwVjB2S0JEbmxiYlNRcEpWNE9sWVliQXBIbUN1SlNSN2JmSnpPcEtMR29FdUlqb0EwZ0h4V1VKdVZrSnR0THpQUXlVcEZTUWpZakIwMDFSS1VBSXdBIiwiaWQiOiJmY19oWmlwWjRPQk82U3pwdFFQMzdLbWtBUV8xIn0=",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google_related_questions&google_domain=google.com&next_page_token=eyJvbnMiOiIxMDA0MSIsImZjIjoiRXFFQkNtSkJRUzFMVkdoa1NHVk1iMGsxVjJoZllXeGlZa2QzUVd4T1VubzNkVzlEUVRkT1dGbHdXR2hIZW5nMk4zbFZPVzE2YjBrMFlYRnVjbTkwVnkxVlptdHNORjlQUzBNMFIzZExjM2hHU2tvMVNETm5TR0V3VXpOU2FEQnViMHR6T1ZONlFSSVhhRnBwY0ZvMFQwSlBObE42Y0hSUlVETTNTMjFyUVZFYUlrRkRSRmhNTkcxQmVFWnVOSGRsVXpreVpVeDVNSE5wZDBsYWJ6ZGhPV2x6ZEhjIiwiZmN2IjoiMyIsImVpIjoiaFppcFo0T0JPNlN6cHRRUDM3S21rQVEiLCJxYyI6IkNoUjFZeUJrWVhacGN5QnphV3h2SUcxaGNtdGxkQkFBZlZJLUNqOCIsInF1ZXN0aW9uIjoiSXMgVUMgRGF2aXMgdG91Z2ggdG8gZ2V0IGludG8%2FIiwibGsiOiJjNU9TelN4V0tFMVdTRWtzQXpKSzhrdlRNNENrUW5wcWlVSm1Ya2stQUEiLCJicyI6ImMtT0s1eklMejBnc1VTakp6RTFWU01sUExWWUlkVlp3U1N6TExGWUl6c3pKVndoSVRTMHBWc2d2U00xVHlNeFRLTWxJVlNndXpjMU5MYktYNkJFMVVwSlNLRTFXU0FHckxnYXBMZ0NyaHFoUXlNZ3ZMU3JtY3VHUzgwUXl0Q1NfTkQwRFNDcWtwNVlBVFN6SnQ1ZTRxMnNrTHlVTGxJT2JoYUdJeTRKTEF1ek1UQ1NqbEEwVjB2S0JEbmxiYlNRcEpWNE9sWVliQXBIbUN1SlNSN2JmSnpPcEtMR29FdUlqb0EwZ0h4V1VKdVZrSnR0THpQUXlVcEZTUWpZakIwMDFSS1VBSXdBIiwiaWQiOiJmY19oWmlwWjRPQk82U3pwdFFQMzdLbWtBUV8xIn0%3D"
+    },
+    {
+      "question": "What is UC Davis #1 for?",
+      "snippet": "Ranked 1st in the nation in agriculture and forestry.",
+      "title": "Rankings | UC Davis",
+      "date": "Sep 30, 2024",
+      "link": "https://www.ucdavis.edu/about/rankings#:~:text=Ranked%201st%20in%20the%20nation%20in%20agriculture%20and%20forestry",
+      "displayed_link": "https://www.ucdavis.edu › about › rankings",
+      "source_logo": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/2c7ef4e25a883df268ee67279e109c17ce332c3a90dda3bc84bfa97093c6c10d.png",
+      "next_page_token": "eyJvbnMiOiIxMDA0MSIsImZjIjoiRXFFQkNtSkJRUzFMVkdoa1NHVk1iMGsxVjJoZllXeGlZa2QzUVd4T1VubzNkVzlEUVRkT1dGbHdXR2hIZW5nMk4zbFZPVzE2YjBrMFlYRnVjbTkwVnkxVlptdHNORjlQUzBNMFIzZExjM2hHU2tvMVNETm5TR0V3VXpOU2FEQnViMHR6T1ZONlFSSVhhRnBwY0ZvMFQwSlBObE42Y0hSUlVETTNTMjFyUVZFYUlrRkRSRmhNTkcxQmVFWnVOSGRsVXpreVpVeDVNSE5wZDBsYWJ6ZGhPV2x6ZEhjIiwiZmN2IjoiMyIsImVpIjoiaFppcFo0T0JPNlN6cHRRUDM3S21rQVEiLCJxYyI6IkNoUjFZeUJrWVhacGN5QnphV3h2SUcxaGNtdGxkQkFBZlZJLUNqOCIsInF1ZXN0aW9uIjoiV2hhdCBpcyBVQyBEYXZpcyAjMSBmb3I/IiwibGsiOiJHaGQzYUdGMElHbHpJSFZqSUdSaGRtbHpJQ014SUdadmNnIiwiYnMiOiJjLU9LNXpJTHowZ3NVU2pKekUxVlNNbFBMVllJZFZad1NTekxMRllJenN6SlZ3aElUUzBwVnNndlNNMVR5TXhUS01sSVZTZ3V6YzFOTGJLWDZCRTFVcEpTS0UxV1NBR3JMZ2FwTGdDcmhxaFF5TWd2TFNybWN1R1M4MFF5dENTX05EMERTQ3FrcDVZQVRTekp0NWU0cTJza0x5VUxsSU9iaGFHSXk0SkxBdXpNVENTamxBMFYwdktCRG5sYmJTUXBKVjRPbFlZYkFwSG1DdUpTUjdiZkp6T3BLTEdvRXVJam9BMGdIeFdVSnVWa0p0dEx6UFF5VXBGU1FqWWpCMDAxUktVQUl3QSIsImlkIjoiZmNfaFppcFo0T0JPNlN6cHRRUDM3S21rQVFfMSJ9",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google_related_questions&google_domain=google.com&next_page_token=eyJvbnMiOiIxMDA0MSIsImZjIjoiRXFFQkNtSkJRUzFMVkdoa1NHVk1iMGsxVjJoZllXeGlZa2QzUVd4T1VubzNkVzlEUVRkT1dGbHdXR2hIZW5nMk4zbFZPVzE2YjBrMFlYRnVjbTkwVnkxVlptdHNORjlQUzBNMFIzZExjM2hHU2tvMVNETm5TR0V3VXpOU2FEQnViMHR6T1ZONlFSSVhhRnBwY0ZvMFQwSlBObE42Y0hSUlVETTNTMjFyUVZFYUlrRkRSRmhNTkcxQmVFWnVOSGRsVXpreVpVeDVNSE5wZDBsYWJ6ZGhPV2x6ZEhjIiwiZmN2IjoiMyIsImVpIjoiaFppcFo0T0JPNlN6cHRRUDM3S21rQVEiLCJxYyI6IkNoUjFZeUJrWVhacGN5QnphV3h2SUcxaGNtdGxkQkFBZlZJLUNqOCIsInF1ZXN0aW9uIjoiV2hhdCBpcyBVQyBEYXZpcyAjMSBmb3I%2FIiwibGsiOiJHaGQzYUdGMElHbHpJSFZqSUdSaGRtbHpJQ014SUdadmNnIiwiYnMiOiJjLU9LNXpJTHowZ3NVU2pKekUxVlNNbFBMVllJZFZad1NTekxMRllJenN6SlZ3aElUUzBwVnNndlNNMVR5TXhUS01sSVZTZ3V6YzFOTGJLWDZCRTFVcEpTS0UxV1NBR3JMZ2FwTGdDcmhxaFF5TWd2TFNybWN1R1M4MFF5dENTX05EMERTQ3FrcDVZQVRTekp0NWU0cTJza0x5VUxsSU9iaGFHSXk0SkxBdXpNVENTamxBMFYwdktCRG5sYmJTUXBKVjRPbFlZYkFwSG1DdUpTUjdiZkp6T3BLTEdvRXVJam9BMGdIeFdVSnVWa0p0dEx6UFF5VXBGU1FqWWpCMDAxUktVQUl3QSIsImlkIjoiZmNfaFppcFo0T0JPNlN6cHRRUDM3S21rQVFfMSJ9"
+    },
+    {
+      "question": "Is UC Davis Library open to the public?",
+      "snippet": "Plan Ahead for the Best Experience Archives and Special Collections welcomes students, faculty and members of the general public to visit us.",
+      "title": "Visitor Information - UC Davis Library",
+      "link": "https://library.ucdavis.edu/archives-and-special-collections/visitor-information/#:~:text=Plan%20Ahead%20for%20the%20Best,general%20public%20to%20visit%20us.",
+      "displayed_link": "https://library.ucdavis.edu › visitor-information",
+      "source_logo": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/2c7ef4e25a883df268ee67279e109c17bd344be87784e9ba66714ace7f781692.png",
+      "next_page_token": "eyJvbnMiOiIxMDA0MSIsImZjIjoiRXFFQkNtSkJRUzFMVkdoa1NHVk1iMGsxVjJoZllXeGlZa2QzUVd4T1VubzNkVzlEUVRkT1dGbHdXR2hIZW5nMk4zbFZPVzE2YjBrMFlYRnVjbTkwVnkxVlptdHNORjlQUzBNMFIzZExjM2hHU2tvMVNETm5TR0V3VXpOU2FEQnViMHR6T1ZONlFSSVhhRnBwY0ZvMFQwSlBObE42Y0hSUlVETTNTMjFyUVZFYUlrRkRSRmhNTkcxQmVFWnVOSGRsVXpreVpVeDVNSE5wZDBsYWJ6ZGhPV2x6ZEhjIiwiZmN2IjoiMyIsImVpIjoiaFppcFo0T0JPNlN6cHRRUDM3S21rQVEiLCJxYyI6IkNoUjFZeUJrWVhacGN5QnphV3h2SUcxaGNtdGxkQkFBZlZJLUNqOCIsInF1ZXN0aW9uIjoiSXMgVUMgRGF2aXMgTGlicmFyeSBvcGVuIHRvIHRoZSBwdWJsaWM/IiwibGsiOiJHaUpwY3lCMVl5QmtZWFpwY3lCc2FXSnlZWEo1SUc5d1pXNGdkRzhnY0hWaWJHbGoiLCJicyI6ImMtT0s1eklMejBnc1VTakp6RTFWU01sUExWWUlkVlp3U1N6TExGWUl6c3pKVndoSVRTMHBWc2d2U00xVHlNeFRLTWxJVlNndXpjMU5MYktYNkJFMVVwSlNLRTFXU0FHckxnYXBMZ0NyaHFoUXlNZ3ZMU3JtY3VHUzgwUXl0Q1NfTkQwRFNDcWtwNVlBVFN6SnQ1ZTRxMnNrTHlVTGxJT2JoYUdJeTRKTEF1ek1UQ1NqbEEwVjB2S0JEbmxiYlNRcEpWNE9sWVliQXBIbUN1SlNSN2JmSnpPcEtMR29FdUlqb0EwZ0h4V1VKdVZrSnR0THpQUXlVcEZTUWpZakIwMDFSS1VBSXdBIiwiaWQiOiJmY19oWmlwWjRPQk82U3pwdFFQMzdLbWtBUV8xIn0=",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google_related_questions&google_domain=google.com&next_page_token=eyJvbnMiOiIxMDA0MSIsImZjIjoiRXFFQkNtSkJRUzFMVkdoa1NHVk1iMGsxVjJoZllXeGlZa2QzUVd4T1VubzNkVzlEUVRkT1dGbHdXR2hIZW5nMk4zbFZPVzE2YjBrMFlYRnVjbTkwVnkxVlptdHNORjlQUzBNMFIzZExjM2hHU2tvMVNETm5TR0V3VXpOU2FEQnViMHR6T1ZONlFSSVhhRnBwY0ZvMFQwSlBObE42Y0hSUlVETTNTMjFyUVZFYUlrRkRSRmhNTkcxQmVFWnVOSGRsVXpreVpVeDVNSE5wZDBsYWJ6ZGhPV2x6ZEhjIiwiZmN2IjoiMyIsImVpIjoiaFppcFo0T0JPNlN6cHRRUDM3S21rQVEiLCJxYyI6IkNoUjFZeUJrWVhacGN5QnphV3h2SUcxaGNtdGxkQkFBZlZJLUNqOCIsInF1ZXN0aW9uIjoiSXMgVUMgRGF2aXMgTGlicmFyeSBvcGVuIHRvIHRoZSBwdWJsaWM%2FIiwibGsiOiJHaUpwY3lCMVl5QmtZWFpwY3lCc2FXSnlZWEo1SUc5d1pXNGdkRzhnY0hWaWJHbGoiLCJicyI6ImMtT0s1eklMejBnc1VTakp6RTFWU01sUExWWUlkVlp3U1N6TExGWUl6c3pKVndoSVRTMHBWc2d2U00xVHlNeFRLTWxJVlNndXpjMU5MYktYNkJFMVVwSlNLRTFXU0FHckxnYXBMZ0NyaHFoUXlNZ3ZMU3JtY3VHUzgwUXl0Q1NfTkQwRFNDcWtwNVlBVFN6SnQ1ZTRxMnNrTHlVTGxJT2JoYUdJeTRKTEF1ek1UQ1NqbEEwVjB2S0JEbmxiYlNRcEpWNE9sWVliQXBIbUN1SlNSN2JmSnpPcEtMR29FdUlqb0EwZ0h4V1VKdVZrSnR0THpQUXlVcEZTUWpZakIwMDFSS1VBSXdBIiwiaWQiOiJmY19oWmlwWjRPQk82U3pwdFFQMzdLbWtBUV8xIn0%3D"
+    }
+  ],
+  "organic_results": [
+    {
+      "position": 1,
+      "title": "Silo Market | UC Davis Student Housing and Dining Services",
+      "link": "https://housing.ucdavis.edu/dining/markets/silo-market/",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://housing.ucdavis.edu/dining/markets/silo-market/&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQFnoECEYQAQ",
+      "displayed_link": "https://housing.ucdavis.edu › dining › markets › silo-m...",
+      "thumbnail": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/a18c9b964beebfc5f5affba3e9272e313e53e46ac071567a29bb20e18e2165ab.jpeg",
+      "favicon": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/a18c9b964beebfc5f5affba3e9272e3132ba6e9a97b602e95372d75f8819379c.png",
+      "date": "Sep 21, 2022",
+      "snippet": "The Silo Market offers a variety of healthy foods, snacks, and drinks including deli sandwiches proudly featuring Dietz & Watson premium deli ...",
+      "snippet_highlighted_words": [
+        "Silo Market"
+      ],
+      "source": "UC Davis Student Housing and Dining Services"
+    },
+    {
+      "position": 2,
+      "title": "Silo Restaurants • Spokes Grill • Peet's Coffee • Crepe Bistro",
+      "link": "https://housing.ucdavis.edu/dining/restaurants/silo-restaurants/",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://housing.ucdavis.edu/dining/restaurants/silo-restaurants/&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQFnoECDYQAQ",
+      "displayed_link": "https://housing.ucdavis.edu › dining › silo-restaurants",
+      "favicon": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/a18c9b964beebfc5f5affba3e9272e31d80662c17ae5ee408bf66dd8cdcada77.png",
+      "date": "Sep 22, 2021",
+      "snippet": "Campus Dining Locations: Spokes, The Gunrock, Crepe Bistro, Scrubs, Cafe and Market, Silo Market, Coffee Shops, Food Trucks",
+      "snippet_highlighted_words": [
+        "Market",
+        "Silo Market"
+      ],
+      "source": "UC Davis Student Housing and Dining Services"
+    },
+    {
+      "position": 3,
+      "title": "Broke man spotted at the Silo Market - The California Aggie",
+      "link": "https://theaggie.org/2024/02/01/broke-man-spotted-at-the-silo-market/",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://theaggie.org/2024/02/01/broke-man-spotted-at-the-silo-market/&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQFnoECDQQAQ",
+      "displayed_link": "https://theaggie.org › 2024/02/01 › broke-man-spotted-...",
+      "favicon": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/a18c9b964beebfc5f5affba3e9272e31bd7b8c1d25a41231078cfc9e89ccfcc2.png",
+      "date": "Feb 1, 2024",
+      "snippet": "I was perusing the Silo market the other day during my gap between classes, starving and needing to eat lunch before my next lecture.",
+      "snippet_highlighted_words": [
+        "Silo market"
+      ],
+      "source": "theaggie.org"
+    },
+    {
+      "position": 4,
+      "title": "What's your go-to silo sandwich order? : r/UCDavis",
+      "link": "https://www.reddit.com/r/UCDavis/comments/1alpaky/whats_your_goto_silo_sandwich_order/",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.reddit.com/r/UCDavis/comments/1alpaky/whats_your_goto_silo_sandwich_order/&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQFnoECEQQAQ",
+      "displayed_link": "20+ comments · 1 year ago",
+      "favicon": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/a18c9b964beebfc5f5affba3e9272e31cf944553c775156d31883db693f78825.png",
+      "snippet": "The Silo is right across from the bike barn! If you search “UC Davis Silo Market” on Google maps it'll come up. Upvote 1. Downvote Reply reply",
+      "snippet_highlighted_words": [
+        "UC Davis Silo Market"
+      ],
+      "source": "Reddit · r/UCDavis"
+    },
+    {
+      "position": 5,
+      "title": "SILO - Updated February 2025 - 74 Photos & 35 Reviews",
+      "link": "https://www.yelp.com/biz/silo-davis",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.yelp.com/biz/silo-davis&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQFnoECDMQAQ",
+      "displayed_link": "https://www.yelp.com › ... › Restaurants › Fast Food",
+      "favicon": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/a18c9b964beebfc5f5affba3e9272e310c5decdd62d7cc34faa2e4e213ce75e9.png",
+      "snippet": "The silo is a staple for UC Davis students. Although the offerings are limited, the silo is always trying something new. Food options entail Pizza Hut ...",
+      "snippet_highlighted_words": [
+        "silo",
+        "UC Davis",
+        "silo"
+      ],
+      "source": "Yelp"
+    },
+    {
+      "position": 6,
+      "title": "Markets | UC Davis Student Housing and Dining Services",
+      "link": "https://housing.ucdavis.edu/dining/markets/",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://housing.ucdavis.edu/dining/markets/&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQFnoECGgQAQ",
+      "displayed_link": "https://housing.ucdavis.edu › dining › markets",
+      "favicon": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/a18c9b964beebfc5f5affba3e9272e315a8a1a283362b85c1ca68ef8bb576c25.png",
+      "date": "Mar 1, 2021",
+      "snippet": "Silo Market · Coffee Shops · Food Trucks · Map of Locations. Nutrition ... The Silo Market is at South Silo; The Scrubs Market is inside Scrubs ...",
+      "snippet_highlighted_words": [
+        "Silo Market",
+        "Silo Market",
+        "Silo",
+        "Market"
+      ],
+      "source": "UC Davis Student Housing and Dining Services"
+    },
+    {
+      "position": 7,
+      "title": "Silo - Davis",
+      "link": "https://localwiki.org/davis/Silo",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://localwiki.org/davis/Silo&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQFnoECGYQAQ",
+      "displayed_link": "https://localwiki.org › davis › Silo",
+      "favicon": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/a18c9b964beebfc5f5affba3e9272e314610770e3574ca2e0dfc1736a153e273.png",
+      "snippet": "The Silo serves as a campus meeting area, conference room (Cabernet Room), lounge and eatery, housing these food services primarily operated by Sodexho.",
+      "snippet_highlighted_words": [
+        "Silo"
+      ],
+      "source": "LocalWiki"
+    },
+    {
+      "position": 8,
+      "title": "UC Davis Dining Services (@ucdavisdiningservices)",
+      "link": "https://www.instagram.com/ucdavisdiningservices/?hl=en",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.instagram.com/ucdavisdiningservices/%3Fhl%3Den&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQFnoECGkQAQ",
+      "displayed_link": "6.4K+ followers",
+      "favicon": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/a18c9b964beebfc5f5affba3e9272e31a1313f067c15e59b84204a4da369d54a.png",
+      "snippet": "Creating high-quality, on-campus dining experiences suiting all tastes and dietary restrictions. 🏆 Top 100 Best College Food in the USA!",
+      "source": "Instagram · ucdavisdiningservices"
+    },
+    {
+      "position": 9,
+      "title": "Food Trucks",
+      "link": "https://housing.ucdavis.edu/dining/food-trucks/",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://housing.ucdavis.edu/dining/food-trucks/&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQFnoECGcQAQ",
+      "displayed_link": "https://housing.ucdavis.edu › dining › food-trucks",
+      "favicon": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/a18c9b964beebfc5f5affba3e9272e313b82ba5851ad47108fea69a35b29f5d5.png",
+      "date": "Mar 13, 2024",
+      "snippet": "UC Davis Dining Services provides mobile food trucks or carts. View the food trucks locations map (pdf) for specific locations. Trucks will vary weekly.",
+      "snippet_highlighted_words": [
+        "UC Davis"
+      ],
+      "source": "UC Davis Student Housing and Dining Services"
+    },
+    {
+      "position": 10,
+      "title": "Uc Davis Silo Market",
+      "link": "https://www.tiktok.com/discover/uc-davis-silo-market",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.tiktok.com/discover/uc-davis-silo-market&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQFnoECGUQAQ",
+      "displayed_link": "https://www.tiktok.com › Discover",
+      "favicon": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/a18c9b964beebfc5f5affba3e9272e31b4d08ad712b8b8da0de64350bb6ec965.png",
+      "date": "Jan 20, 2025",
+      "snippet": "The UC Davis Farmers Market is taking place every Wednesday of October so make sure to check it out! #UCDavis | #FarmersMarket | #ComeWithMe | # ...",
+      "snippet_highlighted_words": [
+        "UC Davis",
+        "Market",
+        "UCDavis"
+      ],
+      "source": "TikTok"
+    }
+  ],
+  "top_stories_link": "https://www.google.com/search?q=UC+Davis+Silo+Market+site:www.reddit.com&sca_esv=f49db6828bbb6a84&hl=en&gl=us&sa=X&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQrQJ6BAhCEAY",
+  "top_stories_serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Silo+Market+site%3Awww.reddit.com",
+  "related_searches": [
+    {
+      "block_position": 1,
+      "items": [
+        {
+          "name": "Crepeville",
+          "image": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/2c7ef4e25a883df2be662d5f420e84a0f9e155f7271200ba4e83975390fece35db9477a236381f35.gif",
+          "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&hl=en&gl=us&q=Crepeville&stick=H4sIAAAAAAAAAOMwVOLWT9c3LEkpNy40LPrFyLCBheEVCy8XsugrFj4uHhA_I9mwLKnc0PIVCw8Xl36uvoFRhmmaSTlCfXJlsaG5EZxfblGeZG6RBtdvlJGTXGGeko7QUB6fl56XhaSg0LSqxKIMoSDNAqgobRErl3NRakFqWWZOTuotNkmGML_wz4kzDrO921eVVpygyKU5K_rRgXtW6xZxiAWk5hfkpCok5hTnKxSnJhYlZyik5Ret4GAEAHUXuPbsAAAA&sa=X&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQs9oBKAB6BAhqEAk",
+          "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Crepeville&stick=H4sIAAAAAAAAAOMwVOLWT9c3LEkpNy40LPrFyLCBheEVCy8XsugrFj4uHhA_I9mwLKnc0PIVCw8Xl36uvoFRhmmaSTlCfXJlsaG5EZxfblGeZG6RBtdvlJGTXGGeko7QUB6fl56XhaSg0LSqxKIMoSDNAqgobRErl3NRakFqWWZOTuotNkmGML_wz4kzDrO921eVVpygyKU5K_rRgXtW6xZxiAWk5hfkpCok5hTnKxSnJhYlZyik5Ret4GAEAHUXuPbsAAAA"
+        },
+        {
+          "name": "Burgers and Brew",
+          "image": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/2c7ef4e25a883df2be662d5f420e84a0f9e155f7271200ba2a0377ad352285a5b6aaf3da69ae29ff.gif",
+          "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&hl=en&gl=us&q=Burgers+and+Brew+Davis&stick=H4sIAAAAAAAAAOMwVOLRT9c3zEg2LEsqN7T8xciwgYXhFQsvFzdIuCSl3LjQsOgVCx8XirJXLDxcXPq5-gZGGaZpJuUI9cmVxYbmRnB-uUV5krlFGly_UUZOcoV5SjpCQ3l8XnpeFpKCQtOqEosyhII0C6CitEWsYk6lRempRcUKiXkpCk5FqeUKLollmcW32CQZwvzCPyfOOMz2bl9VWnGCIpfmrOhHB-5ZrVvEIRaQml-Qk6qQmFOcr1CcmliUnKGQll-0goMRAGC2VJL5AAAA&sa=X&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQs9oBKAB6BAhqEA4",
+          "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Burgers+and+Brew+Davis&stick=H4sIAAAAAAAAAOMwVOLRT9c3zEg2LEsqN7T8xciwgYXhFQsvFzdIuCSl3LjQsOgVCx8XirJXLDxcXPq5-gZGGaZpJuUI9cmVxYbmRnB-uUV5krlFGly_UUZOcoV5SjpCQ3l8XnpeFpKCQtOqEosyhII0C6CitEWsYk6lRempRcUKiXkpCk5FqeUKLollmcW32CQZwvzCPyfOOMz2bl9VWnGCIpfmrOhHB-5ZrVvEIRaQml-Qk6qQmFOcr1CcmliUnKGQll-0goMRAGC2VJL5AAAA"
+        },
+        {
+          "name": "Sam's Restaurant",
+          "image": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/2c7ef4e25a883df2be662d5f420e84a0f9e155f7271200ba1bc9ecf619c85a554de99dd1e5a3a8d7.gif",
+          "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&hl=en&gl=us&q=Sam%27s+Mediterranean+Cuisine&stick=H4sIAAAAAAAAAOMwVOLSz9U3MMowTTMp_8XIsIGF4RULLxe3frq-YUlKuXGhYdErFj4uHhA_I9mwLKnc0PIVCw8Xki6E-uTKYkNzIzi_3KI8ydwiDa7fKCMnucI8JR2hoTw-Lz0vC0lBoWlViUUZQkGaBVBR2iJW6eDEXPViBd_UlMyS1KKixLzUxDwF59LM4sy81FtskgxhfuGfE2ccZnu3ryqtOEGRS3NW9KMD96zWLeIQC0jNL8hJVUjMKc5XKE5NLErOUEjLL1rBwQgAUFVrEvwAAAA&sa=X&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQs9oBKAB6BAhqEBM",
+          "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Sam%27s+Mediterranean+Cuisine&stick=H4sIAAAAAAAAAOMwVOLSz9U3MMowTTMp_8XIsIGF4RULLxe3frq-YUlKuXGhYdErFj4uHhA_I9mwLKnc0PIVCw8Xki6E-uTKYkNzIzi_3KI8ydwiDa7fKCMnucI8JR2hoTw-Lz0vC0lBoWlViUUZQkGaBVBR2iJW6eDEXPViBd_UlMyS1KKixLzUxDwF59LM4sy81FtskgxhfuGfE2ccZnu3ryqtOEGRS3NW9KMD96zWLeIQC0jNL8hJVUjMKc5XKE5NLErOUEjLL1rBwQgAUFVrEvwAAAA"
+        },
+        {
+          "name": "Osteria Fasulo",
+          "image": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/2c7ef4e25a883df2be662d5f420e84a0f9e155f7271200bab61b2c64d14f997201e347a0ae5bc54c.gif",
+          "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&hl=en&gl=us&q=Osteria+Fasulo&stick=H4sIAAAAAAAAAOMwVOLWT9c3LEmuLDY0N_rFyLCBheEVCy8XRDSl3LjQsOgVCx8XD4ifkWxYllRuaPmKhYeLSz9X38AowzTNpByhHmIKnF9uUZ5kbpEG12-UkZNcYZ6SjtBQHp-XnpeFpKDQtKrEogyhIM0CqChtESuff3FJalFmooJbYnFpTv4tNkmGML_wz4kzDrO921eVVpygyKU5K_rRgXtW6xZxiAWk5hfkpCok5hTnKxSnJhYlZyik5Ret4GAEAA_XCuXwAAAA&sa=X&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQs9oBKAB6BAhqEBg",
+          "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Osteria+Fasulo&stick=H4sIAAAAAAAAAOMwVOLWT9c3LEmuLDY0N_rFyLCBheEVCy8XRDSl3LjQsOgVCx8XD4ifkWxYllRuaPmKhYeLSz9X38AowzTNpByhHmIKnF9uUZ5kbpEG12-UkZNcYZ6SjtBQHp-XnpeFpKDQtKrEogyhIM0CqChtESuff3FJalFmooJbYnFpTv4tNkmGML_wz4kzDrO921eVVpygyKU5K_rRgXtW6xZxiAWk5hfkpCok5hTnKxSnJhYlZyik5Ret4GAEAA_XCuXwAAAA"
+        },
+        {
+          "name": "Black Bear Diner Davis",
+          "image": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/2c7ef4e25a883df2be662d5f420e84a0f9e155f7271200ba5d6a3c2ad72a66ab0d90d06dab714817.gif",
+          "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&hl=en&gl=us&q=Black+Bear+Diner+Davis&stick=H4sIAAAAAAAAAOMwVOLWT9c3LLcoTzK3SPvFyLCBheEVCy8XWLQkpdy40LDoFQsfFw-In5FsWJZUbmj5ioWHi0s_V9_AKMM0zaQcoT65stjQ3AjOh5oK12-UkZNcYZ6SjtBQHp-XnpeFpKDQtKrEogyhIM0CqChtEauYU05icraCU2pikYJLZl4qkEwsyyy-xSbJEOYX_jlxxmG2d_uq0ooTFLk0Z0U_OnDPat0iDrGA1PyCnFSFxJzifIVioNbkDIW0_KIVHIwAv3hWP_gAAAA&sa=X&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQs9oBKAB6BAhqEB0",
+          "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Black+Bear+Diner+Davis&stick=H4sIAAAAAAAAAOMwVOLWT9c3LLcoTzK3SPvFyLCBheEVCy8XWLQkpdy40LDoFQsfFw-In5FsWJZUbmj5ioWHi0s_V9_AKMM0zaQcoT65stjQ3AjOh5oK12-UkZNcYZ6SjtBQHp-XnpeFpKDQtKrEogyhIM0CqChtEauYU05icraCU2pikYJLZl4qkEwsyyy-xSbJEOYX_jlxxmG2d_uq0ooTFLk0Z0U_OnDPat0iDrGA1PyCnFSFxJzifIVioNbkDIW0_KIVHIwAv3hWP_gAAAA"
+        },
+        {
+          "name": "Wingstop",
+          "image": "https://serpapi.com/searches/67a99885b2a5f0f017c0b71d/images/2c7ef4e25a883df2be662d5f420e84a0f9e155f7271200baaacc39271b9d7b059a62a3b53d16d1f7.gif",
+          "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&hl=en&gl=us&q=Wingstop+Davis&stick=H4sIAAAAAAAAAOMwVOLRT9c3NMrISa4wT0n_xciwgYXhFQsvFzdIuCSl3LjQsOgVCx8XWFlGsmFZUrmh5SsWHi4u_Vx9A6MM0zSTcoT65MpiQ3MjOL_cojzJ3CINrh9mDUJDeXxeel4WkoJC06oSizKEgjQLoKK0Rax84Zl56cUl-QUKLollmcW32CQZwvzCPyfOOMz2bl9VWnGCIpfmrOhHB-5ZrVvEIRaQml-Qk6qQmFOcr1CcmliUnKGQll-0goMRAMaHc3XxAAAA&sa=X&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQs9oBKAB6BAhqECI",
+          "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Wingstop+Davis&stick=H4sIAAAAAAAAAOMwVOLRT9c3NMrISa4wT0n_xciwgYXhFQsvFzdIuCSl3LjQsOgVCx8XWFlGsmFZUrmh5SsWHi4u_Vx9A6MM0zSTcoT65MpiQ3MjOL_cojzJ3CINrh9mDUJDeXxeel4WkoJC06oSizKEgjQLoKK0Rax84Zl56cUl-QUKLollmcW32CQZwvzCPyfOOMz2bl9VWnGCIpfmrOhHB-5ZrVvEIRaQml-Qk6qQmFOcr1CcmliUnKGQll-0goMRAMaHc3XxAAAA"
+        }
+      ]
+    },
+    {
+      "block_position": 1,
+      "query": "Uc davis silo market reddit",
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&hl=en&gl=us&q=Uc+davis+silo+market+reddit&sa=X&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQ1QJ6BQiCARAB",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Uc+davis+silo+market+reddit"
+    },
+    {
+      "block_position": 1,
+      "query": "Uc davis silo market menu",
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&hl=en&gl=us&q=Uc+davis+silo+market+menu&sa=X&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQ1QJ6BAh_EAE",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Uc+davis+silo+market+menu"
+    },
+    {
+      "block_position": 1,
+      "query": "Silo uc Davis hours",
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&hl=en&gl=us&q=Silo+uc+Davis+hours&sa=X&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQ1QJ6BQiAARAB",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Silo+uc+Davis+hours"
+    },
+    {
+      "block_position": 1,
+      "query": "UC Davis Silo food trucks",
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&hl=en&gl=us&q=UC+Davis+Silo+food+trucks&sa=X&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQ1QJ6BAh9EAE",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Silo+food+trucks"
+    },
+    {
+      "block_position": 1,
+      "query": "Uc davis silo market reviews",
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&hl=en&gl=us&q=Uc+davis+silo+market+reviews&sa=X&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQ1QJ6BAh2EAE",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Uc+davis+silo+market+reviews"
+    },
+    {
+      "block_position": 1,
+      "query": "Uc Davis Market mu",
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&hl=en&gl=us&q=Uc+Davis+Market+mu&sa=X&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQ1QJ6BAh5EAE",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Uc+Davis+Market+mu"
+    },
+    {
+      "block_position": 1,
+      "query": "Silo Market hours",
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&hl=en&gl=us&q=Silo+Market+hours&sa=X&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQ1QJ6BQiBARAB",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=Silo+Market+hours"
+    },
+    {
+      "block_position": 1,
+      "query": "UC Davis food trucks schedule",
+      "link": "https://www.google.com/search?sca_esv=f49db6828bbb6a84&hl=en&gl=us&q=UC+Davis+food+trucks+schedule&sa=X&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQ1QJ6BAh-EAE",
+      "serpapi_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+food+trucks+schedule"
+    }
+  ],
+  "pagination": {
+    "current": 1,
+    "next": "https://www.google.com/search?q=UC+Davis+Silo+Market&sca_esv=f49db6828bbb6a84&hl=en&gl=us&ei=hZipZ4OBO6SzptQP37KmkAQ&start=10&sa=N&sstk=Af40H4UaBRoQpXXKjcBRY791q1PblhC1PoULt5rOXyYeedMFl7qA6nuDfT3qcThBkkPQm9HkRmFrW6scqFSyRvCnGTlezEiMtH8QHw&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQ8NMDegQIDhAW",
+    "other_pages": {
+      "2": "https://www.google.com/search?q=UC+Davis+Silo+Market&sca_esv=f49db6828bbb6a84&hl=en&gl=us&ei=hZipZ4OBO6SzptQP37KmkAQ&start=10&sa=N&sstk=Af40H4UaBRoQpXXKjcBRY791q1PblhC1PoULt5rOXyYeedMFl7qA6nuDfT3qcThBkkPQm9HkRmFrW6scqFSyRvCnGTlezEiMtH8QHw&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQ8tMDegQIDhAE",
+      "3": "https://www.google.com/search?q=UC+Davis+Silo+Market&sca_esv=f49db6828bbb6a84&hl=en&gl=us&ei=hZipZ4OBO6SzptQP37KmkAQ&start=20&sa=N&sstk=Af40H4UaBRoQpXXKjcBRY791q1PblhC1PoULt5rOXyYeedMFl7qA6nuDfT3qcThBkkPQm9HkRmFrW6scqFSyRvCnGTlezEiMtH8QHw&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQ8tMDegQIDhAG",
+      "4": "https://www.google.com/search?q=UC+Davis+Silo+Market&sca_esv=f49db6828bbb6a84&hl=en&gl=us&ei=hZipZ4OBO6SzptQP37KmkAQ&start=30&sa=N&sstk=Af40H4UaBRoQpXXKjcBRY791q1PblhC1PoULt5rOXyYeedMFl7qA6nuDfT3qcThBkkPQm9HkRmFrW6scqFSyRvCnGTlezEiMtH8QHw&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQ8tMDegQIDhAI",
+      "5": "https://www.google.com/search?q=UC+Davis+Silo+Market&sca_esv=f49db6828bbb6a84&hl=en&gl=us&ei=hZipZ4OBO6SzptQP37KmkAQ&start=40&sa=N&sstk=Af40H4UaBRoQpXXKjcBRY791q1PblhC1PoULt5rOXyYeedMFl7qA6nuDfT3qcThBkkPQm9HkRmFrW6scqFSyRvCnGTlezEiMtH8QHw&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQ8tMDegQIDhAK",
+      "6": "https://www.google.com/search?q=UC+Davis+Silo+Market&sca_esv=f49db6828bbb6a84&hl=en&gl=us&ei=hZipZ4OBO6SzptQP37KmkAQ&start=50&sa=N&sstk=Af40H4UaBRoQpXXKjcBRY791q1PblhC1PoULt5rOXyYeedMFl7qA6nuDfT3qcThBkkPQm9HkRmFrW6scqFSyRvCnGTlezEiMtH8QHw&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQ8tMDegQIDhAM",
+      "7": "https://www.google.com/search?q=UC+Davis+Silo+Market&sca_esv=f49db6828bbb6a84&hl=en&gl=us&ei=hZipZ4OBO6SzptQP37KmkAQ&start=60&sa=N&sstk=Af40H4UaBRoQpXXKjcBRY791q1PblhC1PoULt5rOXyYeedMFl7qA6nuDfT3qcThBkkPQm9HkRmFrW6scqFSyRvCnGTlezEiMtH8QHw&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQ8tMDegQIDhAO",
+      "8": "https://www.google.com/search?q=UC+Davis+Silo+Market&sca_esv=f49db6828bbb6a84&hl=en&gl=us&ei=hZipZ4OBO6SzptQP37KmkAQ&start=70&sa=N&sstk=Af40H4UaBRoQpXXKjcBRY791q1PblhC1PoULt5rOXyYeedMFl7qA6nuDfT3qcThBkkPQm9HkRmFrW6scqFSyRvCnGTlezEiMtH8QHw&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQ8tMDegQIDhAQ",
+      "9": "https://www.google.com/search?q=UC+Davis+Silo+Market&sca_esv=f49db6828bbb6a84&hl=en&gl=us&ei=hZipZ4OBO6SzptQP37KmkAQ&start=80&sa=N&sstk=Af40H4UaBRoQpXXKjcBRY791q1PblhC1PoULt5rOXyYeedMFl7qA6nuDfT3qcThBkkPQm9HkRmFrW6scqFSyRvCnGTlezEiMtH8QHw&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQ8tMDegQIDhAS",
+      "10": "https://www.google.com/search?q=UC+Davis+Silo+Market&sca_esv=f49db6828bbb6a84&hl=en&gl=us&ei=hZipZ4OBO6SzptQP37KmkAQ&start=90&sa=N&sstk=Af40H4UaBRoQpXXKjcBRY791q1PblhC1PoULt5rOXyYeedMFl7qA6nuDfT3qcThBkkPQm9HkRmFrW6scqFSyRvCnGTlezEiMtH8QHw&ved=2ahUKEwjD18icubiLAxWkmYkEHV-ZCUIQ8tMDegQIDhAU"
+    }
+  },
+  "serpapi_pagination": {
+    "current": 1,
+    "next_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Silo+Market&start=10",
+    "next": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Silo+Market&start=10",
+    "other_pages": {
+      "2": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Silo+Market&start=10",
+      "3": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Silo+Market&start=20",
+      "4": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Silo+Market&start=30",
+      "5": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Silo+Market&start=40",
+      "6": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Silo+Market&start=50",
+      "7": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Silo+Market&start=60",
+      "8": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Silo+Market&start=70",
+      "9": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Silo+Market&start=80",
+      "10": "https://serpapi.com/search.json?device=desktop&engine=google&gl=us&google_domain=google.com&hl=en&location=Davis%2C+California%2C+United+States&q=UC+Davis+Silo+Market&start=90"
+    }
+  }
+}

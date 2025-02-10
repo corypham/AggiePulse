@@ -28,35 +28,17 @@ export function MiniCard({ location }: MiniCardProps) {
   // Get status text
   const statusText = React.useMemo(() => {
     if (!location.hours) return 'Hours unavailable';
+    
+    const distanceStr = location.distance 
+      ? ` • ${location.distance.toFixed(1)} mi` 
+      : '';
 
-    const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-    const today = days[new Date().getDay()];
-    const todayHours = location.hours[today];
-
-    if (isOpen && todayHours?.close) {
-      return `until ${todayHours.close}`;
+    if (isOpen) {
+      return `until ${closeTime}${distanceStr}`;
     }
-
-    // If it's closed, find next opening time
-    if (todayHours?.open === 'Closed') {
-      // Find next day that's not closed
-      for (let i = 1; i <= 7; i++) {
-        const nextDay = days[(new Date().getDay() + i) % 7];
-        const nextDayHours = location.hours[nextDay];
-        if (nextDayHours?.open && nextDayHours.open !== 'Closed') {
-          const dayName = i === 1 ? 'Mon' : nextDay.slice(0, 3).charAt(0).toUpperCase() + nextDay.slice(1, 3);
-          return `until ${nextDayHours.open} ${dayName}`;
-        }
-      }
-    }
-
-    // If opening later today
-    if (todayHours?.open) {
-      return `until ${todayHours.open}`;
-    }
-
-    return 'Hours unavailable';
-  }, [location.hours, isOpen]);
+    
+    return `until ${openTime}${nextOpenDay ? ` ${nextOpenDay}` : ''}${distanceStr}`;
+  }, [location.hours, location.distance, isOpen, closeTime, openTime, nextOpenDay]);
 
   // Get formatted distance
   const distance = React.useMemo(() => 

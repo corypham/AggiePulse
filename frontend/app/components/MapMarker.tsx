@@ -32,6 +32,7 @@ import {
   PinFavoriteFoodVeryBusy,
 } from '../../assets';
 import EventEmitter from '../_utils/EventEmitter';
+import { isLocationOpen } from '../_utils/timeUtils';
 
 interface MapMarkerProps {
   location: Location;
@@ -48,13 +49,19 @@ export function MapMarker({ location, onPress }: MapMarkerProps) {
     [isFavorite, location.id]
   );
 
-  const getBusynessStatus = (crowdInfo: { percentage: number }) => {
+  const isOpen = React.useMemo(() => 
+    isLocationOpen(location),
+    [location.hours]
+  );
+
+  const getBusynessStatus = useCallback((crowdInfo: { percentage: number }) => {
+    if (!isOpen) return 'Closed';
     
     const busyness = crowdInfo?.percentage || 0;
     if (busyness >= 75) return 'Very Busy';
     if (busyness >= 40) return 'Fairly Busy';
     return 'Not Busy';
-  };
+  }, [isOpen]);
 
   const getPin = useCallback(() => {
     const type = location.type;
@@ -118,13 +125,14 @@ export function MapMarker({ location, onPress }: MapMarkerProps) {
     }
 
     return PinComponent ? <PinComponent width={40} height={40} /> : null;
-  }, [location.type, location.crowdInfo, isLocationFavorite]);
+  }, [location.type, location.crowdInfo, isLocationFavorite, isOpen]);
 
   const pin = useMemo(() => getPin(), [
     getPin,
     location.crowdInfo,
     isLocationFavorite,
-    location.type
+    location.type,
+    isOpen
   ]);
 
   useEffect(() => {
