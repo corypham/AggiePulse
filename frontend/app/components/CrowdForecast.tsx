@@ -49,7 +49,13 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
   
   // Format the data for the chart
   const chartData = {
-    labels: ['4 AM', '8 AM', '12 PM', '4 PM', '8 PM', '12 AM'],
+    labels: fullDayData.map((d, i) => {
+      if (i % 4 === 0) {
+        const [hour, period] = d.time.split(' ');
+        return `${hour} ${period}`;
+      }
+      return '';
+    }),
     datasets: [{
       data: fullDayData.map(d => d.busyness)
     }]
@@ -113,21 +119,17 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
             backgroundGradientTo: '#ffffff',
             decimalPlaces: 0,
             color: (opacity = 1) => {
-              return currentHour === 16 
-                ? `rgba(79, 70, 229, ${opacity})`
-                : `rgba(100, 100, 100, ${opacity})`;
+              return `rgba(200, 200, 200, ${opacity})`;
             },
             labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
             style: {
               borderRadius: 16,
             },
-            barPercentage: 0.5,
+            barPercentage: 0.7,
             propsForLabels: {
               fontSize: 12,
             },
-            propsForBackgroundLines: {
-              strokeWidth: 0,
-            },
+            barRadius: 4,
           }}
           style={{
             marginVertical: 8,
@@ -135,9 +137,17 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
             paddingRight: 0,
           }}
           showBarTops={false}
+          flatColor={true}
           fromZero={true}
           withInnerLines={false}
           showValuesOnTopOfBars={false}
+          xLabels={fullDayData.map((d, i) => {
+            const [hour, period] = d.time.split(' ');
+            if (i % 4 === 0) {
+              return `${hour}${period}`;
+            }
+            return '';
+          })}
         />
         <View 
           className="absolute bottom-8 left-0 right-0 h-[2px] bg-black"
