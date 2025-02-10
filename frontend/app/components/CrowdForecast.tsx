@@ -3,6 +3,7 @@ import { View, Text, Dimensions } from 'react-native';
 import { BarChart } from 'react-native-chart-kit';
 import type { Location } from '../types/location';
 import LocationService from '../services/locationService';
+import { calculateBestWorstTimes } from '../_utils/timeUtils';
 
 interface CrowdForecastProps {
   location: Location;
@@ -70,15 +71,10 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
     return hour;
   }
 
-
-  // Find best and worst times
-  const bestTime = fullDayData.reduce((best, current) => {
-    return (current.busyness < best.busyness) ? current : best;
-  }, fullDayData[0]);
-
-  const worstTime = fullDayData.reduce((worst, current) => {
-    return (current.busyness > worst.busyness) ? current : worst;
-  }, fullDayData[0]);
+  const { bestTime, worstTime } = calculateBestWorstTimes(
+    dayData,
+    location.hours?.[currentDay.toLowerCase()]
+  );
 
   const getStatusColor = (busyness: number) => {
     if (busyness >= 75) return 'text-red-600';
@@ -89,22 +85,19 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
   return (
     <View className="bg-white p-1 rounded-lg">
       <Text className="font-aileron-bold text-2xl mb-4 ml-4">Crowd Forecast</Text>
-      <View>
+      <View className="mx-2">
         <View className={`bg-primary rounded-xl ml-4 px-3 py-1 self-start`}>
           <Text className="text-white text-center text-lg">
             {getCurrentStatus()}
           </Text>
         </View>
 
-        <View className="flex-row items-center mb-2 ml-4">
+        <View className="flex-row items-center mb-2 ml-7 mt-4">
           <Text className="font-aileron-semibold text-md">{currentDay}</Text>
           <Text className="text-gray-500 ml-1">▼</Text>
         </View>
 
-      </View>
-
-
-      <View>
+        <View>
         <BarChart
           data={chartData}
           width={screenWidth - 48}
@@ -152,18 +145,21 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
         />
       </View>
 
-      <View className="mt-6">
-        <Text className="font-aileron-semibold text-xl mb-3">Plan Your Visit!</Text>
-        <View className="bg-gray-100 rounded-full p-2 flex-row items-center justify-center space-x-4 font-aileron">
-          <Text className="text-[#0c8f34] mr-4">
-            Best time: {bestTime ? bestTime.time : 'N/A'}
+      <View className="mt-6 mx-6">
+        <Text className="font-aileron-semibold text-xl mb-3 pl-2">Plan Your Visit!</Text>
+        <View className="bg-gray-100 rounded-full py-4 flex-row justify-center items-center">
+          <Text className="text-[#0c8f34] text-center font-aileron">
+            Best time: {bestTime}
           </Text>
-          <View className="w-[1px] h-8 bg-gray-400" />
-          <Text className="text-[#EF4444] ml-4">
-            Worst time: {worstTime ? worstTime.time : 'N/A'}
+          <View className="w-[1px] h-8 bg-gray-400 mx-3" style={{ marginVertical: -8 }} />
+          <Text className="text-[#EF4444] text-center">
+            Worst time: {worstTime}
           </Text>
         </View>
       </View>
+
+      </View>
+
     </View>
   );
 } 

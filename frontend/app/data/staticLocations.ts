@@ -67,8 +67,8 @@ export const staticLocations: Record<string, LocationStatic> = {
     id: 'library',
     title: 'Peter J. Shields Library',
     coordinates: {
-      latitude: 38.5395,
-      longitude: -121.7489
+      latitude: 38.53961702615496,
+      longitude: -121.74971841834478
     },
     imageUrl: LibraryDetailedCard,
     maxCapacity: 144,
@@ -117,8 +117,8 @@ export const staticLocations: Record<string, LocationStatic> = {
     id: 'arc',
     title: 'Activities and Recreation Center',
     coordinates: {
-      latitude: 38.54272,
-      longitude: -121.75904
+      latitude: 38.54271825116285,
+      longitude:  -121.75908425253886
     },
     imageUrl: ArcDetailedCard,
     maxCapacity: 300,
@@ -205,8 +205,8 @@ export const staticLocations: Record<string, LocationStatic> = {
     id: 'mu',
     title: 'Memorial Union CoHo',
     coordinates: {
-      latitude: 38.54229,
-      longitude: -121.74963
+      latitude: 38.54206770848346,
+      longitude: -121.74975695063387
     },
     imageUrl: MemorialUnionDetailedCard,
     maxCapacity: 300,

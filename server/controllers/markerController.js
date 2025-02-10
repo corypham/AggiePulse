@@ -3,10 +3,10 @@ const NodeCache = require('node-cache');
 const fs = require('fs');
 const path = require('path');
 
-// Server-side cache with longer TTL
-const cache = new NodeCache({
-  stdTTL: 24 * 60 * 60, // 1 day default
-  checkperiod: 60 * 60   // Check for expired keys every hour
+// Separate caches for weekly and current data
+const weeklyCache = new NodeCache({
+  stdTTL: 7 * 24 * 60 * 60, // 1 week
+  checkperiod: 24 * 60 * 60  // Check daily
 });
 
 // Create logs directory if it doesn't exist
@@ -48,88 +48,129 @@ exports.getLocationData = async (req, res) => {
   const { locationId } = req.params;
   
   try {
-    // Check cache first
-    const cachedData = cache.get(locationId);
+    // Check weekly cache first
+    const cachedData = weeklyCache.get(locationId);
     if (cachedData) {
-      console.log('Serving cached data for:', locationId);
-      return res.json(cachedData);
-    }
-
-    // Get proper search query for the location
-    const searchQuery = getSearchQuery(locationId);
-    if (!searchQuery) {
-      throw new Error(`Invalid location ID: ${locationId}`);
+      // Update only the current status for cached data
+      const currentStatus = await getCurrentStatus(cachedData.knowledge_graph);
+      
+      return res.json({
+        ...cachedData,
+        currentStatus
+      });
     }
 
     // Fetch new data if not cached
     const results = await getJson({
       api_key: process.env.SERPAPI_KEY,
       engine: "google",
-      q: searchQuery,
+      q: getSearchQuery(locationId),
       location: "Davis, California, United States",
       hl: "en",
       gl: "us",
       type: "place"
     });
 
-    // Process the results to match LocationDynamic interface
+    if (!results?.knowledge_graph) {
+      throw new Error('Invalid SERPAPI response');
+    }
+
+    // Process and split the data
     const processedData = {
-      hours: Object.entries(results.knowledge_graph?.hours || {}).reduce((acc, [day, times]) => {
-        acc[day.toLowerCase()] = {
-          open: times.opens,
-          close: times.closes
-        };
-        return acc;
-      }, {}),
-
-      currentStatus: {
-        busyness: results.knowledge_graph?.popular_times?.live?.busyness_score || 0,
-        description: results.knowledge_graph?.popular_times?.live?.info || "No current data",
-        typicalDuration: results.knowledge_graph?.popular_times?.live?.typical_time_spent || "Unknown",
-        isOpen: isLocationCurrentlyOpen(results.knowledge_graph?.hours || {}),
-        currentCapacity: {
-          current: calculateCurrentCapacity(results.knowledge_graph?.popular_times?.live?.busyness_score),
-          total: getMaxCapacity(locationId),
-          percentage: results.knowledge_graph?.popular_times?.live?.busyness_score || 0
-        },
-        statusText: getBusyStatusText(results.knowledge_graph?.popular_times?.live?.busyness_score),
-        untilText: getUntilText(results.knowledge_graph?.hours || {})
-      },
-
-      weeklyBusyness: Object.entries(results.knowledge_graph?.popular_times?.graph_results || {}).reduce((acc, [day, hours]) => {
-        acc[day.toLowerCase()] = hours.map(hour => ({
-          time: hour.time,
-          busyness: hour.busyness_score || 0,
-          description: hour.info || getBusyStatusText(hour.busyness_score)
-        }));
-        return acc;
-      }, {}),
-
-      bestTimes: calculateBestTimes(results.knowledge_graph?.popular_times?.graph_results || {})
+      // Weekly data
+      hours: processHours(results.knowledge_graph.hours),
+      weeklyBusyness: processWeeklyBusyness(results.knowledge_graph.popular_times),
+      
+      // Current status
+      currentStatus: getCurrentStatus(results.knowledge_graph)
     };
 
-    // Cache the processed data
-    cache.set(locationId, processedData);
-    
+    // Cache weekly data
+    weeklyCache.set(locationId, {
+      hours: processedData.hours,
+      weeklyBusyness: processedData.weeklyBusyness
+    });
+
     res.json(processedData);
   } catch (error) {
     console.error('Error:', error);
-    res.status(500).json({ error: error.message });
+    res.status(500).json(getErrorResponse());
   }
 };
 
+exports.testLocationData = async (req, res) => {
+  // Add your test endpoint logic here
+  res.json({ message: 'Test endpoint working' });
+};
+
 // Helper functions
-function isLocationCurrentlyOpen(hours) {
+function getUntilText(hours) {
+  if (!hours) return '';
+  
   const now = new Date();
-  const day = now.toLocaleLowerCase();
+  const currentDay = now.toLocaleString('en-US', { weekday: 'long' }).toLowerCase().slice(0, 3);
+  const currentHour = now.getHours();
+  const currentMinutes = now.getMinutes();
+  
+  const todayHours = hours[currentDay];
+  if (!todayHours) return '';
+  
+  // Convert time strings to 24-hour format
+  const convertTo24Hour = (timeStr) => {
+    if (!timeStr) return null;
+    const [time, period] = timeStr.split(' ');
+    let [hours, minutes] = time.split(':').map(Number);
+    if (period === 'PM' && hours !== 12) hours += 12;
+    if (period === 'AM' && hours === 12) hours = 0;
+    return { hours, minutes };
+  };
+
+  const openTime = convertTo24Hour(todayHours.opens);
+  const closeTime = convertTo24Hour(todayHours.closes);
+  
+  if (!openTime || !closeTime) return '';
+  
+  // Location is currently open
+  if (currentHour > openTime.hours || 
+      (currentHour === openTime.hours && currentMinutes >= openTime.minutes)) {
+    return `Until ${todayHours.closes}`;
+  }
+  
+  // Location will open later today
+  return `Opens ${todayHours.opens}`;
+}
+
+function isLocationCurrentlyOpen(hours) {
+  if (!hours) return false;
+  const now = new Date();
+  const day = now.toLocaleLowerCase().slice(0, 3);
   const currentHours = hours[day];
-  // Add implementation
-  return true; // Placeholder
+  if (!currentHours) return false;
+  
+  // Convert current time to minutes since midnight
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+  
+  // Convert opening hours to minutes since midnight
+  const convertTimeToMinutes = (timeStr) => {
+    if (!timeStr) return null;
+    const [time, period] = timeStr.split(' ');
+    let [hours, minutes] = time.split(':').map(Number);
+    if (period === 'PM' && hours !== 12) hours += 12;
+    if (period === 'AM' && hours === 12) hours = 0;
+    return hours * 60 + minutes;
+  };
+  
+  const openMinutes = convertTimeToMinutes(currentHours.opens);
+  const closeMinutes = convertTimeToMinutes(currentHours.closes);
+  
+  if (!openMinutes || !closeMinutes) return false;
+  
+  return currentMinutes >= openMinutes && currentMinutes <= closeMinutes;
 }
 
 function calculateCurrentCapacity(busynessScore) {
-  // Add implementation based on your capacity logic
-  return Math.floor((busynessScore || 0) * 1.44); // Placeholder
+  if (!busynessScore) return 0;
+  return Math.floor(busynessScore * 1.44); // Converts percentage to estimated number of people
 }
 
 function getMaxCapacity(locationId) {
@@ -143,6 +184,7 @@ function getMaxCapacity(locationId) {
 }
 
 function getBusyStatusText(busynessScore) {
+  if (!busynessScore) return 'Not Busy';
   if (busynessScore <= 30) return 'Not Busy';
   if (busynessScore <= 65) return 'Fairly Busy';
   return 'Very Busy';
@@ -153,5 +195,94 @@ function calculateBestTimes(weeklyData) {
   return {
     best: '2pm - 4pm',
     worst: '11:30am - 1:30pm'
+  };
+}
+
+// Add bulk data endpoint
+exports.getBulkLocationData = async (req, res) => {
+  try {
+    const locationIds = ['library', 'mu', 'arc', 'silo'];
+    const results = {};
+    
+    for (const id of locationIds) {
+      // Check cache first
+      const cachedData = cache.get(id);
+      if (cachedData) {
+        results[id] = cachedData;
+        continue;
+      }
+      
+      // Fetch if not cached
+      const searchQuery = getSearchQuery(id);
+      if (!searchQuery) continue;
+      
+      const data = await getJson({
+        api_key: process.env.SERPAPI_KEY,
+        engine: "google",
+        q: searchQuery,
+        location: "Davis, California, United States",
+        hl: "en",
+        gl: "us",
+        type: "place"
+      });
+      
+      const processedData = processLocationData(data); // Extract this from getLocationData
+      cache.set(id, processedData);
+      results[id] = processedData;
+    }
+    
+    res.json(results);
+  } catch (error) {
+    console.error('Bulk fetch error:', error);
+    res.status(500).json({ error: 'Failed to fetch bulk location data' });
+  }
+};
+
+function getCurrentStatus(data) {
+  return {
+    statusText: getBusyStatusText(data?.popular_times?.live?.busyness_score),
+    currentCapacity: {
+      current: calculateCurrentCapacity(data?.popular_times?.live?.busyness_score),
+      percentage: data?.popular_times?.live?.busyness_score || 0
+    },
+    description: data?.popular_times?.live?.info || "No current data",
+    untilText: getUntilText(data?.hours || {})
+  };
+}
+
+function processHours(hours) {
+  if (!hours) return {};
+  return Object.entries(hours).reduce((acc, [day, times]) => {
+    acc[day.toLowerCase()] = {
+      open: times.opens,
+      close: times.closes
+    };
+    return acc;
+  }, {});
+}
+
+function processWeeklyBusyness(popularTimes) {
+  if (!popularTimes?.graph_results) return {};
+  return Object.entries(popularTimes.graph_results).reduce((acc, [day, hours]) => {
+    acc[day.toLowerCase()] = hours.map(hour => ({
+      time: hour.time,
+      busyness: hour.busyness_score || 0,
+      description: getBusyStatusText(hour.busyness_score)
+    }));
+    return acc;
+  }, {});
+}
+
+function getErrorResponse() {
+  return {
+    error: 'Failed to fetch location data',
+    hours: {},
+    currentStatus: {
+      statusText: 'Unknown',
+      currentCapacity: { current: 0, percentage: 0 },
+      description: 'Service temporarily unavailable',
+      untilText: ''
+    },
+    weeklyBusyness: {}
   };
 }
