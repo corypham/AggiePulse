@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const markerRoutes = require('./routes/markerRoutes');
 const locationRoutes = require('./routes/locationRoutes');
+const apiRoutes = require('./routes/api');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -25,6 +26,7 @@ app.use(express.json());
 // Mount routes
 app.use('/api', markerRoutes);
 app.use('/api', locationRoutes);
+app.use('/api', apiRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
