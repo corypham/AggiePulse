@@ -29,6 +29,12 @@ export default function HomeScreen() {
   const { selectedFilters } = useFilters();
   const { locations, loading, error } = useLocations(selectedFilters);
 
+  useEffect(() => {
+    console.log('Locations:', locations);
+    console.log('Loading:', loading);
+    console.log('Error:', error);
+  }, [locations, loading, error]);
+
   const handleMarkerPress = (location: LocationType) => {
     console.log('Selected location:', location);
   };

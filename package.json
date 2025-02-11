@@ -19,7 +19,7 @@
     "start:dev:clear": "yarn workspace frontend expo start --dev-client -c",
     "ios:dev": "yarn workspace frontend expo run:ios --configuration Debug"
   },
-  "dependencies": {
+  "devDependencies": {
     "dotenv": "^16.4.7",
     "expo": "~52.0.28",
     "react": "18.3.1",

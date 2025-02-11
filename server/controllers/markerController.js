@@ -28,6 +28,9 @@ const locations = {
   '4': 'UC Davis Silo Market'
 };
 
+const cache = new Map();
+const CACHE_DURATION = 7 * 24 * 60 * 60 * 1000; // 1 week in milliseconds
+
 function getSearchQuery(locationId) {
   // Convert locationId to string and handle numeric IDs
   const id = locationId.toString().toLowerCase();
@@ -43,6 +46,37 @@ function getSearchQuery(locationId) {
   console.log('markerController: Found matching query:', query);
   return query;
 }
+
+const getLocationData = async (locationName) => {
+  // Check if we have valid cached data
+  const cachedData = cache.get(locationName);
+  if (cachedData && (Date.now() - cachedData.timestamp) < CACHE_DURATION) {
+    console.log(`markerController: Using cached data for ${locationName}`);
+    return cachedData.data;
+  }
+
+  // If not in cache or expired, fetch new data
+  console.log(`markerController: Fetching fresh data for ${locationName}`);
+  try {
+    const data = await fetchLocationData(locationName); // Your existing fetch function
+    
+    // Store in cache with timestamp
+    cache.set(locationName, {
+      data,
+      timestamp: Date.now()
+    });
+    
+    return data;
+  } catch (error) {
+    console.error(`Error fetching data for ${locationName}:`, error);
+    // If fetch fails but we have cached data (even if expired), use it as fallback
+    if (cachedData) {
+      console.log(`markerController: Using expired cache as fallback for ${locationName}`);
+      return cachedData.data;
+    }
+    throw error;
+  }
+};
 
 exports.getLocationData = async (req, res) => {
   const { locationId } = req.params;

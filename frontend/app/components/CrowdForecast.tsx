@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { View, Text, Dimensions } from 'react-native';
-import { BarChart } from 'react-native-chart-kit';
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory-native';
 import type { Location } from '../types/location';
 import LocationService from '../services/locationService';
 import { calculateBestWorstTimes } from '../_utils/timeUtils';
+import { useLocations } from '../hooks/useLocations';
 
 interface CrowdForecastProps {
   location: Location;
@@ -16,27 +17,20 @@ interface CrowdForecastProps {
 }
 
 export default function CrowdForecast({ location, currentDay, dayData }: CrowdForecastProps) {
-  const [crowdData, setCrowdData] = useState<any>(null);
+  const { locations, lastUpdate } = useLocations();
   
-  useEffect(() => {
-    const fetchCrowdData = async () => {
-      try {
-        const data = await LocationService.getLocationCrowdData(location.id);
-        console.log('Crowd Data Fetched:', data);
-        setCrowdData(data);
-      } catch (error) {
-        console.error('Error fetching crowd data:', error);
-      }
-    };
+  // Get current location data from context
+  const currentLocation = useMemo(() => 
+    locations.find(loc => loc.id === location.id) || location,
+    [locations, location.id]
+  );
 
-    fetchCrowdData();
-  }, [location.id]);
-
-  // Get current status directly from API response
-  const getCurrentStatus = () => {
-    if (!crowdData?.currentStatus) return 'Not Busy';
-    return crowdData.currentStatus.statusText || 'Not Busy';
-  };
+  // Use the data from context instead of making separate API calls
+  const crowdData = useMemo(() => ({
+    currentStatus: currentLocation.currentStatus,
+    weeklyBusyness: currentLocation.weeklyBusyness,
+    // ... other needed data
+  }), [currentLocation, lastUpdate]);
 
   const screenWidth = Dimensions.get('window').width;
   
@@ -47,35 +41,21 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
     description: ''
   }));
   
-  // Format the data for the chart
-  const chartData = {
-    labels: fullDayData.map((d, i) => {
-      if (i % 4 === 0) {
-        const [hour, period] = d.time.split(' ');
-        return `${hour} ${period}`;
-      }
-      return '';
-    }),
-    datasets: [{
-      data: fullDayData.map(d => d.busyness)
-    }]
-  };
-
+  // Get current hour for highlighting
   const currentHour = new Date().getHours();
-  
-  // Find the current hour's data
-  const currentBusyness = dayData.find(data => {
-    const [hour, period] = data.time.split(' ');
-    const dataHour = convertTo24Hour(parseInt(hour), period);
-    return dataHour === currentHour;
-  });
 
-  // Convert 12-hour format to 24-hour
-  function convertTo24Hour(hour: number, period: string): number {
-    if (period === 'PM' && hour !== 12) return hour + 12;
-    if (period === 'AM' && hour === 12) return 0;
-    return hour;
-  }
+  // Format data for Victory chart
+  const chartData = fullDayData.map((d, index) => {
+    const [hour, period] = d.time.split(' ');
+    const hour24 = convertTo24Hour(parseInt(hour), period);
+    
+    return {
+      x: index,
+      y: d.busyness || 0,
+      time: d.time,
+      isCurrentHour: hour24 === currentHour
+    };
+  });
 
   const { bestTime, worstTime } = calculateBestWorstTimes(
     dayData,
@@ -94,7 +74,7 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
       <View className="mx-2">
         <View className={`bg-primary rounded-xl ml-4 px-3 py-1 self-start`}>
           <Text className="text-white text-center text-lg">
-            {getCurrentStatus()}
+            {crowdData?.currentStatus || 'Unknown'}
           </Text>
         </View>
 
@@ -103,73 +83,63 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
           <Text className="text-gray-500 ml-1">▼</Text>
         </View>
 
-        <View>
-        <BarChart
-          data={chartData}
-          width={screenWidth - 48}
-          height={200}
-          yAxisLabel=""
-          yAxisSuffix=""
-          withVerticalLabels={true}
-          withHorizontalLabels={false}
-          segments={4}
-          chartConfig={{
-            backgroundColor: '#ffffff',
-            backgroundGradientFrom: '#ffffff',
-            backgroundGradientTo: '#ffffff',
-            decimalPlaces: 0,
-            color: (opacity = 1) => {
-              return `rgba(200, 200, 200, ${opacity})`;
-            },
-            labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-            style: {
-              borderRadius: 16,
-            },
-            barPercentage: 0.7,
-            propsForLabels: {
-              fontSize: 12,
-            },
-            barRadius: 4,
-          }}
-          style={{
-            marginVertical: 8,
-            borderRadius: 16,
-            paddingRight: 0,
-          }}
-          showBarTops={false}
-          flatColor={true}
-          fromZero={true}
-          withInnerLines={false}
-          showValuesOnTopOfBars={false}
-          xLabels={fullDayData.map((d, i) => {
-            const [hour, period] = d.time.split(' ');
-            if (i % 4 === 0) {
-              return `${hour}${period}`;
-            }
-            return '';
-          })}
-        />
-        <View 
-          className="absolute bottom-8 left-0 right-0 h-[2px] bg-black"
-          style={{ marginHorizontal: 40 }}
-        />
-      </View>
+        <View style={{ height: 200, marginHorizontal: -16 }}>
+          <VictoryChart
+            padding={{ top: 20, bottom: 40, left: 40, right: 40 }}
+            domainPadding={{ x: 10 }}
+            theme={VictoryTheme.material}
+          >
+            <VictoryAxis
+              tickFormat={(t) => {
+                if (t % 4 === 0) {
+                  const timeData = fullDayData[t];
+                  const [hour, period] = timeData.time.split(' ');
+                  return `${hour}${period}`;
+                }
+                return '';
+              }}
+              style={{
+                axis: { stroke: '#E5E7EB' },
+                tickLabels: { fontSize: 12, padding: 5 }
+              }}
+            />
+            <VictoryBar
+              data={chartData}
+              cornerRadius={{ top: 4 }}
+              style={{
+                data: {
+                  fill: ({ datum }) => datum.isCurrentHour ? '#4F46E5' : '#E5E7EB',
+                  width: 12
+                }
+              }}
+              animate={{
+                duration: 200,
+                onLoad: { duration: 200 }
+              }}
+            />
+          </VictoryChart>
+        </View>
 
-      <View className="mt-6 mx-6">
-        <Text className="font-aileron-semibold text-xl mb-3 pl-2">Plan Your Visit!</Text>
-        <View className="bg-gray-100 rounded-full py-4 flex-row justify-center items-center">
-          <Text className="text-[#0c8f34] text-center font-aileron">
-            Best time: {bestTime}
-          </Text>
-          <View className="w-[1px] h-8 bg-gray-400 mx-3" style={{ marginVertical: -8 }} />
-          <Text className="text-[#EF4444] text-center">
-            Worst time: {worstTime}
-          </Text>
+        <View className="mt-6 mx-6">
+          <Text className="font-aileron-semibold text-xl mb-3 pl-2">Plan Your Visit!</Text>
+          <View className="bg-gray-100 rounded-full py-4 flex-row justify-center items-center">
+            <Text className="text-[#0c8f34] text-center font-aileron">
+              Best time: {bestTime}
+            </Text>
+            <View className="w-[1px] h-8 bg-gray-400 mx-3" style={{ marginVertical: -8 }} />
+            <Text className="text-[#EF4444] text-center">
+              Worst time: {worstTime}
+            </Text>
+          </View>
         </View>
       </View>
-
-      </View>
-
     </View>
   );
+}
+
+// Helper function to convert 12-hour to 24-hour format
+function convertTo24Hour(hour: number, period: string): number {
+  if (period === 'PM' && hour !== 12) return hour + 12;
+  if (period === 'AM' && hour === 12) return 0;
+  return hour;
 } 

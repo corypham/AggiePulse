@@ -11,7 +11,7 @@ const CACHE_KEYS = {
   LOCATION_DATA: 'location_data_',
   WEEKLY_DATA: 'weekly_data_',  // New key for weekly data
   CACHE_DURATION: {
-    HOUR: 1000 * 60 * 60,      // For current status updates
+    HOUR: 1000 * 60 * 5,      // Update every 5 minutes instead of hourly
     WEEK: 1000 * 60 * 60 * 24 * 7  // For weekly patterns
   }
 };
