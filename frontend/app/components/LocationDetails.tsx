@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useState, useRef, useCallback } from 'react';
+import React, { useMemo, useEffect, useState, useRef, useCallback, useContext } from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity, StatusBar, Animated } from 'react-native';
 import { useRouter, Stack } from 'expo-router';
 import { Heart, ChevronLeft, Share2 } from 'lucide-react-native';
@@ -42,7 +42,7 @@ interface LocationDetailsProps {
 }
 
 export default function LocationDetails({ location: initialLocation }: { location: Location }) {
-  const { locations, lastUpdate } = useLocations();
+  const { getLocation, lastUpdate } = useLocations();
   const { isFavorite, toggleFavorite } = useFavorites();
   const router = useRouter();
   const [scrollY] = useState(new Animated.Value(0));
@@ -51,8 +51,8 @@ export default function LocationDetails({ location: initialLocation }: { locatio
   
   // Get real-time location data from context
   const location = useMemo(() => 
-    locations.find(loc => loc.id === initialLocation.id) || initialLocation,
-    [locations, initialLocation.id]
+    getLocation(initialLocation.id) || initialLocation,
+    [getLocation, initialLocation.id, lastUpdate]
   );
 
   const isLocationFavorite = useMemo(() => 
@@ -232,22 +232,15 @@ export default function LocationDetails({ location: initialLocation }: { locatio
     return `${todayHours.open} - ${todayHours.close}`;
   };
 
-  const [crowdData, setCrowdData] = useState<any>(null);
+  // Remove the separate crowdData state and fetch
+  // All data should now come from the location object
+  const { bestTime, worstTime } = useMemo(() => 
+    calculateBestWorstTimes(location.weeklyBusyness?.[today] ?? []),
+    [location.weeklyBusyness, today]
+  );
 
-  useEffect(() => {
-    const fetchCrowdData = async () => {
-      try {
-        const data = await LocationService.getLocationCrowdData(location.id);
-        console.log('Crowd Data Fetched:', data);
-        setCrowdData(data);
-      } catch (error) {
-        console.error('Error fetching crowd data:', error);
-      }
-    };
-
-    fetchCrowdData();
-  }, [location.id]);
-
+  // Remove the useEffect that was fetching crowd data
+  
   // Get status color based on current status
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -269,10 +262,6 @@ export default function LocationDetails({ location: initialLocation }: { locatio
     if (!isOpen) return 'Not Busy';
     return location.currentStatus || 'Not Busy';
   };
-
-  const { bestTime, worstTime } = calculateBestWorstTimes(
-    crowdData?.weeklyBusyness?.[today] ?? []
-  );
 
   return (
     <Animated.View 
@@ -473,7 +462,7 @@ export default function LocationDetails({ location: initialLocation }: { locatio
             <CrowdForecast
               location={location}
               currentDay={new Date().toLocaleDateString('en-US', { weekday: 'long' })}
-              dayData={crowdData?.weeklyBusyness?.[today] ?? []}
+              dayData={location.weeklyBusyness?.[today] ?? []}
             />
           </View>
 

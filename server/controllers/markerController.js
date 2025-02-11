@@ -232,24 +232,27 @@ function calculateBestTimes(weeklyData) {
   };
 }
 
-// Add bulk data endpoint
 exports.getBulkLocationData = async (req, res) => {
   try {
+    console.log('Bulk data request received');
     const locationIds = ['library', 'mu', 'arc', 'silo'];
     const results = {};
     
     for (const id of locationIds) {
-      // Check cache first
-      const cachedData = cache.get(id);
-      if (cachedData) {
-        results[id] = cachedData;
-        continue;
-      }
-      
-      // Fetch if not cached
+      // Use the existing getSearchQuery function
       const searchQuery = getSearchQuery(id);
       if (!searchQuery) continue;
-      
+
+      // Check cache first
+      const cachedData = cache.get(id);
+      if (cachedData && (Date.now() - cachedData.timestamp < CACHE_DURATION)) {
+        console.log(`Using cached data for ${id}`);
+        results[id] = cachedData.data;
+        continue;
+      }
+
+      // Fetch if not cached
+      console.log(`Fetching fresh data for ${id}`);
       const data = await getJson({
         api_key: process.env.SERPAPI_KEY,
         engine: "google",
@@ -259,12 +262,28 @@ exports.getBulkLocationData = async (req, res) => {
         gl: "us",
         type: "place"
       });
-      
-      const processedData = processLocationData(data); // Extract this from getLocationData
-      cache.set(id, processedData);
+
+      if (!data?.knowledge_graph) {
+        console.log(`No data found for ${id}`);
+        continue;
+      }
+
+      const processedData = {
+        hours: processHours(data.knowledge_graph.hours),
+        weeklyBusyness: processWeeklyBusyness(data.knowledge_graph.popular_times),
+        currentStatus: getCurrentStatus(data.knowledge_graph)
+      };
+
+      // Cache the processed data
+      cache.set(id, {
+        data: processedData,
+        timestamp: Date.now()
+      });
+
       results[id] = processedData;
     }
     
+    console.log('Sending bulk data response');
     res.json(results);
   } catch (error) {
     console.error('Bulk fetch error:', error);

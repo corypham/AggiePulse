@@ -1,15 +1,16 @@
-import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
+import React, { createContext, useContext, useEffect, useRef, useState, useCallback } from 'react';
 import { LocationService } from '../services/locationService';
 import type { Location } from '../types/location';
 
 interface LocationContextType {
   locations: Location[];
   refreshLocations: () => Promise<void>;
+  getLocation: (locationId: string) => Location | undefined;
   lastUpdate: Date;
   isLoading: boolean;
 }
 
-const LocationContext = createContext<LocationContextType | undefined>(undefined);
+export const LocationContext = createContext<LocationContextType | undefined>(undefined);
 
 export const LocationProvider = ({ children }: { children: React.ReactNode }) => {
   const [locations, setLocations] = React.useState<Location[]>([]);
@@ -29,21 +30,22 @@ export const LocationProvider = ({ children }: { children: React.ReactNode }) =>
   };
 
   useEffect(() => {
-    // Immediate first load
     refreshLocations();
-
-    // Set up refresh interval
     refreshInterval.current = setInterval(refreshLocations, 5 * 60 * 1000);
-
     return () => {
       if (refreshInterval.current) clearInterval(refreshInterval.current);
     };
   }, []);
 
+  const getLocation = useCallback((locationId: string) => {
+    return locations.find(loc => loc.id === locationId);
+  }, [locations]);
+
   return (
     <LocationContext.Provider value={{ 
       locations, 
-      refreshLocations, 
+      refreshLocations,
+      getLocation,
       lastUpdate,
       isLoading: isInitialLoad.current 
     }}>
