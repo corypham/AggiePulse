@@ -23,3 +23,4 @@ config.watchFolders = [
 module.exports = withNativeWind(config, {
   input: path.resolve(__dirname, "./global.css"), // Adjust path to global.css
 });
+

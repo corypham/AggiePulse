@@ -4,16 +4,51 @@ function isCurrentlyOpen(hours: { open: string; close: string }): boolean {
   if (!hours || !hours.open || !hours.close) return false;
   
   const now = new Date();
-  const currentTime = now.getHours() * 100 + now.getMinutes();
+  const currentHour = now.getHours();
+  const currentMinutes = now.getMinutes();
+  const currentTime = currentHour * 60 + currentMinutes; // Convert to minutes for easier comparison
   
   try {
-    const openTime = convertTimeStringToNumber(hours.open);
-    const closeTime = convertTimeStringToNumber(hours.close);
+    // Handle different time formats
+    const openParts = hours.open.split(' ');
+    const closeParts = hours.close.split(' ');
+    
+    // Convert to 24-hour format
+    let openTime = convertTo24Hour(openParts[0], openParts[1]);
+    let closeTime = convertTo24Hour(closeParts[0], closeParts[1]);
     
     return currentTime >= openTime && currentTime < closeTime;
   } catch (error) {
-    console.error('Error parsing time:', error);
+    console.error('Error parsing hours:', hours, error);
     return false;
+  }
+}
+
+// Helper function to convert time to minutes since midnight
+function convertTo24Hour(timeStr: string, period?: string): number {
+  try {
+    const [hours, minutes = '0'] = timeStr.split(':');
+    let hour = parseInt(hours);
+    
+    // Handle cases where period might not be provided
+    if (period) {
+      if (period.toUpperCase() === 'PM' && hour !== 12) {
+        hour += 12;
+      } else if (period.toUpperCase() === 'AM' && hour === 12) {
+        hour = 0;
+      }
+    }
+    
+    // If no valid hour could be parsed, return 0
+    if (isNaN(hour)) {
+      console.warn('Invalid hour format:', timeStr);
+      return 0;
+    }
+    
+    return (hour * 60) + parseInt(minutes || '0');
+  } catch (error) {
+    console.error('Error converting time:', timeStr, period, error);
+    return 0;
   }
 }
 
@@ -32,7 +67,6 @@ function convertTimeStringToNumber(timeStr: string): number {
     
     return hour * 100 + (minutes || 0);
   } catch (error) {
-    console.error('Error converting time string:', timeStr, error);
     return 0;
   }
 }
@@ -111,15 +145,59 @@ export const getOpenStatusText = (location: Location): string => {
 };
 
 export const isLocationOpen = (location: Location): boolean => {
-  if (!location.hours) return false;
-  
+  const now = new Date();
   const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-  const today = new Date().getDay();
-  const todayHours = location.hours[days[today]];
+  const currentDay = days[now.getDay()].toLowerCase();
+
+  if (!location.hours || !location.hours[currentDay]) {
+    return false;
+  }
+
+  const { open, close } = location.hours[currentDay];
   
-  if (!todayHours) return false;
-  
-  return isCurrentlyOpen(todayHours);
+  // Convert time string to minutes since midnight
+  const timeToMinutes = (timeStr: string, isClosingTime: boolean = false): number => {
+    if (!timeStr) return 0;
+    
+    
+    // Special case: if it's a closing time of 12 AM, treat it as end of day
+    if (isClosingTime && timeStr.trim().toUpperCase() === '12 AM') {;
+      return 24 * 60;  // 1440 minutes (end of day)
+    }
+    
+    // Split time and period
+    const matches = timeStr.match(/^(\d{1,2})(?::(\d{2}))?\s*(AM|PM)$/i);
+    if (!matches) {
+      return 0;
+    }
+    
+    const [_, hours, minutes = '0', period] = matches;
+    let hour = parseInt(hours);
+    
+
+    // Convert to 24-hour format
+    if (period.toUpperCase() === 'PM' && hour !== 12) {
+      hour += 12;
+    } else if (period.toUpperCase() === 'AM' && hour === 12) {
+      // Special case: 12 AM closing time should be end of day
+      if (isClosingTime) {
+        hour = 24;
+      } else {
+        hour = 0;
+      }
+    }
+
+    const totalMinutes = (hour * 60) + parseInt(minutes);
+;
+
+    return totalMinutes;
+  };
+
+  const currentMinutes = (now.getHours() * 60) + now.getMinutes();
+  const openMinutes = timeToMinutes(open, false);  // Opening time
+  const closeMinutes = timeToMinutes(close, true);  // Closing time - important!
+
+  return currentMinutes >= openMinutes && currentMinutes <= closeMinutes;
 };
 
 interface TimeSlot {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { View, Text, TouchableOpacity } from "react-native";
 import { Heart } from "lucide-react-native";
 import { router } from 'expo-router';
@@ -8,6 +8,7 @@ import { getStatusIcon, getStatusText } from '../_utils/statusIcons';
 import { DEVICE, CARD } from '../constants/_layout';
 import { getLocationHours, isLocationOpen } from '../_utils/timeUtils';
 import { formatDistance } from '../_utils/distanceUtils';
+import { useLocations } from '../context/LocationContext';
 
 // Calculate sizes based on card height
 const getElementSizes = (cardHeight: number) => ({
@@ -38,13 +39,26 @@ interface CardProps {
   onPress?: (location: Location) => void;
 }
 
-const Card = React.memo(({ location, onPress }: CardProps) => {
+const Card = React.memo(({ location }: CardProps) => {
   const { isFavorite, toggleFavorite } = useFavorites();
+  const { locations, lastUpdate } = useLocations();
   
-  // Get status icon based on current busyness
-  const StatusIcon = React.useMemo(() => 
-    getStatusIcon(location), 
-    [location.crowdInfo, location.currentStatus]
+  // Get real-time location data
+  const currentLocation = useMemo(() => 
+    locations.find(loc => loc.id === location.id) || location,
+    [locations, location.id]
+  );
+
+  // Check if location is currently open
+  const isOpen = useMemo(() => 
+    isLocationOpen(currentLocation),
+    [currentLocation.hours, lastUpdate]
+  );
+
+  // Get status icon based on current time
+  const StatusIcon = useMemo(() => 
+    getStatusIcon(currentLocation),
+    [currentLocation, lastUpdate]
   );
   
   // Get card height based on device size
@@ -58,28 +72,22 @@ const Card = React.memo(({ location, onPress }: CardProps) => {
   const sizes = getElementSizes(cardHeight);
 
   // Get hours data
-  const { nextOpenDay, openTime, closeTime } = React.useMemo(() => 
-    getLocationHours(location),
-    [location.hours]
-  );
-
-  // Check if location is currently open
-  const isOpen = React.useMemo(() => 
-    isLocationOpen(location),
-    [location.hours]
+  const { nextOpenDay, openTime, closeTime } = useMemo(() => 
+    getLocationHours(currentLocation),
+    [currentLocation.hours]
   );
 
   // Format the status text with distance
-  const statusText = React.useMemo(() => {
-    if (!location.hours) return 'Hours unavailable';
+  const statusText = useMemo(() => {
+    if (!currentLocation.hours) return 'Hours unavailable';
 
     const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-    const today = days[new Date().getDay()];
-    const todayHours = location.hours[today];
+    const today = days[lastUpdate.getDay()];
+    const todayHours = currentLocation.hours[today];
 
     // Format distance
-    const distanceStr = location.distance 
-      ? ` • ${location.distance.toFixed(1)} mi` 
+    const distanceStr = currentLocation.distance 
+      ? ` • ${currentLocation.distance.toFixed(1)} mi` 
       : '';
 
     if (isOpen && todayHours?.close) {
@@ -90,8 +98,8 @@ const Card = React.memo(({ location, onPress }: CardProps) => {
     if (todayHours?.open === 'Closed') {
       // Find next day that's not closed
       for (let i = 1; i <= 7; i++) {
-        const nextDay = days[(new Date().getDay() + i) % 7];
-        const nextDayHours = location.hours[nextDay];
+        const nextDay = days[(lastUpdate.getDay() + i) % 7];
+        const nextDayHours = currentLocation.hours[nextDay];
         if (nextDayHours?.open && nextDayHours.open !== 'Closed') {
           const dayName = i === 1 ? 'Mon' : nextDay.slice(0, 3).charAt(0).toUpperCase() + nextDay.slice(1, 3);
           return `until ${nextDayHours.open} ${dayName}${distanceStr}`;
@@ -105,19 +113,19 @@ const Card = React.memo(({ location, onPress }: CardProps) => {
     }
 
     return `Hours unavailable${distanceStr}`;
-  }, [location.hours, location.distance, isOpen]);
+  }, [currentLocation.hours, currentLocation.distance, isOpen, lastUpdate]);
 
   // Get formatted distance
   const distance = React.useMemo(() => 
-    formatDistance(location),
-    [location.distance]
+    formatDistance(currentLocation),
+    [currentLocation.distance]
   );
-
-
 
   return (
     <TouchableOpacity 
-      onPress={() => router.push(`/location/${location.id}`)}
+      onPress={() => {
+        router.push(`/location/${currentLocation.id}`);
+      }}
       className="bg-white rounded-xl mx-3 my-2 border border-gray-200"
       style={{
         height: cardHeight,
@@ -153,7 +161,7 @@ const Card = React.memo(({ location, onPress }: CardProps) => {
                 lineHeight: sizes.title.lineHeight,
               }}
             >
-              {location.title}
+              {currentLocation.title}
             </Text>
             
             <View className="flex-row items-center">
@@ -174,15 +182,15 @@ const Card = React.memo(({ location, onPress }: CardProps) => {
           <TouchableOpacity 
             onPress={(e) => {
               e.stopPropagation();
-              toggleFavorite(location.id);
+              toggleFavorite(currentLocation.id);
             }}
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
             className="ml-2 self-start pt-0.5"
           >
             <Heart 
               size={sizes.heart}
-              color={isFavorite(location.id) ? "#EF4444" : "#94A3B8"}
-              fill={isFavorite(location.id) ? "#EF4444" : "transparent"}
+              color={isFavorite(currentLocation.id) ? "#EF4444" : "#94A3B8"}
+              fill={isFavorite(currentLocation.id) ? "#EF4444" : "transparent"}
               strokeWidth={2}
             />
           </TouchableOpacity>

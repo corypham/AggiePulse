@@ -3,11 +3,11 @@ import { View, Text, Image, ScrollView, TouchableOpacity, StatusBar, Animated } 
 import { useRouter, Stack } from 'expo-router';
 import { Heart, ChevronLeft, Share2 } from 'lucide-react-native';
 import { useFavorites } from '../context/FavoritesContext';
-import { formatOpenUntil, formatTime, updateFacilityHours, isCurrentlyOpen, getOpenStatusText, getLocationHours, isLocationOpen, formatTimeRangeWithMeridiem, calculateBestWorstTimes } from '../_utils/timeUtils';
+import { useLocations } from '../context/LocationContext';
+import {  getLocationHours, isLocationOpen, formatTimeRangeWithMeridiem, calculateBestWorstTimes } from '../_utils/timeUtils';
 import { getStatusIcon } from '@/app/_utils/statusIcons';
 import type { Location } from '../types/location';
 import { getAmenityIcon } from '../_utils/amenityIcons';
-import { getLocationHours as getLocationHoursUtils } from '../_utils/hoursUtils';
 import LocationService from '../services/locationService';
 import CrowdForecast  from '../components/CrowdForecast';
 
@@ -41,18 +41,29 @@ interface LocationDetailsProps {
   location: Location;
 }
 
-export default function LocationDetails({ location }: LocationDetailsProps) {
-  const router = useRouter();
+export default function LocationDetails({ location: initialLocation }: { location: Location }) {
+  const { locations, lastUpdate } = useLocations();
   const { isFavorite, toggleFavorite } = useFavorites();
+  const router = useRouter();
   const [scrollY] = useState(new Animated.Value(0));
   const [activeTab, setActiveTab] = useState('crowd');
   const scrollViewRef = useRef<ScrollView>(null);
+  
+  // Get real-time location data from context
+  const location = useMemo(() => 
+    locations.find(loc => loc.id === initialLocation.id) || initialLocation,
+    [locations, initialLocation.id]
+  );
+
   const isLocationFavorite = useMemo(() => 
     isFavorite(location.id),
     [isFavorite, location.id]
   );
 
-  const statusInfo = getLocationStatus(location);
+  const statusInfo = useMemo(() => 
+    getLocationStatus(location),
+    [location.currentCapacity, location.maxCapacity, lastUpdate]
+  );
   const StatusIcon = location.icons?.blue || null;
 
   const headerHeight = 264; // Height of your header image
@@ -146,19 +157,19 @@ export default function LocationDetails({ location }: LocationDetailsProps) {
   };
 
   // Get hours data using the new utilities
-  const { nextOpenDay, openTime, closeTime } = React.useMemo(() => 
+  const { nextOpenDay, openTime, closeTime } = useMemo(() => 
     getLocationHours(location),
-    [location.hours]
+    [location.hours, lastUpdate]
   );
 
   // Check if location is currently open
-  const isOpen = React.useMemo(() => 
+  const isOpen = useMemo(() => 
     isLocationOpen(location),
-    [location.hours]
+    [location.hours, lastUpdate]
   );
 
   // Get status text
-  const statusText = React.useMemo(() => {
+  const statusText = useMemo(() => {
     if (!location.hours) return 'Hours unavailable';
 
     if (isOpen) {

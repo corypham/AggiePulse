@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { View, Text, Animated } from 'react-native';
 import { getStatusIcon } from '@/app/_utils/statusIcons';
 import type { Location } from '@/app/types/location';
 import { getLocationHours, isLocationOpen, getOpenStatusText } from '../_utils/timeUtils';
 import { formatDistance } from '../_utils/distanceUtils';
+import { useLocations } from '@/app/context/LocationContext';
 
 interface MiniCardProps {
   location: Location;
 }
 
-export function MiniCard({ location }: MiniCardProps) {
+export const MiniCard = React.memo(({ location }: MiniCardProps) => {
+  const { lastUpdate } = useLocations();
+
   const StatusIcon = getStatusIcon(location);
   const fadeAnim = React.useRef(new Animated.Value(0)).current;
 
@@ -20,9 +23,9 @@ export function MiniCard({ location }: MiniCardProps) {
   );
 
   // Check if location is currently open
-  const isOpen = React.useMemo(() => 
+  const isOpen = useMemo(() => 
     isLocationOpen(location),
-    [location.hours]
+    [location.hours, lastUpdate]
   );
 
   // Get status text
@@ -140,4 +143,4 @@ export function MiniCard({ location }: MiniCardProps) {
       </View>
     </Animated.View>
   );
-} 
+}); 

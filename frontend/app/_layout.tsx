@@ -7,6 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { FavoritesProvider } from './context/FavoritesContext';
 import { FilterProvider } from './context/FilterContext';
 import '../global.css';
+import { LocationProvider } from './context/LocationContext';
 
 export default function RootLayout() {
   useEffect(() => {
@@ -34,14 +35,16 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <FilterProvider>
-      <FavoritesProvider>
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <SafeAreaProvider>
-            <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: 'transparent' } }} />
-          </SafeAreaProvider>
-        </GestureHandlerRootView>
-      </FavoritesProvider>
-    </FilterProvider>
+    <LocationProvider>
+      <FilterProvider>
+        <FavoritesProvider>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <SafeAreaProvider>
+              <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: 'transparent' } }} />
+            </SafeAreaProvider>
+          </GestureHandlerRootView>
+        </FavoritesProvider>
+      </FilterProvider>
+    </LocationProvider>
   );
 }

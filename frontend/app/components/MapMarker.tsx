@@ -33,56 +33,84 @@ import {
 } from '../../assets';
 import EventEmitter from '../_utils/EventEmitter';
 import { isLocationOpen } from '../_utils/timeUtils';
+import { View, StyleSheet } from 'react-native';
 
 interface MapMarkerProps {
   location: Location;
   onPress?: (location: Location) => void;
 }
 
-export function MapMarker({ location, onPress }: MapMarkerProps) {
+const MapMarker: React.FC<MapMarkerProps> = React.memo(({ location, onPress }) => {
   const router = useRouter();
   const { isFavorite } = useFavorites();
   const markerRef = useRef(null);
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   const isLocationFavorite = useMemo(() => 
     isFavorite(location.id),
     [isFavorite, location.id]
   );
 
-  const isOpen = React.useMemo(() => 
+  const isOpen = useMemo(() => 
     isLocationOpen(location),
-    [location.hours]
+    [location.hours, currentTime]
   );
 
-  const getBusynessStatus = useCallback((crowdInfo: { percentage: number }) => {
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 60000); // Update every minute
+    
+    return () => clearInterval(timer);
+  }, []);
+
+  const getBusynessStatus = useCallback(() => {
     if (!isOpen) return 'Closed';
     
-    const busyness = crowdInfo?.percentage || 0;
-    if (busyness >= 75) return 'Very Busy';
-    if (busyness >= 40) return 'Fairly Busy';
-    return 'Not Busy';
-  }, [isOpen]);
+    // Get current day and hour
+    const now = new Date();
+    const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    const currentDayLower = days[now.getDay()];
+    const currentHour = now.getHours();
+
+    // Get the current day's data
+    const todayData = location.weeklyBusyness?.[currentDayLower];
+    
+    // Find the current hour's data
+    const currentHourData = todayData?.find((timeSlot: any) => {
+      const timeHour = parseInt(timeSlot.time.split(' ')[0]);
+      const period = timeSlot.time.split(' ')[1];
+      
+      // Convert to 24-hour format for comparison
+      let hour24 = timeHour;
+      if (period === 'PM' && timeHour !== 12) hour24 += 12;
+      if (period === 'AM' && timeHour === 12) hour24 = 0;
+      
+      return hour24 === currentHour;
+    });
+
+    // Return the description or default to 'Not Busy'
+    if (currentHourData?.description) {
+      if (currentHourData.description.includes('Very Busy')) return 'Very Busy';
+      if (currentHourData.description.includes('Fairly Busy')) return 'Fairly Busy';
+      if (currentHourData.description.includes('Not Busy')) return 'Not Busy';
+    }
+
+    return 'Not Busy'; // Default fallback
+  }, [isOpen, location.weeklyBusyness]);
 
   const getPin = useCallback(() => {
     const type = location.type;
-    const status = getBusynessStatus(location.crowdInfo);
+    const status = getBusynessStatus();
     let PinComponent;
-
 
     if (isLocationFavorite) {
       if (type.includes('study')) {
         switch (status) {
-          case 'Not Busy': 
-            PinComponent = PinFavoriteStudyNotBusy; 
-            break;
-          case 'Fairly Busy': 
-            PinComponent = PinFavoriteStudyFairlyBusy;
-            break;
-          case 'Very Busy': 
-            PinComponent = PinFavoriteStudyVeryBusy;
-            break;
-          default: 
-            PinComponent = PinStudyNoInfo;
+          case 'Not Busy': PinComponent = PinFavoriteStudyNotBusy; break;
+          case 'Fairly Busy': PinComponent = PinFavoriteStudyFairlyBusy; break;
+          case 'Very Busy': PinComponent = PinFavoriteStudyVeryBusy; break;
+          default: PinComponent = PinStudyNoInfo;
         }
       } else if (type.includes('gym')) {
         switch (status) {
@@ -125,15 +153,9 @@ export function MapMarker({ location, onPress }: MapMarkerProps) {
     }
 
     return PinComponent ? <PinComponent width={40} height={40} /> : null;
-  }, [location.type, location.crowdInfo, isLocationFavorite, isOpen]);
+  }, [location.type, getBusynessStatus, isLocationFavorite, isOpen]);
 
-  const pin = useMemo(() => getPin(), [
-    getPin,
-    location.crowdInfo,
-    isLocationFavorite,
-    location.type,
-    isOpen
-  ]);
+  const pin = useMemo(() => getPin(), [getPin]);
 
   useEffect(() => {
     const subscription = EventEmitter.addListener('resetHomeScreen', () => {
@@ -157,7 +179,7 @@ export function MapMarker({ location, onPress }: MapMarkerProps) {
 
   return (
     <Marker
-      key={`${location.id}-${isLocationFavorite}-${location.crowdInfo?.percentage}`}
+      key={`${location.id}-${isLocationFavorite}-${isOpen}`}
       ref={markerRef}
       coordinate={{
         latitude: location.coordinates.latitude,
@@ -179,6 +201,8 @@ export function MapMarker({ location, onPress }: MapMarkerProps) {
       </Callout>
     </Marker>
   );
-}
+});
+
+MapMarker.displayName = 'MapMarker';
 
 export default MapMarker;
