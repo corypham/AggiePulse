@@ -29,6 +29,7 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
   const [userLocation, setUserLocation] = useState<{ latitude: number; longitude: number } | null>(null);
   const [hasLocationPermission, setHasLocationPermission] = useState(false);
   const mapRef = useRef<MapView>(null);
+  const [mapError, setMapError] = useState<string | null>(null);
 
   const mapId = Platform.select({
     ios: GOOGLE_MAPS_STYLE_ID_IOS,
@@ -115,6 +116,7 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
         showsMyLocationButton={false}
         onRegionChange={onRegionChange}
         onRegionChangeComplete={onRegionChangeComplete}
+        mapPadding={{ top: 0, right: 0, bottom: 0, left: 0 }}
         customMapStyle={[
           {
             featureType: "poi",
@@ -139,9 +141,22 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
             key={location.id}
             location={location}
             onPress={handleMarkerPress}
+            style={{ zIndex: 1 }}
           />
         ))}
       </MapView>
+      
+      <LinearGradient
+        colors={['rgb(255,255,255)', 'rgba(255,255,255,1)', 'rgba(255,255,255,0.05)', 'transparent']}
+        locations={[0, 0.2, 0.7, 1]}
+        style={[styles.gradient, { zIndex: 0 }]}
+        pointerEvents="none"
+      />
+      {mapError && (
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>{mapError}</Text>
+        </View>
+      )}
     </View>
   );
 });
@@ -149,11 +164,31 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    overflow: 'visible',
   },
   map: {
     width: '100%',
     height: '100%',
-  }
+  },
+  gradient: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 140,
+  },
+  errorContainer: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    right: 10,
+    backgroundColor: 'rgba(255,0,0,0.7)',
+    padding: 10,
+    borderRadius: 5,
+  },
+  errorText: {
+    color: 'white',
+  },
 });
 
 CustomMapView.displayName = 'CustomMapView';

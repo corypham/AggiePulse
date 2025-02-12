@@ -38,9 +38,10 @@ import { View, StyleSheet } from 'react-native';
 interface MapMarkerProps {
   location: Location;
   onPress?: (location: Location) => void;
+  style?: any;
 }
 
-const MapMarker: React.FC<MapMarkerProps> = React.memo(({ location, onPress }) => {
+const MapMarker: React.FC<MapMarkerProps> = React.memo(({ location, onPress, style }) => {
   const router = useRouter();
   const { isFavorite } = useFavorites();
   const markerRef = useRef(null);
@@ -187,6 +188,8 @@ const MapMarker: React.FC<MapMarkerProps> = React.memo(({ location, onPress }) =
       }}
       onPress={handleMarkerPress}
       tracksViewChanges={false}
+      anchor={{ x: 0.5, y: 1.0 }}
+      centerOffset={{ x: 0, y: -20 }}
     >
       {pin}
       <Callout
