@@ -6,31 +6,8 @@ import { useRouter } from 'expo-router';
 import { MiniCard } from './MiniCard';
 import type { Location } from '../types/location';
 import { useFavorites } from '../context/FavoritesContext';
-import {
-  // Regular pins
-  PinStudyNotBusy,
-  PinStudyFairlyBusy,
-  PinStudyVeryBusy,
-  PinStudyNoInfo,
-  PinGymNotBusy,
-  PinGymFairlyBusy,
-  PinGymVeryBusy,
-  PinGymNoInfo,
-  PinFoodNotBusy,
-  PinFoodFairlyBusy,
-  PinFoodVeryBusy,
-  PinFoodNoInfo,
-  // Favorite pins
-  PinFavoriteStudyNotBusy,
-  PinFavoriteStudyFairlyBusy,
-  PinFavoriteStudyVeryBusy,
-  PinFavoriteGymNotBusy,
-  PinFavoriteGymFairlyBusy,
-  PinFavoriteGymVeryBusy,
-  PinFavoriteFoodNotBusy,
-  PinFavoriteFoodFairlyBusy,
-  PinFavoriteFoodVeryBusy,
-} from '../../assets';
+import { useLocations } from '../context/LocationContext';
+import { getPin } from '../_utils/pinUtils';
 import EventEmitter from '../_utils/EventEmitter';
 import { isLocationOpen } from '../_utils/timeUtils';
 import { View, StyleSheet } from 'react-native';
@@ -44,119 +21,40 @@ interface MapMarkerProps {
 const MapMarker: React.FC<MapMarkerProps> = React.memo(({ location, onPress, style }) => {
   const router = useRouter();
   const { isFavorite } = useFavorites();
+  const { locations, lastUpdate } = useLocations();
   const markerRef = useRef(null);
-  const [currentTime, setCurrentTime] = useState(new Date());
+  const [currentLocation, setCurrentLocation] = useState(location);
+  const [shouldUpdate, setShouldUpdate] = useState(false);
 
-  const isLocationFavorite = useMemo(() => 
-    isFavorite(location.id),
-    [isFavorite, location.id]
+  // Get real-time location data
+  const currentLocationData = useMemo(() => 
+    locations.find(loc => loc.id === location.id) || location,
+    [locations, location.id, lastUpdate]
   );
 
-  const isOpen = useMemo(() => 
-    isLocationOpen(location),
-    [location.hours, currentTime]
-  );
+  const isLocationFavorite = useMemo(() => {
+    return isFavorite(location.id);
+  }, [isFavorite, location.id, shouldUpdate]);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 60000); // Update every minute
-    
-    return () => clearInterval(timer);
-  }, []);
+  const busynessStatus = useMemo(() => {
+    if (!isLocationOpen(currentLocationData)) return 'Not Busy';
+    const percentage = (currentLocationData.currentCapacity / currentLocationData.maxCapacity) * 100;
+    if (percentage >= 75) return 'Very Busy';
+    if (percentage >= 40) return 'Fairly Busy';
+    return 'Not Busy';
+  }, [currentLocationData]);
 
-  const getBusynessStatus = useCallback(() => {
-    if (!isOpen) return 'Closed';
-    
-    // Get current day and hour
-    const now = new Date();
-    const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-    const currentDayLower = days[now.getDay()];
-    const currentHour = now.getHours();
+  const pin = useMemo(() => {
+    return getPin(currentLocationData, isLocationFavorite, busynessStatus);
+  }, [currentLocationData, isLocationFavorite, busynessStatus]);
 
-    // Get the current day's data
-    const todayData = location.weeklyBusyness?.[currentDayLower];
-    
-    // Find the current hour's data
-    const currentHourData = todayData?.find((timeSlot: any) => {
-      const timeHour = parseInt(timeSlot.time.split(' ')[0]);
-      const period = timeSlot.time.split(' ')[1];
-      
-      // Convert to 24-hour format for comparison
-      let hour24 = timeHour;
-      if (period === 'PM' && timeHour !== 12) hour24 += 12;
-      if (period === 'AM' && timeHour === 12) hour24 = 0;
-      
-      return hour24 === currentHour;
-    });
+  const handleMarkerPress = useCallback(() => {
+    if (onPress) onPress(currentLocationData);
+  }, [currentLocationData, onPress]);
 
-    // Return the description or default to 'Not Busy'
-    if (currentHourData?.description) {
-      if (currentHourData.description.includes('Very Busy')) return 'Very Busy';
-      if (currentHourData.description.includes('Fairly Busy')) return 'Fairly Busy';
-      if (currentHourData.description.includes('Not Busy')) return 'Not Busy';
-    }
-
-    return 'Not Busy'; // Default fallback
-  }, [isOpen, location.weeklyBusyness]);
-
-  const getPin = useCallback(() => {
-    const type = location.type;
-    const status = getBusynessStatus();
-    let PinComponent;
-
-    if (isLocationFavorite) {
-      if (type.includes('study')) {
-        switch (status) {
-          case 'Not Busy': PinComponent = PinFavoriteStudyNotBusy; break;
-          case 'Fairly Busy': PinComponent = PinFavoriteStudyFairlyBusy; break;
-          case 'Very Busy': PinComponent = PinFavoriteStudyVeryBusy; break;
-          default: PinComponent = PinStudyNoInfo;
-        }
-      } else if (type.includes('gym')) {
-        switch (status) {
-          case 'Not Busy': PinComponent = PinFavoriteGymNotBusy; break;
-          case 'Fairly Busy': PinComponent = PinFavoriteGymFairlyBusy; break;
-          case 'Very Busy': PinComponent = PinFavoriteGymVeryBusy; break;
-          default: PinComponent = PinGymNoInfo;
-        }
-      } else if (type.includes('dining')) {
-        switch (status) {
-          case 'Not Busy': PinComponent = PinFavoriteFoodNotBusy; break;
-          case 'Fairly Busy': PinComponent = PinFavoriteFoodFairlyBusy; break;
-          case 'Very Busy': PinComponent = PinFavoriteFoodVeryBusy; break;
-          default: PinComponent = PinFoodNoInfo;
-        }
-      }
-    } else {
-      if (type.includes('study')) {
-        switch (status) {
-          case 'Not Busy': PinComponent = PinStudyNotBusy; break;
-          case 'Fairly Busy': PinComponent = PinStudyFairlyBusy; break;
-          case 'Very Busy': PinComponent = PinStudyVeryBusy; break;
-          default: PinComponent = PinStudyNoInfo;
-        }
-      } else if (type.includes('gym')) {
-        switch (status) {
-          case 'Not Busy': PinComponent = PinGymNotBusy; break;
-          case 'Fairly Busy': PinComponent = PinGymFairlyBusy; break;
-          case 'Very Busy': PinComponent = PinGymVeryBusy; break;
-          default: PinComponent = PinGymNoInfo;
-        }
-      } else if (type.includes('dining')) {
-        switch (status) {
-          case 'Not Busy': PinComponent = PinFoodNotBusy; break;
-          case 'Fairly Busy': PinComponent = PinFoodFairlyBusy; break;
-          case 'Very Busy': PinComponent = PinFoodVeryBusy; break;
-          default: PinComponent = PinFoodNoInfo;
-        }
-      }
-    }
-
-    return PinComponent ? <PinComponent width={40} height={40} /> : null;
-  }, [location.type, getBusynessStatus, isLocationFavorite, isOpen]);
-
-  const pin = useMemo(() => getPin(), [getPin]);
+  const handleCalloutPress = useCallback(() => {
+    router.push(`/location/${currentLocationData.id}`);
+  }, [currentLocationData.id, router]);
 
   useEffect(() => {
     const subscription = EventEmitter.addListener('resetHomeScreen', () => {
@@ -170,21 +68,24 @@ const MapMarker: React.FC<MapMarkerProps> = React.memo(({ location, onPress, sty
     };
   }, []);
 
-  const handleCalloutPress = () => {
-    router.push(`/location/${location.id}`);
-  };
+  // Listen for specific location updates
+  useEffect(() => {
+    const subscription = EventEmitter.addListener('locationFavoriteToggled', (locationId: string) => {
+      if (locationId === location.id) {
+        setShouldUpdate(prev => !prev); // Toggle to force re-render
+      }
+    });
 
-  const handleMarkerPress = () => {
-    if (onPress) onPress(location);
-  };
+    return () => subscription.remove();
+  }, [location.id]);
 
   return (
     <Marker
-      key={`${location.id}-${isLocationFavorite}-${isOpen}`}
+      key={`${currentLocationData.id}-${isLocationFavorite}-${busynessStatus}`}
       ref={markerRef}
       coordinate={{
-        latitude: location.coordinates.latitude,
-        longitude: location.coordinates.longitude
+        latitude: currentLocationData.coordinates.latitude,
+        longitude: currentLocationData.coordinates.longitude
       }}
       onPress={handleMarkerPress}
       tracksViewChanges={false}
@@ -200,7 +101,7 @@ const MapMarker: React.FC<MapMarkerProps> = React.memo(({ location, onPress, sty
           borderWidth: 0,
         }}
       >
-        <MiniCard location={location} />
+        <MiniCard location={currentLocationData} />
       </Callout>
     </Marker>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { View, Text, Animated } from 'react-native';
 import { getStatusIcon } from '@/app/_utils/statusIcons';
 import type { Location } from '@/app/types/location';
@@ -11,29 +11,35 @@ interface MiniCardProps {
 }
 
 export const MiniCard = React.memo(({ location }: MiniCardProps) => {
-  const { lastUpdate } = useLocations();
+  const { lastUpdate, getLocation } = useLocations();
+  
+  // Get real-time location data from context
+  const currentLocation = useMemo(() => 
+    getLocation(location.id) || location,
+    [getLocation, location.id, lastUpdate]
+  );
 
-  const StatusIcon = getStatusIcon(location);
-  const fadeAnim = React.useRef(new Animated.Value(0)).current;
+  const StatusIcon = getStatusIcon(currentLocation);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
 
   // Get hours data
   const { nextOpenDay, openTime, closeTime } = React.useMemo(() => 
-    getLocationHours(location),
-    [location.hours]
+    getLocationHours(currentLocation),
+    [currentLocation.hours]
   );
 
   // Check if location is currently open
   const isOpen = useMemo(() => 
-    isLocationOpen(location),
-    [location.hours, lastUpdate]
+    isLocationOpen(currentLocation),
+    [currentLocation.hours, lastUpdate]
   );
 
   // Get status text
   const statusText = React.useMemo(() => {
-    if (!location.hours) return 'Hours unavailable';
+    if (!currentLocation.hours) return 'Hours unavailable';
     
-    const distanceStr = location.distance 
-      ? ` • ${location.distance.toFixed(1)} mi` 
+    const distanceStr = currentLocation.distance 
+      ? ` • ${currentLocation.distance.toFixed(1)} mi` 
       : '';
 
     if (isOpen) {
@@ -41,12 +47,12 @@ export const MiniCard = React.memo(({ location }: MiniCardProps) => {
     }
     
     return `until ${openTime}${nextOpenDay ? ` ${nextOpenDay}` : ''}${distanceStr}`;
-  }, [location.hours, location.distance, isOpen, closeTime, openTime, nextOpenDay]);
+  }, [currentLocation.hours, currentLocation.distance, isOpen, closeTime, openTime, nextOpenDay]);
 
   // Get formatted distance
   const distance = React.useMemo(() => 
-    formatDistance(location),
-    [location.distance]
+    formatDistance(currentLocation),
+    [currentLocation.distance]
   );
 
   useEffect(() => {
@@ -104,7 +110,7 @@ export const MiniCard = React.memo(({ location }: MiniCardProps) => {
                   className="text-base font-aileron-bold text-black mb-0.5"
                   numberOfLines={2}
                 >
-                  {location.title}
+                  {currentLocation.title}
                 </Text>
                 <View className="flex-row items-center">
                   <Text 
@@ -146,4 +152,6 @@ export const MiniCard = React.memo(({ location }: MiniCardProps) => {
       </View>
     </Animated.View>
   );
+}, (prevProps, nextProps) => {
+  return prevProps.location.id === nextProps.location.id;
 }); 

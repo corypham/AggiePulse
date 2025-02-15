@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { View, Text, TouchableOpacity } from "react-native";
 import { Heart } from "lucide-react-native";
-import { router } from 'expo-router';
+import { router, useRouter } from 'expo-router';
 import type { Location } from '../types/location';
 import { useFavorites } from '../context/FavoritesContext';
 import { getStatusIcon, getStatusText } from '../_utils/statusIcons';
@@ -9,6 +9,7 @@ import { DEVICE, CARD } from '../constants/_layout';
 import { getLocationHours, isLocationOpen } from '../_utils/timeUtils';
 import { formatDistance } from '../_utils/distanceUtils';
 import { useLocations } from '../context/LocationContext';
+import EventEmitter from '../_utils/EventEmitter';
 
 // Calculate sizes based on card height
 const getElementSizes = (cardHeight: number) => ({
@@ -41,12 +42,16 @@ interface CardProps {
 
 const Card = React.memo(({ location }: CardProps) => {
   const { isFavorite, toggleFavorite } = useFavorites();
-  const { locations, lastUpdate } = useLocations();
+  const { lastUpdate, getLocation } = useLocations();
+  const router = useRouter();
   
-  // Get real-time location data
+  // Convert lastUpdate number to Date object
+  const lastUpdateDate = useMemo(() => new Date(lastUpdate), [lastUpdate]);
+
+  // Get real-time location data from context
   const currentLocation = useMemo(() => 
-    locations.find(loc => loc.id === location.id) || location,
-    [locations, location.id]
+    getLocation(location.id) || location,
+    [getLocation, location.id, lastUpdate]
   );
 
   // Check if location is currently open
@@ -82,7 +87,7 @@ const Card = React.memo(({ location }: CardProps) => {
     if (!currentLocation.hours) return 'Hours unavailable';
 
     const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-    const today = days[lastUpdate.getDay()];
+    const today = days[lastUpdateDate.getDay()];
     const todayHours = currentLocation.hours[today];
 
     // Format distance
@@ -98,7 +103,7 @@ const Card = React.memo(({ location }: CardProps) => {
     if (todayHours?.open === 'Closed') {
       // Find next day that's not closed
       for (let i = 1; i <= 7; i++) {
-        const nextDay = days[(lastUpdate.getDay() + i) % 7];
+        const nextDay = days[(lastUpdateDate.getDay() + i) % 7];
         const nextDayHours = currentLocation.hours[nextDay];
         if (nextDayHours?.open && nextDayHours.open !== 'Closed') {
           const dayName = i === 1 ? 'Mon' : nextDay.slice(0, 3).charAt(0).toUpperCase() + nextDay.slice(1, 3);
@@ -113,7 +118,7 @@ const Card = React.memo(({ location }: CardProps) => {
     }
 
     return `Hours unavailable${distanceStr}`;
-  }, [currentLocation.hours, currentLocation.distance, isOpen, lastUpdate]);
+  }, [currentLocation.hours, currentLocation.distance, isOpen, lastUpdateDate]);
 
   // Get formatted distance
   const distance = React.useMemo(() => 
@@ -182,7 +187,11 @@ const Card = React.memo(({ location }: CardProps) => {
           <TouchableOpacity 
             onPress={(e) => {
               e.stopPropagation();
+              console.log('[Card] Before toggle for location:', currentLocation.id);
               toggleFavorite(currentLocation.id);
+              console.log('[Card] Emitting toggle event for location:', currentLocation.id);
+              EventEmitter.emit('locationFavoriteToggled', currentLocation.id);
+              console.log('[Card] After toggle event emitted');
             }}
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
             className="ml-2 self-start pt-0.5"
