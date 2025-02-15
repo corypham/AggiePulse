@@ -44,18 +44,50 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
   // Get current hour for highlighting
   const currentHour = new Date().getHours();
 
-  // Format data for Victory chart
-  const chartData = fullDayData.map((d, index) => {
-    const [hour, period] = d.time.split(' ');
-    const hour24 = convertTo24Hour(parseInt(hour), period);
+
+  
+  // Create a standardized time scale
+  const standardTicks = [4, 8, 12, 16, 20, 24]; // 4AM to 12AM (24)
+  
+  // Convert time string to hour number (e.g., "9 AM" -> 9, "2 PM" -> 14)
+  const getHourNumber = (timeStr: string) => {
+    // Split the time string and handle potential spaces
+    const [hourStr, period] = timeStr.trim().split(/\s+/);
+    let hour = parseInt(hourStr);
     
-    return {
-      x: index,
-      y: d.busyness || 0,
-      time: d.time,
-      isCurrentHour: hour24 === currentHour
-    };
-  });
+    // Convert to 24-hour format
+    if (period.toUpperCase() === 'PM') {
+      if (hour !== 12) {
+        hour += 12;
+      }
+    } else if (period.toUpperCase() === 'AM' && hour === 12) {
+      hour = 0;
+    }
+    
+    return hour;
+  };
+
+  // Map the data to the standard scale with correct PM hour conversion
+  const chartData = useMemo(() => {
+    
+    const data = dayData.map(data => {
+      const hour = getHourNumber(data.time);
+      const point = {
+        x: hour,
+        y: data.busyness || 0,
+        isCurrentHour: hour === currentHour,
+        time: data.time,
+        originalTime: data.time
+      };
+      return point;
+    });
+    
+    // Sort data points by hour to ensure proper rendering
+    data.sort((a, b) => a.x - b.x);
+    
+    return data;
+  }, [dayData, currentHour]);
+
 
   const { bestTime, worstTime } = calculateBestWorstTimes(
     dayData,
@@ -72,44 +104,66 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
     <View className="bg-white p-1 rounded-lg">
       <Text className="font-aileron-bold text-2xl mb-4 ml-4">Crowd Forecast</Text>
       <View className="mx-2">
-        <View className={`bg-primary rounded-xl ml-4 px-3 py-1 self-start`}>
+        <View className={`bg-primary rounded-full ml-4 px-6 py-2 self-start`}>
           <Text className="text-white text-center text-lg">
             {crowdData?.currentStatus || 'Unknown'}
           </Text>
         </View>
 
         <View className="flex-row items-center mb-2 ml-7 mt-4">
-          <Text className="font-aileron-semibold text-md">{currentDay}</Text>
+          <Text className="font-aileron-semibold text-lg">{currentDay}</Text>
           <Text className="text-gray-500 ml-1">▼</Text>
         </View>
 
-        <View style={{ height: 200, marginHorizontal: -16 }}>
+        <View style={{ height: 220 }}>
           <VictoryChart
-            padding={{ top: 20, bottom: 40, left: 40, right: 40 }}
-            domainPadding={{ x: 10 }}
+            padding={{ top: 20, bottom: 40, left: 20, right: 20 }}
+            domain={{ 
+              x: [4, 24],
+              y: [0, 100]
+            }}
+            domainPadding={{ x: 10, y: [0, 20] }}
             theme={VictoryTheme.material}
+            height={180}
+            width={screenWidth - 40}
           >
             <VictoryAxis
-              tickFormat={(t) => {
-                if (t % 4 === 0) {
-                  const timeData = fullDayData[t];
-                  const [hour, period] = timeData.time.split(' ');
-                  return `${hour}${period}`;
-                }
-                return '';
+              tickValues={[4, 8, 12, 16, 20, 24]}
+              tickFormat={(t: number) => {
+                if (t === 24) return '12 AM';
+                if (t === 12) return '12 PM';
+                if (t > 12) return `${t-12} PM`;
+                return `${t} AM`;
               }}
               style={{
-                axis: { stroke: '#E5E7EB' },
-                tickLabels: { fontSize: 12, padding: 5 }
+                axis: { stroke: "#000000" },
+                grid: { stroke: "transparent" },
+                ticks: { stroke: "transparent" },
+                tickLabels: { 
+                  fontSize: 12,
+                  fill: "#000000",
+                  padding: 5,
+                  fontFamily: 'Aileron'
+                }
+              }}
+            />
+            <VictoryAxis 
+              dependentAxis
+              style={{
+                axis: { stroke: "transparent" },
+                grid: { stroke: "transparent" },
+                ticks: { stroke: "transparent" },
+                tickLabels: { fill: "transparent" }
               }}
             />
             <VictoryBar
               data={chartData}
+              alignment="middle"
+              barWidth={8}
               cornerRadius={{ top: 4 }}
               style={{
                 data: {
-                  fill: ({ datum }) => datum.isCurrentHour ? '#4F46E5' : '#E5E7EB',
-                  width: 12
+                  fill: ({ datum }) => datum.isCurrentHour ? '#2563EB' : '#d9d9d9',
                 }
               }}
               animate={{
@@ -120,14 +174,14 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
           </VictoryChart>
         </View>
 
-        <View className="mt-6 mx-6">
-          <Text className="font-aileron-semibold text-xl mb-3 pl-2">Plan Your Visit!</Text>
-          <View className="bg-gray-100 rounded-full py-4 flex-row justify-center items-center">
-            <Text className="text-[#0c8f34] text-center font-aileron">
+        <View className="mt-[-30] mx-4">
+          <Text className="font-aileron-bold text-2xl mb-3">Plan Your Visit!</Text>
+          <View className="bg-gray-100 rounded-full py-4 px-6 flex-row justify-center items-center">
+            <Text className="text-[#0c8f34] text-center font-aileron text-lg">
               Best time: {bestTime}
             </Text>
-            <View className="w-[1px] h-8 bg-gray-400 mx-3" style={{ marginVertical: -8 }} />
-            <Text className="text-[#EF4444] text-center">
+            <View className="w-[1px] h-8 bg-gray-400 mx-4" style={{ marginVertical: -8 }} />
+            <Text className="text-[#EF4444] text-center text-lg">
               Worst time: {worstTime}
             </Text>
           </View>
@@ -135,11 +189,4 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
       </View>
     </View>
   );
-}
-
-// Helper function to convert 12-hour to 24-hour format
-function convertTo24Hour(hour: number, period: string): number {
-  if (period === 'PM' && hour !== 12) return hour + 12;
-  if (period === 'AM' && hour === 12) return 0;
-  return hour;
 } 

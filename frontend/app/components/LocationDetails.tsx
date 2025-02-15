@@ -10,6 +10,7 @@ import type { Location } from '../types/location';
 import { getAmenityIcon } from '../_utils/amenityIcons';
 import LocationService from '../services/locationService';
 import CrowdForecast  from '../components/CrowdForecast';
+import EventEmitter from '../_utils/EventEmitter';
 
 
 // Helper function to get location status
@@ -42,9 +43,9 @@ interface LocationDetailsProps {
 }
 
 export default function LocationDetails({ location: initialLocation }: { location: Location }) {
-  const { getLocation, lastUpdate } = useLocations();
-  const { isFavorite, toggleFavorite } = useFavorites();
   const router = useRouter();
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const { getLocation, lastUpdate } = useLocations();
   const [scrollY] = useState(new Animated.Value(0));
   const [activeTab, setActiveTab] = useState('crowd');
   const scrollViewRef = useRef<ScrollView>(null);
@@ -55,10 +56,18 @@ export default function LocationDetails({ location: initialLocation }: { locatio
     [getLocation, initialLocation.id, lastUpdate]
   );
 
-  const isLocationFavorite = useMemo(() => 
-    isFavorite(location.id),
-    [isFavorite, location.id]
-  );
+  const handleFavorite = useCallback((e?: any) => {
+    if (e) e.stopPropagation();
+    console.log('[LocationDetails] Before toggle for location:', location.id);
+    toggleFavorite(location.id);
+    console.log('[LocationDetails] Emitting toggle event for location:', location.id);
+    EventEmitter.emit('locationFavoriteToggled', location.id);
+    console.log('[LocationDetails] After toggle event emitted');
+  }, [location.id, toggleFavorite]);
+
+  const handleBack = useCallback(() => {
+    router.back();
+  }, [router]);
 
   const statusInfo = useMemo(() => 
     getLocationStatus(location),
@@ -94,14 +103,6 @@ export default function LocationDetails({ location: initialLocation }: { locatio
     crowd: useRef<View>(null),
     details: useRef<View>(null),
     discussion: useRef<View>(null),
-  };
-
-  const handleFavorite = () => {
-    toggleFavorite(location.id);
-  };
-
-  const handleBack = () => {
-    router.back();
   };
 
   const scrollToSection = (sectionName: string) => {
@@ -298,9 +299,9 @@ export default function LocationDetails({ location: initialLocation }: { locatio
             className="w-full h-full"
             resizeMode="cover"
           />
-          <View className="absolute top-14 w-full px-4 flex-row justify-between items-center">
+          <View className="absolute top-14 w-full px-4 flex-row justify-between items-center z-50">
             <TouchableOpacity 
-              onPress={() => router.back()}
+              onPress={handleBack}
               className="bg-white/90 p-2 rounded-full"
             >
               <ChevronLeft size={24} color="#535353" />
@@ -312,8 +313,8 @@ export default function LocationDetails({ location: initialLocation }: { locatio
               >
                 <Heart 
                   size={24} 
-                  color={isLocationFavorite ? "#EF4444" : "#535353"}
-                  fill={isLocationFavorite ? "#EF4444": "transparent"}
+                  color={isFavorite(location.id) ? "#EF4444" : "#535353"}
+                  fill={isFavorite(location.id) ? "#EF4444": "transparent"}
                   strokeWidth={2}
                 />
               </TouchableOpacity>
@@ -619,8 +620,8 @@ export default function LocationDetails({ location: initialLocation }: { locatio
             <TouchableOpacity onPress={handleFavorite}>
               <Heart 
                 size={24} 
-                color={isLocationFavorite ? "#EF4444" : "#535353"}
-                fill={isLocationFavorite ? "#EF4444": "transparent"}
+                color={isFavorite(location.id) ? "#EF4444" : "#535353"}
+                fill={isFavorite(location.id) ? "#EF4444": "transparent"}
                 strokeWidth={2}
               />
             </TouchableOpacity>
