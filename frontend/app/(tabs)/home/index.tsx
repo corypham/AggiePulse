@@ -6,7 +6,7 @@ import { CustomMapView } from '../../components/MapView';
 import { SearchBar } from '../../components/SearchBar';
 import { FacilityList } from '../../components/FacilityList';
 import type { Location as LocationType } from '../../types/location';
-import { useRouter } from "expo-router";
+import { useRouter, useNavigation } from "expo-router";
 import MapView, { Region } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { QuickFilterBar } from '../../components/QuickFilterBar';
@@ -18,6 +18,7 @@ import EventEmitter  from '../../_utils/EventEmitter';
 
 export default function HomeScreen() {
   const router = useRouter();
+  const navigation = useNavigation();
   const mapRef = useRef<MapView | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [isMapCentered, setIsMapCentered] = useState(false);
@@ -25,18 +26,37 @@ export default function HomeScreen() {
   const isAnimating = useRef(false);
   const isNavigatingToUser = useRef(false);
   const bottomSheetRef = useRef<BottomSheet>(null);
+  const [lastToggledLocationId, setLastToggledLocationId] = useState<string | null>(null);
 
   const { selectedFilters } = useFilters();
   const { locations, loading, error } = useLocations(selectedFilters);
 
   useEffect(() => {
-    console.log('Locations:', locations);
-    console.log('Loading:', loading);
-    console.log('Error:', error);
-  }, [locations, loading, error]);
+  }, [locations]);
+
+  // Listen for navigation focus and location toggle events
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      if (lastToggledLocationId) {
+        // Force re-render of specific pin
+        mapRef.current?.forceUpdate();
+        setLastToggledLocationId(null);
+      }
+    });
+
+    // Listen for favorite toggle events
+    const toggleSubscription = EventEmitter.addListener('locationFavoriteToggled', (locationId: string) => {
+      setLastToggledLocationId(locationId);
+    });
+
+    return () => {
+      unsubscribe();
+      toggleSubscription.remove();
+    };
+  }, [navigation, lastToggledLocationId]);
 
   const handleMarkerPress = (location: LocationType) => {
-    console.log('Selected location:', location);
+    // removed console.log
   };
 
   const handleFilterPress = () => {

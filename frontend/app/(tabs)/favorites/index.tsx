@@ -1,32 +1,24 @@
 import { View, Text, SafeAreaView, ScrollView } from "react-native";
 import { Card } from "@/app/components";
-import React from "react";
+import React, { useMemo, useEffect } from "react";
 import { useFavorites } from '@/app/context/FavoritesContext';
-import { LocationService } from '@/app/services/locationService';
+import { useLocations } from '@/app/context/LocationContext';
 import type { Location } from '@/app/types/location';
 
 const FavoritesScreen = () => {
   const { favorites, isFavorite } = useFavorites();
-  const [favoritedLocations, setFavoritedLocations] = React.useState<Location[]>([]);
+  const { locations, lastUpdate } = useLocations();
   const [isLoading, setIsLoading] = React.useState(true);
 
-  // Fetch all locations and filter favorites
-  React.useEffect(() => {
-    const fetchLocations = async () => {
-      try {
-        setIsLoading(true);
-        const allLocations = await LocationService.getAllLocations();
-        const favoriteLocations = allLocations.filter(location => isFavorite(location.id));
-        setFavoritedLocations(favoriteLocations);
-      } catch (error) {
-        console.error('Error fetching favorite locations:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  // Get favorited locations from context
+  const favoritedLocations = useMemo(() => 
+    locations.filter(location => isFavorite(location.id)),
+    [locations, favorites, lastUpdate]
+  );
 
-    fetchLocations();
-  }, [favorites]); // Re-fetch when favorites change
+  useEffect(() => {
+    setIsLoading(false);
+  }, [locations]);
 
   if (isLoading) {
     return (

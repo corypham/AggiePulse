@@ -6,34 +6,41 @@ interface LocationContextType {
   locations: Location[];
   refreshLocations: () => Promise<void>;
   getLocation: (locationId: string) => Location | undefined;
-  lastUpdate: Date;
+  lastUpdate: number;
   isLoading: boolean;
 }
 
 export const LocationContext = createContext<LocationContextType | undefined>(undefined);
 
 export const LocationProvider = ({ children }: { children: React.ReactNode }) => {
-  const [locations, setLocations] = React.useState<Location[]>([]);
-  const [lastUpdate, setLastUpdate] = useState(new Date());
-  const refreshInterval = useRef<number>();
-  const isInitialLoad = useRef(true);
+  const [locations, setLocations] = useState<Location[]>([]);
+  const [lastUpdate, setLastUpdate] = useState<number>(Date.now());
+  const [isLoading, setIsLoading] = useState(true);
+  const refreshInterval = useRef<ReturnType<typeof setInterval>>();
 
   const refreshLocations = async () => {
     try {
-      const updatedLocations = await LocationService.getAllLocationsData();
+      setIsLoading(true);
+      const updatedLocations = await LocationService.getAllLocations();
       setLocations(updatedLocations);
-      setLastUpdate(new Date());
-      isInitialLoad.current = false;
+      setLastUpdate(Date.now());
     } catch (error) {
       console.error('Error refreshing locations:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     refreshLocations();
+
+    // Set up auto-refresh every 5 minutes
     refreshInterval.current = setInterval(refreshLocations, 5 * 60 * 1000);
+
     return () => {
-      if (refreshInterval.current) clearInterval(refreshInterval.current);
+      if (refreshInterval.current) {
+        clearInterval(refreshInterval.current);
+      }
     };
   }, []);
 
@@ -42,12 +49,12 @@ export const LocationProvider = ({ children }: { children: React.ReactNode }) =>
   }, [locations]);
 
   return (
-    <LocationContext.Provider value={{ 
-      locations, 
+    <LocationContext.Provider value={{
+      locations,
       refreshLocations,
       getLocation,
       lastUpdate,
-      isLoading: isInitialLoad.current 
+      isLoading
     }}>
       {children}
     </LocationContext.Provider>
