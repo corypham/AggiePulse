@@ -6,11 +6,6 @@ import {
   ArcDetailedCard,
   SiloDetailedCard,
   MemorialUnionDetailedCard,
-
-  // Busyness Meter Icons
-  NotBusyStatus,
-  FairlyBusyStatus,
-  VeryBusyStatus,
   
   // Blue icons
   StudySpacesBlue,
@@ -71,7 +66,7 @@ export const staticLocations: Record<string, LocationStatic> = {
       longitude: -121.74971841834478
     },
     imageUrl: LibraryDetailedCard,
-    maxCapacity: 144,
+    maxCapacity: 3000,
     features: [
       'Charging Ports',
       'Study Rooms',
@@ -121,7 +116,7 @@ export const staticLocations: Record<string, LocationStatic> = {
       longitude:  -121.75908425253886
     },
     imageUrl: ArcDetailedCard,
-    maxCapacity: 300,
+    maxCapacity: 2500,
     features: ['Gym Equipment', 'Pool', 'Basketball Courts'],
     amenities: {
       general: [
@@ -159,7 +154,7 @@ export const staticLocations: Record<string, LocationStatic> = {
       longitude: -121.75305
     },
     imageUrl: SiloDetailedCard,
-    maxCapacity: 200,
+    maxCapacity: 600,
     features: [
       'Food Court',
       'Study Tables',
@@ -209,7 +204,7 @@ export const staticLocations: Record<string, LocationStatic> = {
       longitude: -121.74975695063387
     },
     imageUrl: MemorialUnionDetailedCard,
-    maxCapacity: 300,
+    maxCapacity: 800,
     features: [
       'Food Court',
       'Study Areas',

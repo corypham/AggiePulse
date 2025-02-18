@@ -46,8 +46,8 @@ const MapMarker: React.FC<MapMarkerProps> = React.memo(({ location, onPress, sty
   }, [currentLocationData]);
 
   const pin = useMemo(() => {
-    return getPin(currentLocationData, isLocationFavorite, busynessStatus);
-  }, [currentLocationData, isLocationFavorite, busynessStatus]);
+    return getPin(currentLocationData, isLocationFavorite);
+  }, [currentLocationData, isLocationFavorite, lastUpdate]);
 
   const handleMarkerPress = useCallback(() => {
     if (onPress) onPress(currentLocationData);

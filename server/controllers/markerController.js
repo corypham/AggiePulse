@@ -2,18 +2,13 @@ const { getJson } = require('serpapi');
 const NodeCache = require('node-cache');
 const fs = require('fs');
 const path = require('path');
+const LibraryOccupancyService = require('../services/libraryOccupancyService');
 
 // Separate caches for weekly and current data
 const weeklyCache = new NodeCache({
   stdTTL: 7 * 24 * 60 * 60, // 1 week
   checkperiod: 24 * 60 * 60  // Check daily
 });
-
-// Create logs directory if it doesn't exist
-const logsDir = path.join(__dirname, '../logs');
-if (!fs.existsSync(logsDir)) {
-  fs.mkdirSync(logsDir);
-}
 
 // Location mapping for accurate API searches
 const locations = {
@@ -28,73 +23,68 @@ const locations = {
   '4': 'UC Davis Silo Market'
 };
 
-const cache = new Map();
-const CACHE_DURATION = 7 * 24 * 60 * 60 * 1000; // 1 week in milliseconds
-
 function getSearchQuery(locationId) {
-  // Convert locationId to string and handle numeric IDs
   const id = locationId.toString().toLowerCase();
-  
-  console.log('markerController: Looking up location:', id, 'in:', Object.keys(locations));
-  const query = locations[id];
-  
-  if (!query) {
-    console.log('markerController: No matching location found for ID:', id);
-    return null;
-  }
-  
-  console.log('markerController: Found matching query:', query);
-  return query;
+  return locations[id] || null;
 }
 
-const getLocationData = async (locationName) => {
-  // Check if we have valid cached data
-  const cachedData = cache.get(locationName);
-  if (cachedData && (Date.now() - cachedData.timestamp) < CACHE_DURATION) {
-    console.log(`markerController: Using cached data for ${locationName}`);
-    return cachedData.data;
-  }
-
-  // If not in cache or expired, fetch new data
-  console.log(`markerController: Fetching fresh data for ${locationName}`);
-  try {
-    const data = await fetchLocationData(locationName); // Your existing fetch function
-    
-    // Store in cache with timestamp
-    cache.set(locationName, {
-      data,
-      timestamp: Date.now()
-    });
-    
-    return data;
-  } catch (error) {
-    console.error(`Error fetching data for ${locationName}:`, error);
-    // If fetch fails but we have cached data (even if expired), use it as fallback
-    if (cachedData) {
-      console.log(`markerController: Using expired cache as fallback for ${locationName}`);
-      return cachedData.data;
-    }
-    throw error;
-  }
-};
-
-exports.getLocationData = async (req, res) => {
+// Define all functions before exporting
+const getLocationData = async (req, res) => {
   const { locationId } = req.params;
   
   try {
+    if (locationId === 'library') {
+      console.log('Fetching library data from both SERP and SafeSpace APIs...');
+      const [serpData, libraryOccupancy] = await Promise.all([
+        getJson({
+          api_key: process.env.SERPAPI_KEY,
+          engine: "google",
+          q: getSearchQuery(locationId),
+          location: "Davis, California, United States",
+          hl: "en",
+          gl: "us",
+          type: "place"
+        }),
+        LibraryOccupancyService.getOccupancyData()
+      ]);
+
+      console.log('Library SafeSpace Data:', {
+        mainBuilding: libraryOccupancy.main,
+        studyRoom: libraryOccupancy.studyRoom
+      });
+
+      if (!serpData?.knowledge_graph) {
+        throw new Error('Invalid SERPAPI response');
+      }
+
+      const processedData = {
+        hours: processHours(serpData.knowledge_graph.hours),
+        weeklyBusyness: processWeeklyBusyness(serpData.knowledge_graph.popular_times),
+        currentStatus: {
+          ...getCurrentStatus(serpData.knowledge_graph),
+          realTimeOccupancy: {
+            mainBuilding: libraryOccupancy.main,
+            studyRoom: libraryOccupancy.studyRoom
+          }
+        }
+      };
+
+      res.json(processedData);
+      return;
+    }
+
     // Check weekly cache first
     const cachedData = weeklyCache.get(locationId);
     if (cachedData) {
-      // Update only the current status for cached data
-      const currentStatus = await getCurrentStatus(cachedData.knowledge_graph);
-      
+      console.log(`Using cached data for ${locationId}`);
+      const currentStatus = getCurrentStatus(cachedData.knowledge_graph);
       return res.json({
         ...cachedData,
         currentStatus
       });
     }
 
-    // Fetch new data if not cached
+    console.log(`Fetching fresh SERP API data for ${locationId}`);
     const results = await getJson({
       api_key: process.env.SERPAPI_KEY,
       engine: "google",
@@ -109,17 +99,12 @@ exports.getLocationData = async (req, res) => {
       throw new Error('Invalid SERPAPI response');
     }
 
-    // Process and split the data
     const processedData = {
-      // Weekly data
       hours: processHours(results.knowledge_graph.hours),
       weeklyBusyness: processWeeklyBusyness(results.knowledge_graph.popular_times),
-      
-      // Current status
       currentStatus: getCurrentStatus(results.knowledge_graph)
     };
 
-    // Cache weekly data
     weeklyCache.set(locationId, {
       hours: processedData.hours,
       weeklyBusyness: processedData.weeklyBusyness
@@ -132,126 +117,28 @@ exports.getLocationData = async (req, res) => {
   }
 };
 
-exports.testLocationData = async (req, res) => {
-  // Add your test endpoint logic here
-  res.json({ message: 'Test endpoint working' });
-};
-
-// Helper functions
-function getUntilText(hours) {
-  if (!hours) return '';
-  
-  const now = new Date();
-  const currentDay = now.toLocaleString('en-US', { weekday: 'long' }).toLowerCase().slice(0, 3);
-  const currentHour = now.getHours();
-  const currentMinutes = now.getMinutes();
-  
-  const todayHours = hours[currentDay];
-  if (!todayHours) return '';
-  
-  // Convert time strings to 24-hour format
-  const convertTo24Hour = (timeStr) => {
-    if (!timeStr) return null;
-    const [time, period] = timeStr.split(' ');
-    let [hours, minutes] = time.split(':').map(Number);
-    if (period === 'PM' && hours !== 12) hours += 12;
-    if (period === 'AM' && hours === 12) hours = 0;
-    return { hours, minutes };
-  };
-
-  const openTime = convertTo24Hour(todayHours.opens);
-  const closeTime = convertTo24Hour(todayHours.closes);
-  
-  if (!openTime || !closeTime) return '';
-  
-  // Location is currently open
-  if (currentHour > openTime.hours || 
-      (currentHour === openTime.hours && currentMinutes >= openTime.minutes)) {
-    return `Until ${todayHours.closes}`;
-  }
-  
-  // Location will open later today
-  return `Opens ${todayHours.opens}`;
-}
-
-function isLocationCurrentlyOpen(hours) {
-  if (!hours) return false;
-  const now = new Date();
-  const day = now.toLocaleLowerCase().slice(0, 3);
-  const currentHours = hours[day];
-  if (!currentHours) return false;
-  
-  // Convert current time to minutes since midnight
-  const currentMinutes = now.getHours() * 60 + now.getMinutes();
-  
-  // Convert opening hours to minutes since midnight
-  const convertTimeToMinutes = (timeStr) => {
-    if (!timeStr) return null;
-    const [time, period] = timeStr.split(' ');
-    let [hours, minutes] = time.split(':').map(Number);
-    if (period === 'PM' && hours !== 12) hours += 12;
-    if (period === 'AM' && hours === 12) hours = 0;
-    return hours * 60 + minutes;
-  };
-  
-  const openMinutes = convertTimeToMinutes(currentHours.opens);
-  const closeMinutes = convertTimeToMinutes(currentHours.closes);
-  
-  if (!openMinutes || !closeMinutes) return false;
-  
-  return currentMinutes >= openMinutes && currentMinutes <= closeMinutes;
-}
-
-function calculateCurrentCapacity(busynessScore) {
-  if (!busynessScore) return 0;
-  return Math.floor(busynessScore * 1.44); // Converts percentage to estimated number of people
-}
-
-function getMaxCapacity(locationId) {
-  const capacities = {
-    'library': 144,
-    'arc': 300,
-    'silo': 200,
-    'mu': 300
-  };
-  return capacities[locationId] || 200;
-}
-
-function getBusyStatusText(busynessScore) {
-  if (!busynessScore) return 'Not Busy';
-  if (busynessScore <= 30) return 'Not Busy';
-  if (busynessScore <= 65) return 'Fairly Busy';
-  return 'Very Busy';
-}
-
-function calculateBestTimes(weeklyData) {
-  // Add implementation to find best and worst times
-  return {
-    best: '2pm - 4pm',
-    worst: '11:30am - 1:30pm'
-  };
-}
-
-exports.getBulkLocationData = async (req, res) => {
+const getBulkLocationData = async (req, res) => {
   try {
     console.log('Bulk data request received');
     const locationIds = ['library', 'mu', 'arc', 'silo'];
     const results = {};
     
     for (const id of locationIds) {
-      // Use the existing getSearchQuery function
+      console.log(`Processing ${id}...`);
       const searchQuery = getSearchQuery(id);
       if (!searchQuery) continue;
 
       // Check cache first
-      const cachedData = cache.get(id);
-      if (cachedData && (Date.now() - cachedData.timestamp < CACHE_DURATION)) {
+      const cachedData = weeklyCache.get(id);
+      if (cachedData) {
         console.log(`Using cached data for ${id}`);
-        results[id] = cachedData.data;
+        results[id] = {
+          ...cachedData,
+          currentStatus: getCurrentStatus(cachedData.knowledge_graph)
+        };
         continue;
       }
 
-      // Fetch if not cached
       console.log(`Fetching fresh data for ${id}`);
       const data = await getJson({
         api_key: process.env.SERPAPI_KEY,
@@ -274,10 +161,10 @@ exports.getBulkLocationData = async (req, res) => {
         currentStatus: getCurrentStatus(data.knowledge_graph)
       };
 
-      // Cache the processed data
-      cache.set(id, {
-        data: processedData,
-        timestamp: Date.now()
+      weeklyCache.set(id, {
+        hours: processedData.hours,
+        weeklyBusyness: processedData.weeklyBusyness,
+        knowledge_graph: data.knowledge_graph
       });
 
       results[id] = processedData;
@@ -291,18 +178,11 @@ exports.getBulkLocationData = async (req, res) => {
   }
 };
 
-function getCurrentStatus(data) {
-  return {
-    statusText: getBusyStatusText(data?.popular_times?.live?.busyness_score),
-    currentCapacity: {
-      current: calculateCurrentCapacity(data?.popular_times?.live?.busyness_score),
-      percentage: data?.popular_times?.live?.busyness_score || 0
-    },
-    description: data?.popular_times?.live?.info || "No current data",
-    untilText: getUntilText(data?.hours || {})
-  };
-}
+const testLocationData = async (req, res) => {
+  res.json({ message: 'Test endpoint working' });
+};
 
+// Helper functions
 function processHours(hours) {
   if (!hours) return {};
   return Object.entries(hours).reduce((acc, [day, times]) => {
@@ -314,16 +194,58 @@ function processHours(hours) {
   }, {});
 }
 
+function getBusyStatusText(busynessScore) {
+  if (!busynessScore && busynessScore !== 0) return 'Unknown';
+  
+  if (busynessScore >= 85) return 'Very Busy';
+  if (busynessScore >= 65) return 'Busy';
+  if (busynessScore >= 40) return 'Fairly Busy';
+  if (busynessScore >= 20) return 'Not Too Busy';
+  return 'Not Busy';
+}
+
 function processWeeklyBusyness(popularTimes) {
   if (!popularTimes?.graph_results) return {};
+  
   return Object.entries(popularTimes.graph_results).reduce((acc, [day, hours]) => {
+    if (!hours) return acc;
+    
     acc[day.toLowerCase()] = hours.map(hour => ({
-      time: hour.time,
+      time: hour.time || '',
       busyness: hour.busyness_score || 0,
       description: getBusyStatusText(hour.busyness_score)
     }));
     return acc;
   }, {});
+}
+
+function getCurrentStatus(data) {
+  const busynessScore = data?.popular_times?.live?.busyness_score;
+  
+  return {
+    statusText: getBusyStatusText(busynessScore),
+    currentCapacity: {
+      current: calculateCurrentCapacity(busynessScore),
+      percentage: busynessScore || 0
+    },
+    description: data?.popular_times?.live?.info || "No current data",
+    untilText: getUntilText(data?.hours || {})
+  };
+}
+
+function calculateCurrentCapacity(busynessScore) {
+  if (!busynessScore && busynessScore !== 0) return 0;
+  // Assuming a base capacity of 100 for simplicity
+  return Math.round(busynessScore);
+}
+
+function getUntilText(hours) {
+  if (!hours) return '';
+  const now = new Date();
+  const day = now.toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
+  if (!hours[day]) return '';
+  
+  return `Open until ${hours[day].closes}`;
 }
 
 function getErrorResponse() {
@@ -339,3 +261,10 @@ function getErrorResponse() {
     weeklyBusyness: {}
   };
 }
+
+// Export after all functions are defined
+module.exports = {
+  getLocationData,
+  getBulkLocationData,
+  testLocationData
+};
