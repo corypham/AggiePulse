@@ -103,6 +103,17 @@ export interface LocationDynamic {
   };
 }
 
+interface OccupancyData {
+  count: number;
+  capacity: number;
+  percentage: number;
+}
+
+interface RealTimeOccupancy {
+  mainBuilding: OccupancyData;
+  studyRoom: OccupancyData;
+}
+
 // Combined interface for complete location data
 export interface Location extends LocationStatic {
   id: string;
@@ -113,7 +124,16 @@ export interface Location extends LocationStatic {
       close: string;
     };
   };
-  currentStatus: string;
+  currentStatus: {
+    statusText: string;
+    currentCapacity: {
+      current: number;
+      percentage: number;
+    };
+    description: string;
+    untilText: string;
+    realTimeOccupancy?: RealTimeOccupancy;
+  };
   currentCapacity: number;
   bestTimes: {
     best: string;

@@ -104,7 +104,7 @@ const Card = React.memo(({ location }: CardProps) => {
   }, [currentLocation.hours, isOpen, closeTime, openTime, nextOpenDay]);
 
   // Get formatted distance
-  const distance = React.useMemo(() => 
+  const distance = useMemo(() => 
     formatDistance(currentLocation),
     [currentLocation.distance]
   );
@@ -163,6 +163,14 @@ const Card = React.memo(({ location }: CardProps) => {
               <Text className="font-aileron text-black ml-1">
                 {statusText}
               </Text>
+              {distance && (
+                <>
+                  <Text className="text-black mx-0.5">•</Text>
+                  <Text className="font-aileron text-black">
+                    {distance}
+                  </Text>
+                </>
+              )}
             </View>
           </View>
 
