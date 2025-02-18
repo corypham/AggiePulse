@@ -9,6 +9,7 @@ import { useFavorites } from '../context/FavoritesContext';
 import type { Location as LocationType } from '../types/location';
 import { mockLocations } from '../data/mockLocations';
 import { NavVectorSelected, NavVectorUnselected } from '../../assets';
+import { LoadingSpinner } from './LoadingSpinner';
 
 interface FacilityListProps {
   locations: LocationType[];
@@ -276,14 +277,6 @@ export const FacilityList: React.FC<FacilityListProps> = ({
       </Animated.View>
     </>
   ), [headerTranslateY]);
-
-  if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#3b2dff" />
-      </View>
-    );
-  }
 
   if (error) {
     return (

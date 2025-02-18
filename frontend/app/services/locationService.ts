@@ -49,6 +49,31 @@ interface CachedData {
   data: LocationDynamic;
 }
 
+interface CachedLocationStatus {
+  currentStatus: {
+    statusText: string;
+    currentCapacity?: {
+      current: number;
+      percentage: number;
+    };
+    description: string;
+    untilText: string;
+    realTimeOccupancy?: {
+      mainBuilding?: {
+        count: number;
+        capacity: number;
+        percentage: number;
+      };
+      studyRoom?: {
+        count: number;
+        capacity: number;
+        percentage: number;
+      };
+    };
+  };
+  isOpen: boolean;
+}
+
 const KILOMETERS_TO_MILES = 0.621371;
 
 // Helper function to convert and format distance
@@ -88,7 +113,6 @@ export const LocationService = {
       let dynamicData = await getCachedData(locationId);
       
       if (!dynamicData) {
-        console.log('LocationService: Fetching fresh data for:', locationId);
         const response = await fetch(`${API_BASE_URL}/locations/${locationId}/crowd-data`);
         
         if (!response.ok) {
@@ -170,6 +194,8 @@ export const LocationService = {
 
   // Add new getAllLocations method
   async getAllLocations(): Promise<Location[]> {
+    // Add artificial delay to test loading state
+    await new Promise(resolve => setTimeout(resolve, 2000));
     try {
       // Get user's location first
       const { status } = await ExpoLocation.requestForegroundPermissionsAsync();
@@ -332,6 +358,81 @@ export const LocationService = {
       console.error('Bulk fetch failed:', error);
       return this.getAllLocations(); // Fallback to individual fetches
     }
+  },
+
+  // Get a single location with combined static and dynamic data
+  async getLocationData(locationId: string): Promise<any> {
+    try {
+      // Log the API call attempt
+      console.log(`Fetching data for location: ${locationId}`);
+      
+      // Make sure this URL matches your backend route
+      const response = await fetch(`http://localhost:3000/api/locations/${locationId}/crowd-data`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      console.log('Received data:', data);
+      return data;
+    } catch (error) {
+      console.error('Error fetching location data:', error);
+      throw error;
+    }
+  },
+
+  // Get bulk location data
+  async getBulkLocationData(): Promise<any> {
+    try {
+      console.log('Fetching bulk location data');
+      const response = await fetch('http://localhost:3000/api/locations/bulk-data');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      console.log('Received bulk data:', data);
+      return data;
+    } catch (error) {
+      console.error('Error fetching bulk location data:', error);
+      throw error;
+    }
+  },
+
+  async getCachedLocationStatus(locationId: string): Promise<CachedLocationStatus | null> {
+    try {
+      // Get cached data
+      const currentCache = await AsyncStorage.getItem(CACHE_KEYS.CURRENT_STATUS + locationId);
+      if (!currentCache) return null;
+
+      const data = JSON.parse(currentCache);
+      const now = Date.now();
+
+      // Check if cache is still valid (within 2 hours)
+      if (now - data.timestamp > CACHE_KEYS.CACHE_DURATION.CURRENT) {
+        return null;
+      }
+
+      // Special handling for library
+      if (locationId === 'library' && data.currentStatus?.realTimeOccupancy) {
+        return {
+          currentStatus: data.currentStatus,
+          isOpen: Boolean(data.currentStatus.realTimeOccupancy.mainBuilding?.count > 0)
+        };
+      }
+
+      // For other locations
+      return {
+        currentStatus: {
+          statusText: data.statusText,
+          currentCapacity: data.currentCapacity,
+          description: data.description,
+          untilText: data.untilText
+        },
+        isOpen: data.isOpen
+      };
+    } catch (error) {
+      console.error('Error getting cached location status:', error);
+      return null;
+    }
   }
 };
 
@@ -413,12 +514,7 @@ async function cacheData(locationId: string, data: LocationDynamic) {
 }
 
 function formatCrowdData(data: any) {
-  console.log('Raw API Data:', JSON.stringify(data, null, 2));
-  
-  // Let's also log one day's worth of weekly busyness data
-  if (data.weeklyBusyness?.monday) {
-    console.log('Sample Monday Data:', JSON.stringify(data.weeklyBusyness.monday, null, 2));
-  }
+
   
   const now = new Date();
   const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
