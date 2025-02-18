@@ -5,6 +5,7 @@ import type { Location } from '../types/location';
 import LocationService from '../services/locationService';
 import { calculateBestWorstTimes } from '../_utils/timeUtils';
 import { useLocations } from '../hooks/useLocations';
+import Animated, { FadeIn } from 'react-native-reanimated';
 
 interface CrowdForecastProps {
   location: Location;
@@ -18,6 +19,13 @@ interface CrowdForecastProps {
 
 export default function CrowdForecast({ location, currentDay, dayData }: CrowdForecastProps) {
   const { locations, lastUpdate } = useLocations();
+  const [selectedBar, setSelectedBar] = useState<{
+    hour: number;
+    busyness: number;
+    description: string;
+    x: number;
+    y: number;
+  } | null>(null);
   
   // Get current location data from context
   const currentLocation = useMemo(() => 
@@ -67,9 +75,26 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
     return hour;
   };
 
-  // Map the data to the standard scale with correct PM hour conversion
-  const chartData = useMemo(() => {
+  // Handle bar selection
+  const handleBarPress = (event: any, datum: any) => {
+    if (!datum) return;
     
+    setSelectedBar({
+      hour: datum.x,
+      busyness: datum.y,
+      description: datum.description,
+      x: event.nativeEvent.locationX,
+      y: event.nativeEvent.locationY - 40 // Offset to show above the bar
+    });
+
+    // Hide tooltip after 2 seconds
+    setTimeout(() => {
+      setSelectedBar(null);
+    }, 2000);
+  };
+
+  // Create chart data with descriptions
+  const chartData = useMemo(() => {
     const data = dayData.map(data => {
       const hour = getHourNumber(data.time);
       const point = {
@@ -77,14 +102,13 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
         y: data.busyness || 0,
         isCurrentHour: hour === currentHour,
         time: data.time,
+        description: data.description,
         originalTime: data.time
       };
       return point;
     });
     
-    // Sort data points by hour to ensure proper rendering
     data.sort((a, b) => a.x - b.x);
-    
     return data;
   }, [dayData, currentHour]);
 
@@ -99,13 +123,6 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
     if (busyness >= 40) return 'text-yellow-600';
     return 'text-green-600';
   };
-
-  console.log('Current Location Data:', JSON.stringify({
-    currentStatus: currentLocation.currentStatus,
-    crowdInfo: currentLocation.crowdInfo,
-    weeklyBusyness: currentLocation.weeklyBusyness,
-    dayData
-  }, null, 2));
 
   return (
     <View className="bg-white p-1 rounded-lg">
@@ -125,14 +142,17 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
         <View style={{ height: 220 }}>
           <VictoryChart
             padding={{ top: 20, bottom: 40, left: 20, right: 20 }}
-            domain={{ 
-              x: [4, 24],
-              y: [0, 100]
-            }}
+            domain={{ x: [4, 24], y: [0, 100] }}
             domainPadding={{ x: 15, y: 0 }}
             theme={VictoryTheme.material}
             height={185}
             width={screenWidth - 40}
+            events={[{
+              target: "data",
+              eventHandlers: {
+                onPress: handleBarPress
+              }
+            }]}
           >
             <VictoryAxis
               tickValues={[4, 8, 12, 16, 20, 24]}
@@ -176,13 +196,24 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
                   fill: ({ datum }) => datum.isCurrentHour ? '#2563EB' : '#d9d9d9',
                 }
               }}
-              animate={{
-                duration: 200,
-                onLoad: { duration: 200 }
-              }}
-              standalone={false}
             />
           </VictoryChart>
+
+          {/* Tooltip/Popup */}
+          {selectedBar && (
+            <Animated.View 
+              entering={FadeIn.duration(200)}
+              className="absolute bg-gray-800 px-3 py-1 rounded-lg"
+              style={{
+                left: selectedBar.x - 50, // Center the tooltip
+                top: selectedBar.y
+              }}
+            >
+              <Text className="text-white text-center">
+                {`${selectedBar.description}\n${selectedBar.busyness}% busy`}
+              </Text>
+            </Animated.View>
+          )}
         </View>
 
         <View className="mt-[-30] mx-4">

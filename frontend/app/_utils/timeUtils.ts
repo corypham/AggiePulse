@@ -151,9 +151,6 @@ export const getOpenStatusText = (location: Location): string => {
 };
 
 export const isLocationOpen = (location: Location): boolean => {
-  const currentDay = getCurrentDay();
-  
-  // First check if we have any busyness data for current time
   const currentHour = new Date().getHours();
   const currentData = location.dayData?.find(data => {
     const hour = parseInt(data.time.split(' ')[0]);
@@ -161,47 +158,8 @@ export const isLocationOpen = (location: Location): boolean => {
     return (isPM ? hour + 12 : hour) === currentHour;
   });
 
-  // If we have busyness data and it's greater than 0, location is open
-  if (currentData && typeof currentData.busyness === 'number' && currentData.busyness > 0) {
-    return true;
-  }
-
-  // Otherwise check regular hours
-  if (!location.hours || !location.hours[currentDay]) {
-    return false;
-  }
-
-  const { open, close } = location.hours[currentDay];
-  
-  // Convert time string to minutes since midnight
-  const timeToMinutes = (timeStr: string, isClosingTime: boolean = false): number => {
-    if (!timeStr) return 0;
-    
-    // Handle API time format (e.g., "4 PM", "11 AM")
-    const matches = timeStr.match(/^(\d{1,2})(?:\s*)(AM|PM)$/i);
-    if (!matches) {
-      return 0;
-    }
-    
-    const [_, hours, period] = matches;
-    let hour = parseInt(hours);
-    
-    // Convert to 24-hour format
-    if (period.toUpperCase() === 'PM' && hour !== 12) {
-      hour += 12;
-    } else if (period.toUpperCase() === 'AM' && hour === 12) {
-      hour = isClosingTime ? 24 : 0;
-    }
-
-    return hour * 60;  // Convert to minutes
-  };
-
-  const now = new Date();
-  const currentMinutes = (now.getHours() * 60) + now.getMinutes();
-  const openMinutes = timeToMinutes(open, false);
-  const closeMinutes = timeToMinutes(close, true);
-
-  return currentMinutes >= openMinutes && currentMinutes <= closeMinutes;
+  // Add type guard to ensure currentData and currentData.busyness exist
+  return Boolean(currentData && typeof currentData.busyness === 'number' && currentData.busyness > 0);
 };
 
 interface TimeSlot {
