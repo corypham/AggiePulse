@@ -25,6 +25,7 @@ const MapMarker: React.FC<MapMarkerProps> = React.memo(({ location, onPress, sty
   const markerRef = useRef(null);
   const [currentLocation, setCurrentLocation] = useState(location);
   const [shouldUpdate, setShouldUpdate] = useState(false);
+  const [tracksViewChanges, setTracksViewChanges] = useState(true);
 
   // Get real-time location data
   const currentLocationData = useMemo(() => 
@@ -68,27 +69,42 @@ const MapMarker: React.FC<MapMarkerProps> = React.memo(({ location, onPress, sty
     };
   }, []);
 
-  // Listen for specific location updates
+  // Add useEffect to handle view changes tracking
+  useEffect(() => {
+    // Enable view changes tracking when favorite status changes
+    setTracksViewChanges(true);
+    
+    // Disable view changes tracking after a short delay
+    const timer = setTimeout(() => {
+      setTracksViewChanges(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [isLocationFavorite, shouldUpdate]);
+
   useEffect(() => {
     const subscription = EventEmitter.addListener('locationFavoriteToggled', (locationId: string) => {
       if (locationId === location.id) {
-        setShouldUpdate(prev => !prev); // Toggle to force re-render
+        setTracksViewChanges(true); // Enable tracking before update
+        setShouldUpdate(prev => !prev);
       }
     });
 
-    return () => subscription.remove();
+    return () => {
+      subscription.remove();
+    };
   }, [location.id]);
 
   return (
     <Marker
-      key={`${currentLocationData.id}-${isLocationFavorite}-${busynessStatus}`}
+      key={`${currentLocationData.id}-${isLocationFavorite}-${busynessStatus}-${shouldUpdate}`}
       ref={markerRef}
       coordinate={{
         latitude: currentLocationData.coordinates.latitude,
         longitude: currentLocationData.coordinates.longitude
       }}
       onPress={handleMarkerPress}
-      tracksViewChanges={false}
+      tracksViewChanges={tracksViewChanges}
       anchor={{ x: 0.5, y: 1.0 }}
       centerOffset={{ x: 0, y: -20 }}
     >
