@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef } from 'react';
 import { View, Text, Animated } from 'react-native';
 import { getStatusIcon } from '@/app/_utils/statusIcons';
 import type { Location } from '@/app/types/location';
-import { getLocationHours, isLocationOpen, getOpenStatusText } from '../_utils/timeUtils';
+import { getLocationHours, isLocationOpen, getOpenStatusText, getCurrentDay } from '@/app/_utils/timeUtils';
 import { formatDistance } from '../_utils/distanceUtils';
 import { useLocations } from '@/app/context/LocationContext';
 
@@ -28,26 +28,38 @@ export const MiniCard = React.memo(({ location }: MiniCardProps) => {
     [currentLocation.hours]
   );
 
-  // Check if location is currently open
-  const isOpen = useMemo(() => 
-    isLocationOpen(currentLocation),
-    [currentLocation.hours, lastUpdate]
-  );
+  // Check if location is currently open based on busyness data
+  const isOpen = useMemo(() => {
+    const currentHour = new Date().getHours();
+    const currentData = currentLocation.dayData?.find(data => {
+      const hour = parseInt(data.time.split(' ')[0]);
+      const isPM = data.time.includes('PM');
+      return (isPM ? hour + 12 : hour) === currentHour;
+    });
+
+    return currentData && typeof currentData.busyness === 'number' && currentData.busyness > 0;
+  }, [currentLocation.dayData, lastUpdate]);
 
   // Get status text
   const statusText = React.useMemo(() => {
-    if (!currentLocation.hours) return 'Hours unavailable';
-    
-    const distanceStr = currentLocation.distance 
-      ? ` • ${currentLocation.distance.toFixed(1)} mi` 
-      : '';
-
-    if (isOpen) {
-      return `until ${closeTime}${distanceStr}`;
+    // If location is open but hours are unavailable
+    if (isOpen && (!currentLocation.hours || !currentLocation.hours[getCurrentDay()])) {
+      return 'Hours unavailable';
     }
     
-    return `until ${openTime}${nextOpenDay ? ` ${nextOpenDay}` : ''}${distanceStr}`;
-  }, [currentLocation.hours, currentLocation.distance, isOpen, closeTime, openTime, nextOpenDay]);
+    // If location is closed and we have next opening time, show it regardless of hours availability
+    if (!isOpen && openTime) {
+      return `until ${openTime}${nextOpenDay ? ` ${nextOpenDay}` : ''}`;
+    }
+    
+    // If location is open and we have closing time
+    if (isOpen && closeTime) {
+      return `until ${closeTime}`;
+    }
+
+    // Fallback case
+    return 'Hours unavailable';
+  }, [currentLocation.hours, isOpen, closeTime, openTime, nextOpenDay]);
 
   // Get formatted distance
   const distance = React.useMemo(() => 

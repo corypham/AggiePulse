@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { View, Text, Dimensions } from 'react-native';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory-native';
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryContainer } from 'victory-native';
 import type { Location } from '../types/location';
 import LocationService from '../services/locationService';
 import { calculateBestWorstTimes } from '../_utils/timeUtils';
@@ -100,6 +100,13 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
     return 'text-green-600';
   };
 
+  console.log('Current Location Data:', JSON.stringify({
+    currentStatus: currentLocation.currentStatus,
+    crowdInfo: currentLocation.crowdInfo,
+    weeklyBusyness: currentLocation.weeklyBusyness,
+    dayData
+  }, null, 2));
+
   return (
     <View className="bg-white p-1 rounded-lg">
       <Text className="font-aileron-bold text-2xl mb-4 ml-4">Crowd Forecast</Text>
@@ -122,9 +129,9 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
               x: [4, 24],
               y: [0, 100]
             }}
-            domainPadding={{ x: 10, y: [0, 20] }}
+            domainPadding={{ x: 15, y: 0 }}
             theme={VictoryTheme.material}
-            height={180}
+            height={185}
             width={screenWidth - 40}
           >
             <VictoryAxis
@@ -136,16 +143,18 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
                 return `${t} AM`;
               }}
               style={{
-                axis: { stroke: "#000000" },
-                grid: { stroke: "transparent" },
-                ticks: { stroke: "transparent" },
+                axis: { stroke: "#000000", strokeWidth: 1.5 },
+                grid: { stroke: "#000000", strokeWidth: 0.25 },
+                ticks: { stroke: "#000000", size: 5 },
                 tickLabels: { 
                   fontSize: 12,
                   fill: "#000000",
-                  padding: 5,
+                  padding: 8,
                   fontFamily: 'Aileron'
                 }
               }}
+              offsetY={39}
+              standalone={false}
             />
             <VictoryAxis 
               dependentAxis
@@ -158,8 +167,9 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
             />
             <VictoryBar
               data={chartData}
-              alignment="middle"
-              barWidth={8}
+              alignment="start"
+              barWidth={12}
+              barRatio={0.8}
               cornerRadius={{ top: 4 }}
               style={{
                 data: {
@@ -170,6 +180,7 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
                 duration: 200,
                 onLoad: { duration: 200 }
               }}
+              standalone={false}
             />
           </VictoryChart>
         </View>

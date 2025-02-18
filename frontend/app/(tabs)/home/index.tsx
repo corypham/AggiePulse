@@ -38,7 +38,6 @@ export default function HomeScreen() {
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       if (lastToggledLocationId) {
-        // Force re-render of specific pin
         mapRef.current?.forceUpdate();
         setLastToggledLocationId(null);
       }
@@ -47,6 +46,8 @@ export default function HomeScreen() {
     // Listen for favorite toggle events
     const toggleSubscription = EventEmitter.addListener('locationFavoriteToggled', (locationId: string) => {
       setLastToggledLocationId(locationId);
+      // Force immediate map update
+      mapRef.current?.forceUpdate();
     });
 
     return () => {

@@ -1,5 +1,11 @@
 import { Location } from '../types/location';
 
+// Make sure getCurrentDay is exported
+export const getCurrentDay = (): string => {
+  const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  return days[new Date().getDay()];
+};
+
 function isCurrentlyOpen(hours: { open: string; close: string }): boolean {
   if (!hours || !hours.open || !hours.close) return false;
   
@@ -145,10 +151,22 @@ export const getOpenStatusText = (location: Location): string => {
 };
 
 export const isLocationOpen = (location: Location): boolean => {
-  const now = new Date();
-  const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-  const currentDay = days[now.getDay()].toLowerCase();
+  const currentDay = getCurrentDay();
+  
+  // First check if we have any busyness data for current time
+  const currentHour = new Date().getHours();
+  const currentData = location.dayData?.find(data => {
+    const hour = parseInt(data.time.split(' ')[0]);
+    const isPM = data.time.includes('PM');
+    return (isPM ? hour + 12 : hour) === currentHour;
+  });
 
+  // If we have busyness data and it's greater than 0, location is open
+  if (currentData && typeof currentData.busyness === 'number' && currentData.busyness > 0) {
+    return true;
+  }
+
+  // Otherwise check regular hours
   if (!location.hours || !location.hours[currentDay]) {
     return false;
   }
@@ -159,43 +177,29 @@ export const isLocationOpen = (location: Location): boolean => {
   const timeToMinutes = (timeStr: string, isClosingTime: boolean = false): number => {
     if (!timeStr) return 0;
     
-    
-    // Special case: if it's a closing time of 12 AM, treat it as end of day
-    if (isClosingTime && timeStr.trim().toUpperCase() === '12 AM') {;
-      return 24 * 60;  // 1440 minutes (end of day)
-    }
-    
-    // Split time and period
-    const matches = timeStr.match(/^(\d{1,2})(?::(\d{2}))?\s*(AM|PM)$/i);
+    // Handle API time format (e.g., "4 PM", "11 AM")
+    const matches = timeStr.match(/^(\d{1,2})(?:\s*)(AM|PM)$/i);
     if (!matches) {
       return 0;
     }
     
-    const [_, hours, minutes = '0', period] = matches;
+    const [_, hours, period] = matches;
     let hour = parseInt(hours);
     
-
     // Convert to 24-hour format
     if (period.toUpperCase() === 'PM' && hour !== 12) {
       hour += 12;
     } else if (period.toUpperCase() === 'AM' && hour === 12) {
-      // Special case: 12 AM closing time should be end of day
-      if (isClosingTime) {
-        hour = 24;
-      } else {
-        hour = 0;
-      }
+      hour = isClosingTime ? 24 : 0;
     }
 
-    const totalMinutes = (hour * 60) + parseInt(minutes);
-;
-
-    return totalMinutes;
+    return hour * 60;  // Convert to minutes
   };
 
+  const now = new Date();
   const currentMinutes = (now.getHours() * 60) + now.getMinutes();
-  const openMinutes = timeToMinutes(open, false);  // Opening time
-  const closeMinutes = timeToMinutes(close, true);  // Closing time - important!
+  const openMinutes = timeToMinutes(open, false);
+  const closeMinutes = timeToMinutes(close, true);
 
   return currentMinutes >= openMinutes && currentMinutes <= closeMinutes;
 };
