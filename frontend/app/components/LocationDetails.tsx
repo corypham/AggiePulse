@@ -4,7 +4,7 @@ import { useRouter, Stack } from 'expo-router';
 import { Heart, ChevronLeft, Share2 } from 'lucide-react-native';
 import { useFavorites } from '../context/FavoritesContext';
 import { useLocations } from '../context/LocationContext';
-import {  getLocationHours, isLocationOpen, formatTimeRangeWithMeridiem, calculateBestWorstTimes } from '../_utils/timeUtils';
+import {  getLocationHours, isLocationOpen, formatTimeRangeWithMeridiem, calculateBestWorstTimes, getCurrentDay } from '../_utils/timeUtils';
 import { getStatusIcon } from '@/app/_utils/statusIcons';
 import type { Location } from '../types/location';
 import { getAmenityIcon } from '../_utils/amenityIcons';
@@ -58,11 +58,10 @@ export default function LocationDetails({ location: initialLocation }: { locatio
 
   const handleFavorite = useCallback((e?: any) => {
     if (e) e.stopPropagation();
-    console.log('[LocationDetails] Before toggle for location:', location.id);
     toggleFavorite(location.id);
-    console.log('[LocationDetails] Emitting toggle event for location:', location.id);
-    EventEmitter.emit('locationFavoriteToggled', location.id);
-    console.log('[LocationDetails] After toggle event emitted');
+    // Add small delay to ensure state is updated
+    setTimeout(() => {
+    }, 0);
   }, [location.id, toggleFavorite]);
 
   const handleBack = useCallback(() => {
@@ -73,7 +72,6 @@ export default function LocationDetails({ location: initialLocation }: { locatio
     getLocationStatus(location),
     [location.currentCapacity, location.maxCapacity, lastUpdate]
   );
-  const StatusIcon = location.icons?.blue || null;
 
   const headerHeight = 264; // Height of your header image
   const tabBarHeight = 48; // Height of the tab bar
@@ -163,21 +161,37 @@ export default function LocationDetails({ location: initialLocation }: { locatio
     [location.hours, lastUpdate]
   );
 
-  // Check if location is currently open
-  const isOpen = useMemo(() => 
-    isLocationOpen(location),
-    [location.hours, lastUpdate]
-  );
+  // Check if location is currently open based on busyness data
+  const isOpen = useMemo(() => {
+    const currentHour = new Date().getHours();
+    const currentData = location.dayData?.find(data => {
+      const hour = parseInt(data.time.split(' ')[0]);
+      const isPM = data.time.includes('PM');
+      return (isPM ? hour + 12 : hour) === currentHour;
+    });
+
+    return currentData && typeof currentData.busyness === 'number' && currentData.busyness > 0;
+  }, [location.dayData, lastUpdate]);
 
   // Get status text
   const statusText = useMemo(() => {
-    if (!location.hours) return 'Hours unavailable';
-
-    if (isOpen) {
-      return `until ${closeTime}`;
+    // If location is open but hours are unavailable
+    if (isOpen && (!location.hours || !location.hours[getCurrentDay()])) {
+      return 'Hours unavailable';
     }
     
-    return `until ${openTime}${nextOpenDay ? ` ${nextOpenDay}` : ''}`;
+    // If location is closed and we have next opening time, show it regardless of hours availability
+    if (!isOpen && openTime) {
+      return `until ${openTime}${nextOpenDay ? ` ${nextOpenDay}` : ''}`;
+    }
+    
+    // If location is open and we have closing time
+    if (isOpen && closeTime) {
+      return `until ${closeTime}`;
+    }
+
+    // Fallback case
+    return 'Hours unavailable';
   }, [location.hours, isOpen, closeTime, openTime, nextOpenDay]);
 
   // Add fade animation value
@@ -242,6 +256,28 @@ export default function LocationDetails({ location: initialLocation }: { locatio
 
   // Remove the useEffect that was fetching crowd data
   
+  // Get current status text
+  const getCurrentStatus = () => {
+    const currentHour = new Date().getHours();
+    const currentData = location.dayData?.find(data => {
+      const hour = parseInt(data.time.split(' ')[0]);
+      const isPM = data.time.includes('PM');
+      return (isPM ? hour + 12 : hour) === currentHour;
+    });
+
+    if (currentData && typeof currentData.busyness === 'number' && currentData.busyness > 0) {
+      if (currentData.busyness >= 75) {
+        return 'Very Busy';
+      } else if (currentData.busyness >= 40) {
+        return 'Fairly Busy';
+      } else {
+        return 'Not Busy';
+      }
+    }
+
+    return 'Not Busy';
+  };
+
   // Get status color based on current status
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -258,11 +294,28 @@ export default function LocationDetails({ location: initialLocation }: { locatio
     }
   };
 
-  // Get current status text
-  const getCurrentStatus = () => {
-    if (!isOpen) return 'Not Busy';
-    return location.currentStatus || 'Not Busy';
+  // Get current busyness percentage
+  const getCurrentBusyness = () => {
+    const currentHour = new Date().getHours();
+    const currentData = location.dayData?.find(data => {
+      const hour = parseInt(data.time.split(' ')[0]);
+      const isPM = data.time.includes('PM');
+      return (isPM ? hour + 12 : hour) === currentHour;
+    });
+
+    return currentData && typeof currentData.busyness === 'number' 
+      ? currentData.busyness 
+      : 0;
   };
+
+  // Get status icon for crowd levels section
+  const StatusIcon = useMemo(() => 
+    getStatusIcon(location),
+    [location, lastUpdate]
+  );
+
+  // Get blue icon for title section
+  const TitleIcon = location.icons?.blue || null;
 
   return (
     <Animated.View 
@@ -328,9 +381,9 @@ export default function LocationDetails({ location: initialLocation }: { locatio
         {/* Title Section with Icon */}
         <View className="px-5 pt-5 bg-white -mt-5 rounded-t-3xl">
           <View className="flex-row items-start p-4 space-x-3">
-            {StatusIcon && (
+            {TitleIcon && (
               <View className="mt-1.5">
-                <StatusIcon width={28} height={28} />
+                <TitleIcon width={32} height={32} />
               </View>
             )}
             <View className="flex-1 pl-6">
@@ -416,20 +469,16 @@ export default function LocationDetails({ location: initialLocation }: { locatio
             <Text className="font-aileron-bold text-2xl mb-2">Crowd Levels</Text>
             <View className="flex-row items-start pl-2">
               <View className="flex-1">
-                {/* Use StatusIcon from getStatusIcon utility */}
-                {(() => {
-                  const StatusIcon = getStatusIcon(location.currentStatus);
-                  return StatusIcon ? <StatusIcon width={124} height={124} /> : null;
-                })()}
+                <View style={{ width: 124, height: 124 }} className="mr-3">
+                  <StatusIcon width="100%" height="100%" />
+                </View>
               </View>
               <View className="flex-1">
                 <View className="">
                   {/* Overall status with background */}
-                  <View className={`${statusInfo.backgroundClass} p-3 rounded-xl items-center`}>
-                    <Text className="font-aileron-bold text-lg">
-                      Overall: <Text className={`${statusInfo.statusTextClass}`}>
-                        {Math.round((location.currentCapacity / location.maxCapacity) * 100)}% full
-                      </Text>
+                  <View className={`${getStatusColor(getCurrentStatus())} p-3 rounded-xl items-center`}>
+                    <Text className="font-aileron-bold text-lg text-white">
+                      Overall: {getCurrentBusyness()}% full
                     </Text>
                   </View>
                   {/* Bullet points outside the background */}
@@ -437,7 +486,7 @@ export default function LocationDetails({ location: initialLocation }: { locatio
                     <View className="flex-row items-start">
                       <Text className="text-[#6B7280] w-2">•</Text>
                       <Text className="font-aileron text-sm text-[#6B7280] flex-1 pl-2">
-                        {location.currentCapacity}/{location.maxCapacity} of full capacity
+                        {getCurrentBusyness()}/100 of full capacity
                       </Text>
                     </View>
                     <View className="flex-row items-start">

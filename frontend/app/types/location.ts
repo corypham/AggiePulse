@@ -85,16 +85,21 @@ export interface LocationDynamic {
     description: string;
     untilText: string;
   };
-  bestTimes: {
-    best: string;
-    worst: string;
-  };
-  weeklyBusyness?: {
+  dayData: Array<{
+    time: string;
+    busyness: number;
+    description: string;
+  }>;
+  weeklyBusyness: {
     [key: string]: Array<{
       time: string;
       busyness: number;
       description: string;
     }>;
+  };
+  bestTimes: {
+    best: string;
+    worst: string;
   };
 }
 
@@ -121,6 +126,11 @@ export interface Location extends LocationStatic {
   };
   closingTime: string;
   distance?: number;
+  dayData: Array<{
+    time: string;
+    busyness: number;
+    description: string;
+  }>;
   crowdData?: Array<{
     hour: number;
     percentage: number;
@@ -170,4 +180,12 @@ interface BulkLocationResponse {
 interface CachedBulkData {
   timestamp: number;
   data: BulkLocationResponse;
+}
+
+interface CurrentStatus {
+  timestamp: number;
+  currentBusyness: number;
+  statusText: string;
+  description: string;
+  untilText: string;
 }
