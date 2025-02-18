@@ -6,7 +6,7 @@ import type { Location } from '../types/location';
 import { useFavorites } from '../context/FavoritesContext';
 import { getStatusIcon, getStatusText } from '../_utils/statusIcons';
 import { DEVICE, CARD } from '../constants/_layout';
-import { getLocationHours, isLocationOpen } from '../_utils/timeUtils';
+import { getLocationHours, isLocationOpen, getCurrentDay } from '../_utils/timeUtils';
 import { formatDistance } from '../_utils/distanceUtils';
 import { useLocations } from '../context/LocationContext';
 import EventEmitter from '../_utils/EventEmitter';
@@ -82,43 +82,26 @@ const Card = React.memo(({ location }: CardProps) => {
     [currentLocation.hours]
   );
 
-  // Format the status text with distance
-  const statusText = useMemo(() => {
-    if (!currentLocation.hours) return 'Hours unavailable';
-
-    const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-    const today = days[lastUpdateDate.getDay()];
-    const todayHours = currentLocation.hours[today];
-
-    // Format distance
-    const distanceStr = currentLocation.distance 
-      ? ` • ${currentLocation.distance.toFixed(1)} mi` 
-      : '';
-
-    if (isOpen && todayHours?.close) {
-      return `until ${todayHours.close}${distanceStr}`;
+  // Get status text
+  const statusText = React.useMemo(() => {
+    // If location is open but hours are unavailable
+    if (isOpen && (!currentLocation.hours || !currentLocation.hours[getCurrentDay()])) {
+      return 'Hours unavailable';
+    }
+    
+    // If location is closed and we have next opening time, show it regardless of hours availability
+    if (!isOpen && openTime) {
+      return `until ${openTime}${nextOpenDay ? ` ${nextOpenDay}` : ''}`;
+    }
+    
+    // If location is open and we have closing time
+    if (isOpen && closeTime) {
+      return `until ${closeTime}`;
     }
 
-    // If it's closed, find next opening time
-    if (todayHours?.open === 'Closed') {
-      // Find next day that's not closed
-      for (let i = 1; i <= 7; i++) {
-        const nextDay = days[(lastUpdateDate.getDay() + i) % 7];
-        const nextDayHours = currentLocation.hours[nextDay];
-        if (nextDayHours?.open && nextDayHours.open !== 'Closed') {
-          const dayName = i === 1 ? 'Mon' : nextDay.slice(0, 3).charAt(0).toUpperCase() + nextDay.slice(1, 3);
-          return `until ${nextDayHours.open} ${dayName}${distanceStr}`;
-        }
-      }
-    }
-
-    // If opening later today
-    if (todayHours?.open) {
-      return `until ${todayHours.open}${distanceStr}`;
-    }
-
-    return `Hours unavailable${distanceStr}`;
-  }, [currentLocation.hours, currentLocation.distance, isOpen, lastUpdateDate]);
+    // Fallback case
+    return 'Hours unavailable';
+  }, [currentLocation.hours, isOpen, closeTime, openTime, nextOpenDay]);
 
   // Get formatted distance
   const distance = React.useMemo(() => 
@@ -187,11 +170,9 @@ const Card = React.memo(({ location }: CardProps) => {
           <TouchableOpacity 
             onPress={(e) => {
               e.stopPropagation();
-              console.log('[Card] Before toggle for location:', currentLocation.id);
               toggleFavorite(currentLocation.id);
               console.log('[Card] Emitting toggle event for location:', currentLocation.id);
-              EventEmitter.emit('locationFavoriteToggled', currentLocation.id);
-              console.log('[Card] After toggle event emitted');
+              // EventEmitter.emit('locationFavoriteToggled', currentLocation.id);
             }}
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
             className="ml-2 self-start pt-0.5"

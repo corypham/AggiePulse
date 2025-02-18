@@ -8,13 +8,29 @@ const API_BASE_URL = __DEV__
   : 'https://your-production-api.com/api';
 
 const CACHE_KEYS = {
-  LOCATION_DATA: 'location_data_',
-  WEEKLY_DATA: 'weekly_data_',  // New key for weekly data
+  CURRENT_STATUS: 'current_status_',
+  WEEKLY_PATTERNS: 'weekly_patterns_',
   CACHE_DURATION: {
-    HOUR: 1000 * 60 * 5,      // Update every 5 minutes instead of hourly
-    WEEK: 1000 * 60 * 60 * 24 * 7  // For weekly patterns
+    CURRENT: 1000 * 60 * 30,    // 30 minutes for real-time data
+    WEEKLY: 1000 * 60 * 60 * 24 * 7  // 7 days for weekly patterns
   }
 };
+
+interface WeeklyPatterns {
+  timestamp: number;
+  weeklyBusyness: LocationDynamic['weeklyBusyness'];
+  hours: LocationDynamic['hours'];
+  bestTimes: LocationDynamic['bestTimes'];
+  dayData: LocationDynamic['dayData'];
+}
+
+interface CurrentStatus {
+  timestamp: number;
+  currentBusyness: number;
+  statusText: string;
+  description: string;
+  untilText: string;
+}
 
 interface WeeklyData {
   timestamp: number;
@@ -63,16 +79,14 @@ export const LocationService = {
   // Get a single location with combined static and dynamic data
   async getLocation(locationId: string): Promise<Location> {
     try {
-      // Get static data
       const staticData = staticLocations[locationId];
       if (!staticData) {
         throw new Error(`No static data found for location: ${locationId}`);
       }
 
-      // Try to get cached dynamic data
+      // Get dynamic data
       let dynamicData = await getCachedData(locationId);
-
-      // If no cached data, fetch from API
+      
       if (!dynamicData) {
         console.log('LocationService: Fetching fresh data for:', locationId);
         const response = await fetch(`${API_BASE_URL}/locations/${locationId}/crowd-data`);
@@ -104,22 +118,30 @@ export const LocationService = {
         console.error('Error getting location:', error);
       }
 
+      // Get current status from day data
+      const currentStatusData = getCurrentStatusFromDayData(dynamicData.dayData);
+      const currentDay = getCurrentDay();
+
+      // Combine weekly hours with any special hours for today
+      const hours = {
+        ...dynamicData?.hours || {}, // Keep all weekly hours
+        ...(dynamicData?.hours?.[currentDay] ? { // Override today's hours if available
+          [currentDay]: dynamicData.hours[currentDay]
+        } : {})
+      };
+
       return {
         ...staticData,
-        hours: dynamicData?.hours || {},
-        currentStatus: dynamicData?.currentStatus?.statusText || 'Unknown',
-        currentCapacity: dynamicData?.currentStatus?.currentCapacity?.current || 0,
-        bestTimes: {
-          best: dynamicData?.bestTimes?.best || 'Unknown',
-          worst: dynamicData?.bestTimes?.worst || 'Unknown'
-        },
-        crowdInfo: {
-          level: dynamicData?.currentStatus?.statusText || 'Unknown',
-          percentage: dynamicData?.currentStatus?.currentCapacity?.percentage || 0,
-          description: dynamicData?.currentStatus?.description || 'Data currently unavailable'
-        },
+        ...currentStatusData,
+        hours,
+        dayData: dynamicData?.dayData || [],
         weeklyBusyness: dynamicData?.weeklyBusyness || {},
-        closingTime: dynamicData?.currentStatus?.untilText || 'Hours unavailable',
+        currentCapacity: currentStatusData.crowdInfo.percentage,
+        bestTimes: dynamicData?.bestTimes || {
+          best: 'Unknown',
+          worst: 'Unknown'
+        },
+        closingTime: hours[currentDay]?.close || 'Hours unavailable',
         distance: Number(distance.toFixed(1))
       };
     } catch (error) {
@@ -140,7 +162,8 @@ export const LocationService = {
         },
         weeklyBusyness: {},
         closingTime: 'Hours unavailable',
-        distance: 0
+        distance: 0,
+        dayData: []
       };
     }
   },
@@ -158,26 +181,51 @@ export const LocationService = {
 
       const locations = await Promise.all(
         Object.keys(staticLocations).map(async (id) => {
-          const location = await this.getLocation(id);
-          
-          // Calculate distance if we have user location
-          if (userLocation?.coords && staticLocations[id].coordinates) {
-            const distance = calculateDistance(
-              userLocation.coords.latitude,
-              userLocation.coords.longitude,
-              staticLocations[id].coordinates.latitude,
-              staticLocations[id].coordinates.longitude
-            );
-            location.distance = Number(distance.toFixed(1));
+          try {
+            const location = await this.getLocation(id);
+            
+            // Calculate distance if we have user location
+            if (userLocation?.coords && staticLocations[id].coordinates) {
+              const distance = calculateDistance(
+                userLocation.coords.latitude,
+                userLocation.coords.longitude,
+                staticLocations[id].coordinates.latitude,
+                staticLocations[id].coordinates.longitude
+              );
+              location.distance = Number(distance.toFixed(1));
+            }
+            
+            return location;
+          } catch (error) {
+            console.error(`Error fetching location ${id}:`, error);
+            // Return fallback data with all required properties
+            return {
+              ...staticLocations[id],
+              hours: {},
+              currentStatus: 'Unknown',
+              currentCapacity: 0,
+              bestTimes: {
+                best: 'Unknown',
+                worst: 'Unknown'
+              },
+              crowdInfo: {
+                level: 'Unknown',
+                percentage: 0,
+                description: 'Data currently unavailable'
+              },
+              weeklyBusyness: {},
+              closingTime: 'Hours unavailable',
+              distance: 0,
+              dayData: []
+            };
           }
-          
-          return location;
         })
       );
 
       return locations;
     } catch (error) {
       console.error('Error fetching all locations:', error);
+      // Return fallback data for all locations
       return Object.entries(staticLocations).map(([id, staticData]) => ({
         ...staticData,
         hours: {},
@@ -192,8 +240,10 @@ export const LocationService = {
           percentage: 0,
           description: 'Data currently unavailable'
         },
+        weeklyBusyness: {},
         closingTime: 'Hours unavailable',
-        distance: 0
+        distance: 0,
+        dayData: []
       }));
     }
   },
@@ -228,11 +278,10 @@ export const LocationService = {
         throw new Error(`No static data found for location: ${id}`);
       }
 
-      // Try to get cached dynamic data
+      // Try to get cached data
       const cachedData = await getCachedData(id);
-      console.log('Dynamic data from cache:', cachedData);
-
-      // If no cached data, fetch from API
+      
+      // If no cached data or current status is stale, fetch new data
       if (!cachedData) {
         console.log('Fetching fresh data from API');
         const response = await fetch(`${API_BASE_URL}/locations/${id}/crowd-data`);
@@ -247,18 +296,17 @@ export const LocationService = {
       }
 
       return formatCrowdData(cachedData);
-
     } catch (error) {
       console.error('Error fetching crowd data:', error);
       return {
         weeklyBusyness: {},
         currentStatus: {
-          statusText: 'Closed',
+          statusText: 'Unknown',
           currentCapacity: {
             current: 0,
             percentage: 0
           },
-          description: 'Location is currently closed',
+          description: 'Unable to fetch current data',
           untilText: ''
         },
         hours: {}
@@ -290,35 +338,39 @@ export const LocationService = {
 // Cache helper functions
 async function getCachedData(locationId: string): Promise<LocationDynamic | null> {
   try {
-    // Get weekly data (patterns and hours)
-    const weeklyCache = await AsyncStorage.getItem(CACHE_KEYS.WEEKLY_DATA + locationId);
-    const weeklyData: WeeklyData | null = weeklyCache ? JSON.parse(weeklyCache) : null;
+    // Get weekly patterns
+    const weeklyCache = await AsyncStorage.getItem(CACHE_KEYS.WEEKLY_PATTERNS + locationId);
+    const weeklyData: WeeklyPatterns | null = weeklyCache ? JSON.parse(weeklyCache) : null;
 
-    // Get current status (updates hourly)
-    const currentCache = await AsyncStorage.getItem(CACHE_KEYS.LOCATION_DATA + locationId);
-    const currentData: CurrentData | null = currentCache ? JSON.parse(currentCache) : null;
+    // Get current status
+    const currentCache = await AsyncStorage.getItem(CACHE_KEYS.CURRENT_STATUS + locationId);
+    const currentData: CurrentStatus | null = currentCache ? JSON.parse(currentCache) : null;
 
     const now = Date.now();
 
-    // Check if we need new weekly data
-    const needWeeklyUpdate = !weeklyData || (now - weeklyData.timestamp > CACHE_KEYS.CACHE_DURATION.WEEK);
-    
-    // Check if we need new current data
-    const needCurrentUpdate = !currentData || (now - currentData.timestamp > CACHE_KEYS.CACHE_DURATION.HOUR);
+    // Check if we need new data
+    const needWeeklyUpdate = !weeklyData || (now - weeklyData.timestamp > CACHE_KEYS.CACHE_DURATION.WEEKLY);
+    const needCurrentUpdate = !currentData || (now - currentData.timestamp > CACHE_KEYS.CACHE_DURATION.CURRENT);
 
     if (needWeeklyUpdate || needCurrentUpdate) {
       return null;
     }
 
-    // Combine data with bestTimes
+    // Combine the data
     return {
       hours: weeklyData.hours,
       weeklyBusyness: weeklyData.weeklyBusyness,
-      currentStatus: currentData.currentStatus,
-      bestTimes: weeklyData.bestTimes || {
-        best: 'Unknown',
-        worst: 'Unknown'
-      }
+      currentStatus: {
+        statusText: currentData.statusText,
+        currentCapacity: {
+          current: currentData.currentBusyness,
+          percentage: currentData.currentBusyness
+        },
+        description: currentData.description,
+        untilText: currentData.untilText
+      },
+      bestTimes: weeklyData.bestTimes,
+      dayData: weeklyData.weeklyBusyness[getCurrentDay()] || []
     };
   } catch (error) {
     console.error('Cache retrieval error:', error);
@@ -330,28 +382,29 @@ async function cacheData(locationId: string, data: LocationDynamic) {
   try {
     const now = Date.now();
     
-    // Cache weekly data
-    const weeklyData: WeeklyData = {
+    // Cache weekly patterns
+    const weeklyData: WeeklyPatterns = {
       timestamp: now,
       weeklyBusyness: data.weeklyBusyness,
       hours: data.hours,
-      bestTimes: data.bestTimes || {
-        best: 'Unknown',
-        worst: 'Unknown'
-      }
+      bestTimes: data.bestTimes,
+      dayData: data.dayData
     };
     await AsyncStorage.setItem(
-      CACHE_KEYS.WEEKLY_DATA + locationId, 
+      CACHE_KEYS.WEEKLY_PATTERNS + locationId, 
       JSON.stringify(weeklyData)
     );
 
     // Cache current status
-    const currentData: CurrentData = {
+    const currentData: CurrentStatus = {
       timestamp: now,
-      currentStatus: data.currentStatus
+      currentBusyness: data.currentStatus.currentCapacity?.current || 0,
+      statusText: data.currentStatus.statusText,
+      description: data.currentStatus.description,
+      untilText: data.currentStatus.untilText
     };
     await AsyncStorage.setItem(
-      CACHE_KEYS.LOCATION_DATA + locationId, 
+      CACHE_KEYS.CURRENT_STATUS + locationId, 
       JSON.stringify(currentData)
     );
   } catch (error) {
@@ -360,6 +413,13 @@ async function cacheData(locationId: string, data: LocationDynamic) {
 }
 
 function formatCrowdData(data: any) {
+  console.log('Raw API Data:', JSON.stringify(data, null, 2));
+  
+  // Let's also log one day's worth of weekly busyness data
+  if (data.weeklyBusyness?.monday) {
+    console.log('Sample Monday Data:', JSON.stringify(data.weeklyBusyness.monday, null, 2));
+  }
+  
   const now = new Date();
   const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
   const currentDay = days[now.getDay()];
@@ -427,11 +487,35 @@ function checkIfOpen(hours: { open: string; close: string } | undefined, current
 function getBusyStatusText(busyness: number | undefined): string {
   if (busyness === undefined || busyness === null) return 'Unknown';
   if (busyness === 0) return 'Not Busy';
-  if (busyness < 30) return 'Not Too Busy';
+  if (busyness < 20) return 'Not Too Busy';
   if (busyness < 50) return 'A Bit Busy';
   if (busyness < 70) return 'Fairly Busy';
   if (busyness < 90) return 'Very Busy';
   return 'Extremely Busy';
 }
+
+const getCurrentStatusFromDayData = (dayData: any[]) => {
+  const currentHour = new Date().getHours();
+  const currentData = dayData?.find(data => {
+    const hour = parseInt(data.time.split(' ')[0]);
+    const isPM = data.time.includes('PM');
+    return (isPM ? hour + 12 : hour) === currentHour;
+  });
+
+  return {
+    currentStatus: currentData?.description || 'Unknown',
+    crowdInfo: {
+      level: currentData?.description || 'Unknown',
+      percentage: currentData?.busyness || 0,
+      description: currentData?.description || 'No current data'
+    }
+  };
+};
+
+// Helper function to get current day
+const getCurrentDay = (): string => {
+  const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  return days[new Date().getDay()];
+};
 
 export default LocationService;
