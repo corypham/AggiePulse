@@ -27,6 +27,7 @@ export { default as StudyRoomsBlue } from './blue-icons/Icon-Study-RoomsShortcut
 export { default as WheelchairBlue } from './blue-icons/Icon-Wheelchair-AccessibleShortcuts&Tips.svg';
 export { default as WhiteboardsBlue } from './blue-icons/Icon-WhiteboardsShortcuts&Tips.svg';
 export { default as StudySpacesIconBlue } from './blue-icons/Study-SpacesShortcuts&Tips.svg';
+export { default as GamesBlue } from './blue-icons/blue-game.svg';
 export { default as Variant3Blue } from './blue-icons/Variant3Shortcuts&Tips.svg';
 export { default as Variant4Blue } from './blue-icons/Variant4Shortcuts&Tips.svg';
 
@@ -55,6 +56,9 @@ export { default as WorkTablesGrey } from './grey-icons/Property 1=Icon-Work-Tab
 export { default as VectorGrey } from './grey-icons/Property 1=VectorShortcuts&Tips.svg';
 export { default as Variant1Grey } from './grey-icons/Variant1Shortcuts&Tips.svg';
 export { default as Variant4Grey } from './grey-icons/Variant4Shortcuts&Tips.svg';
+export { default as NoisyGrey } from './grey-icons/grey-noisy.svg';
+export { default as SportsEquipmentGrey } from './grey-icons/grey-sports-equipment.svg';
+export { default as StudySpacesGrey } from './grey-icons/grey-study-spaces.svg';
 
 // White Icons
 export { default as DiningWhite } from './white-icons/DLP-Icon-DiningShortcuts&Tips.svg';
@@ -118,6 +122,8 @@ export { default as ArcDetailedCard } from './detailed-card-assets/arc-detailed-
 export { default as LibraryDetailedCard } from './detailed-card-assets/library-detailed-card-image.png';
 export { default as MemorialUnionDetailedCard } from './detailed-card-assets/memorial-union-detailed-card-image.png';
 export { default as SiloDetailedCard } from './detailed-card-assets/silo-detailed-card-image.png';
+export { default as TwentyFourHourStudyRoomDetailedCard } from './detailed-card-assets/24hr-detailed-card.png';
+export { default as GamesDetailedCard } from './detailed-card-assets/games-area-detailed-card.png';
 
 // Heart Icons
 export { default as HeartVariant1 } from './heart-icons/Variant1Shortcuts&Tips.svg';

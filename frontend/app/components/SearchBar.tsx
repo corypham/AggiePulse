@@ -10,6 +10,7 @@ interface SearchBarProps {
   onChangeText: (text: string) => void;
   onClear: () => void;
   onFilterPress: () => void;
+  onSubmitEditing: () => void;
   placeholder?: string;
 }
 
@@ -18,7 +19,8 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   onChangeText,
   onClear,
   onFilterPress,
-  placeholder = "Study Spaces"
+  onSubmitEditing,
+  placeholder = "Search"
 }) => {
   return (
     <View className="flex-row items-center mx-4 mt-16 gap-2">
@@ -32,6 +34,8 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           placeholder={placeholder}
           className="flex-1 px-2 py-3 text-base"
           placeholderTextColor="#71717a"
+          onSubmitEditing={onSubmitEditing}
+          returnKeyType="search"
         />
         {value.length > 0 && (
           <TouchableOpacity 

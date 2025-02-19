@@ -3,6 +3,7 @@ import { LocationService } from '../services/locationService';
 import type { Location } from '../types/location';
 import * as ExpoLocation from 'expo-location';
 import { LoadingSpinner } from '../components/LoadingSpinner';
+import { SafeSpaceService } from '../services/safeSpaceService';
 
 // Define refresh intervals
 const REFRESH_INTERVALS = {
@@ -17,9 +18,11 @@ interface LocationContextType {
   locations: Location[];
   refreshLocations: () => Promise<void>;
   getLocation: (locationId: string) => Location | undefined;
+  getFilteredLocations: (filters: string[]) => Location[];
   lastUpdate: number;
   lastWeeklyUpdate: number;
   isLoading: boolean;
+  manualRefresh: () => Promise<void>;
 }
 
 
@@ -31,9 +34,9 @@ export const LocationProvider = ({ children }: { children: React.ReactNode }) =>
   const [lastWeeklyUpdate, setLastWeeklyUpdate] = useState<number>(Date.now());
   const [isLoading, setIsLoading] = useState(true);
   
-  const realtimeInterval = useRef<ReturnType<typeof setTimeout>>();
-  const weeklyInterval = useRef<ReturnType<typeof setTimeout>>();
-  const locationWatcher = useRef<ExpoLocation.LocationSubscription>();
+  const realtimeInterval = useRef<ReturnType<typeof setInterval> | null>(null);
+  const weeklyInterval = useRef<ReturnType<typeof setInterval> | null>(null);
+  const locationWatcher = useRef<ExpoLocation.LocationSubscription | null>(null);
 
   const updateDistances = useCallback(async (userLocation: ExpoLocation.LocationObject) => {
     setLocations(currentLocations => 
@@ -144,30 +147,115 @@ export const LocationProvider = ({ children }: { children: React.ReactNode }) =>
     }
   };
   
+  // Update refreshLibrarySafeSpace function
+  const refreshLibrarySafeSpace = async () => {
+    try {
+      const safeSpaceData = await SafeSpaceService.getOccupancyData();
+      if (safeSpaceData) {
+        const updatedLibrary = await LocationService.getLocationDetails('library');
+        if (updatedLibrary) {
+          setLocations(prev => prev.map(loc => 
+            loc.id === 'library' ? {
+              ...updatedLibrary,
+              currentStatus: {
+                ...updatedLibrary.currentStatus,
+                realTimeOccupancy: safeSpaceData
+              }
+            } : loc
+          ));
+        }
+      }
+    } catch (error) {
+      console.error('Error updating library SafeSpace:', error);
+    }
+  };
+
+  // Function to refresh from all caches
+  const refreshFromCaches = async () => {
+    try {
+      console.log('[LocationContext] Starting cache refresh...', new Date().toLocaleTimeString());
+      
+      // Get all location IDs
+      const locationIds = locations.map(loc => loc.id);
+      
+      const updatedLocations = await Promise.all(
+        locationIds.map(async (id) => {
+          const location = locations.find(loc => loc.id === id);
+          if (!location) return null;
+
+          // Get cached status
+          const cachedStatus = await LocationService.getCachedLocationStatus(id);
+          
+          return {
+            ...location,
+            ...(cachedStatus && {
+              currentStatus: cachedStatus.currentStatus,
+              isOpen: cachedStatus.isOpen
+            })
+          };
+        })
+      );
+
+      // Filter out null values and update state
+      const filteredLocations = updatedLocations.filter((loc): loc is Location => loc !== null);
+      if (filteredLocations.length > 0) {
+        setLocations(filteredLocations);
+        setLastUpdate(Date.now());
+        console.log('[LocationContext] Cache refresh complete, UI should update', new Date().toLocaleTimeString());
+      }
+    } catch (error) {
+      console.error('Error refreshing from caches:', error);
+    }
+  };
+
+  // Initial data load
+  const loadLocations = async () => {
+    try {
+      setIsLoading(true);
+      const initialLocations = await LocationService.getAllLocations();
+      setLocations(initialLocations);
+      setLastUpdate(Date.now());
+    } catch (error) {
+      console.error('Error loading locations:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Manual refresh function (for home button)
+  const manualRefresh = async () => {
+    await refreshFromCaches();
+  };
+
   useEffect(() => {
-    let statusInterval: ReturnType<typeof setInterval>;
-    let libraryInterval: ReturnType<typeof setInterval>;
-  
-    const initialize = async () => {
-      // Initial data fetch
-      await Promise.all([refreshRealtimeData(), refreshWeeklyData()]);
-      await startLocationTracking();
-  
-      // Set up intervals only after initial data is loaded
-      realtimeInterval.current = setInterval(refreshRealtimeData, REFRESH_INTERVALS.REALTIME_API);
-      statusInterval = setInterval(updateStatusFromCache, REFRESH_INTERVALS.STATUS_UPDATE);
-      weeklyInterval.current = setInterval(refreshWeeklyData, REFRESH_INTERVALS.WEEKLY);
-      libraryInterval = setInterval(refreshLibraryData, REFRESH_INTERVALS.LIBRARY);
-    };
-    
-    initialize();
-  
+    // Initial load
+    loadLocations();
+
+    // Set up 1-minute cache refresh interval for testing
+    console.log('[LocationContext] Setting up 1-minute refresh interval');
+    const cacheRefreshInterval = setInterval(() => {
+      console.log('[LocationContext] 1-minute interval triggered', new Date().toLocaleTimeString());
+      refreshFromCaches();
+    }, 60 * 1000); // 1 minute for testing
+
+    // Set up 5-minute cache refresh interval
+    const cacheRefreshInterval2 = setInterval(refreshFromCaches, 1 * 60 * 1000);
+
+    // Set up other intervals
+    realtimeInterval.current = setInterval(refreshRealtimeData, REFRESH_INTERVALS.REALTIME_API);
+    weeklyInterval.current = setInterval(refreshWeeklyData, REFRESH_INTERVALS.WEEKLY);
+
+    // Start location tracking
+    startLocationTracking();
+
+    // Cleanup
     return () => {
+      console.log('[LocationContext] Cleaning up intervals');
       if (realtimeInterval.current) clearInterval(realtimeInterval.current);
-      if (statusInterval) clearInterval(statusInterval);
       if (weeklyInterval.current) clearInterval(weeklyInterval.current);
-      if (libraryInterval) clearInterval(libraryInterval);
       if (locationWatcher.current) locationWatcher.current.remove();
+      clearInterval(cacheRefreshInterval);
+      clearInterval(cacheRefreshInterval2);
     };
   }, []);
 
@@ -175,13 +263,67 @@ export const LocationProvider = ({ children }: { children: React.ReactNode }) =>
     return locations.find(loc => loc.id === locationId);
   }, [locations]);
 
+  // Add this helper function to check if a location matches busyness filters
+  const matchesBusynessFilter = (location: Location, filter: string): boolean => {
+    const crowdLevel = location.crowdInfo?.level || 'Unknown';
+    const percentage = location.crowdInfo?.percentage || 0;
+    
+    switch (filter) {
+      case 'not-busy':
+        return crowdLevel === 'Not Busy' || percentage < 40;
+      case 'fairly-busy':
+        return crowdLevel === 'Fairly Busy' || (percentage >= 40 && percentage < 75);
+      case 'very-busy':
+        return crowdLevel === 'Very Busy' || percentage >= 75;
+      default:
+        return true;
+    }
+  };
+
+  // Add this helper function to check if a location matches type filters
+  const matchesTypeFilter = (location: Location, filter: string): boolean => {
+    switch (filter) {
+      case 'study':
+        return location.type.includes('study');
+      case 'dining':
+        return location.type.includes('dining');
+      case 'gym':
+        return location.type.includes('gym');
+      default:
+        return true;
+    }
+  };
+
+  // Add this function to get filtered locations
+  const getFilteredLocations = useCallback((filters: string[]): Location[] => {
+    if (!filters.length) return locations;
+
+    return locations.filter(location => {
+      // Separate filters by type
+      const busynessFilters = filters.filter(f => ['not-busy', 'fairly-busy', 'very-busy'].includes(f));
+      const typeFilters = filters.filter(f => ['study', 'dining', 'gym'].includes(f));
+
+      // If there are busyness filters, location must match at least one
+      const passesBusyness = busynessFilters.length === 0 || 
+        busynessFilters.some(filter => matchesBusynessFilter(location, filter));
+
+      // If there are type filters, location must match at least one
+      const passesType = typeFilters.length === 0 || 
+        typeFilters.some(filter => matchesTypeFilter(location, filter));
+
+      return passesBusyness && passesType;
+    });
+  }, [locations]);
+
   const contextValue: LocationContextType = {
     locations,
-    refreshLocations: refreshRealtimeData,
+    refreshLocations: manualRefresh,
     getLocation,
+    getFilteredLocations,
     lastUpdate,
     lastWeeklyUpdate,
-    isLoading
+    isLoading,
+    manualRefresh
   };
 
   return (

@@ -16,11 +16,15 @@ const locations = {
   'arc': 'UC Davis Activities Recreation Center',
   'mu': 'UC Davis Memorial Union Coffee House',
   'library': 'UC Davis Peter J. Shields Library',
+  '24hr': 'UC Davis 24 Hour Study Room',
+  'games': 'UC Davis Games Area',
   // Numeric fallbacks
   '1': 'UC Davis Peter J. Shields Library',
   '2': 'UC Davis Memorial Union Coffee House',
   '3': 'UC Davis Activities Recreation Center',
-  '4': 'UC Davis Silo Market'
+  '4': 'UC Davis Silo Market',
+  '5': 'UC Davis 24 Hour Study Room',
+  '6': 'UC Davis Games Area'
 };
 
 function getSearchQuery(locationId) {
