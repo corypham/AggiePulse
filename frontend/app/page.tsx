@@ -8,9 +8,9 @@ export default function Home() {
         console.log('Initializing app - fetching location data...');
         // This will trigger the bulk API call
         const locations = await LocationService.getAllLocationsData();
-        console.log('Received locations:', locations);
+        console.log('Received locations:');
       } catch (error) {
-        console.error('Error fetching initial data:', error);
+        console.error('Error fetching initial data:');
       }
     };
 

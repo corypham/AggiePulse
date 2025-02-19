@@ -1,19 +1,19 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-type FilterContextType = {
+interface FilterContextType {
   selectedFilters: string[];
   quickFilterPreferences: string[];
   toggleFilter: (filterId: string) => void;
   toggleQuickFilterPreference: (filterId: string) => void;
   clearFilters: () => void;
-};
+}
 
 const FilterContext = createContext<FilterContextType | undefined>(undefined);
 
 export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
-  const [quickFilterPreferences, setQuickFilterPreferences] = useState<string[]>(['study', 'dining', 'gym', 'not-busy']); // Default quick filters
+  const [quickFilterPreferences, setQuickFilterPreferences] = useState<string[]>([]);
 
   // Load saved filters on mount
   useEffect(() => {
@@ -47,19 +47,21 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     loadPreferences();
   }, []);
 
-  const toggleFilter = async (filterId: string) => {
-    const newFilters = selectedFilters.includes(filterId)
-      ? selectedFilters.filter(id => id !== filterId)
-      : [...selectedFilters, filterId];
-    
-    setSelectedFilters(newFilters);
-    
-    try {
-      await AsyncStorage.setItem('selectedFilters', JSON.stringify(newFilters));
-    } catch (error) {
-      console.error('Error saving filters:', error);
-    }
-  };
+  const toggleFilter = useCallback((filterId: string) => {
+    setSelectedFilters(prev => {
+      // If filter is already selected, remove it
+      if (prev.includes(filterId)) {
+        return prev.filter(id => id !== filterId);
+      }
+      // If it's a status filter (open/closed), remove the other status filter if present
+      if (filterId === 'open' || filterId === 'closed') {
+        const otherStatus = filterId === 'open' ? 'closed' : 'open';
+        return [...prev.filter(id => id !== otherStatus), filterId];
+      }
+      // Otherwise, add the new filter
+      return [...prev, filterId];
+    });
+  }, []);
 
   const toggleQuickFilterPreference = async (filterId: string) => {
     const newPreferences = quickFilterPreferences.includes(filterId)
@@ -85,12 +87,12 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   };
 
   return (
-    <FilterContext.Provider value={{ 
-      selectedFilters, 
+    <FilterContext.Provider value={{
+      selectedFilters,
       quickFilterPreferences,
-      toggleFilter, 
+      toggleFilter,
       toggleQuickFilterPreference,
-      clearFilters 
+      clearFilters
     }}>
       {children}
     </FilterContext.Provider>
@@ -99,7 +101,7 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
 export const useFilters = () => {
   const context = useContext(FilterContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useFilters must be used within a FilterProvider');
   }
   return context;

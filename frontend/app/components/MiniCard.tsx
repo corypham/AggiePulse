@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import { View, Text, Animated } from 'react-native';
-import { getStatusIcon } from '@/app/_utils/statusIcons';
+import { getStatusIcon, getStatusText, getStatusTitleBgClass } from '@/app/_utils/businessUtils';
 import type { Location } from '@/app/types/location';
 import { getLocationHours, isLocationOpen, getOpenStatusText, getCurrentDay } from '@/app/_utils/timeUtils';
 import { formatDistance } from '../_utils/distanceUtils';
@@ -20,6 +20,7 @@ export const MiniCard = React.memo(({ location }: MiniCardProps) => {
   );
 
   const StatusIcon = getStatusIcon(currentLocation);
+  const status = getStatusText(currentLocation);
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   // Get hours data
@@ -29,16 +30,10 @@ export const MiniCard = React.memo(({ location }: MiniCardProps) => {
   );
 
   // Check if location is currently open based on busyness data
-  const isOpen = useMemo(() => {
-    const currentHour = new Date().getHours();
-    const currentData = currentLocation.dayData?.find(data => {
-      const hour = parseInt(data.time.split(' ')[0]);
-      const isPM = data.time.includes('PM');
-      return (isPM ? hour + 12 : hour) === currentHour;
-    });
-
-    return currentData && typeof currentData.busyness === 'number' && currentData.busyness > 0;
-  }, [currentLocation.dayData, lastUpdate]);
+  const isOpen = useMemo(() => 
+    isLocationOpen(currentLocation),
+    [currentLocation.hours]
+  );
 
   // Get status text
   const statusText = React.useMemo(() => {

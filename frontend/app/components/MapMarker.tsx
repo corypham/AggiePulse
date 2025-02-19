@@ -11,6 +11,7 @@ import { getPin } from '../_utils/pinUtils';
 import EventEmitter from '../_utils/EventEmitter';
 import { isLocationOpen } from '../_utils/timeUtils';
 import { View, StyleSheet } from 'react-native';
+import { getStatusText } from '@/app/_utils/businessUtils';
 
 interface MapMarkerProps {
   location: Location;
@@ -38,11 +39,8 @@ const MapMarker: React.FC<MapMarkerProps> = React.memo(({ location, onPress, sty
   }, [isFavorite, location.id, shouldUpdate]);
 
   const busynessStatus = useMemo(() => {
-    if (!isLocationOpen(currentLocationData)) return 'Not Busy';
-    const percentage = (currentLocationData.currentCapacity / currentLocationData.maxCapacity) * 100;
-    if (percentage >= 75) return 'Very Busy';
-    if (percentage >= 40) return 'Fairly Busy';
-    return 'Not Busy';
+    if (!isLocationOpen(currentLocationData)) return 'Closed';
+    return getStatusText(currentLocationData);
   }, [currentLocationData]);
 
   const pin = useMemo(() => {

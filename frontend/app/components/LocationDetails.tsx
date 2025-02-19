@@ -5,42 +5,24 @@ import { Heart, ChevronLeft, Share2 } from 'lucide-react-native';
 import { useFavorites } from '../context/FavoritesContext';
 import { useLocations } from '../context/LocationContext';
 import {  getLocationHours, isLocationOpen, formatTimeRangeWithMeridiem, calculateBestWorstTimes, getCurrentDay } from '../_utils/timeUtils';
-import { getStatusIcon } from '@/app/_utils/statusIcons';
+import { 
+  getStatusIcon, 
+  getStatusText, 
+  getStatusColor, 
+  getStatusBgClass, 
+  getLocationStatus,
+  getPercentageTextColor,
+  getStatusTitleBgClass,
+  getStatusCrowdLevelBgClass
+} from '../_utils/businessUtils';
 import type { Location } from '../types/location';
 import { getAmenityIcon } from '../_utils/amenityIcons';
 import LocationService from '../services/locationService';
 import CrowdForecast  from '../components/CrowdForecast';
 import EventEmitter from '../_utils/EventEmitter';
+import { SafeSpaceService } from '../services/safeSpaceService';
+import type { SafeSpaceData } from '../types/safespace';
 
-
-// Helper function to get location status
-const getLocationStatus = (location: Location) => {
-  const percentage = (location.currentCapacity / location.maxCapacity) * 100;
-  
-  if (percentage >= 75) {
-    return {
-      statusTextClass: 'text-red-600',
-      backgroundClass: 'bg-red-100',
-      text: 'Very Busy'
-    };
-  } else if (percentage >= 40) {
-    return {
-      statusTextClass: 'text-yellow-600',
-      backgroundClass: 'bg-yellow-100',
-      text: 'Fairly Busy'
-    };
-  } else {
-    return {
-      statusTextClass: 'text-green-600',
-      backgroundClass: 'bg-green-100',
-      text: 'Not Busy'
-    };
-  }
-};
-
-interface LocationDetailsProps {
-  location: Location;
-}
 
 export default function LocationDetails({ location: initialLocation }: { location: Location }) {
   const router = useRouter();
@@ -126,6 +108,15 @@ export default function LocationDetails({ location: initialLocation }: { locatio
             const dayHours = location.hours?.[day];
             const isToday = day === today;
             
+            // Special handling for 24hr study room
+            const displayHours = location.id === '24hr' 
+              ? 'Open 24 Hours'
+              : dayHours?.open === 'Closed' 
+                ? 'Closed'
+                : dayHours?.open && dayHours?.close
+                  ? `${dayHours.open} - ${dayHours.close}`
+                  : 'Hours unavailable';
+            
             return (
               <View key={index} className="flex-row items-start pl-2">
                 <Text 
@@ -139,12 +130,7 @@ export default function LocationDetails({ location: initialLocation }: { locatio
                   <Text className={`text-[#6B7280] text-lg ${
                     isToday ? 'font-aileron-heavy text-black' : 'font-aileron'
                   }`}>
-                    {dayHours?.open === 'Closed' 
-                      ? 'Closed'
-                      : dayHours?.open && dayHours?.close
-                        ? `${dayHours.open} - ${dayHours.close}`
-                        : 'Hours unavailable'
-                    }
+                    {displayHours}
                   </Text>
                 </View>
               </View>
@@ -155,44 +141,35 @@ export default function LocationDetails({ location: initialLocation }: { locatio
     );
   };
 
-  // Get hours data using the new utilities
-  const { nextOpenDay, openTime, closeTime } = useMemo(() => 
-    getLocationHours(location),
-    [location.hours, lastUpdate]
+  // Check if location is currently open using timeUtils
+  const isOpen = useMemo(() => 
+    isLocationOpen(location),
+    [location.hours]
   );
 
-  // Check if location is currently open based on busyness data
-  const isOpen = useMemo(() => {
-    const currentHour = new Date().getHours();
-    const currentData = location.dayData?.find(data => {
-      const hour = parseInt(data.time.split(' ')[0]);
-      const isPM = data.time.includes('PM');
-      return (isPM ? hour + 12 : hour) === currentHour;
-    });
-
-    return currentData && typeof currentData.busyness === 'number' && currentData.busyness > 0;
-  }, [location.dayData, lastUpdate]);
-
-  // Get status text
+  // Get status text using timeUtils
   const statusText = useMemo(() => {
+    const today = getCurrentDay().toLowerCase();
+    const todayHours = location.hours?.[today];
+    
     // If location is open but hours are unavailable
-    if (isOpen && (!location.hours || !location.hours[getCurrentDay()])) {
+    if (isOpen && (!location.hours || !todayHours)) {
       return 'Hours unavailable';
     }
     
-    // If location is closed and we have next opening time, show it regardless of hours availability
-    if (!isOpen && openTime) {
-      return `until ${openTime}${nextOpenDay ? ` ${nextOpenDay}` : ''}`;
+    // If location is closed and we have opening time
+    if (!isOpen && todayHours?.open) {
+      return `until ${todayHours.open}`;
     }
     
     // If location is open and we have closing time
-    if (isOpen && closeTime) {
-      return `until ${closeTime}`;
+    if (isOpen && todayHours?.close) {
+      return `until ${todayHours.close}`;
     }
 
     // Fallback case
     return 'Hours unavailable';
-  }, [location.hours, isOpen, closeTime, openTime, nextOpenDay]);
+  }, [location.hours, isOpen]);
 
   // Add fade animation value
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -239,13 +216,6 @@ export default function LocationDetails({ location: initialLocation }: { locatio
   const today = days[new Date().getDay()];
   const todayHours = location.hours?.[today];
 
-  // Safely handle hours display
-  const getHoursDisplay = () => {
-    if (!todayHours?.open || !todayHours?.close) {
-      return 'Hours unavailable';
-    }
-    return `${todayHours.open} - ${todayHours.close}`;
-  };
 
   // Remove the separate crowdData state and fetch
   // All data should now come from the location object
@@ -270,47 +240,88 @@ export default function LocationDetails({ location: initialLocation }: { locatio
     }
   };
 
-  // Get current status using existing helper
+  // Get current status using businessUtils
   const currentStatus = useMemo(() => 
-    getLocationStatus(location).text,
-    [location.currentCapacity, location.maxCapacity, lastUpdate]
+    getStatusText(location),
+    [location, lastUpdate]
   );
 
-  // Get status color based on current status
+  // Get status color based on businessUtils status
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'Not Busy':
         return 'bg-[#0fbc43]';
-      case 'A Bit Busy':
       case 'Fairly Busy':
         return 'bg-[#ff8003]';
       case 'Very Busy':
-      case 'Extremely Busy':
         return 'bg-[#EF4444]';
       default:
         return 'bg-[#0fbc43]'; // Default to green for closed/not busy
     }
   };
 
-  // Get current busyness percentage
-  const getCurrentBusyness = () => {
-    const currentHour = new Date().getHours();
-    const currentData = location.dayData?.find(data => {
-      const hour = parseInt(data.time.split(' ')[0]);
-      const isPM = data.time.includes('PM');
-      return (isPM ? hour + 12 : hour) === currentHour;
-    });
+  // Add state for SafeSpace data
+  const [safeSpaceData, setSafeSpaceData] = useState<SafeSpaceData | null>(null);
 
-    return currentData && typeof currentData.busyness === 'number' 
-      ? currentData.busyness 
-      : 0;
+  // Add effect to fetch and update SafeSpace data
+  useEffect(() => {
+    const updateSafeSpaceData = async () => {
+      if (location.id === 'library' || location.id === '24hr') {
+        const data = await SafeSpaceService.getOccupancyData(true); // Force fresh data
+        setSafeSpaceData(data);
+      }
+    };
+
+    updateSafeSpaceData();
+    
+    // Set up refresh interval
+    const interval = setInterval(updateSafeSpaceData, 5 * 60 * 1000); // Every 5 minutes
+    
+    return () => clearInterval(interval);
+  }, [location.id]);
+
+  // Update occupancy display logic
+  const getOccupancyDisplay = () => {
+    if (location.id === 'library' && safeSpaceData?.mainBuilding) {
+      const { count, capacity } = safeSpaceData.mainBuilding;
+      return `Approximately ${count} / ${capacity} people`;
+    }
+    if (location.id === '24hr' && safeSpaceData?.studyRoom) {
+      const { count, capacity } = safeSpaceData.studyRoom;
+      return `Approximately ${count} / ${capacity} people`;
+    }
+    return `Approximately ${Math.round((getCurrentBusyness() / 100) * (location.maxCapacity || 0))} / ${location.maxCapacity} people`;
   };
 
-  // Calculate approximate number of people
-  const getApproximatePeople = () => {
-    const percentage = getCurrentBusyness();
-    const maxCapacity = location.maxCapacity || 0;
-    return Math.round((percentage / 100) * maxCapacity);
+  // Update crowd info percentage
+  const getCrowdPercentage = () => {
+    if (location.id === 'library' && safeSpaceData?.mainBuilding) {
+      return safeSpaceData.mainBuilding.percentage;
+    }
+    if (location.id === '24hr' && safeSpaceData?.studyRoom) {
+      return safeSpaceData.studyRoom.percentage;
+    }
+    return location.crowdInfo?.percentage || 0;
+  };
+
+  // Get status text using SafeSpace data
+  const getLocationStatusText = () => {
+    const percentage = getCrowdPercentage();
+    if (percentage < 25) return 'Not Busy';
+    if (percentage < 50) return 'A Bit Busy';
+    if (percentage < 75) return 'Fairly Busy';
+    return 'Very Busy';
+  };
+
+  // Get current busyness percentage using SafeSpace data when available
+  const getCurrentBusyness = () => {
+    if (location.id === 'library' && safeSpaceData?.mainBuilding) {
+      return safeSpaceData.mainBuilding.percentage;
+    }
+    if (location.id === '24hr' && safeSpaceData?.studyRoom) {
+      return safeSpaceData.studyRoom.percentage;
+    }
+    return location.crowdInfo?.percentage || 0;
   };
 
   // Get status icon for crowd levels section
@@ -331,60 +342,19 @@ export default function LocationDetails({ location: initialLocation }: { locatio
 
   // Add refresh effect
   useEffect(() => {
-    console.log('Current location data:', {
-      isLibrary: location.id === 'library',
-      realTimeOccupancy: location.currentStatus?.realTimeOccupancy,
-      mainBuilding: location.currentStatus?.realTimeOccupancy?.mainBuilding
-    });
 
   }, [location]);
 
-  const getOccupancyDisplay = () => {
-    // Debug log
-    console.log('getOccupancyDisplay called:', {
-      isLibrary: isLibrary,
-      realTimeOccupancy: realTimeOccupancy,
-      mainBuilding: realTimeOccupancy?.mainBuilding
-    });
-
-    if (isLibrary && realTimeOccupancy?.mainBuilding) {
-      const mainBuilding = realTimeOccupancy.mainBuilding;
-      
-      // Debug log
-      console.log('Library main building data:', mainBuilding);
-      
-      if (typeof mainBuilding.count === 'number' && 
-          typeof mainBuilding.capacity === 'number' && 
-          typeof mainBuilding.percentage === 'number') {
-        return {
-          count: `${mainBuilding.count}/${mainBuilding.capacity}`,
-          percentage: mainBuilding.percentage,
-          statusText: getBusyStatusText(mainBuilding.percentage),
-          approximatePeople: `Approximately ${mainBuilding.count}/${mainBuilding.capacity} people`
-        };
-      }
-    }
-    
-    // Fallback to original implementation for library or default for other locations
-    const currentValue = typeof location.currentCapacity === 'number' 
-      ? location.currentCapacity 
-      : 0;
-      
-    const maxValue = typeof location.maxCapacity === 'number' 
-      ? location.maxCapacity 
-      : 100;
-      
-    const percentageValue = Math.round((currentValue / maxValue) * 100);
-
-    return {
-      count: `${currentValue}/${maxValue}`,
-      percentage: percentageValue,
-      statusText: location.currentStatus?.statusText || 'Unknown',
-      approximatePeople: `Approximately ${currentValue}/${maxValue} people`
-    };
-  };
-
+  // Get occupancy display info
   const occupancyInfo = getOccupancyDisplay();
+
+  // Rename these to avoid conflicts
+  const currentStatusText = location.currentStatus?.statusText || 'Unknown';
+  const currentDescription = location.currentStatus?.description || '';
+
+  // Get current status from crowdInfo
+  const headerStatus = location.crowdInfo?.level || 'Unknown';
+
 
   return (
     <Animated.View 
@@ -473,11 +443,11 @@ export default function LocationDetails({ location: initialLocation }: { locatio
               </View>
               <View className="flex-row items-center space-x-2 mt-3">
                 <View className={`
-                  ${getStatusColor(currentStatus)}
+                  ${getStatusTitleBgClass(headerStatus)}
                   px-3 py-1.5 rounded-lg
                 `}>
                   <Text className="text-sm font-aileron-semibold text-white">
-                    {currentStatus}
+                    {getStatusText(location)}
                   </Text>
                 </View>
                 <View className="bg-[#f5f4f4] px-3 py-1.5 ml-3 rounded-lg">
@@ -539,29 +509,30 @@ export default function LocationDetails({ location: initialLocation }: { locatio
             <View className="flex-row items-start pl-2">
               <View className="flex-1">
                 <View style={{ width: 124, height: 124 }} className="mr-3">
-                  <StatusIcon width="100%" height="100%" />
+                  <StatusIcon width={124} height={124} />
                 </View>
               </View>
               <View className="flex-1">
                 <View>
-                  {/* Overall status with background */}
-                  <View className={`${getStatusColor(occupancyInfo.statusText)} p-3 rounded-xl items-center`}>
-                    <Text className="font-aileron-bold text-lg text-white">
-                      Overall: {occupancyInfo.percentage}% full
+                  <View className={`${getStatusCrowdLevelBgClass(getLocationStatusText())} p-3 rounded-xl items-center`}>
+                    <Text className="text-lg">
+                      <Text className="font-aileron-bold text-black">Overall: </Text>
+                      <Text className={`font-aileron-bold ${getPercentageTextColor(getLocationStatusText())}`}>
+                        {getCrowdPercentage()}% full
+                      </Text>
                     </Text>
                   </View>
-                  {/* Bullet points outside the background */}
-                  <View className="pl-2 pt-2 space-y-1">
-                    <View className="flex-row items-start">
-                      <Text className="text-[#6B7280] w-2">•</Text>
-                      <Text className="font-aileron text-sm text-[#6B7280] flex-1 pl-2">
-                        {occupancyInfo.approximatePeople}
+                  <View className="mt-4 mx-1">
+                    <View className="flex-row">
+                      <Text className="text-gray-600 text-sm">• </Text>
+                      <Text className="text-gray-600 text-sm flex-1">
+                        {getOccupancyDisplay()}
                       </Text>
                     </View>
-                    <View className="flex-row items-start">
-                      <Text className="text-[#6B7280] w-2">•</Text>
-                      <Text className="font-aileron text-sm text-[#6B7280] flex-1 pl-2">
-                        {getSeatingDescription(occupancyInfo.statusText)}
+                    <View className="flex-row mt-1">
+                      <Text className="text-gray-600 text-sm">• </Text>
+                      <Text className="text-gray-600 text-sm flex-1">
+                        {getSeatingDescription(getLocationStatusText())}
                       </Text>
                     </View>
                   </View>
@@ -574,7 +545,7 @@ export default function LocationDetails({ location: initialLocation }: { locatio
           
           <View className="">
               <Text className="text-white text-center text-lg">
-                {occupancyInfo.statusText}
+                {getStatusText(location)}
               </Text>
             </View>
             
@@ -747,12 +718,3 @@ export default function LocationDetails({ location: initialLocation }: { locatio
     </Animated.View>
   );
 } 
-
-// Helper function to determine busy status
-function getBusyStatusText(percentage: number): string {
-  if (percentage >= 85) return 'Very Busy';
-  if (percentage >= 65) return 'Busy';
-  if (percentage >= 40) return 'Fairly Busy';
-  if (percentage >= 20) return 'Not Too Busy';
-  return 'Not Busy';
-}

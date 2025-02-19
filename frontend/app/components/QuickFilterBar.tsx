@@ -4,10 +4,12 @@ import { useRouter } from 'expo-router';
 import { QuickFilterButton } from './QuickFilterButton';
 import { filterCategories } from '../config/filterConfig';
 import { useFilters } from '../context/FilterContext';
+import { useLocations } from '../context/LocationContext';
 import { WhiteCustomizeQuickFilter } from '../../assets';
 
 export function QuickFilterBar() {
   const { selectedFilters, quickFilterPreferences, toggleFilter, clearFilters } = useFilters();
+  const { getFilteredLocations } = useLocations();
   const router = useRouter();
   
   // Only show preferred filters
@@ -17,6 +19,15 @@ export function QuickFilterBar() {
 
   const handleLongPress = () => {
     clearFilters();
+  };
+
+  const handleFilterPress = (filterId: string) => {
+    toggleFilter(filterId);
+    // You can check the filtered results here if needed
+    const filteredLocations = getFilteredLocations(selectedFilters.includes(filterId) 
+      ? selectedFilters.filter(f => f !== filterId)
+      : [...selectedFilters, filterId]
+    );
   };
 
   const handleEditPress = () => {
@@ -37,7 +48,7 @@ export function QuickFilterBar() {
             label={filter.label}
             type={filter.id}
             isSelected={selectedFilters.includes(filter.id)}
-            onPress={() => toggleFilter(filter.id)}
+            onPress={() => handleFilterPress(filter.id)}
             onLongPress={handleLongPress}
           />
         ))}

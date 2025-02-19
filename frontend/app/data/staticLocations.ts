@@ -6,16 +6,19 @@ import {
   ArcDetailedCard,
   SiloDetailedCard,
   MemorialUnionDetailedCard,
-  
+  TwentyFourHourStudyRoomDetailedCard,
+  GamesDetailedCard,
+
   // Blue icons
   StudySpacesBlue,
   GymBlue,
   DiningBlue,
-  
+  GamesBlue,
   // White icons
   StudyWhite,
   GymWhite,
   DiningWhite,
+  GamesWhite,
   
   // Grey icons
   DiningGrey,
@@ -122,17 +125,23 @@ export const staticLocations: Record<string, LocationStatic> = {
       general: [
         'Gym Equipment',
         'Pool',
-        'Basketball Courts'
+        'Basketball Courts',
+        'Sports Equipment',
+        'Study Rooms',
+        'Fast Wi-Fi',
+        'Food Court',
+        'Coffee Shop',
+        'Charging Ports'
       ],
       atmosphere: [
-        'High energy',
-        'Active environment',
-        'Multiple workout zones'
+        'Noisy areas',
+        'Collaboration zones',
+        'Comfortable seating'
       ],
       accessibility: [
         'Wheelchair accessible',
         'ADA-compliant equipment',
-        'Elevator access'
+        'Braille signage'
       ]
     },
     description: 'Gym and fitness center',
@@ -177,7 +186,7 @@ export const staticLocations: Record<string, LocationStatic> = {
       atmosphere: [
         'Comfortable seating',
         'Collaboration Zones',
-        'Mixed-use space'
+        'Noisy areas'
       ],
       accessibility: [
         'Wheelchair accessible',
@@ -207,12 +216,15 @@ export const staticLocations: Record<string, LocationStatic> = {
     maxCapacity: 800,
     features: [
       'Food Court',
+      'Coffee Shop',
       'Study Areas',
       'Student Services',
       'Bookstore',
       'Meeting Rooms',
       'Information Desk',
-      'ATMs'
+      'ATMs',
+      'Charging Ports',
+      'Fast Wi-Fi'
     ],
     amenities: {
       general: [
@@ -222,12 +234,14 @@ export const staticLocations: Record<string, LocationStatic> = {
         'Bookstore',
         'Meeting Rooms',
         'Information Desk',
-        'ATMs'
+        'ATMs',
+        'Charging Ports',
+        'Fast Wi-Fi'
       ],
       atmosphere: [
-        'Mixed environment',
-        'Social spaces',
-        'Quiet study areas'
+        'Noisy areas',
+        'Collaboration zones',
+        'Comfortable seating'
       ],
       accessibility: [
         'Wheelchair accessible',
@@ -244,6 +258,105 @@ export const staticLocations: Record<string, LocationStatic> = {
       black: DiningBlack,
       selected: DiningSelected,
       unselected: DiningUnselected
+    }
+  },
+  '24hr': {
+    id: '24hr',
+    title: '24 Hour Study Room',
+    coordinates: {
+      latitude: 38.540133390771366,
+      longitude: -121.74939432950403
+    },
+    imageUrl: TwentyFourHourStudyRoomDetailedCard,
+    maxCapacity: 200,
+    features: [
+      'Open 24/7',
+      'Charging Ports',
+      'Fast Wi-Fi',
+      'Study Tables',
+      'Comfortable Seating',
+      'Quiet Study Space'
+    ],
+    amenities: {
+      general: [
+        'Open 24/7',
+        'Charging Ports',
+        'Fast Wi-Fi',
+        'Study Tables',
+        'Vending Machines'
+      ],
+      atmosphere: [
+        'Generally quiet',
+        'Individual study spaces',
+        'Comfortable seating'
+      ],
+      accessibility: [
+        'Wheelchair accessible',
+        'Ground floor access',
+        'ADA-compliant entrance'
+      ]
+    },
+    description: 'A dedicated 24-hour study space providing students with a quiet environment for late-night studying and academic work.',
+    type: ['study'],
+    icons: {
+      blue: StudySpacesBlue,
+      white: StudyWhite,
+      grey: StudyGrey,
+      black: StudyBlack,
+      selected: StudySelected,
+      unselected: StudyUnselected
+    },
+    is24Hours: true,
+    hasSafeSpace: true
+  },
+  'games': {
+    id: 'games',
+    title: 'Games Area',
+    coordinates: {
+      latitude: 38.54252901081, 
+      longitude: -121.74939379688
+    },
+    imageUrl: GamesDetailedCard,
+    maxCapacity: 150,
+    features: [
+      'Pool Tables',
+      'Gaming Consoles',
+      'Board Games',
+      'Table Tennis',
+      'Arcade Games',
+      'Comfortable Seating',
+      'Fast Wi-Fi'
+    ],
+    amenities: {
+      general: [
+        'Pool Tables',
+        'Gaming Consoles',
+        'Board Games',
+        'Table Tennis',
+        'Arcade Games',
+        'Fast Wi-Fi',
+        'Charging Ports'
+      ],
+      atmosphere: [
+        'Social space',
+        'Casual environment',
+        'Comfortable seating'
+      ],
+      accessibility: [
+        'Wheelchair accessible',
+        'Ground floor access',
+        'Wide pathways'
+      ]
+    },
+    description: 'A recreational space in the Memorial Union offering various gaming options including pool tables, video games, and table tennis for students to unwind and socialize.',
+    type: ['games'],
+    icons: {
+      blue: GamesBlue,
+      white: GamesWhite,
+      black: StudyBlack,
+      grey: GamesGrey,
+      selected: StudySelected,
+      unselected: StudyUnselected
     }
   }
 }; 
