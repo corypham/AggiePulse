@@ -12,48 +12,55 @@ function isCurrentlyOpen(hours: { open: string; close: string }): boolean {
   const now = new Date();
   const currentHour = now.getHours();
   const currentMinutes = now.getMinutes();
-  const currentTime = currentHour * 60 + currentMinutes; // Convert to minutes for easier comparison
+  const currentTime = currentHour * 60 + currentMinutes;
   
   try {
-    // Handle different time formats
-    const openParts = hours.open.split(' ');
-    const closeParts = hours.close.split(' ');
+    const openTime = parseTimeString(hours.open, false);
+    const closeTime = parseTimeString(hours.close, true);
     
-    // Convert to 24-hour format
-    let openTime = convertTo24Hour(openParts[0], openParts[1]);
-    let closeTime = convertTo24Hour(closeParts[0], closeParts[1]);
-    
-    return currentTime >= openTime && currentTime < closeTime;
+    return currentTime >= openTime && currentTime <= closeTime;
   } catch (error) {
     console.error('Error parsing hours:', hours, error);
     return false;
   }
 }
 
-// Helper function to convert time to minutes since midnight
-function convertTo24Hour(timeStr: string, period?: string): number {
+function parseTimeString(timeStr: string, isClosingTime: boolean = false): number {
   try {
-    const [hours, minutes = '0'] = timeStr.split(':');
-    let hour = parseInt(hours);
+    if (!timeStr) return 0;
     
-    // Handle cases where period might not be provided
-    if (period) {
-      if (period.toUpperCase() === 'PM' && hour !== 12) {
-        hour += 12;
-      } else if (period.toUpperCase() === 'AM' && hour === 12) {
-        hour = 0;
+    // Handle "12" as "12 PM"
+    if (timeStr === '12') {
+      return 12 * 60; // 720 minutes (noon)
+    }
+    
+    // Extract hour, minute, and period using regex
+    const match = timeStr.match(/(\d+)(?::(\d+))?\s*(AM|PM)?/i);
+    if (!match) return 0;
+    
+    const [_, hourStr, minuteStr = '0', period = 'PM'] = match;
+    let hour = parseInt(hourStr);
+    const minutes = parseInt(minuteStr);
+    
+    const upperPeriod = period.toUpperCase();
+    
+    // Special case: if it's closing time and time is 12 AM, return end of day
+    if (isClosingTime && hour === 12 && upperPeriod === 'AM') {
+      return 24 * 60; // 1440 minutes
+    }
+    
+    // Convert to 24-hour format
+    if (upperPeriod === 'PM') {
+      if (hour !== 12) {
+        hour += 12;  // 1 PM -> 13, 2 PM -> 14, etc.
       }
+    } else if (upperPeriod === 'AM' && hour === 12) {
+      hour = 0;  // 12 AM -> 0 (except for closing time, handled above)
     }
     
-    // If no valid hour could be parsed, return 0
-    if (isNaN(hour)) {
-      console.warn('Invalid hour format:', timeStr);
-      return 0;
-    }
-    
-    return (hour * 60) + parseInt(minutes || '0');
+    return (hour * 60) + minutes;
   } catch (error) {
-    console.error('Error converting time:', timeStr, period, error);
+    console.error('Error parsing time:', timeStr, error);
     return 0;
   }
 }
@@ -103,6 +110,15 @@ export const getLocationHours = (location: Location): {
   openTime: string;
   closeTime: string;
 } => {
+  // If location is 24 hours, return special format
+  if (location.is24Hours) {
+    return {
+      nextOpenDay: '',
+      openTime: 'Open 24/7',
+      closeTime: ''
+    };
+  }
+
   if (!location.hours) {
     return { nextOpenDay: '', openTime: '', closeTime: '' };
   }
@@ -126,6 +142,11 @@ export const getLocationHours = (location: Location): {
 
 // Keep existing functions for backward compatibility
 export const getOpenStatusText = (location: Location): string => {
+  // If location is 24 hours, return appropriate text
+  if (location.is24Hours) {
+    return 'Open 24/7';
+  }
+
   if (!location.hours) {
     return 'Hours unavailable';
   }
@@ -151,15 +172,20 @@ export const getOpenStatusText = (location: Location): string => {
 };
 
 export const isLocationOpen = (location: Location): boolean => {
-  const currentHour = new Date().getHours();
-  const currentData = location.dayData?.find(data => {
-    const hour = parseInt(data.time.split(' ')[0]);
-    const isPM = data.time.includes('PM');
-    return (isPM ? hour + 12 : hour) === currentHour;
-  });
+  // If location is marked as 24 hours, always return true
+  if (location.is24Hours) {
+    return true;
+  }
 
-  // Add type guard to ensure currentData and currentData.busyness exist
-  return Boolean(currentData && typeof currentData.busyness === 'number' && currentData.busyness > 0);
+  const currentDay = getCurrentDay();
+  const todayHours = location.hours?.[currentDay];
+  
+  // If no hours data or no hours for today
+  if (!todayHours || !todayHours.open || todayHours.open === 'Closed') {
+    return false;
+  }
+
+  return isCurrentlyOpen(todayHours);
 };
 
 interface TimeSlot {
@@ -250,4 +276,13 @@ export const formatTimeRangeWithMeridiem = (timeRange: string): string => {
   return timeRange.replace(/(\d+)(a|p) - (\d+)(a|p)/i, (_, h1, m1, h2, m2) => 
     `${h1}${m1.toUpperCase()}M - ${h2}${m2.toUpperCase()}M`
   );
+};
+
+// Get current open/closed status
+export const getCurrentOpenStatus = (location: Location): boolean => {
+  const currentDay = getCurrentDay();
+  const todayHours = location.hours?.[currentDay];
+  
+  if (!todayHours) return false;
+  return isCurrentlyOpen(todayHours);
 };

@@ -13,7 +13,7 @@ const CACHE_KEY = 'library_occupancy';
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
 
 const LibraryOccupancyService = {
-  async getOccupancyData() {
+  async getOccupancyData(forceRefresh = false) {
     // Verify that environment variables are set
     if (!SHIELDS_MAIN_URL || !STUDY_ROOM_URL) {
       console.error('Missing environment variables:');
@@ -22,11 +22,15 @@ const LibraryOccupancyService = {
       throw new Error('Library API endpoints not configured');
     }
 
-    // Check cache first
-    const cachedData = await cache.get(CACHE_KEY);
-    if (cachedData) {
-      console.log('Using cached library occupancy data');
-      return cachedData;
+    // Check cache first, unless forceRefresh is true
+    if (!forceRefresh) {
+      const cachedData = await cache.get(CACHE_KEY);
+      if (cachedData) {
+        console.log('Using cached library occupancy data');
+        return cachedData;
+      }
+    } else {
+      console.log('Force refreshing library occupancy data');
     }
 
     try {
@@ -37,7 +41,7 @@ const LibraryOccupancyService = {
       ]);
 
       // Log raw responses for debugging
-      console.log('Raw responses:', {
+      console.log('Raw SafeSpace responses:', {
         main: mainResponse.data,
         studyRoom: studyRoomResponse.data
       });

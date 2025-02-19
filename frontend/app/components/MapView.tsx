@@ -10,6 +10,8 @@ import type { Location as LocationType } from '../types/location';
 import { GOOGLE_MAPS_STYLE_ID_IOS, GOOGLE_MAPS_STYLE_ID_ANDROID } from '@env';
 import {MiniCard}  from './MiniCard';
 import  {INITIAL_REGION}  from '../constants/map';
+import { getStatusText } from '@/app/_utils/businessUtils';
+import { isLocationOpen } from '@/app/_utils/timeUtils';
 
 interface CustomMapViewProps {
   locations: LocationType[];
@@ -91,19 +93,30 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
     
     return locations.filter(location => 
       selectedFilters.some(filter => {
+        const status = getStatusText(location);
+        const percentage = location.crowdInfo?.percentage || 0;
+        const isOpen = isLocationOpen(location);
+
         switch (filter) {
+          case 'open':
+            return isOpen;
+          case 'closed':
+            return !isOpen;
           case 'very-busy':
-            return location.currentStatus === 'Very Busy';
+            return status === 'Very Busy' || percentage >= 75;
           case 'fairly-busy':
-            return location.currentStatus === 'Fairly Busy';
+            return status === 'Fairly Busy' || (percentage >= 40 && percentage < 75);
           case 'not-busy':
-            return location.currentStatus === 'Not Busy';
+            return status === 'Not Busy' || percentage < 40;
           default:
-            return location.type.includes(filter);
+            return Array.isArray(location.type) 
+              ? location.type.includes(filter)
+              : location.type === filter;
         }
       })
     );
   }, [locations, selectedFilters]);
+
 
   return (
     <View style={styles.container}>
@@ -138,7 +151,7 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
       >
         {filteredLocations.map((location) => (
           <MapMarker
-            key={location.id}
+            key={`${location.id}-${selectedFilters.join('-')}`}
             location={location}
             onPress={handleMarkerPress}
             style={{ zIndex: 1 }}

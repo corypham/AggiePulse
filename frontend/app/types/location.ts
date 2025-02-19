@@ -66,6 +66,8 @@ export interface LocationStatic {
     selected: any;
     unselected: any;
   };
+  is24Hours?: boolean;
+  hasSafeSpace?: boolean;
 }
 
 // Dynamic data from API
@@ -129,6 +131,7 @@ export interface Location extends LocationStatic {
     currentCapacity: {
       current: number;
       percentage: number;
+      total?: number;
     };
     description: string;
     untilText: string;

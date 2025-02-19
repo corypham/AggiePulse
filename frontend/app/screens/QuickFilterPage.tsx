@@ -39,6 +39,10 @@ export default function QuickFilterPage() {
           return <VeryBusyWhite width={16} height={16} />;
         case 'fairly-busy':
           return <FairlyBusyWhite width={16} height={16} />;
+        case 'open':
+        case 'closed':
+          // For status filters, we don't show an icon
+          return null;
         default:
           return null;
       }
@@ -56,6 +60,10 @@ export default function QuickFilterPage() {
           return <VeryBusyUnselected width={16} height={16} />;
         case 'fairly-busy':
           return <ModeratelyBusyUnselected width={16} height={16} />;
+        case 'open':
+        case 'closed':
+          // For status filters, we don't show an icon
+          return null;
         default:
           return null;
       }
@@ -86,6 +94,7 @@ export default function QuickFilterPage() {
         <View className="flex-row flex-wrap">
           {filterCategories.map((filter) => {
             const isSelected = quickFilterPreferences.includes(filter.id);
+            const icon = getIcon(filter.id, isSelected);
             return (
               <View key={filter.id} className="m-1">
                 <TouchableOpacity
@@ -106,9 +115,9 @@ export default function QuickFilterPage() {
                     elevation: 3,
                   }}
                 >
-                  {getIcon(filter.id, isSelected)}
+                  {icon && <View className="mr-2">{icon}</View>}
                   <Text
-                    className={`ml-2 ${
+                    className={`${
                       isSelected ? 'text-white' : 'text-black'
                     }`}
                   >
