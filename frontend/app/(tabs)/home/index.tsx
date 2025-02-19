@@ -1,6 +1,6 @@
 // Path: frontend/app/(tabs)/home/index.tsx
 
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import { View } from 'react-native';
 import { CustomMapView } from '../../components/MapView';
 import { SearchBar } from '../../components/SearchBar';
@@ -14,13 +14,19 @@ import { useLocations } from '../../hooks/useLocations';
 import { useFilters } from '../../context/FilterContext';
 import { INITIAL_REGION } from '../../constants/map';
 import BottomSheet from '@gorhom/bottom-sheet';
-import EventEmitter  from '../../_utils/EventEmitter';
+import EventEmitter from '../../_utils/EventEmitter';
+import { searchLocations } from '../../_utils/searchUtils';
+import { getStatusText } from '../../_utils/businessUtils';
+import { isLocationOpen } from '../../_utils/timeUtils';
+import { LoadingSpinner } from '../../components/LoadingSpinner';
 
 export default function HomeScreen() {
   const router = useRouter();
   const navigation = useNavigation();
   const mapRef = useRef<MapView | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [actualSearchQuery, setActualSearchQuery] = useState('');
+  const [isSearching, setIsSearching] = useState(false);
   const [isMapCentered, setIsMapCentered] = useState(false);
   const userLocation = useRef<{ latitude: number; longitude: number } | null>(null);
   const isAnimating = useRef(false);
@@ -28,8 +34,65 @@ export default function HomeScreen() {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const [lastToggledLocationId, setLastToggledLocationId] = useState<string | null>(null);
 
-  const { selectedFilters } = useFilters();
+  const { selectedFilters, clearFilters } = useFilters();
   const { locations, loading, error } = useLocations(selectedFilters);
+  
+  // Filter locations based on both search and filters
+  const filteredLocations = useMemo(() => {
+    // If there's a search query, prioritize search and ignore filters
+    if (actualSearchQuery.trim()) {
+      return searchLocations(locations, actualSearchQuery);
+    }
+    
+    // If no search but has filters, apply filters
+    if (selectedFilters.length > 0) {
+      return locations.filter(location => 
+        selectedFilters.some(filter => {
+          const status = getStatusText(location);
+          const percentage = location.crowdInfo?.percentage || 0;
+          const isOpen = isLocationOpen(location);
+
+          switch (filter) {
+            case 'open':
+              return isOpen;
+            case 'closed':
+              return !isOpen;
+            case 'very-busy':
+              return status === 'Very Busy' || percentage >= 75;
+            case 'fairly-busy':
+              return status === 'Fairly Busy' || (percentage >= 40 && percentage < 75);
+            case 'not-busy':
+              return status === 'Not Busy' || percentage < 40;
+            default:
+              return Array.isArray(location.type) 
+                ? location.type.includes(filter)
+                : location.type === filter;
+          }
+        })
+      );
+    }
+    
+    // If no search and no filters, return all locations
+    return locations;
+  }, [locations, actualSearchQuery, selectedFilters]);
+
+  // Handle search submission
+  const handleSearchSubmit = useCallback(async () => {
+    setIsSearching(true);
+    // Simulate some delay to show loading state
+    await new Promise(resolve => setTimeout(resolve, 500));
+    setActualSearchQuery(searchQuery);
+    setIsSearching(false);
+  }, [searchQuery]);
+
+  // Clear filters when search is used
+  useEffect(() => {
+    if (actualSearchQuery.trim()) {
+      if (selectedFilters.length > 0) {
+        clearFilters();
+      }
+    }
+  }, [actualSearchQuery]);
 
   useEffect(() => {
   }, [locations]);
@@ -132,6 +195,7 @@ export default function HomeScreen() {
     
     // Reset search
     setSearchQuery('');
+    setActualSearchQuery('');
   }, []);
 
   useEffect(() => {
@@ -142,11 +206,19 @@ export default function HomeScreen() {
     };
   }, [handleReset]);
 
+  const handleClearSearch = useCallback(() => {
+    setSearchQuery('');
+    setActualSearchQuery('');
+    // If there are any filters, they will be automatically applied
+    // to the full location list once actualSearchQuery is cleared
+  }, []);
+
   return (
     <View className="flex-1" style={{ backgroundColor: 'transparent' }}>
+      {isSearching && <LoadingSpinner overlay />}
       <CustomMapView 
         ref={mapRef}
-        locations={locations}
+        locations={filteredLocations}
         selectedFilters={selectedFilters}
         onMarkerPress={handleMarkerPress}
         onRegionChange={handleMapMovement}
@@ -156,13 +228,14 @@ export default function HomeScreen() {
         <SearchBar
           value={searchQuery}
           onChangeText={setSearchQuery}
-          onClear={() => setSearchQuery('')}
+          onClear={handleClearSearch}
           onFilterPress={handleFilterPress}
+          onSubmitEditing={handleSearchSubmit}
         />
         <QuickFilterBar />
       </View>
       <FacilityList 
-        locations={locations}
+        locations={filteredLocations}
         loading={loading}
         error={error}
         onLocationPress={handleLocationPress}

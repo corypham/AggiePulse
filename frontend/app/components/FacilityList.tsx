@@ -240,7 +240,7 @@ export const FacilityList: React.FC<FacilityListProps> = ({
         <View className="w-12 h-1 bg-gray-300 rounded-full mx-auto mb-4" />
         <View className="flex-row items-center justify-center pb-4">
           <Text className="font-aileron-bold text-lg">
-            {Math.min(mockLocations.length, locations.length)}
+            {locations.length}
           </Text>
           <Text className="font-aileron-light ml-1 text-lg">Available Facilities</Text>
         </View>

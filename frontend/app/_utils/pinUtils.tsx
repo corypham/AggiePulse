@@ -30,6 +30,7 @@ import {
   StudyWhite,
   GymWhite,
   DiningWhite,
+  GamesWhite,
 } from '../../assets';
 import type { Location } from '../types/location';
 
@@ -55,6 +56,12 @@ export const getPin = (location: Location, isFavorite: boolean) => {
   // First check if location is closed using timeUtils
   const isOpen = isLocationOpen(location);
   if (!isOpen) {
+    // Add Games handling for closed state
+    if (staticLocation.icons.white === GamesWhite) {
+      return React.createElement(ShadowWrapper, {
+        children: React.createElement(isFavorite ? PinStudyNoInfo : PinStudyNoInfo, { width: 40, height: 40 })
+      });
+    }
     // Use the white icon to determine the pin type
     if (staticLocation.icons.white === StudyWhite) {
       return React.createElement(ShadowWrapper, {
@@ -90,8 +97,19 @@ export const getPin = (location: Location, isFavorite: boolean) => {
 
   let pin;
 
-  // Use the white icon to determine the pin type
-  if (staticLocation.icons.white === DiningWhite) {
+  // Add Games handling for open state
+  if (staticLocation.icons.white === GamesWhite) {
+    switch (busynessStatus) {
+      case 'Very Busy':
+        pin = React.createElement(isFavorite ? PinFavoriteStudyVeryBusy : PinStudyVeryBusy, { width: 40, height: 40 });
+        break;
+      case 'Fairly Busy':
+        pin = React.createElement(isFavorite ? PinFavoriteStudyFairlyBusy : PinStudyFairlyBusy, { width: 40, height: 40 });
+        break;
+      default:
+        pin = React.createElement(isFavorite ? PinFavoriteStudyNotBusy : PinStudyNotBusy, { width: 40, height: 40 });
+    }
+  } else if (staticLocation.icons.white === DiningWhite) {
     switch (busynessStatus) {
       case 'Very Busy':
         pin = React.createElement(isFavorite ? PinFavoriteFoodVeryBusy : PinFoodVeryBusy, { width: 40, height: 40 });

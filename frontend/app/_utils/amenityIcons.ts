@@ -23,6 +23,9 @@ import {
   VectorGrey,
   Variant1Grey,
   Variant4Grey,
+  NoisyGrey,
+  SportsEquipmentGrey,
+  StudySpacesGrey,
 } from '../../assets';
 
 export interface AmenityIcon {
@@ -49,8 +52,15 @@ export const amenityIconMap: Record<string, AmenityIcon> = {
 
   // Atmosphere
   'Generally quiet': { icon: QuietAreasGrey, label: 'Quiet Areas' },
+  'Noisy areas': { icon: NoisyGrey, label: 'Noisy Areas' },
   'Collaboration zones': { icon: CollaborativeGrey, label: 'Collaboration Zones' },
   'Comfortable seating': { icon: ComfortableSeatingGrey, label: 'Comfortable Seating' },
+
+  // Sports & Recreation
+  'Sports Equipment': { icon: SportsEquipmentGrey, label: 'Sports Equipment' },
+  
+  // Study Spaces
+  'Study Spaces': { icon: StudySpacesGrey, label: 'Study Spaces' },
 
   // Accessibility
   'Wheelchair accessible': { icon: WheelchairGrey, label: 'Wheelchair Accessible' },

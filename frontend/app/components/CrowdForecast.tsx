@@ -33,12 +33,20 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
     [locations, location.id]
   );
 
-  // Use the data from context instead of making separate API calls
-  const crowdData = useMemo(() => ({
-    currentStatus: currentLocation.currentStatus,
-    weeklyBusyness: currentLocation.weeklyBusyness,
-    // ... other needed data
-  }), [currentLocation, lastUpdate]);
+  const { bestTime, worstTime } = calculateBestWorstTimes(
+    dayData,
+    location.hours?.[currentDay.toLowerCase()]
+  );
+
+  // Create forecast data directly without getForecastData
+  const forecast = useMemo(() => {
+    return {
+      statusText: currentLocation.currentStatus?.statusText || 'Not Available',
+      currentCapacity: currentLocation.currentStatus?.currentCapacity || 0,
+      description: currentLocation.currentStatus?.description || '',
+      untilText: currentLocation.currentStatus?.untilText || ''
+    };
+  }, [currentLocation]);
 
   const screenWidth = Dimensions.get('window').width;
   
@@ -112,17 +120,14 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
     return data;
   }, [dayData, currentHour]);
 
-
-  const { bestTime, worstTime } = calculateBestWorstTimes(
-    dayData,
-    location.hours?.[currentDay.toLowerCase()]
-  );
-
   const getStatusColor = (busyness: number) => {
     if (busyness >= 75) return 'text-red-600';
     if (busyness >= 40) return 'text-yellow-600';
     return 'text-green-600';
   };
+
+  // Check if we have valid data
+  const hasValidData = dayData && dayData.length > 0 && dayData.some(data => data.busyness > 0);
 
   return (
     <View className="bg-white p-1 rounded-lg">
@@ -130,7 +135,7 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
       <View className="mx-2">
         <View className={`bg-primary rounded-full ml-4 px-6 py-2 self-start`}>
           <Text className="text-white text-center text-lg">
-            {crowdData?.currentStatus || 'Unknown'}
+            {forecast.statusText}
           </Text>
         </View>
 
@@ -140,64 +145,75 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
         </View>
 
         <View style={{ height: 220 }}>
-          <VictoryChart
-            padding={{ top: 20, bottom: 40, left: 20, right: 20 }}
-            domain={{ x: [4, 24], y: [0, 100] }}
-            domainPadding={{ x: 15, y: 0 }}
-            theme={VictoryTheme.material}
-            height={185}
-            width={screenWidth - 40}
-            events={[{
-              target: "data",
-              eventHandlers: {
-                onPress: handleBarPress
-              }
-            }]}
-          >
-            <VictoryAxis
-              tickValues={[4, 8, 12, 16, 20, 24]}
-              tickFormat={(t: number) => {
-                if (t === 24) return '12 AM';
-                if (t === 12) return '12 PM';
-                if (t > 12) return `${t-12} PM`;
-                return `${t} AM`;
-              }}
-              style={{
-                axis: { stroke: "#000000", strokeWidth: 1.5 },
-                grid: { stroke: "#000000", strokeWidth: 0.25 },
-                ticks: { stroke: "#000000", size: 5 },
-                tickLabels: { 
-                  fontSize: 12,
-                  fill: "#000000",
-                  padding: 8,
-                  fontFamily: 'Aileron'
+          {hasValidData ? (
+            <VictoryChart
+              padding={{ top: 20, bottom: 40, left: 20, right: 20 }}
+              domain={{ x: [4, 24], y: [0, 100] }}
+              domainPadding={{ x: 15, y: 0 }}
+              theme={VictoryTheme.material}
+              height={185}
+              width={screenWidth - 40}
+              events={[{
+                target: "data",
+                eventHandlers: {
+                  onPress: handleBarPress
                 }
-              }}
-              offsetY={39}
-              standalone={false}
-            />
-            <VictoryAxis 
-              dependentAxis
-              style={{
-                axis: { stroke: "transparent" },
-                grid: { stroke: "transparent" },
-                ticks: { stroke: "transparent" },
-                tickLabels: { fill: "transparent" }
-              }}
-            />
-            <VictoryBar
-              data={chartData}
-              alignment="start"
-              barWidth={12}
-              barRatio={0.8}
-              cornerRadius={{ top: 4 }}
-              style={{
-                data: {
-                  fill: ({ datum }) => datum.isCurrentHour ? '#2563EB' : '#d9d9d9',
-                }
-              }}
-            />
-          </VictoryChart>
+              }]}
+            >
+              <VictoryAxis
+                tickValues={[4, 8, 12, 16, 20, 24]}
+                tickFormat={(t: number) => {
+                  if (t === 24) return '12 AM';
+                  if (t === 12) return '12 PM';
+                  if (t > 12) return `${t-12} PM`;
+                  return `${t} AM`;
+                }}
+                style={{
+                  axis: { stroke: "#000000", strokeWidth: 1.5 },
+                  grid: { stroke: "#000000", strokeWidth: 0.25 },
+                  ticks: { stroke: "#000000", size: 5 },
+                  tickLabels: { 
+                    fontSize: 12,
+                    fill: "#000000",
+                    padding: 8,
+                    fontFamily: 'Aileron'
+                  }
+                }}
+                offsetY={39}
+                standalone={false}
+              />
+              <VictoryAxis 
+                dependentAxis
+                style={{
+                  axis: { stroke: "transparent" },
+                  grid: { stroke: "transparent" },
+                  ticks: { stroke: "transparent" },
+                  tickLabels: { fill: "transparent" }
+                }}
+              />
+              <VictoryBar
+                data={chartData}
+                alignment="start"
+                barWidth={12}
+                barRatio={0.8}
+                cornerRadius={{ top: 4 }}
+                style={{
+                  data: {
+                    fill: ({ datum }) => datum.isCurrentHour ? '#2563EB' : '#d9d9d9',
+                  }
+                }}
+              />
+            </VictoryChart>
+          ) : (
+            <View className="flex-1 justify-center items-center">
+              <Text className="font-aileron-bold text-xl text-gray-500">
+                Data Unavailable
+              </Text>
+              <Text className="font-aileron text-sm text-gray-400 mt-2">
+                Check back later for crowd forecasts
+              </Text>
+            </View>
+          )}
 
           {/* Tooltip/Popup */}
           {selectedBar && (
@@ -216,18 +232,20 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
           )}
         </View>
 
-        <View className="mt-[-30] mx-4">
-          <Text className="font-aileron-bold text-2xl mb-3">Plan Your Visit!</Text>
-          <View className="bg-gray-100 rounded-full py-4 px-6 flex-row justify-center items-center">
-            <Text className="text-[#0c8f34] text-center font-aileron text-lg">
-              Best time: {bestTime}
-            </Text>
-            <View className="w-[1px] h-8 bg-gray-400 mx-4" style={{ marginVertical: -8 }} />
-            <Text className="text-[#EF4444] text-center text-lg">
-              Worst time: {worstTime}
-            </Text>
+        {hasValidData ? (
+          <View className="mt-[-30] mx-4">
+            <Text className="font-aileron-bold text-2xl mb-3">Plan Your Visit!</Text>
+            <View className="bg-gray-100 rounded-full py-4 px-6 flex-row justify-center items-center">
+              <Text className="text-[#0c8f34] text-center font-aileron text-lg">
+                Best time: {bestTime}
+              </Text>
+              <View className="w-[1px] h-8 bg-gray-400 mx-4" style={{ marginVertical: -8 }} />
+              <Text className="text-[#EF4444] text-center text-lg">
+                Worst time: {worstTime}
+              </Text>
+            </View>
           </View>
-        </View>
+        ) : null}
       </View>
     </View>
   );

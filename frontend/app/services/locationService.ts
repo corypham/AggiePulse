@@ -100,6 +100,9 @@ function calculateDistance(
   return R * c;
 }
 
+// Add a startup flag
+let isInitialLoad = true;
+
 export const LocationService = {
   // Get a single location with combined static and dynamic data
   async getLocation(locationId: string): Promise<Location> {
@@ -109,10 +112,11 @@ export const LocationService = {
         throw new Error(`No static data found for location: ${locationId}`);
       }
 
-      // Get dynamic data
-      let dynamicData = await getCachedData(locationId);
+      // Always fetch fresh data on initial load
+      let dynamicData: LocationDynamic | null = null;
       
-      if (!dynamicData) {
+      if (isInitialLoad) {
+        console.log('[getLocation] Initial load - fetching fresh API data');
         const response = await fetch(`${API_BASE_URL}/locations/${locationId}/crowd-data`);
         
         if (!response.ok) {
@@ -120,7 +124,23 @@ export const LocationService = {
         }
         
         dynamicData = await response.json() as LocationDynamic;
+        console.log('[getLocation] Fresh API data received');
         await cacheData(locationId, dynamicData);
+      } else {
+        // Try cache first on subsequent loads
+        dynamicData = await getCachedData(locationId);
+        
+        if (!dynamicData) {
+          console.log('[getLocation] Cache miss - fetching from API');
+          const response = await fetch(`${API_BASE_URL}/locations/${locationId}/crowd-data`);
+          
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          
+          dynamicData = await response.json() as LocationDynamic;
+          await cacheData(locationId, dynamicData);
+        }
       }
 
       // Get user's location and calculate distance
@@ -145,6 +165,12 @@ export const LocationService = {
       // Get current status from day data
       const currentStatusData = getCurrentStatusFromDayData(dynamicData.dayData);
       const currentDay = getCurrentDay();
+
+      // Log comparison between prediction and actual
+      const currentHour = new Date().getHours();
+      const currentPrediction = dynamicData?.weeklyBusyness?.[currentDay]?.find(
+        hourData => parseInt(hourData.time) === currentHour
+      );
 
       // Combine weekly hours with any special hours for today
       const hours = {
@@ -194,83 +220,36 @@ export const LocationService = {
 
   // Add new getAllLocations method
   async getAllLocations(): Promise<Location[]> {
-    // Add artificial delay to test loading state
-    await new Promise(resolve => setTimeout(resolve, 2000));
     try {
-      // Get user's location first
-      const { status } = await ExpoLocation.requestForegroundPermissionsAsync();
-      let userLocation: ExpoLocation.LocationObject | null = null;
       
-      if (status === 'granted') {
-        userLocation = await ExpoLocation.getCurrentPositionAsync({});
+      let locations: Location[] = [];
+      
+      if (isInitialLoad) {
+        // Bulk fetch on initial load
+        console.log('[getAllLocations] Performing bulk fetch for initial load');
+        const response = await fetch(`${API_BASE_URL}/locations/bulk-data`);
+        if (!response.ok) throw new Error('Bulk fetch failed');
+        
+        const bulkData = await response.json();        
+        // Cache the bulk data
+        for (const [id, data] of Object.entries(bulkData)) {
+          await cacheData(id, data as LocationDynamic);
+        }
+        
+        // Set initial load to false after successful fetch
+        isInitialLoad = false;
       }
-
-      const locations = await Promise.all(
-        Object.keys(staticLocations).map(async (id) => {
-          try {
-            const location = await this.getLocation(id);
-            
-            // Calculate distance if we have user location
-            if (userLocation?.coords && staticLocations[id].coordinates) {
-              const distance = calculateDistance(
-                userLocation.coords.latitude,
-                userLocation.coords.longitude,
-                staticLocations[id].coordinates.latitude,
-                staticLocations[id].coordinates.longitude
-              );
-              location.distance = Number(distance.toFixed(1));
-            }
-            
-            return location;
-          } catch (error) {
-            console.error(`Error fetching location ${id}:`, error);
-            // Return fallback data with all required properties
-            return {
-              ...staticLocations[id],
-              hours: {},
-              currentStatus: 'Unknown',
-              currentCapacity: 0,
-              bestTimes: {
-                best: 'Unknown',
-                worst: 'Unknown'
-              },
-              crowdInfo: {
-                level: 'Unknown',
-                percentage: 0,
-                description: 'Data currently unavailable'
-              },
-              weeklyBusyness: {},
-              closingTime: 'Hours unavailable',
-              distance: 0,
-              dayData: []
-            };
-          }
-        })
+      
+      // Get all locations (either from cache or individual API calls)
+      locations = await Promise.all(
+        Object.keys(staticLocations).map(id => this.getLocation(id))
       );
 
       return locations;
     } catch (error) {
-      console.error('Error fetching all locations:', error);
-      // Return fallback data for all locations
-      return Object.entries(staticLocations).map(([id, staticData]) => ({
-        ...staticData,
-        hours: {},
-        currentStatus: 'Unknown',
-        currentCapacity: 0,
-        bestTimes: {
-          best: 'Unknown',
-          worst: 'Unknown'
-        },
-        crowdInfo: {
-          level: 'Unknown',
-          percentage: 0,
-          description: 'Data currently unavailable'
-        },
-        weeklyBusyness: {},
-        closingTime: 'Hours unavailable',
-        distance: 0,
-        dayData: []
-      }));
+      console.error('Error in getAllLocations:', error);
+      isInitialLoad = false; // Reset on error
+      // ... error handling ...
     }
   },
 
@@ -372,7 +351,7 @@ export const LocationService = {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      console.log('Received data:', data);
+      console.log('Received data:');
       return data;
     } catch (error) {
       console.error('Error fetching location data:', error);
@@ -389,10 +368,10 @@ export const LocationService = {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      console.log('Received bulk data:', data);
+      console.log('Received bulk data');
       return data;
     } catch (error) {
-      console.error('Error fetching bulk location data:', error);
+      console.error('Error fetching bulk location data');
       throw error;
     }
   },
@@ -439,21 +418,29 @@ export const LocationService = {
 // Cache helper functions
 async function getCachedData(locationId: string): Promise<LocationDynamic | null> {
   try {
-    // Get weekly patterns
-    const weeklyCache = await AsyncStorage.getItem(CACHE_KEYS.WEEKLY_PATTERNS + locationId);
-    const weeklyData: WeeklyPatterns | null = weeklyCache ? JSON.parse(weeklyCache) : null;
-
-    // Get current status
     const currentCache = await AsyncStorage.getItem(CACHE_KEYS.CURRENT_STATUS + locationId);
-    const currentData: CurrentStatus | null = currentCache ? JSON.parse(currentCache) : null;
+    const weeklyCache = await AsyncStorage.getItem(CACHE_KEYS.WEEKLY_PATTERNS + locationId);
+    
+    if (!currentCache || !weeklyCache) {
+      console.log('[getCachedData] No cache found for:', locationId);
+      return null;
+    }
 
+    const currentData = JSON.parse(currentCache);
+    const weeklyData = JSON.parse(weeklyCache);
     const now = Date.now();
 
-    // Check if we need new data
-    const needWeeklyUpdate = !weeklyData || (now - weeklyData.timestamp > CACHE_KEYS.CACHE_DURATION.WEEKLY);
-    const needCurrentUpdate = !currentData || (now - currentData.timestamp > CACHE_KEYS.CACHE_DURATION.CURRENT);
+    // Log cache status
+    console.log('[getCachedData] Cache status for', locationId, {
+      currentAge: now - currentData.timestamp,
+      weeklyAge: now - weeklyData.timestamp,
+      currentValid: now - currentData.timestamp < CACHE_KEYS.CACHE_DURATION.CURRENT,
+      weeklyValid: now - weeklyData.timestamp < CACHE_KEYS.CACHE_DURATION.WEEKLY
+    });
 
-    if (needWeeklyUpdate || needCurrentUpdate) {
+    // Stricter cache validation
+    if (now - currentData.timestamp >= CACHE_KEYS.CACHE_DURATION.CURRENT) {
+      console.log('[getCachedData] Current data cache expired');
       return null;
     }
 

@@ -4,9 +4,9 @@ import { Heart } from "lucide-react-native";
 import { router, useRouter } from 'expo-router';
 import type { Location } from '../types/location';
 import { useFavorites } from '../context/FavoritesContext';
-import { getStatusIcon, getStatusText } from '../_utils/statusIcons';
+import { getStatusIcon, getStatusText } from '../_utils/businessUtils';
 import { DEVICE, CARD } from '../constants/_layout';
-import { getLocationHours, isLocationOpen, getCurrentDay } from '../_utils/timeUtils';
+import { getLocationHours, isLocationOpen, getCurrentDay, getCurrentOpenStatus } from '../_utils/timeUtils';
 import { formatDistance } from '../_utils/distanceUtils';
 import { useLocations } from '../context/LocationContext';
 import EventEmitter from '../_utils/EventEmitter';
@@ -57,7 +57,7 @@ const Card = React.memo(({ location }: CardProps) => {
   // Check if location is currently open
   const isOpen = useMemo(() => 
     isLocationOpen(currentLocation),
-    [currentLocation.hours, lastUpdate]
+    [currentLocation.hours]
   );
 
   // Get status icon based on current time
