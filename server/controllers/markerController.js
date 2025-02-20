@@ -18,13 +18,21 @@ const locations = {
   'library': 'UC Davis Peter J. Shields Library',
   '24hr': 'UC Davis 24 Hour Study Room',
   'games': 'UC Davis Games Area',
+  'cuarto': 'UC Davis Cuarto Dining Commons',
+  'latitude': 'UC Davis Latitude Dining Commons',
+  'segundo': 'UC Davis Segundo Dining Commons',
+  'tercero': 'UC Davis Tercero Dining Commons',
   // Numeric fallbacks
   '1': 'UC Davis Peter J. Shields Library',
   '2': 'UC Davis Memorial Union Coffee House',
   '3': 'UC Davis Activities Recreation Center',
   '4': 'UC Davis Silo Market',
   '5': 'UC Davis 24 Hour Study Room',
-  '6': 'UC Davis Games Area'
+  '6': 'UC Davis Games Area',
+  '7': 'UC Davis Cuarto Dining Commons',
+  '8': 'UC Davis Latitude Dining Commons',
+  '9': 'UC Davis Segundo Dining Commons',
+  '10': 'UC Davis Tercero Dining Commons'
 };
 
 function getSearchQuery(locationId) {
