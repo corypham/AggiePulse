@@ -6,7 +6,7 @@ import { isLocationOpen } from '@/app/_utils/timeUtils';
 
 export const useLocations = (selectedFilters: string[] = []) => {
   // Get everything from the context
-  const { locations, isLoading, lastUpdate, refreshLocations } = useLocationContext();
+  const { locations, isLoading, lastUpdate, refreshLocations, forceRefresh } = useLocationContext();
 
   // Filter locations based on selected filters
   const filteredLocations = useMemo(() => {
@@ -65,7 +65,8 @@ export const useLocations = (selectedFilters: string[] = []) => {
     locations: filteredLocations,
     loading: isLoading,
     lastUpdate,
-    refreshLocations
+    refreshLocations,
+    forceRefresh
   };
 };
 

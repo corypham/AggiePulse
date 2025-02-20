@@ -226,8 +226,27 @@ export default function LocationDetails({ location: initialLocation }: { locatio
 
   // Remove the useEffect that was fetching crowd data
   
-  // Get seating description based on status
+  // Update getSeatingDescription to handle SafeSpace locations
   const getSeatingDescription = (status: string) => {
+    // Special handling for library and 24hr study room
+    if (location.id === 'library' || location.id === '24hr') {
+      const data = location.id === 'library' 
+        ? safeSpaceData?.mainBuilding 
+        : safeSpaceData?.studyRoom;
+
+      if (data) {
+        const percentage = data.percentage;
+        if (percentage >= 75) {
+          return 'Limited seating available';
+        } else if (percentage >= 40) {
+          return 'Moderate seating available';
+        } else {
+          return 'Plenty of seating available';
+        }
+      }
+    }
+
+    // Default handling for other locations
     switch (status) {
       case 'Very Busy':
         return 'Limited seating available';
@@ -284,11 +303,11 @@ export default function LocationDetails({ location: initialLocation }: { locatio
   const getOccupancyDisplay = () => {
     if (location.id === 'library' && safeSpaceData?.mainBuilding) {
       const { count, capacity } = safeSpaceData.mainBuilding;
-      return `Approximately ${count} / ${capacity} people`;
+      return `There are ${count} / ${capacity} people`;
     }
     if (location.id === '24hr' && safeSpaceData?.studyRoom) {
       const { count, capacity } = safeSpaceData.studyRoom;
-      return `Approximately ${count} / ${capacity} people`;
+      return `There are ${count} / ${capacity} people`;
     }
     return `Approximately ${Math.round((getCurrentBusyness() / 100) * (location.maxCapacity || 0))} / ${location.maxCapacity} people`;
   };
@@ -443,7 +462,7 @@ export default function LocationDetails({ location: initialLocation }: { locatio
               </View>
               <View className="flex-row items-center space-x-2 mt-3">
                 <View className={`
-                  ${getStatusTitleBgClass(headerStatus)}
+                  ${getStatusColor(getStatusText(location))}
                   px-3 py-1.5 rounded-lg
                 `}>
                   <Text className="text-sm font-aileron-semibold text-white">

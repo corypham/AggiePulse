@@ -25,7 +25,7 @@ function isCurrentlyOpen(hours: { open: string; close: string }): boolean {
   }
 }
 
-function parseTimeString(timeStr: string, isClosingTime: boolean = false): number {
+export function parseTimeString(timeStr: string, isClosingTime: boolean = false): number {
   try {
     if (!timeStr) return 0;
     

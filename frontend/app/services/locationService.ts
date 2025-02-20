@@ -2,6 +2,7 @@ import { Location, LocationStatic, LocationDynamic } from '../types/location';
 import { staticLocations } from '../data/staticLocations';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ExpoLocation from 'expo-location';
+import { parseTimeString } from '../_utils/timeUtils';
 
 const API_BASE_URL = __DEV__ 
   ? 'http://localhost:3000/api'
@@ -76,6 +77,14 @@ interface CachedLocationStatus {
 
 const KILOMETERS_TO_MILES = 0.621371;
 
+// Add at the top of the file with other imports and constants
+const cacheTimestamps: {
+  [locationId: string]: {
+    current: number;
+    weekly: number;
+  };
+} = {};
+
 // Helper function to convert and format distance
 function formatDistance(distanceInKm: number): number {
   // Convert to miles and round to 1 decimal place
@@ -103,7 +112,22 @@ function calculateDistance(
 // Add a startup flag
 let isInitialLoad = true;
 
+// Add a new method to reset all cache timestamps
+const resetAllCacheTimestamps = () => {
+  const now = Date.now();
+  Object.keys(staticLocations).forEach(locationId => {
+    cacheTimestamps[locationId] = {
+      current: now,
+      weekly: now
+    };
+  });
+};
+
 export const LocationService = {
+  resetInitialLoadFlag: () => {
+    isInitialLoad = true;
+    resetAllCacheTimestamps(); // Reset all cache timestamps when resetting initial load
+  },
   // Get a single location with combined static and dynamic data
   async getLocation(locationId: string): Promise<Location> {
     try {
@@ -126,6 +150,11 @@ export const LocationService = {
         dynamicData = await response.json() as LocationDynamic;
         console.log('[getLocation] Fresh API data received');
         await cacheData(locationId, dynamicData);
+        
+        // Set isInitialLoad to false after first successful load
+        if (locationId === 'games' || locationId === '24hr') {
+          isInitialLoad = false;
+        }
       } else {
         // Try cache first on subsequent loads
         dynamicData = await getCachedData(locationId);
@@ -501,17 +530,13 @@ async function cacheData(locationId: string, data: LocationDynamic) {
 }
 
 function formatCrowdData(data: any) {
-
-  
   const now = new Date();
   const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
   const currentDay = days[now.getDay()];
-  const currentHour = now.getHours();
-  const currentMinutes = now.getMinutes();
-
-  // Check if location is currently open
   const todayHours = data.hours?.[currentDay];
-  const isOpen = checkIfOpen(todayHours, currentHour, currentMinutes);
+  
+  // Use timeUtils for consistency
+  const isOpen = checkIfOpen(todayHours, now.getHours(), now.getMinutes());
 
   if (!isOpen) {
     return {
@@ -524,6 +549,24 @@ function formatCrowdData(data: any) {
         },
         description: 'Location is currently closed',
         untilText: todayHours?.open ? `Opens at ${todayHours.open}` : 'Closed today'
+      },
+      hours: data.hours || {}
+    };
+  }
+
+  // Special handling for library and 24hr study room
+  if (data.id === 'library' || data.id === '24hr') {
+    return {
+      weeklyBusyness: data.weeklyBusyness || {},
+      currentStatus: {
+        statusText: data.currentStatus?.statusText || 'Unknown',
+        currentCapacity: data.currentStatus?.currentCapacity || {
+          current: 0,
+          percentage: 0
+        },
+        description: data.currentStatus?.description || '',
+        untilText: data.currentStatus?.untilText || '',
+        realTimeOccupancy: data.currentStatus?.realTimeOccupancy
       },
       hours: data.hours || {}
     };
@@ -544,24 +587,12 @@ function formatCrowdData(data: any) {
   };
 }
 
-function convertTimeToMinutes(timeStr: string): number {
-  const [time, period] = timeStr.split(' ');
-  let [hoursStr, minutesStr = '0'] = time.split(':');
-  let totalMinutes = parseInt(minutesStr);
-  
-  let hours = parseInt(hoursStr);
-  if (period === 'PM' && hours !== 12) hours += 12;
-  if (period === 'AM' && hours === 12) hours = 0;
-  
-  totalMinutes += hours * 60;
-  return totalMinutes;
-}
-
 function checkIfOpen(hours: { open: string; close: string } | undefined, currentHour: number, currentMinutes: number): boolean {
+  // Use timeUtils parsing for consistency
   if (!hours || hours.open === 'Closed') return false;
 
-  const openTime = convertTimeToMinutes(hours.open);
-  const closeTime = convertTimeToMinutes(hours.close);
+  const openTime = parseTimeString(hours.open);
+  const closeTime = parseTimeString(hours.close, true);
   const currentTime = currentHour * 60 + currentMinutes;
 
   return currentTime >= openTime && currentTime <= closeTime;
@@ -580,9 +611,10 @@ function getBusyStatusText(busyness: number | undefined): string {
 const getCurrentStatusFromDayData = (dayData: any[]) => {
   const currentHour = new Date().getHours();
   const currentData = dayData?.find(data => {
-    const hour = parseInt(data.time.split(' ')[0]);
-    const isPM = data.time.includes('PM');
-    return (isPM ? hour + 12 : hour) === currentHour;
+    // Use timeUtils parsing for consistency
+    const timeValue = parseTimeString(data.time);
+    const hour = Math.floor(timeValue / 60);
+    return hour === currentHour;
   });
 
   return {
