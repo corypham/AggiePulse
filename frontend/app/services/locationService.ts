@@ -6,7 +6,7 @@ import { parseTimeString } from '../_utils/timeUtils';
 
 const API_BASE_URL = __DEV__ 
   ? 'http://localhost:3000/api'
-  : 'https://your-production-api.com/api';
+  : 'https://aggiepulse.onrender.com';
 
 const CACHE_KEYS = {
   CURRENT_STATUS: 'current_status_',

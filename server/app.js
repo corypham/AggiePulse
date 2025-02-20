@@ -9,13 +9,29 @@ const apiRoutes = require('./routes/api');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Validate required environment variables
+const requiredEnvVars = [
+  'SERPAPI_KEY',
+  'SHIELDS_MAIN_URL',
+  'STUDY_ROOM_URL'
+];
+
+const missingEnvVars = requiredEnvVars.filter(envVar => !process.env[envVar]);
+if (missingEnvVars.length > 0) {
+  console.error('Missing required environment variables:', missingEnvVars);
+  process.exit(1);
+}
+
 // Log environment variables at startup
 console.log('Environment check on startup:');
 console.log('SERPAPI_KEY present:', !!process.env.SERPAPI_KEY);
 
 // Enable CORS for all routes with specific origin
 app.use(cors({
-  origin: 'http://localhost:3001', // Update this to match your frontend port
+  origin: [
+    'http://localhost:3001',
+    'https://your-ios-app-bundle-id.com'
+  ],
   credentials: true
 }));
 
