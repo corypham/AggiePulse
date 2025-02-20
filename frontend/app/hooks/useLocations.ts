@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import type { Location } from '../types/location';
 import { getStatusText } from '@/app/_utils/businessUtils';
 import { isLocationOpen } from '@/app/_utils/timeUtils';
+import { getDistanceValue, isWithinDistance } from '@/app/_utils/distanceUtils';
 
 export const useLocations = (selectedFilters: string[] = []) => {
   // Get everything from the context
@@ -12,14 +13,24 @@ export const useLocations = (selectedFilters: string[] = []) => {
   const filteredLocations = useMemo(() => {
     if (selectedFilters.length === 0) return locations;
     
-    
     return locations.filter(location => {
+      // Handle distance filter
+      const distanceFilter = selectedFilters.find(f => f.startsWith('distance-'));
+      if (distanceFilter) {
+        const maxDistance = getDistanceValue(distanceFilter);
+        if (!isWithinDistance(location, maxDistance)) {
+          return false;
+        }
+      }
+
       const status = getStatusText(location);
       const percentage = location.crowdInfo?.percentage || 0;
       const isOpen = isLocationOpen(location);
 
       // Check if any of the selected filters match the location
       return selectedFilters.some(filter => {
+        if (filter.startsWith('distance-')) return true; // Skip distance filters here
+        
         // Handle status filters separately
         if (filter === 'open' || filter === 'closed') {
           const statusMatch = (filter === 'open' && isOpen) || (filter === 'closed' && !isOpen);

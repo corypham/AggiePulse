@@ -110,25 +110,24 @@ export const getLocationHours = (location: Location): {
   openTime: string;
   closeTime: string;
 } => {
-  // If location is 24 hours, return special format
-  if (location.is24Hours) {
+  // Special handling for 24-hour locations
+  if (location.is24Hours || location.id === '24hr') {
     return {
       nextOpenDay: '',
-      openTime: 'Open 24/7',
+      openTime: 'Open 24 Hours',
       closeTime: ''
     };
   }
 
-  if (!location.hours) {
+  const currentDay = getCurrentDay();
+  const todayHours = location.hours?.[currentDay];
+
+  if (!location.hours || !todayHours) {
     return { nextOpenDay: '', openTime: '', closeTime: '' };
   }
 
-  const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-  const today = new Date().getDay();
-  const todayHours = location.hours[days[today]];
-
   // Find next opening time
-  const nextOpen = getNextOpenDay(location, today);
+  const nextOpen = getNextOpenDay(location, new Date().getDay());
   if (!nextOpen) {
     return { nextOpenDay: '', openTime: '', closeTime: '' };
   }
@@ -143,8 +142,8 @@ export const getLocationHours = (location: Location): {
 // Keep existing functions for backward compatibility
 export const getOpenStatusText = (location: Location): string => {
   // If location is 24 hours, return appropriate text
-  if (location.is24Hours) {
-    return 'Open 24/7';
+  if (location.is24Hours || location.id === '24hr') {
+    return '24 Hours';
   }
 
   if (!location.hours) {
@@ -172,8 +171,8 @@ export const getOpenStatusText = (location: Location): string => {
 };
 
 export const isLocationOpen = (location: Location): boolean => {
-  // If location is marked as 24 hours, always return true
-  if (location.is24Hours) {
+  // If location is marked as 24 hours or is the 24hr study room, always return true
+  if (location.is24Hours || location.id === '24hr') {
     return true;
   }
 

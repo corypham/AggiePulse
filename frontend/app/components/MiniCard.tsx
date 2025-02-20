@@ -37,12 +37,17 @@ export const MiniCard = React.memo(({ location }: MiniCardProps) => {
 
   // Get status text
   const statusText = React.useMemo(() => {
+    // Special case for 24-hour locations
+    if (location.is24Hours || location.id === '24hr') {
+      return '24 Hours';  // Direct string instead of using openTime
+    }
+    
     // If location is open but hours are unavailable
     if (isOpen && (!currentLocation.hours || !currentLocation.hours[getCurrentDay()])) {
       return 'Hours unavailable';
     }
     
-    // If location is closed and we have next opening time, show it regardless of hours availability
+    // If location is closed and we have next opening time
     if (!isOpen && openTime) {
       return `until ${openTime}${nextOpenDay ? ` ${nextOpenDay}` : ''}`;
     }
@@ -54,7 +59,7 @@ export const MiniCard = React.memo(({ location }: MiniCardProps) => {
 
     // Fallback case
     return 'Hours unavailable';
-  }, [currentLocation.hours, isOpen, closeTime, openTime, nextOpenDay]);
+  }, [location.is24Hours, location.id, currentLocation.hours, isOpen, closeTime, openTime, nextOpenDay]);
 
   // Get formatted distance
   const distance = React.useMemo(() => 
