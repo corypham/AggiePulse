@@ -8,6 +8,7 @@ import {
   MemorialUnionDetailedCard,
   TwentyFourHourStudyRoomDetailedCard,
   GamesDetailedCard,
+  MuCohoDetailedCard,
 
   // Blue icons
   StudySpacesBlue,
@@ -212,7 +213,7 @@ export const staticLocations: Record<string, LocationStatic> = {
       latitude: 38.54206770848346,
       longitude: -121.74975695063387
     },
-    imageUrl: MemorialUnionDetailedCard,
+    imageUrl: MuCohoDetailedCard,
     maxCapacity: 800,
     features: [
       'Food Court',
