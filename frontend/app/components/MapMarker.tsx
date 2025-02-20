@@ -93,9 +93,14 @@ const MapMarker: React.FC<MapMarkerProps> = React.memo(({ location, onPress, sty
     };
   }, [location.id]);
 
+  // Update currentLocationData when favorites change
+  useEffect(() => {
+    setCurrentLocation(currentLocationData);
+  }, [currentLocationData, isLocationFavorite]);
+
   return (
     <Marker
-      key={`${currentLocationData.id}-${isLocationFavorite}-${busynessStatus}-${shouldUpdate}`}
+      key={`${currentLocationData.id}-${isLocationFavorite}-${busynessStatus}-${shouldUpdate}-${lastUpdate}`}
       ref={markerRef}
       coordinate={{
         latitude: currentLocationData.coordinates.latitude,

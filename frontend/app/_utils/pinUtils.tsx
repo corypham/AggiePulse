@@ -33,6 +33,7 @@ import {
   GamesWhite,
 } from '../../assets';
 import type { Location } from '../types/location';
+import { getStatusText } from './businessUtils';
 
 // Create a shadow wrapper component
 const ShadowWrapper = ({ children }: { children: React.ReactNode }) => (
@@ -78,23 +79,8 @@ export const getPin = (location: Location, isFavorite: boolean) => {
     }
   }
 
-  // If location is open, proceed with busyness status check
-  const currentHour = new Date().getHours();
-  const currentData = location.dayData?.find(data => {
-    const hour = parseInt(data.time.split(' ')[0]);
-    const isPM = data.time.includes('PM');
-    return (isPM ? hour + 12 : hour) === currentHour;
-  });
-
-  const busyness = currentData?.busyness ?? 0;
-  let busynessStatus = 'Not Busy';
-
-  if (busyness >= 75) {
-    busynessStatus = 'Very Busy';
-  } else if (busyness >= 40) {
-    busynessStatus = 'Fairly Busy';
-  }
-
+  // Use the same status determination as businessUtils
+  const busynessStatus = getStatusText(location);
   let pin;
 
   // Add Games handling for open state
