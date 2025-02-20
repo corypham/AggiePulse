@@ -124,7 +124,9 @@ const getLocationData = async (req, res) => {
 const getBulkLocationData = async (req, res) => {
   try {
     console.log('Bulk data request received');
-    const locationIds = ['library', 'mu', 'arc', 'silo'];
+    // Use Object.keys(locations) to get all location IDs dynamically
+    // Filter out numeric fallbacks by removing entries that are numbers
+    const locationIds = Object.keys(locations).filter(id => isNaN(id));
     const results = {};
     
     for (const id of locationIds) {

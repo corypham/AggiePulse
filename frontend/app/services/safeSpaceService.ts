@@ -1,8 +1,7 @@
 import { SafeSpaceData } from '../types/safespace';
 
-const API_BASE_URL = __DEV__ 
-  ? 'http://localhost:3000/api'
-  : 'https://your-production-api.com/api';
+// Hard code the production URL since we're using Render now
+const API_BASE_URL = 'https://aggiepulse.onrender.com/api';
 
 // Cache duration in milliseconds (5 minutes)
 const CACHE_DURATION = 5 * 60 * 1000;
@@ -21,8 +20,9 @@ export const SafeSpaceService = {
         return cachedData;
       }
 
-      console.log('[SafeSpaceService] Fetching fresh data');
-      const response = await fetch(`${API_BASE_URL}/locations/library/safespace?refresh=true`);
+      // Updated endpoint to match backend
+      console.log('[SafeSpaceService] Fetching from:', `${API_BASE_URL}/locations/library/crowd-data`);
+      const response = await fetch(`${API_BASE_URL}/locations/library/crowd-data`);
       
       if (!response.ok) {
         throw new Error(`SafeSpace API error! status: ${response.status}`);
@@ -31,13 +31,37 @@ export const SafeSpaceService = {
       const data = await response.json();
       console.log('[SafeSpaceService] Data received:', data);
 
+      // Extract realTimeOccupancy data from the response
+      const realTimeOccupancy = data.currentStatus?.realTimeOccupancy;
+
+      // Transform the data to match SafeSpaceData type
+      const transformedData: SafeSpaceData = {
+        mainBuilding: {
+          count: realTimeOccupancy?.mainBuilding?.count || 0,
+          capacity: realTimeOccupancy?.mainBuilding?.capacity || 3000,
+          percentage: realTimeOccupancy?.mainBuilding?.percentage || 0
+        },
+        studyRoom: {
+          count: realTimeOccupancy?.studyRoom?.count || 0,
+          capacity: realTimeOccupancy?.studyRoom?.capacity || 500,
+          percentage: realTimeOccupancy?.studyRoom?.percentage || 0
+        }
+      };
+
+      console.log('[SafeSpaceService] Transformed data:', transformedData);
+
       // Update cache
-      cachedData = data;
+      cachedData = transformedData;
       lastFetchTime = now;
 
-      return data;
+      return transformedData;
     } catch (error) {
       console.error('[SafeSpaceService] Error:', error);
+      // Return cached data if available, even if stale
+      if (cachedData) {
+        console.log('[SafeSpaceService] Returning stale cached data due to error');
+        return cachedData;
+      }
       return null;
     }
   },
