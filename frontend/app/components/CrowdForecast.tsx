@@ -26,12 +26,6 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
     x: number;
     y: number;
   } | null>(null);
-  
-  console.log('CrowdForecast Props:', {
-    locationId: location.id,
-    currentDay,
-    dayData: dayData,
-  });
 
   const currentLocation = useMemo(() => {
     return locations.find(loc => loc.id === location.id) || location;
@@ -43,24 +37,16 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
     const currentHour = now.getHours();
     const currentMinutes = now.getMinutes();
     const currentTimeMinutes = currentHour * 60 + currentMinutes;
-    
-    console.log('Current time:', { currentHour, currentMinutes, currentTimeMinutes });
+
     
     const found = dayData?.find(data => {
       const timeMinutes = parseTimeString(data.time);
       const nextHourMinutes = timeMinutes + 60;
       
-      console.log('Comparing times:', {
-        dataTime: data.time,
-        parsedMinutes: timeMinutes,
-        nextHourMinutes,
-        isMatch: currentTimeMinutes >= timeMinutes && currentTimeMinutes < nextHourMinutes
-      });
       
       return currentTimeMinutes >= timeMinutes && currentTimeMinutes < nextHourMinutes;
     });
 
-    console.log('Found current hour data:', found);
     return found;
   }, [dayData]);
 
@@ -73,6 +59,12 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
       untilText: currentLocation.currentStatus?.untilText || ''
     };
   }, [currentLocation, currentHourData]);
+
+  // Log the data being used for best/worst calculations
+  const { bestTime, worstTime } = useMemo(() => {
+    return calculateBestWorstTimes(dayData);
+  }, [dayData]);
+
 
   const screenWidth = Dimensions.get('window').width;
   
@@ -154,6 +146,14 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
 
   // Check if we have valid data
   const hasValidData = dayData && dayData.length > 0 && dayData.some(data => data.busyness > 0);
+
+  // Format the time range to be more readable
+  const formatTimeRange = (timeRange: string) => {
+    return timeRange
+      .replace('a', 'a')
+      .replace('p', 'p')
+      .replace(' -', ' - ');
+  };
 
   return (
     <View className="bg-white p-1 rounded-lg">
@@ -263,11 +263,11 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
             <Text className="font-aileron-bold text-2xl mb-3">Plan Your Visit!</Text>
             <View className="bg-gray-100 rounded-full py-4 px-6 flex-row justify-center items-center">
               <Text className="text-[#0c8f34] text-center font-aileron text-lg">
-                Best time: {currentHourData?.time}
+                Best time: {formatTimeRange(bestTime)}
               </Text>
               <View className="w-[1px] h-8 bg-gray-400 mx-4" style={{ marginVertical: -8 }} />
               <Text className="text-[#EF4444] text-center text-lg">
-                Worst time: {currentHourData?.time}
+                Worst time: {formatTimeRange(worstTime)}
               </Text>
             </View>
           </View>

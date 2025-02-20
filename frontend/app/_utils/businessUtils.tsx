@@ -1,6 +1,7 @@
 import { VeryBusyStatus, FairlyBusyStatus, NotBusyStatus } from "../../assets";
 import { Location } from "../types/location";
 import { SafeSpaceService } from '../services/safeSpaceService';
+import { isLocationOpen } from './timeUtils';
 
 // Cache SafeSpace data in memory
 let safeSpaceCache: any = null;
@@ -48,6 +49,11 @@ interface LocationStatus {
 
 // Get the appropriate status icon based on location data
 export const getStatusIcon = (location: Location) => {
+  // First check if location is closed
+  if (!isLocationOpen(location)) {
+    return NotBusyStatus;  // Return not busy icon when closed
+  }
+
   // Special handling for SafeSpace locations
   if (location.id === 'library' || location.id === '24hr') {
     const safeSpaceData = getCachedSafeSpaceData();
@@ -65,7 +71,7 @@ export const getStatusIcon = (location: Location) => {
     }
   }
 
-  // Default handling for other locations or when SafeSpace fails
+  // Default handling for other locations
   const percentage = location.crowdInfo?.percentage || 0;
   const level = location.crowdInfo?.level || 'Not Busy';
   
@@ -80,6 +86,11 @@ export const getStatusIcon = (location: Location) => {
 
 // Helper function to get status text
 export const getStatusText = (location: Location): string => {
+  // First check if location is closed
+  if (!isLocationOpen(location)) {
+    return "Closed";
+  }
+
   // Special handling for SafeSpace locations
   if (location.id === 'library' || location.id === '24hr') {
     const safeSpaceData = getCachedSafeSpaceData();
@@ -97,11 +108,7 @@ export const getStatusText = (location: Location): string => {
     }
   }
   
-  // Default handling for other locations or when SafeSpace fails
-  if (location?.currentStatus === 'Closed') {
-    return "Closed";
-  }
-  
+  // Default handling for other locations
   const percentage = location.crowdInfo?.percentage || 0;
   const level = location.crowdInfo?.level || 'Not Busy';
   
@@ -173,6 +180,19 @@ export const getPercentageTextColor = (status: string): string => {
 
 // Helper function to get complete status info
 export const getLocationStatus = (location: Location) => {
+  // First check if location is closed
+  if (!isLocationOpen(location)) {
+    return {
+      crowdInfo: {
+        percentage: 0,
+        level: 'Not Busy',
+        description: 'Location is currently closed'
+      },
+      currentStatus: 'Closed',
+      isOpen: false
+    };
+  }
+
   // Special handling for SafeSpace locations
   if (location.hasSafeSpace && location.currentStatus?.realTimeOccupancy) {
     const data = location.id === 'library' 
@@ -183,49 +203,53 @@ export const getLocationStatus = (location: Location) => {
       const percentage = data.percentage;
       if (percentage >= 75) {
         return {
-          statusTextClass: 'text-red-600',
-          backgroundClass: 'bg-red-100',
-          text: 'Very Busy'
+          crowdInfo: {
+            percentage: percentage,
+            level: 'Very Busy',
+            description: 'Limited seating available'
+          },
+          currentStatus: 'Very Busy',
+          isOpen: true
         };
       } else if (percentage >= 40) {
         return {
-          statusTextClass: 'text-yellow-600',
-          backgroundClass: 'bg-yellow-100',
-          text: 'Fairly Busy'
+          crowdInfo: {
+            percentage: percentage,
+            level: 'Fairly Busy',
+            description: 'Moderate seating available'
+          },
+          currentStatus: 'Fairly Busy',
+          isOpen: true
         };
       } else {
         return {
-          statusTextClass: 'text-green-600',
-          backgroundClass: 'bg-green-100',
-          text: 'Not Busy'
+          crowdInfo: {
+            percentage: percentage,
+            level: 'Not Busy',
+            description: 'Plenty of seating available'
+          },
+          currentStatus: 'Not Busy',
+          isOpen: true
         };
       }
     }
   }
 
   // Default handling for other locations
-  const crowdLevel = location.crowdInfo?.level || 'Unknown';
   const percentage = location.crowdInfo?.percentage || 0;
+  const level = location.crowdInfo?.level || 'Not Busy';
   
-  if (crowdLevel === 'Very Busy' || percentage >= 75) {
-    return {
-      statusTextClass: 'text-red-600',
-      backgroundClass: 'bg-red-100',
-      text: 'Very Busy'
-    };
-  } else if (crowdLevel === 'Fairly Busy' || percentage >= 40) {
-    return {
-      statusTextClass: 'text-yellow-600',
-      backgroundClass: 'bg-yellow-100',
-      text: 'Fairly Busy'
-    };
-  } else {
-    return {
-      statusTextClass: 'text-green-600',
-      backgroundClass: 'bg-green-100',
-      text: 'Not Busy'
-    };
-  }
+  return {
+    crowdInfo: {
+      percentage: percentage,
+      level: level,
+      description: level === 'Very Busy' ? 'Limited seating available' :
+                  level === 'Fairly Busy' ? 'Moderate seating available' :
+                  'Plenty of seating available'
+    },
+    currentStatus: level,
+    isOpen: true
+  };
 };
 
 // For the title section status badge (solid background)
