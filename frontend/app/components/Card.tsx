@@ -38,9 +38,10 @@ const getElementSizes = (cardHeight: number) => ({
 interface CardProps {
   location: Location;
   onPress?: (location: Location) => void;
+  style?: any;
 }
 
-const Card = React.memo(({ location }: CardProps) => {
+const Card = React.memo(({ location, style }: CardProps) => {
   const { isFavorite, toggleFavorite } = useFavorites();
   const { lastUpdate, getLocation } = useLocations();
   const router = useRouter();
@@ -115,14 +116,14 @@ const Card = React.memo(({ location }: CardProps) => {
         router.push(`/location/${currentLocation.id}`);
       }}
       className="bg-white rounded-xl mx-3 my-2 border border-gray-200"
-      style={{
+      style={[{
         height: cardHeight,
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.13,
         shadowRadius: 5,
         elevation: 10,
-      }}
+      }, style]}
     >
       {/* Main Container */}
       <View className="p-3 h-full">
