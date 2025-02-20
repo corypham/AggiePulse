@@ -50,10 +50,22 @@ export default function LocationDetails({ location: initialLocation }: { locatio
     router.back();
   }, [router]);
 
-  const statusInfo = useMemo(() => 
-    getLocationStatus(location),
-    [location.currentCapacity, location.maxCapacity, lastUpdate]
-  );
+  const statusInfo = useMemo(() => {
+    // Check if location is closed first
+    if (!isLocationOpen(location)) {
+      return {
+        crowdInfo: {
+          percentage: 0,
+          level: 'Not Busy',
+          description: 'Location is currently closed'
+        },
+        currentStatus: 'Closed',
+        isOpen: false
+      };
+    }
+
+    return getLocationStatus(location);
+  }, [location]);
 
   const headerHeight = 264; // Height of your header image
   const tabBarHeight = 48; // Height of the tab bar
@@ -228,6 +240,11 @@ export default function LocationDetails({ location: initialLocation }: { locatio
   
   // Update getSeatingDescription to handle SafeSpace locations
   const getSeatingDescription = (status: string) => {
+    // Return closed message if location is closed
+    if (!isLocationOpen(location)) {
+      return 'Location is currently closed';
+    }
+
     // Special handling for library and 24hr study room
     if (location.id === 'library' || location.id === '24hr') {
       const data = location.id === 'library' 
@@ -323,17 +340,12 @@ export default function LocationDetails({ location: initialLocation }: { locatio
     return location.crowdInfo?.percentage || 0;
   };
 
-  // Get status text using SafeSpace data
-  const getLocationStatusText = () => {
-    const percentage = getCrowdPercentage();
-    if (percentage < 25) return 'Not Busy';
-    if (percentage < 50) return 'A Bit Busy';
-    if (percentage < 75) return 'Fairly Busy';
-    return 'Very Busy';
-  };
-
-  // Get current busyness percentage using SafeSpace data when available
+  // Simplified - just return 0 if closed
   const getCurrentBusyness = () => {
+    if (!isLocationOpen(location)) {
+      return 0;
+    }
+
     if (location.id === 'library' && safeSpaceData?.mainBuilding) {
       return safeSpaceData.mainBuilding.percentage;
     }
@@ -533,12 +545,16 @@ export default function LocationDetails({ location: initialLocation }: { locatio
               </View>
               <View className="flex-1">
                 <View>
-                  <View className={`${getStatusCrowdLevelBgClass(getLocationStatusText())} p-3 rounded-xl items-center`}>
+                  <View className={`${getStatusCrowdLevelBgClass(getStatusText(location))} p-3 rounded-xl items-center`}>
                     <Text className="text-lg">
                       <Text className="font-aileron-bold text-black">Overall: </Text>
-                      <Text className={`font-aileron-bold ${getPercentageTextColor(getLocationStatusText())}`}>
-                        {getCrowdPercentage()}% full
-                      </Text>
+                      {!isLocationOpen(location) ? (
+                        <Text className="font-aileron-bold text-gray-600">Closed</Text>
+                      ) : (
+                        <Text className={`font-aileron-bold ${getPercentageTextColor(getStatusText(location))}`}>
+                          {getCrowdPercentage()}% full
+                        </Text>
+                      )}
                     </Text>
                   </View>
                   <View className="mt-4 mx-1">
@@ -551,7 +567,7 @@ export default function LocationDetails({ location: initialLocation }: { locatio
                     <View className="flex-row mt-1">
                       <Text className="text-gray-600 text-sm">• </Text>
                       <Text className="text-gray-600 text-sm flex-1">
-                        {getSeatingDescription(getLocationStatusText())}
+                        {getSeatingDescription(getStatusText(location))}
                       </Text>
                     </View>
                   </View>
