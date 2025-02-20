@@ -125,6 +125,10 @@ export { default as SiloDetailedCard } from './detailed-card-assets/silo-detaile
 export { default as TwentyFourHourStudyRoomDetailedCard } from './detailed-card-assets/24hr-detailed-card.png';
 export { default as GamesDetailedCard } from './detailed-card-assets/games-area-detailed-card.png';
 export { default as MuCohoDetailedCard } from './detailed-card-assets/mu-coho-detailed-card.png';
+export { default as CuartoDcDetailedCard } from './detailed-card-assets/cuarto-dc-detailed-card.png';
+export { default as LattitudeDetailedCard } from './detailed-card-assets/lattitude-detailed-card.png';
+export { default as SegundoDcDetailedCard } from './detailed-card-assets/segundo-dc-detailed-card.png';
+export { default as TerceroDcDetailedCard } from './detailed-card-assets/tercero-dc-detailed-card.png';
 
 // Heart Icons
 export { default as HeartVariant1 } from './heart-icons/Variant1Shortcuts&Tips.svg';

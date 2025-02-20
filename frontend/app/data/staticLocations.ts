@@ -9,6 +9,10 @@ import {
   TwentyFourHourStudyRoomDetailedCard,
   GamesDetailedCard,
   MuCohoDetailedCard,
+  CuartoDcDetailedCard,
+  LattitudeDetailedCard,
+  SegundoDcDetailedCard,
+  TerceroDcDetailedCard,
 
   // Blue icons
   StudySpacesBlue,
@@ -358,6 +362,193 @@ export const staticLocations: Record<string, LocationStatic> = {
       grey: GamesGrey,
       selected: StudySelected,
       unselected: StudyUnselected
+    }
+  },
+  'cuarto': {
+    id: 'cuarto',
+    title: 'Cuarto Dining Commons',
+    coordinates: {
+      latitude: 38.54737219120042, 
+      longitude: -121.76334267771574
+    },
+    imageUrl: CuartoDcDetailedCard,
+    maxCapacity: 300,
+    features: [
+      'Charging Ports',
+      'Fast Wi-Fi',
+      'Work Tables',
+      'Food Court',
+      'Coffee Shop',
+      'Comfortable seating'
+    ],
+    amenities: {
+      general: [
+        'Charging Ports',
+        'Fast Wi-Fi',
+        'Work Tables',
+        'Food Court',
+        'Coffee Shop'
+      ],
+      atmosphere: [
+        'Collaboration zones',
+        'Comfortable seating'
+      ],
+      accessibility: [
+        'Wheelchair accessible',
+        'Braille signage',
+        'ADA-compliant main entrance'
+      ]
+    },
+    description: 'Cuarto Dining Commons serves diverse meal options in a modern dining facility, catering to various dietary preferences and restrictions.',
+    type: ['dining'],
+    icons: {
+      blue: DiningBlue,
+      white: DiningWhite,
+      grey: DiningGrey,
+      black: DiningBlack,
+      selected: DiningSelected,
+      unselected: DiningUnselected
+    }
+  },
+  'latitude': {
+    id: 'latitude',
+    title: 'Latitude Dining Commons',
+    coordinates: {
+      latitude: 38.5379139787125, 
+      longitude: -121.75622004703732
+    },
+    imageUrl: LattitudeDetailedCard,
+    maxCapacity: 600,
+    features: [
+      'Charging Ports',
+      'Fast Wi-Fi',
+      'Work Tables',
+      'Food Court',
+      'Study Spaces',
+      'Comfortable seating'
+    ],
+    amenities: {
+      general: [
+        'Charging Ports',
+        'Fast Wi-Fi',
+        'Work Tables',
+        'Food Court',
+        'Study Spaces'
+      ],
+      atmosphere: [
+        'Noisy areas',
+        'Collaboration zones',
+        'Comfortable seating'
+      ],
+      accessibility: [
+        'Wheelchair accessible',
+        'Braille signage',
+        'ADA-compliant main entrance'
+      ]
+    },
+    description: 'Latitude offers a global dining experience with cuisine from around the world in a modern, marketplace-style setting.',
+    type: ['dining'],
+    icons: {
+      blue: DiningBlue,
+      white: DiningWhite,
+      grey: DiningGrey,
+      black: DiningBlack,
+      selected: DiningSelected,
+      unselected: DiningUnselected
+    }
+  },
+  'segundo': {
+    id: 'segundo',
+    title: 'Segundo Dining Commons',
+    coordinates: {
+      latitude: 38.54407344397456, 
+      longitude: -121.75812815968732
+    },
+    imageUrl: SegundoDcDetailedCard,
+    maxCapacity: 800,
+    features: [
+      'Charging Ports',
+      'Fast Wi-Fi',
+      'Work Tables',
+      'Food Court',
+      'Study Spaces',
+      'Comfortable seating'
+    ],
+    amenities: {
+      general: [
+        'Charging Ports',
+        'Fast Wi-Fi',
+        'Work Tables',
+        'Food Court',
+        'Study Spaces'
+      ],
+      atmosphere: [
+        'Generally quiet',
+        'Collaboration zones',
+        'Comfortable seating'
+      ],
+      accessibility: [
+        'Wheelchair accessible',
+        'Braille signage',
+        'ADA-compliant main entrance'
+      ]
+    },
+    description: 'Segundo Dining Commons provides a variety of fresh, healthy options in a spacious and welcoming environment.',
+    type: ['dining'],
+    icons: {
+      blue: DiningBlue,
+      white: DiningWhite,
+      grey: DiningGrey,
+      black: DiningBlack,
+      selected: DiningSelected,
+      unselected: DiningUnselected
+    }
+  },
+  'tercero': {
+    id: 'tercero',
+    title: 'Tercero Dining Commons',
+    coordinates: {
+      latitude: 38.53609032877397, 
+      longitude: -121.75735647656117
+    },
+    imageUrl: TerceroDcDetailedCard,
+    maxCapacity: 700,
+    features: [
+      'Charging Ports',
+      'Fast Wi-Fi',
+      'Work Tables',
+      'Food Court',
+      'Study Spaces',
+      'Comfortable seating'
+    ],
+    amenities: {
+      general: [
+        'Charging Ports',
+        'Fast Wi-Fi',
+        'Work Tables',
+        'Food Court',
+        'Study Spaces'
+      ],
+      atmosphere: [
+        'Noisy areas',
+        'Collaboration zones',
+        'Comfortable seating'
+      ],
+      accessibility: [
+        'Wheelchair accessible',
+        'Braille signage',
+        'ADA-compliant main entrance'
+      ]
+    },
+    description: 'Tercero Dining Commons offers sustainable dining options in a contemporary setting, featuring both indoor and outdoor seating areas.',
+    type: ['dining'],
+    icons: {
+      blue: DiningBlue,
+      white: DiningWhite,
+      grey: DiningGrey,
+      black: DiningBlack,
+      selected: DiningSelected,
+      unselected: DiningUnselected
     }
   }
 }; 
