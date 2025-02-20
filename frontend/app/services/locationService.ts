@@ -371,16 +371,13 @@ export const LocationService = {
   // Get a single location with combined static and dynamic data
   async getLocationData(locationId: string): Promise<any> {
     try {
-      // Log the API call attempt
       console.log(`Fetching data for location: ${locationId}`);
-      
-      // Make sure this URL matches your backend route
-      const response = await fetch(`http://localhost:3000/api/locations/${locationId}/crowd-data`);
+      const response = await fetch(`${API_BASE_URL}/locations/${locationId}/crowd-data`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      console.log('Received data:');
+      console.log('Received data:', data);
       return data;
     } catch (error) {
       console.error('Error fetching location data:', error);
