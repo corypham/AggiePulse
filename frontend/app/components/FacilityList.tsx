@@ -1,5 +1,5 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { View, Text, Dimensions, Platform, StatusBar, Animated, NativeScrollEvent, NativeSyntheticEvent, TouchableOpacity, Image, ActivityIndicator, StyleSheet } from 'react-native';
+import React, { useCallback, useMemo, useRef, useState, useEffect } from 'react';
+import { View, Text, Dimensions, Platform, StatusBar, Animated, NativeScrollEvent, NativeSyntheticEvent, TouchableOpacity, Image, ActivityIndicator, StyleSheet, LayoutAnimation, UIManager } from 'react-native';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
@@ -10,6 +10,8 @@ import type { Location as LocationType } from '../types/location';
 import { mockLocations } from '../data/mockLocations';
 import { NavVectorSelected, NavVectorUnselected } from '../../assets';
 import { LoadingSpinner } from './LoadingSpinner';
+import { ChevronDown } from 'lucide-react-native';
+import { isLocationOpen } from '../_utils/timeUtils';
 
 interface FacilityListProps {
   locations: LocationType[];
@@ -19,6 +21,20 @@ interface FacilityListProps {
   isMapCentered?: boolean;
   bottomSheetRef?: React.RefObject<BottomSheet>;
 }
+
+// Add new type for sort options
+type SortOption = {
+  label: string;
+  value: string;
+};
+
+const SORT_OPTIONS: SortOption[] = [
+  { label: 'Open/Closed', value: 'status' },
+  { label: 'A to Z', value: 'alphabetical' },
+  { label: 'Distance', value: 'distance' },
+  { label: 'Favorites', value: 'favorites' },
+  { label: 'Busyness', value: 'busyness' },
+];
 
 export const FacilityList: React.FC<FacilityListProps> = ({
   locations,
@@ -57,6 +73,103 @@ export const FacilityList: React.FC<FacilityListProps> = ({
   // Use the passed ref instead of creating a new one
   const internalRef = useRef<BottomSheet>(null);
   const actualRef = bottomSheetRef || internalRef;
+
+  const [sortBy, setSortBy] = useState<string>('status');
+  const [showSortOptions, setShowSortOptions] = useState(false);
+  const sortMenuHeight = useRef(new Animated.Value(0)).current;
+
+  // Add new state for animation
+  const [animating, setAnimating] = useState(false);
+
+  // Sort locations based on selected option
+  const sortedLocations = useMemo(() => {
+    const sorted = [...locations];
+    
+    switch (sortBy) {
+      case 'status':
+        return sorted.sort((a, b) => {
+          const aOpen = isLocationOpen(a);
+          const bOpen = isLocationOpen(b);
+          return (bOpen ? 1 : 0) - (aOpen ? 1 : 0);
+        });
+        
+      case 'alphabetical':
+        return sorted.sort((a, b) => 
+          a.title.localeCompare(b.title)
+        );
+        
+      case 'distance':
+        return sorted.sort((a, b) => 
+          (a.distance || 999) - (b.distance || 999)
+        );
+        
+      case 'favorites':
+        return sorted.sort((a, b) => {
+          const aFav = favorites.includes(a.id);
+          const bFav = favorites.includes(b.id);
+          return (bFav ? 1 : 0) - (aFav ? 1 : 0);
+        });
+        
+      case 'busyness':
+        return sorted.sort((a, b) => 
+          (b.crowdInfo?.percentage || 0) - (a.crowdInfo?.percentage || 0)
+        );
+        
+      default:
+        return sorted;
+    }
+  }, [locations, sortBy, favorites]);
+
+  const toggleSortMenu = () => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setShowSortOptions(!showSortOptions);
+    Animated.timing(sortMenuHeight, {
+      toValue: showSortOptions ? 0 : 200,
+      duration: 300,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  const handleSortSelect = (value: string) => {
+    setAnimating(true);
+    setSortBy(value);
+    toggleSortMenu();
+    
+    // Configure a spring animation for the resorting
+    LayoutAnimation.configureNext({
+      duration: 500,
+      create: {
+        type: LayoutAnimation.Types.spring,
+        property: LayoutAnimation.Properties.opacity,
+        springDamping: 0.7,
+      },
+      update: {
+        type: LayoutAnimation.Types.spring,
+        property: LayoutAnimation.Properties.scaleXY,
+        springDamping: 0.7,
+        initialVelocity: 0.5,
+      },
+      delete: {
+        type: LayoutAnimation.Types.spring,
+        property: LayoutAnimation.Properties.opacity,
+        springDamping: 0.7,
+      },
+    });
+
+    // Reset animation state after animation completes
+    setTimeout(() => {
+      setAnimating(false);
+    }, 500);
+  };
+
+  // For Android, we need to enable LayoutAnimation
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      if (UIManager.setLayoutAnimationEnabledExperimental) {
+        UIManager.setLayoutAnimationEnabledExperimental(true);
+      }
+    }
+  }, []);
 
   const handleLocationPress = useCallback(async () => {
     try {
@@ -267,16 +380,49 @@ export const FacilityList: React.FC<FacilityListProps> = ({
           <View className="flex-row">
             <Text className="text-2xl font-aileron-bold">List View</Text>
           </View>
-          <View className="border border-gray-600 rounded-full px-4 py-2 bg-white">
-            <Text className="font-aileron">sort by: ▼</Text>
+          
+          <View className="relative">
+            <TouchableOpacity
+              onPress={toggleSortMenu}
+              className="border border-gray-600 rounded-full px-4 py-2 bg-white flex-row items-center"
+            >
+              <Text className="font-aileron mr-1">
+                sort by: {SORT_OPTIONS.find(opt => opt.value === sortBy)?.label}
+              </Text>
+              <ChevronDown size={16} color="#374151" />
+            </TouchableOpacity>
+
+            {showSortOptions && (
+              <Animated.View 
+                style={{ height: sortMenuHeight }}
+                className="absolute top-12 right-0 bg-white rounded-xl shadow-lg z-50 w-48 border border-gray-200"
+              >
+                {SORT_OPTIONS.map((option) => (
+                  <TouchableOpacity
+                    key={option.value}
+                    onPress={() => handleSortSelect(option.value)}
+                    className={`px-4 py-3 border-b border-gray-100 ${
+                      sortBy === option.value ? 'bg-gray-50' : ''
+                    }`}
+                  >
+                    <Text className={`font-aileron ${
+                      sortBy === option.value ? 'font-aileron-bold' : ''
+                    }`}>
+                      {option.label}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </Animated.View>
+            )}
           </View>
         </View>
+        
         {lastScrollY.current > 0 && (
           <View className="absolute bottom-0 left-0 right-0 h-[1px] bg-gray-300" />
         )}
       </Animated.View>
     </>
-  ), [headerTranslateY]);
+  ), [headerTranslateY, sortBy, showSortOptions, sortMenuHeight]);
 
   if (error) {
     return (
@@ -331,18 +477,32 @@ export const FacilityList: React.FC<FacilityListProps> = ({
             paddingBottom: getBottomPadding(),
           }}
           bounces={true}
-          scrollEnabled={true}
+          scrollEnabled={!animating} // Disable scrolling during animation
           onScroll={handleScroll}
           scrollEventThrottle={16}
           style={{ 
             flex: 1,
           }}
         >
-          {locations.map((location) => (
-            <Card
+          {sortedLocations.map((location, index) => (
+            <Animated.View
               key={location.id}
-              location={location}
-            />
+              style={{
+                opacity: animating ? 0.8 : 1,
+                transform: [{
+                  scale: animating ? 0.98 : 1
+                }],
+              }}
+            >
+              <Card
+                location={location}
+                style={{
+                  transform: [{
+                    translateY: animating ? 0 : 0
+                  }]
+                }}
+              />
+            </Animated.View>
           ))}
         </BottomSheetScrollView>
       </BottomSheet>
