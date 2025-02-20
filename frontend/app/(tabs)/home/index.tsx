@@ -35,7 +35,7 @@ export default function HomeScreen() {
   const [lastToggledLocationId, setLastToggledLocationId] = useState<string | null>(null);
 
   const { selectedFilters, clearFilters } = useFilters();
-  const { locations, loading, error } = useLocations(selectedFilters);
+  const { locations, loading, error, forceRefresh } = useLocations(selectedFilters);
   
   // Filter locations based on both search and filters
   const filteredLocations = useMemo(() => {
@@ -179,8 +179,8 @@ export default function HomeScreen() {
     setIsMapCentered(isCentered);
   }, []);
 
-  const handleReset = useCallback(() => {
-    // Reset map to initial region
+  const handleReset = useCallback(async () => {
+    // Start animation to initial region
     if (mapRef.current) {
       mapRef.current.animateToRegion(INITIAL_REGION, 1000);
     }
@@ -196,7 +196,18 @@ export default function HomeScreen() {
     // Reset search
     setSearchQuery('');
     setActualSearchQuery('');
-  }, []);
+
+    // Wait for animation to complete
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    // Show loading spinner and refresh all data
+    setIsSearching(true);
+    try {
+      await forceRefresh();
+    } finally {
+      setIsSearching(false);
+    }
+  }, [forceRefresh]);
 
   useEffect(() => {
     const subscription = EventEmitter.addListener('resetHomeScreen', handleReset);
@@ -236,7 +247,6 @@ export default function HomeScreen() {
       </View>
       <FacilityList 
         locations={filteredLocations}
-        loading={loading}
         error={error}
         onLocationPress={handleLocationPress}
         isMapCentered={isMapCentered}

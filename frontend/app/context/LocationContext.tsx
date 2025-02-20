@@ -23,6 +23,7 @@ interface LocationContextType {
   lastWeeklyUpdate: number;
   isLoading: boolean;
   manualRefresh: () => Promise<void>;
+  forceRefresh: () => Promise<void>;
 }
 
 
@@ -227,23 +228,34 @@ export const LocationProvider = ({ children }: { children: React.ReactNode }) =>
     await refreshFromCaches();
   };
 
+  const forceRefresh = async () => {
+    setIsLoading(true);
+    try {
+      // Reset the initial load flag in LocationService
+      LocationService.resetInitialLoadFlag();
+      // Refresh all data types
+      await Promise.all([
+        refreshRealtimeData(),
+        refreshWeeklyData(),
+        refreshLibraryData()
+      ]);
+    } catch (error) {
+      console.error('Error during force refresh:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     // Initial load
     loadLocations();
 
-    // Set up 1-minute cache refresh interval for testing
-    console.log('[LocationContext] Setting up 1-minute refresh interval');
-    const cacheRefreshInterval = setInterval(() => {
-      console.log('[LocationContext] 1-minute interval triggered', new Date().toLocaleTimeString());
-      refreshFromCaches();
-    }, 60 * 1000); // 1 minute for testing
-
-    // Set up 5-minute cache refresh interval
-    const cacheRefreshInterval2 = setInterval(refreshFromCaches, 1 * 60 * 1000);
-
-    // Set up other intervals
+    // Set up intervals for data refresh
     realtimeInterval.current = setInterval(refreshRealtimeData, REFRESH_INTERVALS.REALTIME_API);
     weeklyInterval.current = setInterval(refreshWeeklyData, REFRESH_INTERVALS.WEEKLY);
+
+    // Set up 5-minute cache refresh interval
+    const cacheRefreshInterval = setInterval(refreshFromCaches, 5 * 60 * 1000); // 5 minutes
 
     // Start location tracking
     startLocationTracking();
@@ -255,7 +267,6 @@ export const LocationProvider = ({ children }: { children: React.ReactNode }) =>
       if (weeklyInterval.current) clearInterval(weeklyInterval.current);
       if (locationWatcher.current) locationWatcher.current.remove();
       clearInterval(cacheRefreshInterval);
-      clearInterval(cacheRefreshInterval2);
     };
   }, []);
 
@@ -323,13 +334,13 @@ export const LocationProvider = ({ children }: { children: React.ReactNode }) =>
     lastUpdate,
     lastWeeklyUpdate,
     isLoading,
-    manualRefresh
+    manualRefresh,
+    forceRefresh
   };
 
   return (
     <LocationContext.Provider value={contextValue}>
       {children}
-      {isLoading && <LoadingSpinner overlay />}
     </LocationContext.Provider>
   );
 };

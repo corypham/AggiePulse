@@ -3,7 +3,7 @@ import { View, Text, Dimensions } from 'react-native';
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryContainer } from 'victory-native';
 import type { Location } from '../types/location';
 import LocationService from '../services/locationService';
-import { calculateBestWorstTimes } from '../_utils/timeUtils';
+import { calculateBestWorstTimes, parseTimeString } from '../_utils/timeUtils';
 import { useLocations } from '../hooks/useLocations';
 import Animated, { FadeIn } from 'react-native-reanimated';
 
@@ -27,26 +27,52 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
     y: number;
   } | null>(null);
   
-  // Get current location data from context
-  const currentLocation = useMemo(() => 
-    locations.find(loc => loc.id === location.id) || location,
-    [locations, location.id]
-  );
+  console.log('CrowdForecast Props:', {
+    locationId: location.id,
+    currentDay,
+    dayData: dayData,
+  });
 
-  const { bestTime, worstTime } = calculateBestWorstTimes(
-    dayData,
-    location.hours?.[currentDay.toLowerCase()]
-  );
+  const currentLocation = useMemo(() => {
+    return locations.find(loc => loc.id === location.id) || location;
+  }, [locations, location.id]);
 
-  // Create forecast data directly without getForecastData
+  // Get current hour's data using parseTimeString
+  const currentHourData = useMemo(() => {
+    const now = new Date();
+    const currentHour = now.getHours();
+    const currentMinutes = now.getMinutes();
+    const currentTimeMinutes = currentHour * 60 + currentMinutes;
+    
+    console.log('Current time:', { currentHour, currentMinutes, currentTimeMinutes });
+    
+    const found = dayData?.find(data => {
+      const timeMinutes = parseTimeString(data.time);
+      const nextHourMinutes = timeMinutes + 60;
+      
+      console.log('Comparing times:', {
+        dataTime: data.time,
+        parsedMinutes: timeMinutes,
+        nextHourMinutes,
+        isMatch: currentTimeMinutes >= timeMinutes && currentTimeMinutes < nextHourMinutes
+      });
+      
+      return currentTimeMinutes >= timeMinutes && currentTimeMinutes < nextHourMinutes;
+    });
+
+    console.log('Found current hour data:', found);
+    return found;
+  }, [dayData]);
+
+  // Create forecast data with current hour's description
   const forecast = useMemo(() => {
     return {
-      statusText: currentLocation.currentStatus?.statusText || 'Not Available',
+      statusText: currentHourData?.description || 'Not Available',
       currentCapacity: currentLocation.currentStatus?.currentCapacity || 0,
       description: currentLocation.currentStatus?.description || '',
       untilText: currentLocation.currentStatus?.untilText || ''
     };
-  }, [currentLocation]);
+  }, [currentLocation, currentHourData]);
 
   const screenWidth = Dimensions.get('window').width;
   
@@ -237,11 +263,11 @@ export default function CrowdForecast({ location, currentDay, dayData }: CrowdFo
             <Text className="font-aileron-bold text-2xl mb-3">Plan Your Visit!</Text>
             <View className="bg-gray-100 rounded-full py-4 px-6 flex-row justify-center items-center">
               <Text className="text-[#0c8f34] text-center font-aileron text-lg">
-                Best time: {bestTime}
+                Best time: {currentHourData?.time}
               </Text>
               <View className="w-[1px] h-8 bg-gray-400 mx-4" style={{ marginVertical: -8 }} />
               <Text className="text-[#EF4444] text-center text-lg">
-                Worst time: {worstTime}
+                Worst time: {currentHourData?.time}
               </Text>
             </View>
           </View>
