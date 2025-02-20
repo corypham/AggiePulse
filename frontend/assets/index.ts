@@ -124,6 +124,7 @@ export { default as MemorialUnionDetailedCard } from './detailed-card-assets/mem
 export { default as SiloDetailedCard } from './detailed-card-assets/silo-detailed-card-image.png';
 export { default as TwentyFourHourStudyRoomDetailedCard } from './detailed-card-assets/24hr-detailed-card.png';
 export { default as GamesDetailedCard } from './detailed-card-assets/games-area-detailed-card.png';
+export { default as MuCohoDetailedCard } from './detailed-card-assets/mu-coho-detailed-card.png';
 
 // Heart Icons
 export { default as HeartVariant1 } from './heart-icons/Variant1Shortcuts&Tips.svg';
