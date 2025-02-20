@@ -4,9 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ExpoLocation from 'expo-location';
 import { parseTimeString } from '../_utils/timeUtils';
 
-const API_BASE_URL = __DEV__ 
-  ? 'http://localhost:3000/api'
-  : 'https://aggiepulse.onrender.com';
+const API_BASE_URL = 'https://aggiepulse.onrender.com/api';
 
 const CACHE_KEYS = {
   CURRENT_STATUS: 'current_status_',
@@ -250,35 +248,61 @@ export const LocationService = {
   // Add new getAllLocations method
   async getAllLocations(): Promise<Location[]> {
     try {
+      console.log('Fetching from:', API_BASE_URL);
+      const response = await fetch(`${API_BASE_URL}/locations/bulk-data`);
       
-      let locations: Location[] = [];
-      
-      if (isInitialLoad) {
-        // Bulk fetch on initial load
-        console.log('[getAllLocations] Performing bulk fetch for initial load');
-        const response = await fetch(`${API_BASE_URL}/locations/bulk-data`);
-        if (!response.ok) throw new Error('Bulk fetch failed');
-        
-        const bulkData = await response.json();        
-        // Cache the bulk data
-        for (const [id, data] of Object.entries(bulkData)) {
-          await cacheData(id, data as LocationDynamic);
-        }
-        
-        // Set initial load to false after successful fetch
-        isInitialLoad = false;
+      if (!response.ok) {
+        console.error('Server response not ok:', response.status);
+        return [];
       }
       
-      // Get all locations (either from cache or individual API calls)
-      locations = await Promise.all(
-        Object.keys(staticLocations).map(id => this.getLocation(id))
-      );
+      const dynamicData = await response.json();
+      console.log('Received dynamic data:', dynamicData);
 
-      return locations;
+      // Combine static and dynamic data
+      const combinedLocations = Object.entries(staticLocations).map(([id, staticLoc]) => {
+        const dynamicLoc = dynamicData[id] || {};
+        
+        return {
+          ...staticLoc, // Start with static data (includes coordinates)
+          id,
+          hours: dynamicLoc.hours || {},
+          currentStatus: {
+            statusText: dynamicLoc.currentStatus?.statusText || 'Unknown',
+            currentCapacity: dynamicLoc.currentStatus?.currentCapacity || {
+              current: 0,
+              percentage: 0
+            },
+            description: dynamicLoc.currentStatus?.description || 'No description available',
+            untilText: dynamicLoc.currentStatus?.untilText || ''
+          },
+          currentCapacity: dynamicLoc.currentStatus?.currentCapacity?.percentage || 0,
+          crowdInfo: {
+            level: dynamicLoc.currentStatus?.description || 'Unknown',
+            percentage: dynamicLoc.currentStatus?.currentCapacity?.percentage || 0,
+            description: dynamicLoc.currentStatus?.description || 'No description available'
+          },
+          weeklyBusyness: dynamicLoc.weeklyBusyness || {},
+          distance: 0, // Will be calculated later if needed
+          closingTime: dynamicLoc.currentStatus?.untilText || '',
+          dayData: [], // Add if needed
+          bestTimes: {
+            best: '',
+            worst: ''
+          }
+        };
+      });
+
+      console.log('Combined locations:', combinedLocations.map(loc => ({
+        id: loc.id,
+        coordinates: loc.coordinates,
+        status: loc.currentStatus.statusText
+      })));
+
+      return combinedLocations;
     } catch (error) {
-      console.error('Error in getAllLocations:', error);
-      isInitialLoad = false; // Reset on error
-      // ... error handling ...
+      console.error('Network error:', error);
+      return [];
     }
   },
 
