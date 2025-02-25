@@ -2,6 +2,21 @@
 
 AggiePulse is a mobile application designed to help UC Davis students stay informed about real-time busyness levels of campus locations such as the library, gym, and more. The app also enables users to rate and review campus facilities. This repository contains the codebase for the project, including both the frontend and backend.
 
+## Screenshots
+
+<p align="center">
+  <img src="frontend/assets/demo/iShot_2025-02-19_14.28.32.png" width="30%">
+  <img src="frontend/assets/demo/iShot_2025-02-19_14.28.41.png" width="30%">
+  <img src="frontend/assets/demo/iShot_2025-02-19_14.28.57.png" width="30%">
+</p>
+
+<p align="center">
+  <img src="frontend/assets/demo/iShot_2025-02-19_14.29.01.png" width="30%">
+  <img src="frontend/assets/demo/iShot_2025-02-19_14.29.20.png" width="30%">
+  <img src="frontend/assets/demo/iShot_2025-02-19_14.29.26.png" width="30%">
+</p>
+
+
 ## Getting Started
 
 Follow these steps to set up and run the project on your local machine.
