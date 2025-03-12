@@ -34,8 +34,8 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
   const [mapError, setMapError] = useState<string | null>(null);
 
   const mapId = Platform.select({
-    ios: GOOGLE_MAPS_STYLE_ID_IOS,
-    android: GOOGLE_MAPS_STYLE_ID_ANDROID,
+    ios: "7c6f8776af6cff7a",     // Your iOS map ID from the screenshot
+    android: "4b98c933183c656f", // Your Android map ID from the screenshot
   });
 
   // Get user location
@@ -148,6 +148,9 @@ export const CustomMapView = forwardRef<MapView, CustomMapViewProps>(({
           }
         ]}
         googleMapId={mapId}
+        onMapReady={() => console.log('Map loaded successfully')}
+        onError={(e) => console.error('Map error:', e.nativeEvent)}
+        loadingEnabled={true}
       >
         {filteredLocations.map((location) => (
           <MapMarker
